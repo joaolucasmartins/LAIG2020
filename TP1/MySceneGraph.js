@@ -8,6 +8,7 @@ var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
 var NODES_INDEX = 6;
+var DEF_FOV = 0.4;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -27,6 +28,7 @@ class MySceneGraph {
         scene.graph = this;
 
         this.nodes = [];
+        this.materials = [];
 
         this.idRoot = null; // The id of the root element.
 
@@ -214,7 +216,7 @@ class MySceneGraph {
         var referenceIndex = nodeNames.indexOf("reference");
 
         // Get root of the scene.
-        if(rootIndex == -1)
+        if (rootIndex == -1)
             return "No root id defined for scene.";
 
         var rootNode = children[rootIndex];
@@ -225,7 +227,7 @@ class MySceneGraph {
         this.idRoot = id;
 
         // Get axis length        
-        if(referenceIndex == -1)
+        if (referenceIndex == -1)
             this.onXMLMinorError("no axis_length defined for scene; assuming 'length = 1'");
 
         var refNode = children[referenceIndex];
@@ -240,13 +242,46 @@ class MySceneGraph {
         return null;
     }
 
+    parseCamera(cameraNode) {
+        var nodeDict = this.createDict(cameraNode);
+
+        var near = this.reader.getFloat(cameraNode, "near", true);
+        var far = this.reader.getInteger(cameraNode, "far", true);
+        // var angle = this.reader.getFloat(cameraNode, "angle", true); TODO
+
+        if (!("from" in nodeDict || "to" in nodeDict))
+            this.onXMLError("Invalid camera syntax!");
+
+        var position = this.parseCoordinates3D(nodeDict["from"], "From 3d coords failed")
+        var target = this.parseCoordinates3D(nodeDict["to"], "To 3d coords failed")
+
+        return new CGFcamera(DEF_FOV, near, far, position, target);
+    }
+
     /**
      * Parses the <views> block.
      * @param {view block element} viewsNode
      */
     parseViews(viewsNode) {
-        this.onXMLMinorError("To do: Parse views and create cameras.");
+        var nodeDict = this.createDict(viewsNode);
+
+        if ("perspective" in nodeDict) {
+            this.scene.camera = this.parseCamera(nodeDict["perspective"]);
+        } else if ("ortho" in nodeDict) {
+        } else {
+            this.onXMLError("No camera!");
+        }
+
         return null;
+    }
+
+    createDict(node) {
+        var children = node.children;
+        var dict = {};
+        for (var i = 0; i < children.length; i++) {
+            dict[children[i].nodeName] = children[i];
+        }
+        return dict;
     }
 
     /**
@@ -254,27 +289,18 @@ class MySceneGraph {
      * @param {illumination block element} illuminationsNode
      */
     parseIllumination(illuminationsNode) {
-
-        var children = illuminationsNode.children;
-
         this.ambient = [];
         this.background = [];
 
-        var nodeNames = [];
+        var nodeDict = this.createDict(illuminationsNode);
 
-        for (var i = 0; i < children.length; i++)
-            nodeNames.push(children[i].nodeName);
-
-        var ambientIndex = nodeNames.indexOf("ambient");
-        var backgroundIndex = nodeNames.indexOf("background");
-
-        var color = this.parseColor(children[ambientIndex], "ambient");
+        var color = this.parseColor(nodeDict["ambient"], "ambient");
         if (!Array.isArray(color))
             return color;
         else
             this.ambient = color;
 
-        color = this.parseColor(children[backgroundIndex], "background");
+        color = this.parseColor(nodeDict["background"], "background");
         if (!Array.isArray(color))
             return color;
         else
@@ -313,7 +339,7 @@ class MySceneGraph {
             }
             else {
                 attributeNames.push(...["enable", "position", "ambient", "diffuse", "specular"]);
-                attributeTypes.push(...["boolean","position", "color", "color", "color"]);
+                attributeTypes.push(...["boolean", "position", "color", "color", "color"]);
             }
 
             // Get id of the current light.
@@ -376,17 +402,35 @@ class MySceneGraph {
         return null;
     }
 
+    parseMaterial(materialNode) {
+        var nodeDict = this.createDict(materialNode);
+
+        if (!("specular" in nodeDict || "diffuse" in nodeDict || "specular" in nodeDict ||
+            "ambient" in nodeDict || "emissive" in nodeDict))
+            this.onXMLError("Invalid material syntax!");
+
+        var appearance = new CGFappearance(this.scene);
+        var shininess = this.reader.getFloat(nodeDict["shininess"], "value", true);
+        var specular = this.parseColor(nodeDict["specular"], materialNode.nodeName + " couldn't get color");
+        var diffuse = this.parseColor(nodeDict["diffuse"], materialNode.nodeName + " couldn't get color");
+        var ambient = this.parseColor(nodeDict["ambient"], materialNode.nodeName + " couldn't get color");
+        var emissive = this.parseColor(nodeDict["emissive"], materialNode.nodeName + " couldn't get color");
+
+        appearance.setShininess(shininess);
+        appearance.setSpecular(specular);
+        appearance.setDiffuse(diffuse);
+        appearance.setAmbient(ambient);
+        appearance.setEmission(emissive);
+        return appearance;
+    }
+
     /**
      * Parses the <materials> node.
      * @param {materials block element} materialsNode
      */
     parseMaterials(materialsNode) {
         var children = materialsNode.children;
-
         this.materials = [];
-
-        var grandChildren = [];
-        var nodeNames = [];
 
         // Any number of materials.
         for (var i = 0; i < children.length; i++) {
@@ -405,11 +449,8 @@ class MySceneGraph {
             if (this.materials[materialID] != null)
                 return "ID must be unique for each light (conflict: ID = " + materialID + ")";
 
-            //Continue here
-            this.onXMLMinorError("To do: Parse materials.");
+            this.materials.push(this.parseMaterial(children[i]));
         }
-
-        //this.log("Parsed materials");
         return null;
     }
 
@@ -417,7 +458,7 @@ class MySceneGraph {
    * Parses the <nodes> block.
    * @param {nodes block element} nodesNode
    */
-  parseNodes(nodesNode) {
+    parseNodes(nodesNode) {
         var children = nodesNode.children;
 
         this.nodes = [];
@@ -466,8 +507,7 @@ class MySceneGraph {
         }
     }
 
-
-    parseBoolean(node, name, messageError){
+    parseBoolean(node, name, messageError) {
         var boolVal = true;
         boolVal = this.reader.getBoolean(node, name);
         if (!(boolVal != null && !isNaN(boolVal) && (boolVal == true || boolVal == false)))
@@ -565,9 +605,10 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        
+        //this.scene.camera = this.camera;
+
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
-        
+
         //this.nodes[this.idRoot].display()
     }
 }
