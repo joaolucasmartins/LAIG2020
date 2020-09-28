@@ -29,6 +29,7 @@ class MySceneGraph {
 
         this.nodes = [];
         this.materials = [];
+        this.textures = {};
 
         this.idRoot = null; // The id of the root element.
 
@@ -397,8 +398,14 @@ class MySceneGraph {
      */
     parseTextures(texturesNode) {
 
-        //For each texture in textures block, check ID and file URL
-        this.onXMLMinorError("To do: Parse textures.");
+        var children = texturesNode.children;
+        
+        //saving texture id and path in textures dictionary
+        for (var i = 0; i < children.length; i++){
+            var path = this.reader.getString(children[i], "path", true);
+            this.textures[children[i].nodeName] = path;
+        }
+        
         return null;
     }
 
@@ -430,7 +437,6 @@ class MySceneGraph {
      */
     parseMaterials(materialsNode) {
         var children = materialsNode.children;
-        this.materials = [];
 
         // Any number of materials.
         for (var i = 0; i < children.length; i++) {
