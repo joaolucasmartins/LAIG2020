@@ -402,10 +402,12 @@ class MySceneGraph {
         
         //saving texture id and path in textures dictionary
         for (var i = 0; i < children.length; i++){
-            var path = this.reader.getString(children[i], "path", true);
-            this.textures[children[i].nodeName] = path;
+            var path = this.reader.getString(children[i], 'path', true);
+            var name = this.reader.getString(children[i], 'id', true);
+
+            this.textures[name] = path;
         }
-        
+
         return null;
     }
 
@@ -461,6 +463,29 @@ class MySceneGraph {
     }
 
     /**
+     * Parses node information
+     * @param {node element} node 
+     */
+    parseNode(grandchildren) {
+        /**
+        var nodeDict = createDict(grandchildren);
+        
+        if (!("material" in nodeDict || "texture" in nodeDict))
+            this.onXMLError("Missing mandatory fields (node)!");
+
+        var transformationsIndex = nodeNames.indexOf("transformations");
+        var materialIndex = nodeNames.indexOf("material");
+        var textureIndex = nodeNames.indexOf("texture");
+        var descendantsIndex = nodeNames.indexOf("descendants");
+
+        if (nodeDict["texture"] != null){
+
+        }
+        **/
+
+    }
+
+    /**
    * Parses the <nodes> block.
    * @param {nodes block element} nodesNode
    */
@@ -491,16 +516,9 @@ class MySceneGraph {
                 return "ID must be unique for each node (conflict: ID = " + nodeID + ")";
 
             grandChildren = children[i].children;
-
-            nodeNames = [];
-            for (var j = 0; j < grandChildren.length; j++) {
-                nodeNames.push(grandChildren[j].nodeName);
-            }
-
-            var transformationsIndex = nodeNames.indexOf("transformations");
-            var materialIndex = nodeNames.indexOf("material");
-            var textureIndex = nodeNames.indexOf("texture");
-            var descendantsIndex = nodeNames.indexOf("descendants");
+            
+            this.parseNode(grandChildren);
+            
 
             this.onXMLMinorError("To do: Parse nodes.");
             // Transformations
