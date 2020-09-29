@@ -498,7 +498,6 @@ class MySceneGraph {
     parseDescendants(node, desc) {
 
         for (var i = 0; i < desc.length; i++) {
-            console.log(desc[i].nodeName);
             if (desc[i].nodeName == "noderef") {
                 // TODO
             }
@@ -519,6 +518,13 @@ class MySceneGraph {
                     var x3 = this.reader.getFloat(desc[i], "x3", true);
                     var y3 = this.reader.getFloat(desc[i], "y3", true);
                     primitive = new MyTriangle(this.scene, x1, y1, x2, y2, x3, y3);
+                } else if (type == "cylinder") {
+                    var bottomRadius = this.reader.getFloat(desc[i], "bottomRadius", true);
+                    var topRadius = this.reader.getFloat(desc[i], "topRadius", true);
+                    var height = this.reader.getFloat(desc[i], "height", true);
+                    var slices = this.reader.getInteger(desc[i], "slices", true);
+                    var stacks = this.reader.getInteger(desc[i], "stacks", true);
+                    primitive = new MyCylinder(this.scene, bottomRadius, topRadius, height, slices, stacks);
                 }
                 node.addPrimitive(primitive);
             }
