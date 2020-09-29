@@ -78,16 +78,16 @@
       </texture>
       <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
       <transformations>
-        <!--
-            <translation x="0.0" y="0.0" z="0.0" />
-        <rotation axis="cc" angle="ff" />
+      <!--
+        <translation x="10.0" y="0.0" z="10.0" />
+        <rotation axis="y" angle="ff" />
         <scale sx="ff" sy="ff" sz="ff" />
         -->
       </transformations>
       <!-- declaring descendants, at least one node or one leaf must be present
             descendants may be mixed, nodes and leafs -->
       <descendants>
-        <!--<noderef id="surface"/> -->
+        <noderef id="bow"/>
         <!-- "ss" is the identifier of a node or of leaf; -->
         <!-- may be repeated as necessary. It can refer an -->
         <!-- identifier of another node, before or later defined in the file. -->
@@ -97,6 +97,23 @@
         <!-- inner and outer radius, sections around the inner radius, sections around the outer radius  -->
       </descendants>
     </node>
-
+    <!--
+    <node id="hull">
+      <material id="">
+      <textures id="">
+      <descendants>
+        <noderef id="leftHull">
+        <noderef id="rightHull">
+        <noderef id="backHull">
+      </descendants>
+    </node>
+    <node id="leftHull">
+      <material id="">
+      <textures id="">
+      <descendants>
+        <leaf type="rectangle" x1="0" y1="0" x2="6" y2=""
+      </descendants>
+    </node>
+    -->
   </nodes>
 </lsf>
