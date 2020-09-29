@@ -21,15 +21,22 @@ class MySceneGraph {
      * @param {XMLScene} scene
      */
     constructor(filename, scene) {
+
+        
         this.loadedOk = null;
 
         // Establish bidirectional references between scene and graph.
         this.scene = scene;
         scene.graph = this;
 
+        this.rect1 = new MyRectangle(this.scene, 0, 2, 2, 4);
+
+
         this.nodes = [];
         this.materials = [];
         this.textures = {};
+
+        this.rootNode = null;
 
         this.idRoot = null; // The id of the root element.
 
@@ -227,6 +234,7 @@ class MySceneGraph {
 
         this.idRoot = id;
 
+
         // Get axis length        
         if (referenceIndex == -1)
             this.onXMLMinorError("no axis_length defined for scene; assuming 'length = 1'");
@@ -267,7 +275,7 @@ class MySceneGraph {
         var nodeDict = this.createDict(viewsNode);
 
         if ("perspective" in nodeDict) {
-            this.scene.camera = this.parseCamera(nodeDict["perspective"]);
+            //this.scene.camera = this.parseCamera(nodeDict["perspective"]);
         } else if ("ortho" in nodeDict) {
         } else {
             this.onXMLError("No camera!");
@@ -405,7 +413,8 @@ class MySceneGraph {
             var path = this.reader.getString(children[i], 'path', true);
             var name = this.reader.getString(children[i], 'id', true);
 
-            this.textures[name] = path;
+            var text = new CGFtexture(this.scene, path);
+            this.textures[name] = text;
         }
 
         return null;
@@ -466,23 +475,51 @@ class MySceneGraph {
      * Parses node information
      * @param {node element} node 
      */
-    parseNode(grandchildren) {
-        /**
-        var nodeDict = createDict(grandchildren);
+    parseNode(nodeName, nodeDict) {
         
         if (!("material" in nodeDict || "texture" in nodeDict))
             this.onXMLError("Missing mandatory fields (node)!");
+        
 
-        var transformationsIndex = nodeNames.indexOf("transformations");
-        var materialIndex = nodeNames.indexOf("material");
-        var textureIndex = nodeNames.indexOf("texture");
-        var descendantsIndex = nodeNames.indexOf("descendants");
+        // var transformationsIndex = nodeNames.indexOf("transformations");
+        // var materialIndex = nodeNames.indexOf("material");
+        // var textureIndex = nodeNames.indexOf("texture");
+        // var descendantsIndex = nodeNames.indexOf("descendants");
 
         if (nodeDict["texture"] != null){
-
+            
         }
-        **/
 
+        var node = new Node(name, null, null, null);
+
+        if (nodeName == this.idRoot) {
+            this.rootNode = node;
+        }
+
+        this.parseDescendants(node, nodeDict["descendants"].children);
+
+    }
+
+    parseDescendants(node, desc) {
+
+        for (var i = 0; i < desc.length; i++) {
+            console.log(desc[i].nodeName);
+            if (desc[i].nodeName == "noderef"){
+
+            }
+            else {  //leaf
+                if (this.reader.getString(desc[i], "type", true) == "rectangle"){
+                    var x1 = this.reader.getFloat(desc[i], "x1", true);
+                    var y1 = this.reader.getFloat(desc[i], "y1", true);
+                    var x2 = this.reader.getFloat(desc[i], "x2", true);
+                    var y2 = this.reader.getFloat(desc[i], "y2", true);
+                    
+                    var rect = new MyRectangle(this.scene, x1, y1, x2, y2);
+                    node.addPrimitive(rect);
+
+                }
+            }
+        }
     }
 
     /**
@@ -508,6 +545,7 @@ class MySceneGraph {
 
             // Get id of the current node.
             var nodeID = this.reader.getString(children[i], 'id');
+            
             if (nodeID == null)
                 return "no ID defined for nodeID";
 
@@ -517,7 +555,10 @@ class MySceneGraph {
 
             grandChildren = children[i].children;
             
-            this.parseNode(grandChildren);
+            var name = this.reader.getString(children[i], "id", true);
+            
+            var nodeDict = this.createDict(children[i]);
+            this.parseNode(name, nodeDict);
             
 
             this.onXMLMinorError("To do: Parse nodes.");
@@ -629,9 +670,10 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        //this.scene.camera = this.camera;
 
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
+        
+        this.rootNode.display();
 
         //this.nodes[this.idRoot].display()
     }
