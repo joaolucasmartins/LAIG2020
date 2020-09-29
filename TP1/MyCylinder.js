@@ -18,13 +18,12 @@ class MyCylinder extends CGFobject {
 
         var heightDelta = this.height / this.stacks;
         var rotationDelta = (2 * Math.PI) / this.slices;
-        var z = 0; var c = 0;
+        var z = 0;
         for (var i = 0; i < this.stacks + 1; ++i) {
             var theta = 0;
             for (var j = 0; j < this.slices; ++j) {
                 this.vertices.push(Math.cos(theta), Math.sin(theta), z)
                 this.normals.push(Math.cos(theta), Math.sin(theta), z)
-                console.log(c++);
                 theta += rotationDelta;
             }
             z += heightDelta;

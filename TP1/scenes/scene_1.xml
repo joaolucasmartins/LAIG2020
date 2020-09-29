@@ -92,10 +92,29 @@
         <!-- may be repeated as necessary. It can refer an -->
         <!-- identifier of another node, before or later defined in the file. -->
         <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
-        <leaf type="cylinder" bottomRadius="1.0" topRadius="1.0" height="10.0" slices="10" stacks="4"/>
+        <leaf type="cylinder" bottomRadius="1.0" topRadius="1.0" height="10.0" slices="100" stacks="400"/>
         <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
         <!-- inner and outer radius, sections around the inner radius, sections around the outer radius  -->
       </descendants>
+    </node>
+    <node id="bow">
+      <texture id="woodText">
+        <amplification afs="2.0" aft="2.0"/>
+        <!-- for primitives = dx/afs, dy/aft -->
+      </texture>
+      <transformations>
+        <!--
+        <translation x="10.0" y="0.0" z="10.0" />
+        <rotation axis="y" angle="ff" />
+        <scale sx="ff" sy="ff" sz="ff" />
+        -->
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="1.0" x2="10.0" y1="10.0" y2="4.0"/>
+        <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
+        <!-- inner and outer radius, sections around the inner radius, sections around the outer radius  -->
+      </descendants>
+      <material id="tableMaterial"/>
     </node>
     <!--
     <node id="hull">

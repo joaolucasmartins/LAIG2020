@@ -27,7 +27,7 @@ class MySceneGraph {
         this.scene = scene;
         scene.graph = this;
 
-        this.nodes = [];
+        this.nodes = {}; // Temporary struct that holds nodes before attribution to their parents
         this.materials = [];
         this.textures = {};
 
@@ -51,6 +51,22 @@ class MySceneGraph {
         this.reader.open('scenes/' + filename, this);
     }
 
+    distributeDescendants(node) {
+        for (var i = 0; i < node.descendantNames.length; ++i) {
+            var currentNodeName = node.descendantNames[i];
+            if (!(currentNodeName in this.nodes)) {
+                this.onXMLError("Node " + currentNodeName + " missing");
+                return true;
+            }
+
+            var currNode = this.nodes[currentNodeName];
+            node.descendants.push(currNode);
+            delete this.nodes[currentNodeName];
+            this.distributeDescendants(currNode);
+        }
+        return null;
+    }
+
     /*
      * Callback to be executed after successful reading
      */
@@ -65,6 +81,9 @@ class MySceneGraph {
             this.onXMLError(error);
             return;
         }
+
+        // TODO Check for acyclic graphs
+        this.distributeDescendants(this.rootNode);
 
         this.loadedOk = true;
 
@@ -485,21 +504,21 @@ class MySceneGraph {
 
         }
 
-        var node = new Node(name, null, null, null);
+        var node = new Node(nodeName, null, null);
 
         if (nodeName == this.idRoot) {
             this.rootNode = node;
         }
-
+        // TODO Verify
+        this.nodes[nodeName] = node;
         this.parseDescendants(node, nodeDict["descendants"].children);
-
     }
 
     parseDescendants(node, desc) {
-
         for (var i = 0; i < desc.length; i++) {
             if (desc[i].nodeName == "noderef") {
-                // TODO
+                var descId = this.reader.getString(desc[i], "id", true);
+                node.descendantNames.push(descId)
             }
             else {  //leaf
                 var type = this.reader.getString(desc[i], "type", true);
