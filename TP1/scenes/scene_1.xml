@@ -93,6 +93,7 @@
         <!-- identifier of another node, before or later defined in the file. -->
         <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
         <leaf type="rectangle" x1="1.0" y1="2.0" x2="2.0" y2="4.0"/>
+        <leaf type="triangle" x1="1.0" y1="2.0" x2="2.0" y2="4.0" x3="10.0" y3="10.0"/>
         <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
         <!-- inner and outer radius, sections around the inner radius, sections around the outer radius  -->
       </descendants>
