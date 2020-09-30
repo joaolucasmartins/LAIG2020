@@ -525,7 +525,13 @@ class MySceneGraph {
                     var slices = this.reader.getInteger(desc[i], "slices", true);
                     var stacks = this.reader.getInteger(desc[i], "stacks", true);
                     primitive = new MyCylinder(this.scene, bottomRadius, topRadius, height, slices, stacks);
+                } else if (type == "sphere") {
+                    var radius = this.reader.getFloat(desc[i], "radius", true);
+                    var slices = this.reader.getFloat(desc[i], "slices", true);
+                    var stacks = this.reader.getFloat(desc[i], "stacks", true);
+                    primitive = new MySphere(this.scene, radius, slices, stacks);
                 }
+
                 node.addPrimitive(primitive);
             }
         }
