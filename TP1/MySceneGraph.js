@@ -29,7 +29,7 @@ class MySceneGraph {
 
         this.nodes = {}; // Temporary struct that holds nodes before attribution to their parents
         this.materials = [];
-        this.textures = {};
+        this.textDict = {};
 
         this.rootNode = null;
 
@@ -428,11 +428,12 @@ class MySceneGraph {
             var name = this.reader.getString(children[i], 'id', true);
 
             var text = new CGFtexture(this.scene, path);
-            this.textures[name] = text;
+            this.textDict[name] = text; //saving texture in Dict for further use
         }
 
         return null;
     }
+
 
     parseMaterial(materialNode) {
         var nodeDict = this.createDict(materialNode);
@@ -485,6 +486,29 @@ class MySceneGraph {
         return null;
     }
 
+
+    assignNodeTexture(node, textNode) {
+
+        var afs = 1, dfs = 1; //amplification
+
+        var name = this.reader.getString(textNode, "id");
+
+        if (name != null) {
+            
+            if (!(name in this.textDict))
+                this.onXMLError("Undefined node texture!");
+
+            if (textNode.children != null) {
+                afs = this.reader.getFloat(textNode.children[0], "afs");
+                dfs = this.reader.getFloat(textNode.children[0], "aft");
+            }
+
+            node.updateTexture(this.textDict[name], afs, dfs);   //saving texture details in node object
+        }
+
+        return null;
+    }
+
     /**
      * Parses node information
      * @param {node element} node 
@@ -500,15 +524,16 @@ class MySceneGraph {
         // var textureIndex = nodeNames.indexOf("texture");
         // var descendantsIndex = nodeNames.indexOf("descendants");
 
-        if (nodeDict["texture"] != null) {
-
-        }
+        
 
         var node = new Node(nodeName, null, null);
 
         if (nodeName == this.idRoot) {
             this.rootNode = node;
         }
+
+        this.assignNodeTexture(node, nodeDict["texture"]);
+
         // TODO Verify
         this.nodes[nodeName] = node;
         this.parseDescendants(node, nodeDict["descendants"].children);
