@@ -92,7 +92,7 @@
         <!-- may be repeated as necessary. It can refer an -->
         <!-- identifier of another node, before or later defined in the file. -->
         <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
-        <leaf type="sphere" radius="5.0" slices="10.0" stacks="10.0"/>
+        <leaf type="sphere" radius="0.5" slices="10.0" stacks="10.0"/>
         <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
         <!-- inner and outer radius, sections around the inner radius, sections around the outer radius  -->
       </descendants>

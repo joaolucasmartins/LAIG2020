@@ -25,15 +25,12 @@ class MySphere extends CGFobject {
       this.indices = [];
       this.normals = [];
       this.texCoords = [];
-  
     
       var phi = 0;
       var theta = 0;
       var phiInc = Math.PI / this.latDivs;
       var thetaInc = (2 * Math.PI) / this.longDivs;
       var latVertices = this.longDivs + 1;
-  
-  
   
       // build an all-around stack at a time, starting on "north pole" and proceeding "south"
       for (let latitude = 0; latitude <= this.latDivs; latitude++) {
@@ -59,8 +56,8 @@ class MySphere extends CGFobject {
             // and the ones directly south (next, next+1)
             // (i.e. one full round of slices ahead)
             
-            this.indices.push( current + 1, current, next);
-            this.indices.push( current + 1, next, next +1);
+            this.indices.push( current + 1, next, current);
+            this.indices.push( current + 1, next+1, next);
           }
   
           //--- Normals
@@ -78,8 +75,6 @@ class MySphere extends CGFobject {
         }
         phi += phiInc;
       }
-  
-  
   
       this.primitiveType = this.scene.gl.TRIANGLES;
       this.initGLBuffers();
