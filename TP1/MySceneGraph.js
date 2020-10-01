@@ -531,7 +531,7 @@ class MySceneGraph {
                     x = this.reader.getFloat(children[i], "x", true);
                     y = this.reader.getFloat(children[i], "y", true);
                     z = this.reader.getFloat(children[i], "z", true);
-                    //mat4.translate(matrix, vec3.fromValues(x, y, z));
+                    mat4.translate(matrix, matrix, vec3.fromValues(x, y, z));
                     break;
 
                 case "rotation":
@@ -539,7 +539,7 @@ class MySceneGraph {
                     axis = this.reader.getString(children[i], "axis", true);
                     angle = this.reader.getFloat(children[i], "angle", true);
                     var rad = angle * DEGREE_TO_RAD;
-                    //mat4.rotate(matrix, rad, vec3.fromValues(axis == "x", axis == "y", axis == "z"));
+                    mat4.rotate(matrix, matrix, rad, vec3.fromValues(axis == "x", axis == "y", axis == "z"));
                     break;
 
                 case "scale":
@@ -547,14 +547,14 @@ class MySceneGraph {
                     x = this.reader.getFloat(children[i], "sx", true);
                     y = this.reader.getFloat(children[i], "sy", true);
                     z = this.reader.getFloat(children[i], "sz", true);
-                    //mat4.scale(matrix, vec3.fromValues(x, y, z));
+                    mat4.scale(matrix, matrix, vec3.fromValues(x, y, z));
                     break;
                 default:
                     this.onXMLError("Invalid Transformation!");
 
             }
             
-           // node.transfMat = matrix;    //assign node transformations
+           node.transfMat = matrix;    //assign node transformations
 
         }
     }
