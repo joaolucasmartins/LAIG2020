@@ -8,6 +8,7 @@ class Node {
         this.descendantNames = []; // Temporary, to be used as placeholder for nodes not yet constructed
         this.descendants = [];
         this.primitives = [];
+        this.transfMat = mat4.create();//matrix with all of the nodes tranformations
     }
 
     addPrimitive(leaf) {

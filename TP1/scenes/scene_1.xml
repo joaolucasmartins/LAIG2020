@@ -78,11 +78,9 @@
       </texture>
       <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
       <transformations>
-        <!--
         <translation x="10.0" y="0.0" z="10.0" />
-        <rotation axis="y" angle="ff" />
-        <scale sx="ff" sy="ff" sz="ff" />
-        -->
+        <rotation axis="x" angle="45" />
+        <!-- <scale sx="ff" sy="ff" sz="ff" /> -->
       </transformations>
       <!-- declaring descendants, at least one node or one leaf must be present
             descendants may be mixed, nodes and leafs -->

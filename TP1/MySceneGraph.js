@@ -486,7 +486,11 @@ class MySceneGraph {
         return null;
     }
 
-
+    /**
+     * Assigns a texture to the respective node
+     * @param {node element} node 
+     * @param {texture nodes} textNode 
+     */
     assignNodeTexture(node, textNode) {
 
         var afs = 1, dfs = 1; //amplification
@@ -507,6 +511,52 @@ class MySceneGraph {
         }
 
         return null;
+    }
+
+    parseTransformations(node, transfNode) {
+
+        var children = transfNode.children;
+
+        var matrix = mat4.create(); //identity matrix
+        
+        for (var i = 0; i < children.length; i++) {
+            var nodeName = children[i].nodeName;
+
+            var x = 0, y = 0,z = 0;
+            var axis, angle = 0;
+            switch (nodeName){
+
+                case "translation":
+
+                    x = this.reader.getFloat(children[i], "x", true);
+                    y = this.reader.getFloat(children[i], "y", true);
+                    z = this.reader.getFloat(children[i], "z", true);
+                    //mat4.translate(matrix, vec3.fromValues(x, y, z));
+                    break;
+
+                case "rotation":
+
+                    axis = this.reader.getString(children[i], "axis", true);
+                    angle = this.reader.getFloat(children[i], "angle", true);
+                    var rad = angle * DEGREE_TO_RAD;
+                    //mat4.rotate(matrix, rad, vec3.fromValues(axis == "x", axis == "y", axis == "z"));
+                    break;
+
+                case "scale":
+
+                    x = this.reader.getFloat(children[i], "sx", true);
+                    y = this.reader.getFloat(children[i], "sy", true);
+                    z = this.reader.getFloat(children[i], "sz", true);
+                    //mat4.scale(matrix, vec3.fromValues(x, y, z));
+                    break;
+                default:
+                    this.onXMLError("Invalid Transformation!");
+
+            }
+            
+           // node.transfMat = matrix;    //assign node transformations
+
+        }
     }
 
     /**
@@ -531,8 +581,13 @@ class MySceneGraph {
         if (nodeName == this.idRoot) {
             this.rootNode = node;
         }
-
+        
+        //parse and assign texture to node
         this.assignNodeTexture(node, nodeDict["texture"]);
+
+        if ("transformations" in nodeDict) {
+            this.parseTransformations(node, nodeDict["transformations"]);
+        }
 
         // TODO Verify
         this.nodes[nodeName] = node;
