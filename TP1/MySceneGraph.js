@@ -51,14 +51,14 @@ class MySceneGraph {
         this.reader.open('scenes/' + filename, this);
 
         // TODO remove - testing
-        this.ciloinders = new MyCylinder(this.scene, 10, 10, 10, 3, 3);
+        this.ciloinders = new MyCylinder(this.scene, 10, 10, 10, 5, 3);
+        this.torus = new MyTorus(this.scene, 1, 10, 100, 3);
         this.quadMaterial = new CGFappearance(this.scene);
         this.quadMaterial.setAmbient(1.1, 0.1, 0.1, 1);
         this.quadMaterial.setDiffuse(10.9, 0.9, 0.9, 1);
         this.quadMaterial.setSpecular(10.1, 0.1, 0.1, 1);
         this.quadMaterial.setShininess(10.0);
         this.quadMaterial.loadTexture('scenes/images/rocks.jpg');
-        this.quadMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
 
     /*
@@ -697,8 +697,9 @@ class MySceneGraph {
     displayScene() {
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
         // this.rootNode.display();
-        this.quadMaterial.apply();
-        this.ciloinders.display();
+        //this.quadMaterial.apply();
+        //this.ciloinders.display();
+        this.torus.display();
         //this.nodes[this.idRoot].display()
     }
 }
