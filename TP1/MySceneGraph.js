@@ -28,7 +28,7 @@ class MySceneGraph {
         scene.graph = this;
 
         this.nodes = {}; // Temporary struct that holds nodes before attribution to their parents
-        this.materials = [];
+        this.materials = {};
         this.textDict = {};
 
         this.rootNode = null;
@@ -481,7 +481,7 @@ class MySceneGraph {
             if (this.materials[materialID] != null)
                 return "ID must be unique for each light (conflict: ID = " + materialID + ")";
 
-            this.materials.push(this.parseMaterial(children[i]));
+            this.materials[materialID] = this.parseMaterial(children[i]);
         }
         return null;
     }
@@ -568,14 +568,6 @@ class MySceneGraph {
         if (!("material" in nodeDict || "texture" in nodeDict))
             this.onXMLError("Missing mandatory fields (node)!");
 
-
-        // var transformationsIndex = nodeNames.indexOf("transformations");
-        // var materialIndex = nodeNames.indexOf("material");
-        // var textureIndex = nodeNames.indexOf("texture");
-        // var descendantsIndex = nodeNames.indexOf("descendants");
-
-        
-
         var node = new Node(nodeName, null, null);
 
         if (nodeName == this.idRoot) {
@@ -585,6 +577,15 @@ class MySceneGraph {
         //parse and assign texture to node
         this.assignNodeTexture(node, nodeDict["texture"]);
 
+        //assign material to current node
+        var materialID = this.reader.getString(nodeDict["material"], "id", true);   //TODO: handle null values
+        
+        if (!(materialID in this.materials))
+            this.onXMLError("Invalid material id!");
+
+        node.material = this.materials[materialID];
+
+        //node transformations
         if ("transformations" in nodeDict) {
             this.parseTransformations(node, nodeDict["transformations"]);
         }
