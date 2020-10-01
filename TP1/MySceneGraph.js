@@ -568,7 +568,7 @@ class MySceneGraph {
         if (!("material" in nodeDict || "texture" in nodeDict))
             this.onXMLError("Missing mandatory fields (node)!");
 
-        var node = new Node(nodeName, null, null);
+        var node = new Node(this.scene, nodeName, null, null);
 
         if (nodeName == this.idRoot) {
             this.rootNode = node;

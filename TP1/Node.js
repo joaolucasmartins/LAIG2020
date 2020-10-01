@@ -1,5 +1,5 @@
 class Node {
-    constructor(id, texture, material) {
+    constructor(scene, id, texture, material) {
         this.id = id;
         this.texture = texture;
         this.afs = 1; //texture amplification
@@ -9,6 +9,7 @@ class Node {
         this.descendants = [];
         this.primitives = [];
         this.transfMat = mat4.create();//matrix with all of the nodes tranformations
+        this.scene = scene;
     }
 
     addPrimitive(leaf) {
@@ -27,6 +28,8 @@ class Node {
             this.texture.bind(2);
         }
         */
+        this.scene.pushMatrix();
+        this.scene.multMatrix(this.transfMat);
 
         for (var i = 0; i < this.descendants.length; i++) {
             this.descendants[i].display();
@@ -35,5 +38,7 @@ class Node {
         for (var i = 0; i < this.primitives.length; i++) {
             this.primitives[i].display();
         }
+        this.scene.popMatrix();
+
     }
 }

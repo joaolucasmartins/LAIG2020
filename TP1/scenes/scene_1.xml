@@ -78,19 +78,20 @@
       </texture>
       <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
       <transformations>
-        <translation x="10.0" y="0.0" z="10.0" />
-        <rotation axis="x" angle="45" />
-        <!-- <scale sx="ff" sy="ff" sz="ff" /> -->
+        <translation x="2.0" y="0.0" z="3.0" />
+        <rotation axis="x" angle="-90" />
+        <scale sx="0.2" sy="0.2" sz="0.1" />
       </transformations>
       <!-- declaring descendants, at least one node or one leaf must be present
             descendants may be mixed, nodes and leafs -->
       <descendants>
+        <leaf type="cylinder" bottomRadius="1.0" topRadius="1.0" height="10.0" slices="100" stacks="400"/>
         <noderef id="bow"/>
         <!-- "ss" is the identifier of a node or of leaf; -->
         <!-- may be repeated as necessary. It can refer an -->
         <!-- identifier of another node, before or later defined in the file. -->
         <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
-        <leaf type="cylinder" bottomRadius="1.0" topRadius="1.0" height="10.0" slices="100" stacks="400"/>
+        
         <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
         <!-- inner and outer radius, sections around the inner radius, sections around the outer radius  -->
       </descendants>
@@ -101,14 +102,13 @@
         <!-- for primitives = dx/afs, dy/aft -->
       </texture>
       <transformations>
-        <!--
-        <translation x="10.0" y="0.0" z="10.0" />
-        <rotation axis="y" angle="ff" />
-        <scale sx="ff" sy="ff" sz="ff" />
-        -->
+        <translation x="1.0" y="1.0" z="1.0" />
+        <rotation axis="x" angle="-90" />
+        <scale sx="0.5" sy="0.2" sz="0.5" />
       </transformations>
       <descendants>
         <leaf type="rectangle" x1="1.0" x2="10.0" y1="10.0" y2="4.0"/>
+        
         <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
         <!-- inner and outer radius, sections around the inner radius, sections around the outer radius  -->
       </descendants>
