@@ -64,72 +64,249 @@
   </materials>
   <nodes>
     <node id="rootNode">
-      <!-- defines one intermediate node; may be repeated as necessary -->
-      <!-- next two lines are mandatory -->
       <material id="tableMaterial"/>
-      <!-- this superimposes the material received from parent node
-                                      id="null" maintains material from parent node -->
-      <texture id="woodText">
-        <!-- declared texture superimposes the texture received from parent node
-                                      id="null" maintains texture from parent node
-                                      id="clear" clears texture declaration received from parent node -->
-        <amplification afs="2.0" aft="2.0"/>
-        <!-- for primitives = dx/afs, dy/aft -->
-      </texture>
-      <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
-      <transformations>
-        <translation x="2.0" y="0.0" z="3.0"/>
-        <rotation axis="x" angle="-90"/>
-        <scale sx="0.2" sy="0.2" sz="0.1"/>
-      </transformations>
-      <!-- declaring descendants, at least one node or one leaf must be present
-            descendants may be mixed, nodes and leafs -->
-      <descendants>
-        <leaf type="cylinder" bottomRadius="1.0" topRadius="1.0" height="10.0" slices="100" stacks="400"/>
-        <noderef id="bow"/>
-        <!-- "ss" is the identifier of a node or of leaf; -->
-        <!-- may be repeated as necessary. It can refer an -->
-        <!-- identifier of another node, before or later defined in the file. -->
-        <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
-        <!--<leaf type="cylinder" bottomRadius="0.0001" topRadius="10" height="10" slices="100" stacks="100"/>-->
-        <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
-        <!-- inner and outer radius, sections around the inner radius, sections around the outer radius  -->
-      </descendants>
-    </node>
-    <node id="bow">
       <texture id="woodText">
         <amplification afs="2.0" aft="2.0"/>
-        <!-- for primitives = dx/afs, dy/aft -->
       </texture>
+      <!--
+         -<transformations>
+         -  <translation x="2.0" y="0.0" z="3.0"/>
+         -  <rotation axis="x" angle="-90"/>
+         -  <scale sx="0.2" sy="0.2" sz="0.1"/>
+         -</transformations>
+         -->
+      <descendants>
+        <noderef id="hull"/>
+        <noderef id="caixote"/>
+        <noderef id="mast"/>
+        <noderef id="frontMast"/>
+        <noderef id="backMast"/>
+        <noderef id="frontHull"/>
+        <noderef id="lowerHull"/>
+      </descendants>
+    </node>
+    <!--//////////////////////////////////////////////////////////////////PRIMITIVAS -->
+    <!--CUBO-->
+    <node id="cube">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <descendants>
+        <noderef id="faceCima"/>
+        <noderef id="faceBaixo"/>
+        <noderef id="faceLado1"/>
+        <noderef id="faceLado2"/>
+        <noderef id="faceLado3"/>
+        <noderef id="faceLado4"/>
+      </descendants>
+    </node>
+    <node id="faceLado1">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
       <transformations>
-        <translation x="1.0" y="1.0" z="1.0"/>
-        <rotation axis="x" angle="-90"/>
-        <scale sx="0.5" sy="0.2" sz="0.5"/>
+        <translation x="0.0" y="0.0" z="0.5"/>
       </transformations>
       <descendants>
-        <leaf type="rectangle" x1="1.0" x2="10.0" y1="10.0" y2="4.0"/>
-        <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
-        <!-- inner and outer radius, sections around the inner radius, sections around the outer radius  -->
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
       </descendants>
-      <material id="tableMaterial"/>
     </node>
-    <!--
+    <node id="faceLado3">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <translation x="0.0" y="0.0" z="-0.5"/>
+        <rotation axis="x" angle="180"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="faceLado2">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <translation x="0.5" y="0.0" z="0.0"/>
+        <rotation axis="y" angle="90"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="faceLado4">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <translation x="-0.5" y="0.0" z="0.0"/>
+        <rotation axis="y" angle="270"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="faceCima">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <translation x="0.0" y="0.5" z="0.0"/>
+        <rotation axis="x" angle="-90"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="faceBaixo">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <translation x="0.0" y="-0.5" z="0.0"/>
+        <rotation axis="x" angle="90"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <!--Prisma Triangular-->
+    <node id="triangularPrism">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations/>
+      <descendants>
+        <noderef id="triangularPrismTop"/>
+        <noderef id="triangularPrismBottom"/>
+        <noderef id="triangularPrismFace1"/>
+        <noderef id="triangularPrismFace2"/>
+        <noderef id="triangularPrismFace3"/>
+      </descendants>
+    </node>
+    <node id="triangularPrismTop">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <translation x="0.0" y="0.0" z="1.0"/>
+      </transformations>
+      <descendants>
+        <leaf type="triangle" x1="1.0" y1="0.0" x2="-0.5" y2="0.866" x3="-0.5" y3="-0.866"/>
+      </descendants>
+    </node>
+    <node id="triangularPrismBottom">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <rotation axis="x" angle="180"/>
+      </transformations>
+      <descendants>
+        <leaf type="triangle" x1="1.0" y1="0.0" x2="-0.5" y2="0.866" x3="-0.5" y3="-0.866"/>
+      </descendants>
+    </node>
+    <node id="triangularPrismFace1">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <translation x="-0.5" y="0.866" z="1.0"/>
+        <rotation axis="z" angle="-30"/>
+        <rotation axis="x" angle="-90"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="0.0" y1="0.0" x2="1.732" y2="1.0"/>
+      </descendants>
+    </node>
+    <node id="triangularPrismFace2">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <rotation axis="z" angle="120"/>
+      </transformations>
+      <descendants>
+        <noderef id="triangularPrismFace1"/>
+      </descendants>
+    </node>
+    <node id="triangularPrismFace3">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <rotation axis="z" angle="120"/>
+      </transformations>
+      <descendants>
+        <noderef id="triangularPrismFace2"/>
+      </descendants>
+    </node>
+    <node id="frontHull">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <translation x="0.0" y="-0.5" z="4.1"/>
+        <rotation axis="x" angle="-90"/>
+        <rotation axis="z" angle="-90"/>
+        <scale sx="1.2" sy="2.03" sz="1.0"/>
+      </transformations>
+      <descendants>
+        <noderef id="triangularPrism"/>
+      </descendants>
+    </node>
+    <node id="lowerHull">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <translation x="0.0" y="-1.0" z="-3.5"/>
+        <rotation axis="z" angle="-90"/>
+        <scale sx="1.0" sy="2.00" sz="7.0"/>
+      </transformations>
+      <descendants>
+        <noderef id="triangularPrism"/>
+      </descendants>
+    </node>
+    <!--//////////////////////////////////////////////////////////////////CENA-->
     <node id="hull">
-      <material id="">
-      <textures id="">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <scale sx="3.5" sy="1.0" sz="7.0"/>
+      </transformations>
       <descendants>
-        <noderef id="leftHull">
-        <noderef id="rightHull">
-        <noderef id="backHull">
+        <noderef id="cube"/>
       </descendants>
     </node>
-    <node id="leftHull">
-      <material id="">
-      <textures id="">
+    <node id="caixote">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <translation x="0.0" y="1.0" z="-3.5"/>
+        <scale sx="3.5" sy="1.0" sz="2.0"/>
+      </transformations>
       <descendants>
-        <leaf type="rectangle" x1="0" y1="0" x2="6" y2=""
+        <noderef id="cube"/>
       </descendants>
     </node>
-    -->
+    <node id="mast">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <rotation axis="x" angle="-90"/>
+      </transformations>
+      <descendants>
+        <leaf type="cylinder" bottomRadius="0.2" topRadius="0.15" height="5.0" slices="100" stacks="400"/>
+      </descendants>
+    </node>
+    <node id="frontMast">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <translation x="0.0" y="0.0" z="2.0"/>
+        <scale sx="0.8" sy="0.7" sz="0.8"/>
+      </transformations>
+      <descendants>
+        <noderef id="mast"/>
+      </descendants>
+    </node>
+    <node id="backMast">
+      <material id="tableMaterial"/>
+      <textures id="woodText"/>
+      <transformations>
+        <translation x="0.0" y="0.0" z="-2.0"/>
+        <scale sx="0.7" sy="0.7" sz="0.7"/>
+      </transformations>
+      <descendants>
+        <noderef id="mast"/>
+      </descendants>
+    </node>
   </nodes>
 </lsf>

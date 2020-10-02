@@ -27,8 +27,8 @@ class MyCylinder extends CGFobject {
         /* Set vertices */
         for (var i = 0; i < this.stacks + 1; ++i) {
             for (var j = 0; j < this.slices; ++j) {
-                this.vertices.push(Math.cos(theta) * radius, Math.sin(theta) * radius, z)
-                this.normals.push(Math.cos(theta) * radius, Math.sin(theta) * radius, z)
+                this.vertices.push(Math.cos(theta) * radius, Math.sin(theta) * radius, z);
+                this.normals.push(Math.cos(theta) * radius, Math.sin(theta) * radius, 0);
                 theta += rotationDelta;
                 //console.log(v++);
 
@@ -36,21 +36,28 @@ class MyCylinder extends CGFobject {
                 this.texCoords.push(texCurrX, texCurrY);
                 texCurrX += texStepX;
             }
-            console.log("-");
+            //console.log("-");
             z += heightDelta;
             radius += radiusDelta;
             texCurrY += texStepY;
             theta = 0; texCurrX = 0;
         }
-        console.log("-----");
-        /*
-         *var bottom_vertex = (this.slices) * (this.stacks + 1);
-         *this.vertices.push(0, 0, 0); this.normals.push(0, 0, -1); // Bottom Vertex
-         *this.texCoords.push(0.45, 1); // FIXME texcoords in base
-         *var top_vertex = bottom_vertex + 1;
-         *this.vertices.push(0, 0, this.height); this.normals.push(0, 0, 1); // Top Vertex
-         *this.texCoords.push(0.45, 0);
-         */
+        //console.log("-----");
+        var bottom_vertex = (this.slices) * (this.stacks + 1);
+        this.vertices.push(0, 0, 0); this.normals.push(0, 0, -1); // Bottom Vertex
+        this.texCoords.push(0.45, 1); // FIXME texcoords in base
+        var top_vertex = bottom_vertex + 1;
+        this.vertices.push(0, 0, this.height); this.normals.push(0, 0, 1); // Top Vertex
+        this.texCoords.push(0.45, 0);
+
+        theta = 0;
+        for (var j = 0; j < this.slices; ++j) {
+            this.vertices.push(Math.cos(theta) * this.bottomRadius, Math.sin(theta) * this.bottomRadius, 0);
+            this.normals.push(0, 0, -1);
+            this.vertices.push(Math.cos(theta) * this.topRadius, Math.sin(theta) * this.topRadius, this.height);
+            this.normals.push(0, 0, 1);
+            theta += rotationDelta;
+        }
 
         /* Push Indeces */
         for (var i = 0; i < this.stacks; ++i) {
@@ -70,15 +77,16 @@ class MyCylinder extends CGFobject {
             this.indices.push(one, four, three);
         }
 
-        //for (var j = 0; j < this.slices; ++j) {
-        //var one = j;
-        //var two = (j + 1) % this.slices;
-        //var new_one = one + this.slices * (this.stacks);
-        //var new_two = two + this.slices * (this.stacks);
-        //console.log(one, two, new_one, new_two, bottom_vertex, top_vertex);
-        //this.indices.push(two, one, bottom_vertex);
-        //this.indices.push(new_one, new_two, top_vertex);
-        //}
+        for (var j = 0; j < this.slices; ++j) {
+            var one = j;
+            var two = (j + 1) % this.slices;
+            var new_one = one + this.slices * (this.stacks);
+            var new_two = two + this.slices * (this.stacks);
+            //console.log(one, two, new_one, new_two, bottom_vertex, top_vertex);
+            this.indices.push(two, one, bottom_vertex);
+            this.indices.push(new_one, new_two, top_vertex);
+        }
+        console.log(this.vertices);
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();

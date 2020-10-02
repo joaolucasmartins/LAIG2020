@@ -51,14 +51,14 @@ class MySceneGraph {
         this.reader.open('scenes/' + filename, this);
 
         // TODO remove - testing
-        this.ciloinders = new MyCylinder(this.scene, 10, 10, 10, 5, 3);
-        this.torus = new MyTorus(this.scene, 4, 10, 10, 7);
-        this.quadMaterial = new CGFappearance(this.scene);
-        this.quadMaterial.setAmbient(1.1, 0.1, 0.1, 1);
-        this.quadMaterial.setDiffuse(1.9, 0.9, 0.9, 1);
-        this.quadMaterial.setSpecular(10.1, 0.1, 0.1, 1);
-        this.quadMaterial.setShininess(10.0);
-        this.quadMaterial.loadTexture('scenes/images/rocks.jpg');
+        //this.ciloinders = new MyCylinder(this.scene, 10, 10, 10, 5, 3);
+        //this.torus = new MyTorus(this.scene, 4, 10, 10, 7);
+        //this.quadMaterial = new CGFappearance(this.scene);
+        //this.quadMaterial.setAmbient(1.1, 0.1, 0.1, 1);
+        //this.quadMaterial.setDiffuse(1.9, 0.9, 0.9, 1);
+        //this.quadMaterial.setSpecular(10.1, 0.1, 0.1, 1);
+        //this.quadMaterial.setShininess(10.0);
+        //this.quadMaterial.loadTexture('scenes/images/rocks.jpg');
     }
 
     distributeDescendants(node) {
@@ -71,7 +71,6 @@ class MySceneGraph {
 
             var currNode = this.nodes[currentNodeName];
             node.descendants.push(currNode);
-            delete this.nodes[currentNodeName];
             this.distributeDescendants(currNode);
         }
         return null;
@@ -94,6 +93,7 @@ class MySceneGraph {
 
         // TODO Check for acyclic graphs
         this.distributeDescendants(this.rootNode);
+        delete this.nodes;
 
         this.loadedOk = true;
 
@@ -508,7 +508,7 @@ class MySceneGraph {
         var name = this.reader.getString(textNode, "id");
 
         if (name != null) {
-            
+
             if (!(name in this.textDict))
                 this.onXMLError("Undefined node texture!");
 
@@ -528,13 +528,13 @@ class MySceneGraph {
         var children = transfNode.children;
 
         var matrix = mat4.create(); //identity matrix
-        
+
         for (var i = 0; i < children.length; i++) {
             var nodeName = children[i].nodeName;
 
-            var x = 0, y = 0,z = 0;
+            var x = 0, y = 0, z = 0;
             var axis, angle = 0;
-            switch (nodeName){
+            switch (nodeName) {
 
                 case "translation":
 
@@ -563,8 +563,8 @@ class MySceneGraph {
                     this.onXMLError("Invalid Transformation!");
 
             }
-            
-           node.transfMat = matrix;    //assign node transformations
+
+            node.transfMat = matrix;    //assign node transformations
 
         }
     }
@@ -583,13 +583,13 @@ class MySceneGraph {
         if (nodeName == this.idRoot) {
             this.rootNode = node;
         }
-        
+
         //parse and assign texture to node
         this.assignNodeTexture(node, nodeDict["texture"]);
 
         //assign material to current node
         var materialID = this.reader.getString(nodeDict["material"], "id", true);   //TODO: handle null values
-        
+
         if (!(materialID in this.materials))
             this.onXMLError("Invalid material id!");
 
@@ -640,6 +640,8 @@ class MySceneGraph {
                     var slices = this.reader.getFloat(desc[i], "slices", true);
                     var stacks = this.reader.getFloat(desc[i], "stacks", true);
                     primitive = new MySphere(this.scene, radius, slices, stacks);
+                } else if (type == "cube") {
+                    primitive = new MyCube(this.scene);
                 }
 
                 node.addPrimitive(primitive);
@@ -796,10 +798,11 @@ class MySceneGraph {
      */
     displayScene() {
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
-        // this.rootNode.display();
-        this.quadMaterial.apply();
+        this.rootNode.display();
+
+        //this.quadMaterial.apply();
         //this.ciloinders.display();
-        this.torus.display();
+        //this.torus.display();
         //this.nodes[this.idRoot].display()
     }
 }
