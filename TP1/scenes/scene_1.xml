@@ -78,9 +78,9 @@
       </texture>
       <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
       <transformations>
-        <translation x="2.0" y="0.0" z="3.0" />
-        <rotation axis="x" angle="-90" />
-        <scale sx="0.2" sy="0.2" sz="0.1" />
+        <translation x="2.0" y="0.0" z="3.0"/>
+        <rotation axis="x" angle="-90"/>
+        <scale sx="0.2" sy="0.2" sz="0.1"/>
       </transformations>
       <!-- declaring descendants, at least one node or one leaf must be present
             descendants may be mixed, nodes and leafs -->
@@ -91,7 +91,7 @@
         <!-- may be repeated as necessary. It can refer an -->
         <!-- identifier of another node, before or later defined in the file. -->
         <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
-        
+        <!--<leaf type="cylinder" bottomRadius="0.0001" topRadius="10" height="10" slices="100" stacks="100"/>-->
         <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
         <!-- inner and outer radius, sections around the inner radius, sections around the outer radius  -->
       </descendants>
@@ -102,13 +102,12 @@
         <!-- for primitives = dx/afs, dy/aft -->
       </texture>
       <transformations>
-        <translation x="1.0" y="1.0" z="1.0" />
-        <rotation axis="x" angle="-90" />
-        <scale sx="0.5" sy="0.2" sz="0.5" />
+        <translation x="1.0" y="1.0" z="1.0"/>
+        <rotation axis="x" angle="-90"/>
+        <scale sx="0.5" sy="0.2" sz="0.5"/>
       </transformations>
       <descendants>
         <leaf type="rectangle" x1="1.0" x2="10.0" y1="10.0" y2="4.0"/>
-        
         <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
         <!-- inner and outer radius, sections around the inner radius, sections around the outer radius  -->
       </descendants>

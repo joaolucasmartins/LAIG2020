@@ -49,6 +49,16 @@ class MySceneGraph {
          * If any error occurs, the reader calls onXMLError on this object, with an error message
          */
         this.reader.open('scenes/' + filename, this);
+
+        // TODO remove - testing
+        this.ciloinders = new MyCylinder(this.scene, 10, 10, 10, 5, 3);
+        this.torus = new MyTorus(this.scene, 4, 10, 10, 7);
+        this.quadMaterial = new CGFappearance(this.scene);
+        this.quadMaterial.setAmbient(1.1, 0.1, 0.1, 1);
+        this.quadMaterial.setDiffuse(1.9, 0.9, 0.9, 1);
+        this.quadMaterial.setSpecular(10.1, 0.1, 0.1, 1);
+        this.quadMaterial.setShininess(10.0);
+        this.quadMaterial.loadTexture('scenes/images/rocks.jpg');
     }
 
     distributeDescendants(node) {
@@ -625,7 +635,13 @@ class MySceneGraph {
                     var slices = this.reader.getInteger(desc[i], "slices", true);
                     var stacks = this.reader.getInteger(desc[i], "stacks", true);
                     primitive = new MyCylinder(this.scene, bottomRadius, topRadius, height, slices, stacks);
+                } else if (type == "sphere") {
+                    var radius = this.reader.getFloat(desc[i], "radius", true);
+                    var slices = this.reader.getFloat(desc[i], "slices", true);
+                    var stacks = this.reader.getFloat(desc[i], "stacks", true);
+                    primitive = new MySphere(this.scene, radius, slices, stacks);
                 }
+
                 node.addPrimitive(primitive);
             }
         }
@@ -780,7 +796,10 @@ class MySceneGraph {
      */
     displayScene() {
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
-        this.rootNode.display();
+        // this.rootNode.display();
+        this.quadMaterial.apply();
+        //this.ciloinders.display();
+        this.torus.display();
         //this.nodes[this.idRoot].display()
     }
 }
