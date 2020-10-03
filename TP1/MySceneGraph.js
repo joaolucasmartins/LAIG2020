@@ -512,9 +512,9 @@ class MySceneGraph {
             if (!(name in this.textDict))
                 this.onXMLError("Undefined node texture!");
 
-            if (textNode.children != null) {
-                afs = this.reader.getFloat(textNode.children[0], "afs");
-                dfs = this.reader.getFloat(textNode.children[0], "aft");
+            if (textNode.children.length != 0) { //verification for non mandatory fields
+                afs = this.reader.getFloat(textNode.children[0], "afs", false);
+                dfs = this.reader.getFloat(textNode.children[0], "aft", false);
             }
 
             node.updateTexture(this.textDict[name], afs, dfs);   //saving texture details in node object

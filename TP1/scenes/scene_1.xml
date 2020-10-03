@@ -83,13 +83,14 @@
         <noderef id="backMast"/>
         <noderef id="frontHull"/>
         <noderef id="lowerHull"/>
+        <noderef id="stairs"/>
       </descendants>
     </node>
     <!--//////////////////////////////////////////////////////////////////PRIMITIVAS -->
     <!--CUBO-->
     <node id="cube">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <descendants>
         <noderef id="faceCima"/>
         <noderef id="faceBaixo"/>
@@ -101,7 +102,7 @@
     </node>
     <node id="faceLado1">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <translation x="0.0" y="0.0" z="0.5"/>
       </transformations>
@@ -111,7 +112,7 @@
     </node>
     <node id="faceLado3">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <translation x="0.0" y="0.0" z="-0.5"/>
         <rotation axis="x" angle="180"/>
@@ -122,7 +123,7 @@
     </node>
     <node id="faceLado2">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <translation x="0.5" y="0.0" z="0.0"/>
         <rotation axis="y" angle="90"/>
@@ -133,7 +134,7 @@
     </node>
     <node id="faceLado4">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <translation x="-0.5" y="0.0" z="0.0"/>
         <rotation axis="y" angle="270"/>
@@ -144,7 +145,7 @@
     </node>
     <node id="faceCima">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <translation x="0.0" y="0.5" z="0.0"/>
         <rotation axis="x" angle="-90"/>
@@ -155,7 +156,7 @@
     </node>
     <node id="faceBaixo">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <translation x="0.0" y="-0.5" z="0.0"/>
         <rotation axis="x" angle="90"/>
@@ -167,7 +168,7 @@
     <!--Prisma Triangular-->
     <node id="triangularPrism">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations/>
       <descendants>
         <noderef id="triangularPrismTop"/>
@@ -179,7 +180,7 @@
     </node>
     <node id="triangularPrismTop">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <translation x="0.0" y="0.0" z="1.0"/>
       </transformations>
@@ -189,7 +190,7 @@
     </node>
     <node id="triangularPrismBottom">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <rotation axis="x" angle="180"/>
       </transformations>
@@ -199,7 +200,7 @@
     </node>
     <node id="triangularPrismFace1">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <translation x="-0.5" y="0.866" z="1.0"/>
         <rotation axis="z" angle="-30"/>
@@ -211,7 +212,7 @@
     </node>
     <node id="triangularPrismFace2">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <rotation axis="z" angle="120"/>
       </transformations>
@@ -221,7 +222,7 @@
     </node>
     <node id="triangularPrismFace3">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <rotation axis="z" angle="120"/>
       </transformations>
@@ -231,7 +232,7 @@
     </node>
     <node id="frontHull">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <translation x="0.0" y="-0.5" z="4.1"/>
         <rotation axis="x" angle="-90"/>
@@ -244,7 +245,7 @@
     </node>
     <node id="lowerHull">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <translation x="0.0" y="-1.0" z="-3.5"/>
         <rotation axis="z" angle="-90"/>
@@ -257,7 +258,7 @@
     <!--//////////////////////////////////////////////////////////////////CENA-->
     <node id="hull">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <scale sx="3.5" sy="1.0" sz="7.0"/>
       </transformations>
@@ -267,7 +268,7 @@
     </node>
     <node id="caixote">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <translation x="0.0" y="1.0" z="-3.5"/>
         <scale sx="3.5" sy="1.0" sz="2.0"/>
@@ -278,7 +279,7 @@
     </node>
     <node id="mast">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <rotation axis="x" angle="-90"/>
       </transformations>
@@ -288,7 +289,7 @@
     </node>
     <node id="frontMast">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <translation x="0.0" y="0.0" z="2.0"/>
         <scale sx="0.8" sy="0.7" sz="0.8"/>
@@ -299,13 +300,101 @@
     </node>
     <node id="backMast">
       <material id="tableMaterial"/>
-      <textures id="woodText"/>
+      <texture id="woodText"/>
       <transformations>
         <translation x="0.0" y="0.0" z="-2.0"/>
         <scale sx="0.7" sy="0.7" sz="0.7"/>
       </transformations>
       <descendants>
         <noderef id="mast"/>
+      </descendants>
+    </node>
+    <node id="stairs">
+     <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <descendants>
+        <noderef id="rightStair"/>
+        <noderef id="leftStair"/>
+      </descendants>
+    </node>
+    <node id="rightStair">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <descendants>
+        <noderef id="step1"/>
+        <noderef id="step2"/>
+        <noderef id="step3"/>
+        <noderef id="step4"/>
+        <noderef id="step5"/>
+      </descendants>
+    </node>
+    <node id="leftStair">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+       <transformations>
+        <translation x="-2.0" y="0.0" z="0.0"/>
+      </transformations>
+      <descendants>
+        <noderef id="step1"/>
+        <noderef id="step2"/>
+        <noderef id="step3"/>
+        <noderef id="step4"/>
+        <noderef id="step5"/>
+      </descendants>
+    </node>
+    <node id="step1">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <translation x="1.0" y="0.6" z="-2.0"/>
+        <scale sx="1.2" sy="0.2" sz="1.0"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
+      </descendants>
+    </node>
+    <node id="step2">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <translation x="1.0" y="0.8" z="-2.1"/>
+        <scale sx="1.2" sy="0.2" sz="0.8"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
+      </descendants>
+    </node>
+    <node id="step3">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <translation x="1.0" y="1.0" z="-2.2"/>
+        <scale sx="1.2" sy="0.2" sz="0.6"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
+      </descendants>
+    </node>
+    <node id="step4">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <translation x="1.0" y="1.2" z="-2.3"/>
+        <scale sx="1.2" sy="0.2" sz="0.4"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
+      </descendants>
+    </node>
+    <node id="step5">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <translation x="1.0" y="1.4" z="-2.4"/>
+        <scale sx="1.2" sy="0.2" sz="0.2"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
       </descendants>
     </node>
   </nodes>
