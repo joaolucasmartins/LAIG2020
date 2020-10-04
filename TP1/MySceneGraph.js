@@ -483,6 +483,8 @@ class MySceneGraph {
             }
 
             // Get id of the current material.
+
+        if (this.reader.hasAttribute(children[i], 'id')){
             var materialID = this.reader.getString(children[i], 'id');
             if (materialID == null)
                 return "no ID defined for material";
@@ -492,6 +494,9 @@ class MySceneGraph {
                 return "ID must be unique for each light (conflict: ID = " + materialID + ")";
 
             this.materials[materialID] = this.parseMaterial(children[i]);
+        }
+
+            this.materials[materialID] = null; //inherit material from parent
         }
         return null;
     }
@@ -505,7 +510,12 @@ class MySceneGraph {
 
         var afs = 1, dfs = 1; //amplification
 
-        var name = this.reader.getString(textNode, "id");
+        var name = null;
+
+        //check if texture field is null
+        if (this.reader.hasAttribute(textNode, 'id')) {
+            name = this.reader.getString(textNode, "id");
+        }
 
         if (name != null) {
 
@@ -588,12 +598,17 @@ class MySceneGraph {
         this.assignNodeTexture(node, nodeDict["texture"]);
 
         //assign material to current node
-        var materialID = this.reader.getString(nodeDict["material"], "id", true);   //TODO: handle null values
+        if (this.reader.hasAttribute(nodeDict["material"], "id")) { //null verification
 
-        if (!(materialID in this.materials))
+            var materialID = this.reader.getString(nodeDict["material"], "id", true);
+
+            if (!(materialID in this.materials))
             this.onXMLError("Invalid material id!");
 
-        node.material = this.materials[materialID];
+            node.setMaterial(this.materials[materialID]);
+        }
+        
+
 
         //node transformations
         if ("transformations" in nodeDict) {
@@ -662,11 +677,8 @@ class MySceneGraph {
     parseNodes(nodesNode) {
         var children = nodesNode.children;
 
-        this.nodes = [];
-
         var grandChildren = [];
-        var grandgrandChildren = [];
-        var nodeNames = [];
+        this.nodes = [];
 
         // Any number of nodes.
         for (var i = 0; i < children.length; i++) {
@@ -692,16 +704,6 @@ class MySceneGraph {
 
             var nodeDict = this.createDict(children[i]);
             this.parseNode(name, nodeDict);
-
-
-            this.onXMLMinorError("To do: Parse nodes.");
-            // Transformations
-
-            // Material
-
-            // Texture
-
-            // Descendants
         }
     }
 

@@ -54,7 +54,7 @@ class MyTorus extends CGFobject {
 
                 this.vertices.push(newPoint[0], newPoint[1], newPoint[2]);
                 this.normals.push(pointRotated[0], pointRotated[1], pointRotated[2]);
-                console.log(texCurrX, texCurrY);
+                //console.log(texCurrX, texCurrY);
                 this.texCoords.push(texCurrX, texCurrY);
                 texCurrX += texStepX;
                 curInnerAlpha += innerDelta;
