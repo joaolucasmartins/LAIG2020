@@ -83,7 +83,6 @@
         <noderef id="frontMast"/>
         <noderef id="backMast"/>
         <noderef id="frontHull"/>
-        <noderef id="frontHullTop"/>
         <noderef id="lowerHull"/>
         <noderef id="stairs"/>
       </descendants>
@@ -232,6 +231,35 @@
         <noderef id="triangularPrismFace2"/>
       </descendants>
     </node>
+    <node id="plane">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+      </transformations>
+      <descendants>
+        <noderef id="planeFront"/>
+        <noderef id="planeBack"/>
+      </descendants>
+    </node>
+    <node id="planeFront">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="planeBack">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <rotation axis="y" angle="180"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
     <!--//////////////////////////////////////////////////////////////////CENA-->
     <node id="hull">
       <material id="tableMaterial"/>
@@ -241,21 +269,6 @@
       </transformations>
       <descendants>
         <noderef id="cube"/>
-      </descendants>
-    </node>
-    <node id="frontHullTop">
-      <material id="tableMaterial"/>
-      <texture id="woodText"/>
-      <transformations>
-        <translation x="0.0" y="0.58" z="3.6"/>
-        <scale sx="1.95" sy="2.03" sz="1.2"/>
-        <translation x="0.0" y="-0.85" z="0.7"/>
-        <rotation axis="x" angle="-10"/>
-        <rotation axis="x" angle="-90"/>
-        <rotation axis="z" angle="-90"/>
-      </transformations>
-      <descendants>
-        <noderef id="triangularPrismTop"/>
       </descendants>
     </node>
     <node id="frontHull">
@@ -323,7 +336,7 @@
       <material id="tableMaterial"/>
       <texture id="woodText"/>
       <transformations>
-        <translation x="0.0" y="-0.1" z="-0.35"/>
+        <translation x="0.0" y="-0.1" z="0.35"/>
         <scale sx="0.55" sy="3.5" sz="0.55"/>
       </transformations>
       <descendants>
@@ -374,10 +387,45 @@
       <material id="tableMaterial"/>
       <texture id="woodText"/>
       <transformations>
+      </transformations>
+      <descendants>
+        <noderef id="mastBanner"/>
+        <noderef id="mastPole"/>
+      </descendants>
+    </node>
+    <node id="mastBanner">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <translation x="-1.25" y="4.9" z="0.20"/>
+        <scale sx="0.8" sy="0.8" sz="1.0"/>
+        <rotation axis="y" angle="90"/>
+      </transformations>
+      <descendants>
+        <leaf type="cylinder" bottomRadius="0.05" topRadius="0.05" height="3.0" slices="100" stacks="400"/>
+        <noderef id="mastSail"/>
+      </descendants>
+    </node>
+    <node id="mastPole">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
         <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
         <leaf type="cylinder" bottomRadius="0.2" topRadius="0.15" height="5.0" slices="100" stacks="400"/>
+      </descendants>
+    </node>
+    <node id="mastSail">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <rotation axis="y" angle="90"/>
+        <translation x="-1.5" y="-1.5" z="0.0"/>
+        <scale sx="3.0" sy="3.0" sz="1.0"/>
+      </transformations>
+      <descendants>
+        <noderef id="plane"/>
       </descendants>
     </node>
     <node id="frontMast">
