@@ -10,14 +10,14 @@
 
 ## Projects
 
-### [MySceneGraph.js](TP1)
+### [Scene Graph](TP1/MySceneGraph.js)
 
 - Good texture wrapping around the ship
 - A few complex elements (helm, flag)
 - Use of multiple primitives
 - Scene
   - Pirate ship scene
-  - [scenes/pirata.xml](Scene XML)
+  - [Scene XML](TP1/Scenes/pirata.xml)
 
 -----
 
