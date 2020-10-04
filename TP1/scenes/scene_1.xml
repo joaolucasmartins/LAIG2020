@@ -83,8 +83,8 @@
     <!--//////////////////////////////////////////////////////////////////PRIMITIVAS -->
     <!--CUBO-->
     <node id="cube">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <descendants>
         <noderef id="faceCima"/>
         <noderef id="faceBaixo"/>
@@ -95,8 +95,8 @@
       </descendants>
     </node>
     <node id="faceLado1">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="0.0" y="0.0" z="0.5"/>
       </transformations>
@@ -105,8 +105,8 @@
       </descendants>
     </node>
     <node id="faceLado3">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="0.0" y="0.0" z="-0.5"/>
         <rotation axis="x" angle="180"/>
@@ -116,8 +116,8 @@
       </descendants>
     </node>
     <node id="faceLado2">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="0.5" y="0.0" z="0.0"/>
         <rotation axis="y" angle="90"/>
@@ -127,8 +127,8 @@
       </descendants>
     </node>
     <node id="faceLado4">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="-0.5" y="0.0" z="0.0"/>
         <rotation axis="y" angle="270"/>
@@ -138,8 +138,8 @@
       </descendants>
     </node>
     <node id="faceCima">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="0.0" y="0.5" z="0.0"/>
         <rotation axis="x" angle="-90"/>
@@ -149,8 +149,8 @@
       </descendants>
     </node>
     <node id="faceBaixo">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="0.0" y="-0.5" z="0.0"/>
         <rotation axis="x" angle="90"/>
@@ -161,8 +161,8 @@
     </node>
     <!--Prisma Triangular-->
     <node id="triangularPrism">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations/>
       <descendants>
         <noderef id="triangularPrismTop"/>
@@ -173,8 +173,8 @@
       </descendants>
     </node>
     <node id="triangularPrismTop">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="0.0" y="0.0" z="1.0"/>
       </transformations>
@@ -183,8 +183,8 @@
       </descendants>
     </node>
     <node id="triangularPrismBottom">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <rotation axis="x" angle="180"/>
       </transformations>
@@ -193,8 +193,8 @@
       </descendants>
     </node>
     <node id="triangularPrismFace1">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="-0.5" y="0.866" z="1.0"/>
         <rotation axis="z" angle="-30"/>
@@ -205,8 +205,8 @@
       </descendants>
     </node>
     <node id="triangularPrismFace2">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <rotation axis="z" angle="120"/>
       </transformations>
@@ -215,8 +215,8 @@
       </descendants>
     </node>
     <node id="triangularPrismFace3">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <rotation axis="z" angle="120"/>
       </transformations>
@@ -255,8 +255,8 @@
     </node>
     <!--//////////////////////////////////////////////////////////////////CENA-->
     <node id="hull">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <scale sx="3.5" sy="1.0" sz="7.0"/>
       </transformations>
@@ -265,8 +265,8 @@
       </descendants>
     </node>
     <node id="frontHull">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="0.0" y="-0.5" z="4.1"/>
         <rotation axis="x" angle="-90"/>
@@ -278,8 +278,8 @@
       </descendants>
     </node>
     <node id="lowerHull">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="0.0" y="-1.0" z="-3.5"/>
         <rotation axis="z" angle="-90"/>
@@ -291,8 +291,8 @@
     </node>
     <!--//////////////////////////////////////////////////////////////////CENA-->
     <node id="cabin">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="0.0" y="1.0" z="-3.5"/>
         <scale sx="3.5" sy="1.0" sz="2.0"/>
@@ -302,14 +302,14 @@
       </descendants>
     </node>
     <node id="leme">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="0.0" y="2.0" z="-3.0"/>
         <scale sx="0.3" sy="0.3" sz="0.3"/>
       </transformations>
       <descendants>
-        <leaf type="torus" innerRadius="0.1" outerRadius="1.0" slices="10" loops="10"/>
+        <leaf type="torus" inner="0.1" outer="1.0" slices="10" loops="10"/>
         <noderef id="lemeHandles"/>
       </descendants>
     </node>
@@ -378,8 +378,8 @@
       </descendants>
     </node>
     <node id="mast">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
       </transformations>
       <descendants>
@@ -423,8 +423,8 @@
       </descendants>
     </node>
     <node id="frontMast">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="0.0" y="0.0" z="2.0"/>
         <scale sx="0.8" sy="0.7" sz="0.8"/>
@@ -434,8 +434,8 @@
       </descendants>
     </node>
     <node id="backMast">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="0.0" y="0.0" z="-2.0"/>
         <scale sx="0.7" sy="0.7" sz="0.7"/>
@@ -445,16 +445,16 @@
       </descendants>
     </node>
     <node id="stairs">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <descendants>
         <noderef id="rightStair"/>
         <noderef id="leftStair"/>
       </descendants>
     </node>
     <node id="rightStair">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <descendants>
         <noderef id="step1"/>
         <noderef id="step2"/>
@@ -464,8 +464,8 @@
       </descendants>
     </node>
     <node id="leftStair">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="-2.0" y="0.0" z="0.0"/>
       </transformations>
@@ -478,8 +478,8 @@
       </descendants>
     </node>
     <node id="step1">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="1.0" y="0.6" z="-2.0"/>
         <scale sx="1.2" sy="0.2" sz="1.0"/>
@@ -489,8 +489,8 @@
       </descendants>
     </node>
     <node id="step2">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="1.0" y="0.8" z="-2.1"/>
         <scale sx="1.2" sy="0.2" sz="0.8"/>
@@ -500,8 +500,8 @@
       </descendants>
     </node>
     <node id="step3">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="1.0" y="1.0" z="-2.2"/>
         <scale sx="1.2" sy="0.2" sz="0.6"/>
@@ -511,8 +511,8 @@
       </descendants>
     </node>
     <node id="step4">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="1.0" y="1.2" z="-2.3"/>
         <scale sx="1.2" sy="0.2" sz="0.4"/>
@@ -522,8 +522,8 @@
       </descendants>
     </node>
     <node id="step5">
-      <material/>
-      <texture/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="1.0" y="1.4" z="-2.4"/>
         <scale sx="1.2" sy="0.2" sz="0.2"/>

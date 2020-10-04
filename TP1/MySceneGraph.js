@@ -484,17 +484,17 @@ class MySceneGraph {
 
             // Get id of the current material.
 
-        if (this.reader.hasAttribute(children[i], 'id')){
-            var materialID = this.reader.getString(children[i], 'id');
-            if (materialID == null)
-                return "no ID defined for material";
+            if (this.reader.hasAttribute(children[i], 'id')) {
+                var materialID = this.reader.getString(children[i], 'id');
+                if (materialID == null)
+                    return "no ID defined for material";
 
-            // Checks for repeated IDs.
-            if (this.materials[materialID] != null)
-                return "ID must be unique for each light (conflict: ID = " + materialID + ")";
+                // Checks for repeated IDs.
+                if (this.materials[materialID] != null)
+                    return "ID must be unique for each light (conflict: ID = " + materialID + ")";
 
-            this.materials[materialID] = this.parseMaterial(children[i]);
-        }
+                this.materials[materialID] = this.parseMaterial(children[i]);
+            }
 
             this.materials[materialID] = null; //inherit material from parent
         }
@@ -513,11 +513,9 @@ class MySceneGraph {
         var name = null;
 
         //check if texture field is null
-        if (this.reader.hasAttribute(textNode, 'id')) {
-            name = this.reader.getString(textNode, "id");
-        }
+        name = this.reader.getString(textNode, "id", true);
 
-        if (name != null) {
+        if (name != "null") {
 
             if (!(name in this.textDict))
                 this.onXMLError("Undefined node texture!");
@@ -598,17 +596,14 @@ class MySceneGraph {
         this.assignNodeTexture(node, nodeDict["texture"]);
 
         //assign material to current node
-        if (this.reader.hasAttribute(nodeDict["material"], "id")) { //null verification
+        var materialID = this.reader.getString(nodeDict["material"], "id", true);
 
-            var materialID = this.reader.getString(nodeDict["material"], "id", true);
-
+        if (materialID != "null") {
             if (!(materialID in this.materials))
-            this.onXMLError("Invalid material id!");
+                this.onXMLError("Invalid material id!");
 
             node.setMaterial(this.materials[materialID]);
         }
-        
-
 
         //node transformations
         if ("transformations" in nodeDict) {
@@ -658,8 +653,8 @@ class MySceneGraph {
                 } else if (type == "cube") {
                     primitive = new MyCube(this.scene);
                 } else if (type == "torus") {
-                    var innerRadius = this.reader.getFloat(desc[i], "innerRadius", true);
-                    var outerRadius = this.reader.getFloat(desc[i], "outerRadius", true);
+                    var innerRadius = this.reader.getFloat(desc[i], "inner", true);
+                    var outerRadius = this.reader.getFloat(desc[i], "outer", true);
                     var slices = this.reader.getInteger(desc[i], "slices", true);
                     var loops = this.reader.getInteger(desc[i], "loops", true);
                     primitive = new MyTorus(this.scene, innerRadius, outerRadius, slices, loops);
