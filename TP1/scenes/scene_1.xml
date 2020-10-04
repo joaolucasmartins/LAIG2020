@@ -44,8 +44,10 @@
   </lights>
   <textures>
     <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
-    <texture id="woodText" path="./scenes/images/trunk-image.jpg"/>
+    <texture id="woodText" path="./scenes/images/woodText1.jpg"/>
+    <texture id="woodText2" path="./scenes/images/woodText2.jpg"/>
     <texture id="whiteFlag" path="./scenes/images/whiteFlag.jpg"/>
+    <texture id="plainWoodText" path="./scenes/images/plainWood.jpg"/>
   </textures>
   <materials>
     <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
@@ -70,15 +72,16 @@
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <descendants>
-        <noderef id="leme"/>
+        <noderef id="wheel"/>
         <noderef id="hull"/>
+        <noderef id="stairs"/>
         <noderef id="cabin"/>
+        <noderef id="frontHull"/>
+        <noderef id="lowerHull"/>
         <noderef id="mast"/>
         <noderef id="frontMast"/>
         <noderef id="backMast"/>
-        <noderef id="frontHull"/>
-        <noderef id="lowerHull"/>
-        <noderef id="stairs"/>
+
       </descendants>
     </node>
     <!--//////////////////////////////////////////////////////////////////PRIMITIVAS -->
@@ -257,7 +260,7 @@
     <!--//////////////////////////////////////////////////////////////////CENA-->
     <node id="hull">
       <material id="null"/>
-      <texture id="null"/>
+      <texture id="woodText2"/>
       <transformations>
         <scale sx="3.5" sy="1.0" sz="7.0"/>
       </transformations>
@@ -280,7 +283,7 @@
     </node>
     <node id="lowerHull">
       <material id="null"/>
-      <texture id="null"/>
+      <texture id="woodText"/>
       <transformations>
         <translation x="0.0" y="-1.0" z="-3.5"/>
         <rotation axis="z" angle="-90"/>
@@ -302,32 +305,32 @@
         <noderef id="cube"/>
       </descendants>
     </node>
-    <node id="leme">
+    <node id="wheel">
       <material id="null"/>
-      <texture id="null"/>
+      <texture id="plainWoodText"/>
       <transformations>
         <translation x="0.0" y="2.0" z="-3.0"/>
         <scale sx="0.3" sy="0.3" sz="0.3"/>
       </transformations>
       <descendants>
         <leaf type="torus" inner="0.1" outer="1.0" slices="10" loops="10"/>
-        <noderef id="lemeHandles"/>
+        <noderef id="wheelHandles"/>
       </descendants>
     </node>
-    <node id="lemeHandles">
+    <node id="wheelHandles">
       <material id="null"/>
       <texture id="null"/>
       <transformations>
       </transformations>
       <descendants>
-        <noderef id="lemeSupport"/>
-        <noderef id="lemeHandle1"/>
-        <noderef id="lemeHandle2"/>
-        <noderef id="lemeHandle3"/>
-        <noderef id="lemeHandle4"/>
+        <noderef id="wheelSupport"/>
+        <noderef id="wheelHandle1"/>
+        <noderef id="wheelHandle2"/>
+        <noderef id="wheelHandle3"/>
+        <noderef id="wheelHandle4"/>
       </descendants>
     </node>
-    <node id="lemeSupport">
+    <node id="wheelSupport">
       <material id="null"/>
       <texture id="null"/>
       <transformations>
@@ -338,7 +341,7 @@
         <noderef id="cube"/>
       </descendants>
     </node>
-    <node id="lemeHandle1">
+    <node id="wheelHandle1">
       <material id="null"/>
       <texture id="null"/>
       <transformations>
@@ -348,34 +351,34 @@
         <noderef id="cube"/>
       </descendants>
     </node>
-    <node id="lemeHandle2">
+    <node id="wheelHandle2">
       <material id="null"/>
       <texture id="null"/>
       <transformations>
         <rotation axis="z" angle="45"/>
       </transformations>
       <descendants>
-        <noderef id="lemeHandle1"/>
+        <noderef id="wheelHandle1"/>
       </descendants>
     </node>
-    <node id="lemeHandle3">
+    <node id="wheelHandle3">
       <material id="null"/>
       <texture id="null"/>
       <transformations>
         <rotation axis="z" angle="45"/>
       </transformations>
       <descendants>
-        <noderef id="lemeHandle2"/>
+        <noderef id="wheelHandle2"/>
       </descendants>
     </node>
-    <node id="lemeHandle4">
+    <node id="wheelHandle4">
       <material id="null"/>
       <texture id="null"/>
       <transformations>
         <rotation axis="z" angle="45"/>
       </transformations>
       <descendants>
-        <noderef id="lemeHandle3"/>
+        <noderef id="wheelHandle3"/>
       </descendants>
     </node>
     <node id="mast">
@@ -384,13 +387,13 @@
       <transformations>
       </transformations>
       <descendants>
-        <noderef id="mastBanner"/>
         <noderef id="mastPole"/>
+        <noderef id="mastBanner"/>
       </descendants>
     </node>
     <node id="mastBanner">
       <material id="null"/>
-      <texture id="whiteFlag"/>
+      <texture id="plainWoodText"/>
       <transformations>
         <translation x="-1.25" y="4.9" z="0.20"/>
         <scale sx="0.8" sy="0.8" sz="1.0"/>
@@ -403,7 +406,7 @@
     </node>
     <node id="mastPole">
       <material id="null"/>
-      <texture id="woodText"/>
+      <texture id="plainWoodText"/>
       <transformations>
         <rotation axis="x" angle="-90"/>
       </transformations>
