@@ -17,7 +17,7 @@
 - Use of multiple primitives
 - Scene
   - Pirate ship scene
-  - [Scene XML](TP1/Scenes/pirata.xml)
+  - [Scene XML](TP1/scenes/pirata.xml)
 
 -----
 
