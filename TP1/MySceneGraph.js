@@ -637,11 +637,17 @@ class MySceneGraph {
                     primitive = new MyCylinder(this.scene, bottomRadius, topRadius, height, slices, stacks);
                 } else if (type == "sphere") {
                     var radius = this.reader.getFloat(desc[i], "radius", true);
-                    var slices = this.reader.getFloat(desc[i], "slices", true);
-                    var stacks = this.reader.getFloat(desc[i], "stacks", true);
+                    var slices = this.reader.getInteger(desc[i], "slices", true);
+                    var stacks = this.reader.getInteger(desc[i], "stacks", true);
                     primitive = new MySphere(this.scene, radius, slices, stacks);
                 } else if (type == "cube") {
                     primitive = new MyCube(this.scene);
+                } else if (type == "torus") {
+                    var innerRadius = this.reader.getFloat(desc[i], "innerRadius", true);
+                    var outerRadius = this.reader.getFloat(desc[i], "outerRadius", true);
+                    var slices = this.reader.getInteger(desc[i], "slices", true);
+                    var loops = this.reader.getInteger(desc[i], "loops", true);
+                    primitive = new MyTorus(this.scene, innerRadius, outerRadius, slices, loops);
                 }
 
                 node.addPrimitive(primitive);

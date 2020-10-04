@@ -76,12 +76,14 @@
          -</transformations>
          -->
       <descendants>
+        <noderef id="leme"/>
         <noderef id="hull"/>
         <noderef id="caixote"/>
         <noderef id="mast"/>
         <noderef id="frontMast"/>
         <noderef id="backMast"/>
         <noderef id="frontHull"/>
+        <noderef id="frontHullTop"/>
         <noderef id="lowerHull"/>
         <noderef id="stairs"/>
       </descendants>
@@ -230,6 +232,32 @@
         <noderef id="triangularPrismFace2"/>
       </descendants>
     </node>
+    <!--//////////////////////////////////////////////////////////////////CENA-->
+    <node id="hull">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <scale sx="3.5" sy="1.0" sz="7.0"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
+      </descendants>
+    </node>
+    <node id="frontHullTop">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <translation x="0.0" y="0.58" z="3.6"/>
+        <scale sx="1.95" sy="2.03" sz="1.2"/>
+        <translation x="0.0" y="-0.85" z="0.7"/>
+        <rotation axis="x" angle="-10"/>
+        <rotation axis="x" angle="-90"/>
+        <rotation axis="z" angle="-90"/>
+      </transformations>
+      <descendants>
+        <noderef id="triangularPrismTop"/>
+      </descendants>
+    </node>
     <node id="frontHull">
       <material id="tableMaterial"/>
       <texture id="woodText"/>
@@ -255,17 +283,6 @@
         <noderef id="triangularPrism"/>
       </descendants>
     </node>
-    <!--//////////////////////////////////////////////////////////////////CENA-->
-    <node id="hull">
-      <material id="tableMaterial"/>
-      <texture id="woodText"/>
-      <transformations>
-        <scale sx="3.5" sy="1.0" sz="7.0"/>
-      </transformations>
-      <descendants>
-        <noderef id="cube"/>
-      </descendants>
-    </node>
     <node id="caixote">
       <material id="tableMaterial"/>
       <texture id="woodText"/>
@@ -275,6 +292,82 @@
       </transformations>
       <descendants>
         <noderef id="cube"/>
+      </descendants>
+    </node>
+    <node id="leme">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <translation x="0.0" y="2.0" z="-3.0"/>
+        <scale sx="0.3" sy="0.3" sz="0.3"/>
+      </transformations>
+      <descendants>
+        <leaf type="torus" innerRadius="0.1" outerRadius="1.0" slices="10" loops="10"/>
+        <noderef id="lemeHandles"/>
+      </descendants>
+    </node>
+    <node id="lemeHandles">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+      </transformations>
+      <descendants>
+        <noderef id="lemeSupport"/>
+        <noderef id="lemeHandle1"/>
+        <noderef id="lemeHandle2"/>
+        <noderef id="lemeHandle3"/>
+        <noderef id="lemeHandle4"/>
+      </descendants>
+    </node>
+    <node id="lemeSupport">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <translation x="0.0" y="-0.1" z="-0.35"/>
+        <scale sx="0.55" sy="3.5" sz="0.55"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
+      </descendants>
+    </node>
+    <node id="lemeHandle1">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <scale sx="0.25" sy="2.5" sz="0.25"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
+      </descendants>
+    </node>
+    <node id="lemeHandle2">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <rotation axis="z" angle="45"/>
+      </transformations>
+      <descendants>
+        <noderef id="lemeHandle1"/>
+      </descendants>
+    </node>
+    <node id="lemeHandle3">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <rotation axis="z" angle="45"/>
+      </transformations>
+      <descendants>
+        <noderef id="lemeHandle2"/>
+      </descendants>
+    </node>
+    <node id="lemeHandle4">
+      <material id="tableMaterial"/>
+      <texture id="woodText"/>
+      <transformations>
+        <rotation axis="z" angle="45"/>
+      </transformations>
+      <descendants>
+        <noderef id="lemeHandle3"/>
       </descendants>
     </node>
     <node id="mast">
@@ -310,7 +403,7 @@
       </descendants>
     </node>
     <node id="stairs">
-     <material id="tableMaterial"/>
+      <material id="tableMaterial"/>
       <texture id="woodText"/>
       <descendants>
         <noderef id="rightStair"/>
@@ -331,7 +424,7 @@
     <node id="leftStair">
       <material id="tableMaterial"/>
       <texture id="woodText"/>
-       <transformations>
+      <transformations>
         <translation x="-2.0" y="0.0" z="0.0"/>
       </transformations>
       <descendants>
