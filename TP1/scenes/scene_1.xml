@@ -48,6 +48,7 @@
     <texture id="woodText2" path="./scenes/images/woodText2.jpg"/>
     <texture id="whiteFlag" path="./scenes/images/whiteFlag.jpg"/>
     <texture id="plainWoodText" path="./scenes/images/plainWood.jpg"/>
+    <texture id="pirateFlag" path="./scenes/images/pirateFlag.jpg"/>
   </textures>
   <materials>
     <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
@@ -78,10 +79,9 @@
         <noderef id="cabin"/>
         <noderef id="frontHull"/>
         <noderef id="lowerHull"/>
-        <noderef id="mast"/>
+        <noderef id="mainMast"/>
         <noderef id="frontMast"/>
         <noderef id="backMast"/>
-
       </descendants>
     </node>
     <!--//////////////////////////////////////////////////////////////////PRIMITIVAS -->
@@ -424,6 +424,39 @@
       </transformations>
       <descendants>
         <noderef id="plane"/>
+      </descendants>
+    </node>
+    <node id="mainMast">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+      </transformations>
+      <descendants>
+        <noderef id="mast"/>
+        <noderef id="flag"/>
+      </descendants>
+    </node>
+    <node id="flag">
+      <material id="null"/>
+      <texture id="pirateFlag"/>
+      <transformations>
+        <translation x="0.5" y="5.5" z="0.0"/>
+        <scale sx="1.0" sy="0.7" sz="1.0"/>
+      </transformations>
+      <descendants>
+        <noderef id="plane"/>
+        <noderef id="flagPole"/>
+      </descendants>
+    </node>
+    <node id="flagPole">
+      <material id="null"/>
+      <texture id="woodText"/>
+      <transformations>
+        <translation x="-0.5" y="-1.0" z="0.0"/>
+        <scale sx="0.15" sy="0.30" sz="0.15"/>
+      </transformations>
+      <descendants>
+        <noderef id="mastPole"/>
       </descendants>
     </node>
     <node id="frontMast">
