@@ -73,7 +73,7 @@
         <noderef id="leme"/>
         <noderef id="hull"/>
         <noderef id="cabin"/>
-        <noderef id="mast"/>
+        <noderef id="mainMast"/>
         <noderef id="frontMast"/>
         <noderef id="backMast"/>
         <noderef id="frontHull"/>
@@ -421,6 +421,39 @@
       </transformations>
       <descendants>
         <noderef id="plane"/>
+      </descendants>
+    </node>
+    <node id="mainMast">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+      </transformations>
+      <descendants>
+        <noderef id="mast"/>
+        <noderef id="flag"/>
+      </descendants>
+    </node>
+    <node id="flag">
+      <material id="null"/>
+      <texture id="whiteFlag"/>
+      <transformations>
+        <translation x="0.5" y="5.5" z="0.0"/>
+        <scale sx="1.0" sy="0.7" sz="1.0"/>
+      </transformations>
+      <descendants>
+        <noderef id="plane"/>
+        <noderef id="flagPole"/>
+      </descendants>
+    </node>
+    <node id="flagPole">
+      <material id="null"/>
+      <texture id="woodText"/>
+      <transformations>
+        <translation x="-0.5" y="-1.0" z="0.0"/>
+        <scale sx="0.15" sy="0.30" sz="0.15"/>
+      </transformations>
+      <descendants>
+        <noderef id="mastPole"/>
       </descendants>
     </node>
     <node id="frontMast">
