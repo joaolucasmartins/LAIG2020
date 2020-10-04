@@ -10,12 +10,14 @@
 
 ## Projects
 
-### [TP1 - Scene Graph](TP1)
+### [Scene Graph](TP1/MySceneGraph.js)
 
-- (items briefly describing main strong points)
+- Good texture wrapping around the ship
+- A few complex elements (helm, flag)
+- Use of multiple primitives
 - Scene
-  - (Brief description of the created scene)
-  - (relative link to the scene)
+  - Pirate ship scene
+  - [Scene XML](TP1/scenes/pirata.xml)
 
 -----
 
