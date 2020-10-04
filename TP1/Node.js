@@ -22,12 +22,19 @@ class Node {
         this.afs = afs;
     }
 
+    setMaterial(mat) {
+        this.material = mat;
+    }
+
     display() {
-        /*
+
+        //TODO: create texture stack
+        //TODO: create material satck and apply material
+
         if (this.texture != null) { //temporary
-            this.texture.bind(2);
+            this.texture.bind(0);
         }
-        */
+
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transfMat);
 
