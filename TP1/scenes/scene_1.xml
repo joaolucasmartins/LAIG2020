@@ -45,12 +45,13 @@
   <textures>
     <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
     <texture id="woodText" path="./scenes/images/trunk-image.jpg"/>
+    <texture id="whiteFlag" path="./scenes/images/whiteFlag.jpg"/>
   </textures>
   <materials>
     <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
 
          requires a distinct "id". At least one material should be present. -->
-    <material id="tableMaterial">
+    <material id="defaultMaterial">
       <shininess value="1"/>
       <specular r="1.0" g="0.0" b="0.0" a="1.0"/>
       <!-- specular reflection -->
@@ -64,7 +65,7 @@
   </materials>
   <nodes>
     <node id="rootNode">
-      <material id="tableMaterial"/>
+      <material id="defaultMaterial"/>
       <texture id="woodText">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
@@ -225,8 +226,8 @@
       </descendants>
     </node>
     <node id="plane">
-      <material id="tableMaterial"/>
-      <texture id="woodText"/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
       </transformations>
       <descendants>
@@ -235,8 +236,8 @@
       </descendants>
     </node>
     <node id="planeFront">
-      <material id="tableMaterial"/>
-      <texture id="woodText"/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
       </transformations>
       <descendants>
@@ -244,8 +245,8 @@
       </descendants>
     </node>
     <node id="planeBack">
-      <material id="tableMaterial"/>
-      <texture id="woodText"/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <rotation axis="y" angle="180"/>
       </transformations>
@@ -314,8 +315,8 @@
       </descendants>
     </node>
     <node id="lemeHandles">
-      <material id="tableMaterial"/>
-      <texture id="woodText"/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
       </transformations>
       <descendants>
@@ -327,8 +328,8 @@
       </descendants>
     </node>
     <node id="lemeSupport">
-      <material id="tableMaterial"/>
-      <texture id="woodText"/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <translation x="0.0" y="-0.1" z="0.35"/>
         <scale sx="0.55" sy="3.5" sz="0.55"/>
@@ -338,8 +339,8 @@
       </descendants>
     </node>
     <node id="lemeHandle1">
-      <material id="tableMaterial"/>
-      <texture id="woodText"/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <scale sx="0.25" sy="2.5" sz="0.25"/>
       </transformations>
@@ -348,8 +349,8 @@
       </descendants>
     </node>
     <node id="lemeHandle2">
-      <material id="tableMaterial"/>
-      <texture id="woodText"/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <rotation axis="z" angle="45"/>
       </transformations>
@@ -358,8 +359,8 @@
       </descendants>
     </node>
     <node id="lemeHandle3">
-      <material id="tableMaterial"/>
-      <texture id="woodText"/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <rotation axis="z" angle="45"/>
       </transformations>
@@ -368,8 +369,8 @@
       </descendants>
     </node>
     <node id="lemeHandle4">
-      <material id="tableMaterial"/>
-      <texture id="woodText"/>
+      <material id="null"/>
+      <texture id="null"/>
       <transformations>
         <rotation axis="z" angle="45"/>
       </transformations>
@@ -388,8 +389,8 @@
       </descendants>
     </node>
     <node id="mastBanner">
-      <material id="tableMaterial"/>
-      <texture id="woodText"/>
+      <material id="null"/>
+      <texture id="whiteFlag"/>
       <transformations>
         <translation x="-1.25" y="4.9" z="0.20"/>
         <scale sx="0.8" sy="0.8" sz="1.0"/>
@@ -401,7 +402,7 @@
       </descendants>
     </node>
     <node id="mastPole">
-      <material id="tableMaterial"/>
+      <material id="null"/>
       <texture id="woodText"/>
       <transformations>
         <rotation axis="x" angle="-90"/>
@@ -411,8 +412,8 @@
       </descendants>
     </node>
     <node id="mastSail">
-      <material id="tableMaterial"/>
-      <texture id="woodText"/>
+      <material id="null"/>
+      <texture id="whiteFlag"/>
       <transformations>
         <rotation axis="y" angle="90"/>
         <translation x="-1.5" y="-1.5" z="0.0"/>
