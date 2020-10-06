@@ -21,6 +21,8 @@ class MySceneGraph {
      * @param {XMLScene} scene
      */
     constructor(filename, scene) {
+        this.cameras = [];
+
         this.loadedOk = null;
 
         // Establish bidirectional references between scene and graph.
@@ -264,9 +266,13 @@ class MySceneGraph {
         return null;
     }
 
+    /**
+     * Returns a new camera and its id as defined in a given camera Node.
+     */
     parseCamera(cameraNode) {
         var nodeDict = this.createDict(cameraNode);
 
+        var id = this.reader.getString(cameraNode, "id", true);
         var near = this.reader.getFloat(cameraNode, "near", true);
         var far = this.reader.getInteger(cameraNode, "far", true);
         //var angle = this.reader.getFloat(cameraNode, "angle", true); // TODO
@@ -277,7 +283,7 @@ class MySceneGraph {
         var position = this.parseCoordinates3D(nodeDict["from"], "From 3d coords failed")
         var target = this.parseCoordinates3D(nodeDict["to"], "To 3d coords failed")
 
-        return new CGFcamera(DEF_FOV, near, far, position, target);
+        return [new CGFcamera(DEF_FOV, near, far, position, target), id];
     }
 
     /**
@@ -297,11 +303,11 @@ class MySceneGraph {
             } else if ("ortho" == childName) {
             }
         }
-        if (cameras.length < 1)
-            this.onXMLError("No camera!");
-
-        delete this.scene.camera;
-        this.scene.initCameras(cameras);
+        if (cameras.length < 1) {
+            this.onXMLWarning("No camera defined. Using default camera.");
+            this.scene.initDefaultCamera();
+        } else
+            this.scene.initCameras(cameras);
 
         return null;
     }
