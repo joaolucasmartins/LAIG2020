@@ -20,11 +20,9 @@ class XMLscene extends CGFscene {
         super.init(application);
 
         this.sceneInited = false;
-
-        this.initCameras();
-
         this.enableTextures(true);
 
+        this.initDefaultCamera();
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
@@ -40,11 +38,28 @@ class XMLscene extends CGFscene {
 
     }
 
+    initDefaultCamera() {
+        //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(35, 35, 35), vec3.fromValues(0, 0, 0));
+        this.cameras = [];
+        this.selectedCamera = 0;
+        this.cameras.push(this.camera);
+        this.cameraIds = {'Default Camera': 0};
+    }
+
     /**
-     * Initializes the scene cameras.
+     * Initializes the cameras defined in the xml. Called by parser after parsing all views.
      */
-    initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+    initCameras(cameras) {
+        this.cameras.push.apply(this.cameras, cameras);
+        this.selectedCamera = 1; // Select first camera in the xml
+        for (var i = 1; i <= cameras.length; ++i) {
+            this.cameraIds['Camera ' + (i)] = i;
+            console.log(i);
+        }
+        this.interface.gui.add(this, 'selectedCamera', this.cameraIds).name('Selected Camera').onChange(this.updateCamera.bind(this));
+        console.log(this.cameras);
+
+        this.updateCamera(); // Update camera with first camera given by the XML
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -77,6 +92,11 @@ class XMLscene extends CGFscene {
                 i++;
             }
         }
+    }
+
+    updateCamera() {
+        this.camera = this.cameras[this.selectedCamera];
+        this.interface.setActiveCamera(this.camera);
     }
 
     /** Handler called when the graph is finally loaded. 
