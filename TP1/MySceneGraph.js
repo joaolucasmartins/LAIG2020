@@ -59,6 +59,8 @@ class MySceneGraph {
         //this.quadMaterial.setSpecular(10.1, 0.1, 0.1, 1);
         //this.quadMaterial.setShininess(10.0);
         //this.quadMaterial.loadTexture('scenes/images/rocks.jpg');
+
+        this.textStack = [];
     }
 
     distributeDescendants(node) {
@@ -801,7 +803,8 @@ class MySceneGraph {
      */
     displayScene() {
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
-        this.rootNode.display();
+        
+        this.rootNode.display(this.textStack);
 
         //this.quadMaterial.apply();
         //this.ciloinders.display();

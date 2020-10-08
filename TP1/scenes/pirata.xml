@@ -69,16 +69,14 @@
   <nodes>
     <node id="rootNode">
       <material id="defaultMaterial"/>
-      <texture id="woodText">
+      <texture id="woodText2">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <descendants>
-        <noderef id="wheel"/>
         <noderef id="hull"/>
+        <noderef id="wheel"/>
         <noderef id="stairs"/>
         <noderef id="cabin"/>
-        <noderef id="frontHull"/>
-        <noderef id="lowerHull"/>
         <noderef id="mainMast"/>
         <noderef id="frontMast"/>
         <noderef id="backMast"/>
@@ -260,12 +258,11 @@
     <!--//////////////////////////////////////////////////////////////////CENA-->
     <node id="hull">
       <material id="null"/>
-      <texture id="woodText2"/>
-      <transformations>
-        <scale sx="3.5" sy="1.0" sz="7.0"/>
-      </transformations>
+      <texture id="null"/>
       <descendants>
-        <noderef id="cube"/>
+        <noderef id="frontHull"/>
+        <noderef id="lowerHull"/>
+        <noderef id="centerHull"/>
       </descendants>
     </node>
     <node id="frontHull">
@@ -279,6 +276,16 @@
       </transformations>
       <descendants>
         <noderef id="triangularPrism"/>
+      </descendants>
+    </node>
+    <node id="centerHull">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <scale sx="3.5" sy="1.0" sz="7.0"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
       </descendants>
     </node>
     <node id="lowerHull">

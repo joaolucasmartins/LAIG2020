@@ -26,25 +26,29 @@ class Node {
         this.material = mat;
     }
 
-    display() {
+    display(textStack) {
 
-        //TODO: create texture stack
         //TODO: create material satck and apply material
 
-        if (this.texture != null) { //temporary
-            this.texture.bind(0);
+        var text = this.texture;
+        if (text == null){ //fetch parent texture
+            text = textStack[textStack.length -1];
         }
-
+        
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transfMat);
 
         for (var i = 0; i < this.descendants.length; i++) {
-            this.descendants[i].display();
+            textStack.push(text);
+            this.descendants[i].display(textStack);
+            textStack.pop();
         }
 
         for (var i = 0; i < this.primitives.length; i++) {
+            text.bind(0);   //apply texture
             this.primitives[i].display();
         }
+        
         this.scene.popMatrix();
 
     }
