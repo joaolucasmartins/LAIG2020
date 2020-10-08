@@ -49,16 +49,6 @@ class MySceneGraph {
          * If any error occurs, the reader calls onXMLError on this object, with an error message
          */
         this.reader.open('scenes/' + filename, this);
-
-        // TODO remove - testing
-        //this.ciloinders = new MyCylinder(this.scene, 10, 10, 10, 5, 3);
-        //this.torus = new MyTorus(this.scene, 4, 10, 10, 7);
-        //this.quadMaterial = new CGFappearance(this.scene);
-        //this.quadMaterial.setAmbient(1.1, 0.1, 0.1, 1);
-        //this.quadMaterial.setDiffuse(1.9, 0.9, 0.9, 1);
-        //this.quadMaterial.setSpecular(10.1, 0.1, 0.1, 1);
-        //this.quadMaterial.setShininess(10.0);
-        //this.quadMaterial.loadTexture('scenes/images/rocks.jpg');
     }
 
     distributeDescendants(node) {
@@ -299,7 +289,7 @@ class MySceneGraph {
         var nodeDict = this.createDict(viewsNode);
 
         if ("perspective" in nodeDict) {
-            //this.scene.camera = this.parseCamera(nodeDict["perspective"]);
+            //this.scene.camera = this.parseCamera(nodeDict["perspective"]); TODO verify return
         } else if ("ortho" in nodeDict) {
         } else {
             this.onXMLError("No camera!");
@@ -507,26 +497,20 @@ class MySceneGraph {
      * @param {texture nodes} textNode 
      */
     assignNodeTexture(node, textNode) {
-
         var afs = 1, dfs = 1; //amplification
-
-        var name = null;
-
         //check if texture field is null
-        name = this.reader.getString(textNode, "id", true);
+        var textureID = this.reader.getString(textNode, "id", true);
 
-        if (name != "null") {
-
-            if (!(name in this.textDict))
-                this.onXMLError("Undefined node texture!");
+        if (textureID != "null") {
+            if (!(textureID in this.textDict))
+                this.onXMLError("Undefined node texture " + textureID);
 
             if (textNode.children.length != 0) { //verification for non mandatory fields
                 afs = this.reader.getFloat(textNode.children[0], "afs", false);
                 dfs = this.reader.getFloat(textNode.children[0], "aft", false);
             }
-
-            node.updateTexture(this.textDict[name], afs, dfs);   //saving texture details in node object
         }
+        node.updateTexture(textureID, afs, dfs);   //saving texture details in node object
 
         return null;
     }
@@ -597,13 +581,10 @@ class MySceneGraph {
 
         //assign material to current node
         var materialID = this.reader.getString(nodeDict["material"], "id", true);
-
-        if (materialID != "null") {
-            if (!(materialID in this.materials))
-                this.onXMLError("Invalid material id!");
-
-            node.setMaterial(this.materials[materialID]);
-        }
+        if (materialID != "null" && !(materialID in this.materials))
+            this.onXMLError("Invalid material id " + materialID);
+        else
+            node.materialID = materialID;
 
         //node transformations
         if ("transformations" in nodeDict) {
@@ -801,7 +782,9 @@ class MySceneGraph {
      */
     displayScene() {
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
-        this.rootNode.display();
+
+        this.rootNode.display(this.textDict[this.rootNode.textureId],
+            null);
 
         //this.quadMaterial.apply();
         //this.ciloinders.display();
