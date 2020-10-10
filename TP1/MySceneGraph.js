@@ -518,16 +518,20 @@ class MySceneGraph {
         name = this.reader.getString(textNode, "id", true);
 
         if (name != "null") {
+            if (name == "clear") {
+                node.updateTexture("clear", null, null);   //saving texture details in node object
+            } else {
 
-            if (!(name in this.textDict))
-                this.onXMLError("Undefined node texture!");
+                if (!(name in this.textDict))
+                    this.onXMLError("Undefined node texture!");
 
-            if (textNode.children.length != 0) { //verification for non mandatory fields
-                afs = this.reader.getFloat(textNode.children[0], "afs", false);
-                dfs = this.reader.getFloat(textNode.children[0], "aft", false);
+                if (textNode.children.length != 0) { //verification for non mandatory fields
+                    afs = this.reader.getFloat(textNode.children[0], "afs", false);
+                    dfs = this.reader.getFloat(textNode.children[0], "aft", false);
+                }
+
+                node.updateTexture(this.textDict[name], afs, dfs);   //saving texture details in node object
             }
-
-            node.updateTexture(this.textDict[name], afs, dfs);   //saving texture details in node object
         }
 
         return null;
@@ -803,7 +807,7 @@ class MySceneGraph {
     displayScene() {
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
         this.rootNode.display(this.matStack, this.textStack);
-        
+
         //this.quadMaterial.apply();
         //this.ciloinders.display();
         //this.torus.display();

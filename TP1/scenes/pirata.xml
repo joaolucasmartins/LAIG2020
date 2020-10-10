@@ -55,11 +55,11 @@
 
          requires a distinct "id". At least one material should be present. -->
     <material id="defaultMaterial">
-      <shininess value="10" />
-      <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
-      <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
-      <specular r="0.5" g="0.5" b="0.5" a="1.0" />
-      <emissive r="0.5" g="0.5" b="0.5" a="1.0" />
+      <shininess value="10"/>
+      <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
+      <diffuse r="0.5" g="0.5" b="0.5" a="1.0"/>
+      <specular r="0.5" g="0.5" b="0.5" a="1.0"/>
+      <emissive r="0.5" g="0.5" b="0.5" a="1.0"/>
     </material>
   </materials>
   <nodes>
@@ -82,7 +82,7 @@
     <!--CUBO-->
     <node id="cube">
       <material id="null"/>
-      <texture id="null"/>
+      <texture id="clear"/>
       <descendants>
         <noderef id="faceCima"/>
         <noderef id="faceBaixo"/>
@@ -137,7 +137,7 @@
     </node>
     <node id="faceCima">
       <material id="null"/>
-      <texture id="null"/>
+      <texture id="woodText2"/>
       <transformations>
         <translation x="0.0" y="0.5" z="0.0"/>
         <rotation axis="x" angle="-90"/>
