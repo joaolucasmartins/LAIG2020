@@ -79,6 +79,7 @@ class Node {
             this.scene.popMatrix();
         } else {
             var text = this.texture;
+            var prevTexture = textStack[textStack.length - 1]; // TODO Verify this?
 
             var mat = this.material;
             if (mat == null) {
@@ -98,7 +99,7 @@ class Node {
             for (var i = 0; i < this.descendants.length; i++) {
                 this.descendants[i].display(matStack, textStack);
             }
-            text.unbind();   //apply texture
+            prevTexture.bind();
             textStack.pop();
             matStack.pop();
 
