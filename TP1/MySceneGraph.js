@@ -522,7 +522,7 @@ class MySceneGraph {
 
         if (name != "null") {
             if (name == "clear") {
-                node.updateTexture("clear", null, null);   //saving texture details in node object
+                node.setDisplayText(false);
             } else {
 
                 if (!(name in this.textDict))

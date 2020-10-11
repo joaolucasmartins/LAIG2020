@@ -10,6 +10,7 @@ class Node {
         this.primitives = [];
         this.transfMat = mat4.create();//matrix with all of the nodes tranformations
         this.scene = scene;
+        this.displayText = true;
     }
 
     addPrimitive(type, xmlDesc, reader) {
@@ -58,8 +59,12 @@ class Node {
         this.afs = afs;
     }
 
-    setMaterial(material) {
-        this.material = material;
+    setDisplayText(value) {
+        this.displayText = value;
+    }
+
+    setMaterial(mat) {
+        this.material = mat;
     }
 
     display(matStack, textStack) {
@@ -86,7 +91,7 @@ class Node {
             }
 
             this.scene.popMatrix();
-        } else if (this.texture == "clear") {
+        } else if (!this.displayText) { //TODO fix clear texture
             var text = textStack[textStack.length - 1];
 
             var mat = this.material;
@@ -115,6 +120,7 @@ class Node {
             this.scene.popMatrix();
         } else {
             var text = this.texture;
+            var prevTexture = textStack[textStack.length - 1]; //TODO verify
 
             var mat = this.material;
             if (mat == null) {
@@ -134,7 +140,7 @@ class Node {
             for (var i = 0; i < this.descendants.length; i++) {
                 this.descendants[i].display(matStack, textStack);
             }
-            text.unbind();   //apply texture
+            prevTexture.bind();
             textStack.pop();
             matStack.pop();
 
