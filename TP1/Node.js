@@ -10,6 +10,7 @@ class Node {
         this.primitives = [];
         this.transfMat = mat4.create();//matrix with all of the nodes tranformations
         this.scene = scene;
+        this.displayText = true;
     }
 
     addPrimitive(leaf) {
@@ -20,6 +21,10 @@ class Node {
         this.texture = texture;
         this.aft = aft;
         this.afs = afs;
+    }
+
+    setDisplayText(value) {
+        this.displayText = value;
     }
 
     setMaterial(mat) {
@@ -50,7 +55,7 @@ class Node {
             }
 
             this.scene.popMatrix();
-        } else if (this.texture == "clear") {
+        } else if (!this.displayText) { //TODO fix clear texture
             var text = textStack[textStack.length - 1];
 
             var mat = this.material;
@@ -79,7 +84,7 @@ class Node {
             this.scene.popMatrix();
         } else {
             var text = this.texture;
-            var prevTexture = textStack[textStack.length - 1]; // TODO Verify this?
+            var prevTexture = textStack[textStack.length - 1]; //TODO verify
 
             var mat = this.material;
             if (mat == null) {

@@ -82,7 +82,7 @@
     <!--CUBO-->
     <node id="cube">
       <material id="null"/>
-      <texture id="null"/>
+      <texture id="clear"/>
       <descendants>
         <noderef id="faceCima"/>
         <noderef id="faceBaixo"/>
