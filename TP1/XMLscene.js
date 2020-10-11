@@ -20,9 +20,7 @@ class XMLscene extends CGFscene {
         super.init(application);
 
         this.sceneInited = false;
-
-        this.initCameras();
-
+        this.hasCamera = false;
         this.enableTextures(true);
 
         this.gl.clearDepth(100.0);
@@ -41,10 +39,30 @@ class XMLscene extends CGFscene {
     }
 
     /**
-     * Initializes the scene cameras.
+     * Initializes a default camera. Called if there are no defined views in the XML file.
      */
-    initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+    initDefaultCamera() {
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(35, 35, 35), vec3.fromValues(0, 0, 0));
+        this.interface.setActiveCamera(this.camera);
+        this.hasCamera = true;
+    }
+
+    /**
+     * Initializes the cameras defined in the xml. Called by parser after parsing all views.
+     */
+    initCameras(cameras) {
+        this.cameraIds = {};
+        this.cameras = [];
+        this.selectedCamera = 0; // Select first camera in the xml by defaul
+        for (var i = 0; i < cameras.length; ++i) {
+            var camera = cameras[i];
+            this.cameras.push(camera[0]); // Camera
+            this.cameraIds[camera[1]] = i; // Camera's ID
+        }
+        this.interface.gui.add(this, 'selectedCamera', this.cameraIds).name('Selected Camera').onChange(this.updateCamera.bind(this));
+
+        this.updateCamera();
+        this.hasCamera = true;
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -79,6 +97,15 @@ class XMLscene extends CGFscene {
         }
     }
 
+    /*
+     *Updates the camera to the camera selected on the GUI. To be called by the interface every time that the
+     *GUI camera option changes
+     */
+    updateCamera() {
+        this.camera = this.cameras[this.selectedCamera];
+        this.interface.setActiveCamera(this.camera);
+    }
+
     /** Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
@@ -105,11 +132,13 @@ class XMLscene extends CGFscene {
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
         // Initialize Model-View matrix as identity (no transformation
-        this.updateProjectionMatrix();
+        if (this.hasCamera)
+            this.updateProjectionMatrix();
         this.loadIdentity();
 
         // Apply transformations corresponding to the camera position relative to the origin
-        this.applyViewMatrix();
+        if (this.hasCamera)
+            this.applyViewMatrix();
 
         this.pushMatrix();
 
