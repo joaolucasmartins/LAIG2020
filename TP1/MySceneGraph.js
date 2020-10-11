@@ -21,6 +21,8 @@ class MySceneGraph {
      * @param {XMLScene} scene
      */
     constructor(filename, scene) {
+        this.cameras = [];
+
         this.loadedOk = null;
 
         // Establish bidirectional references between scene and graph.
@@ -32,7 +34,6 @@ class MySceneGraph {
         this.textDict = {};
 
         this.rootNode = null;
-
         this.idRoot = null; // The id of the root element.
 
         this.axisCoords = [];
@@ -50,15 +51,6 @@ class MySceneGraph {
          */
         this.reader.open('scenes/' + filename, this);
 
-        // TODO remove - testing
-        //this.ciloinders = new MyCylinder(this.scene, 10, 10, 10, 5, 3);
-        //this.torus = new MyTorus(this.scene, 4, 10, 10, 7);
-        //this.quadMaterial = new CGFappearance(this.scene);
-        //this.quadMaterial.setAmbient(1.1, 0.1, 0.1, 1);
-        //this.quadMaterial.setDiffuse(1.9, 0.9, 0.9, 1);
-        //this.quadMaterial.setSpecular(10.1, 0.1, 0.1, 1);
-        //this.quadMaterial.setShininess(10.0);
-        //this.quadMaterial.loadTexture('scenes/images/rocks.jpg');
 
         this.textStack = [];
     }
@@ -277,12 +269,16 @@ class MySceneGraph {
         return null;
     }
 
+    /**
+     * Returns a new camera and its id as defined in a given camera Node.
+     */
     parseCamera(cameraNode) {
         var nodeDict = this.createDict(cameraNode);
 
+        var id = this.reader.getString(cameraNode, "id", true);
         var near = this.reader.getFloat(cameraNode, "near", true);
         var far = this.reader.getInteger(cameraNode, "far", true);
-        // var angle = this.reader.getFloat(cameraNode, "angle", true); TODO
+        //var angle = this.reader.getFloat(cameraNode, "angle", true); // TODO
 
         if (!("from" in nodeDict || "to" in nodeDict))
             this.onXMLError("Invalid camera syntax!");
@@ -290,7 +286,7 @@ class MySceneGraph {
         var position = this.parseCoordinates3D(nodeDict["from"], "From 3d coords failed")
         var target = this.parseCoordinates3D(nodeDict["to"], "To 3d coords failed")
 
-        return new CGFcamera(DEF_FOV, near, far, position, target);
+        return [new CGFcamera(DEF_FOV, near, far, position, target), id];
     }
 
     /**
@@ -298,14 +294,23 @@ class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseViews(viewsNode) {
-        var nodeDict = this.createDict(viewsNode);
+        var cameras = [];
+        var children = viewsNode.children;
 
-        if ("perspective" in nodeDict) {
-            //this.scene.camera = this.parseCamera(nodeDict["perspective"]);
-        } else if ("ortho" in nodeDict) {
-        } else {
-            this.onXMLError("No camera!");
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            var childName = child.nodeName;
+
+            if ("perspective" == childName) {
+                cameras.push(this.parseCamera(child));
+            } else if ("ortho" == childName) {
+            }
         }
+        if (cameras.length < 1) {
+            this.onXMLWarning("No camera defined. Using default camera.");
+            this.scene.initDefaultCamera();
+        } else
+            this.scene.initCameras(cameras);
 
         return null;
     }
@@ -314,6 +319,8 @@ class MySceneGraph {
         var children = node.children;
         var dict = {};
         for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName in dict)
+                return children[i].nodeName;
             dict[children[i].nodeName] = children[i];
         }
         return dict;
@@ -509,26 +516,20 @@ class MySceneGraph {
      * @param {texture nodes} textNode 
      */
     assignNodeTexture(node, textNode) {
-
         var afs = 1, dfs = 1; //amplification
-
-        var name = null;
-
         //check if texture field is null
-        name = this.reader.getString(textNode, "id", true);
+        var textureID = this.reader.getString(textNode, "id", true);
 
-        if (name != "null") {
-
-            if (!(name in this.textDict))
-                this.onXMLError("Undefined node texture!");
+        if (textureID != "null") {
+            if (!(textureID in this.textDict))
+                this.onXMLError("Undefined node texture " + textureID);
 
             if (textNode.children.length != 0) { //verification for non mandatory fields
                 afs = this.reader.getFloat(textNode.children[0], "afs", false);
                 dfs = this.reader.getFloat(textNode.children[0], "aft", false);
             }
-
-            node.updateTexture(this.textDict[name], afs, dfs);   //saving texture details in node object
         }
+        node.updateTexture(textureID, afs, dfs);   //saving texture details in node object
 
         return null;
     }
@@ -599,13 +600,10 @@ class MySceneGraph {
 
         //assign material to current node
         var materialID = this.reader.getString(nodeDict["material"], "id", true);
-
-        if (materialID != "null") {
-            if (!(materialID in this.materials))
-                this.onXMLError("Invalid material id!");
-
-            node.setMaterial(this.materials[materialID]);
-        }
+        if (materialID != "null" && !(materialID in this.materials))
+            this.onXMLError("Invalid material id " + materialID);
+        else
+            node.materialID = materialID;
 
         //node transformations
         if ("transformations" in nodeDict) {
@@ -625,44 +623,7 @@ class MySceneGraph {
             }
             else {  //leaf
                 var type = this.reader.getString(desc[i], "type", true);
-                var primitive;
-                if (type == "rectangle") {
-                    var x1 = this.reader.getFloat(desc[i], "x1", true);
-                    var y1 = this.reader.getFloat(desc[i], "y1", true);
-                    var x2 = this.reader.getFloat(desc[i], "x2", true);
-                    var y2 = this.reader.getFloat(desc[i], "y2", true);
-                    primitive = new MyRectangle(this.scene, x1, y1, x2, y2);
-                } else if (type == "triangle") {
-                    var x1 = this.reader.getFloat(desc[i], "x1", true);
-                    var y1 = this.reader.getFloat(desc[i], "y1", true);
-                    var x2 = this.reader.getFloat(desc[i], "x2", true);
-                    var y2 = this.reader.getFloat(desc[i], "y2", true);
-                    var x3 = this.reader.getFloat(desc[i], "x3", true);
-                    var y3 = this.reader.getFloat(desc[i], "y3", true);
-                    primitive = new MyTriangle(this.scene, x1, y1, x2, y2, x3, y3);
-                } else if (type == "cylinder") {
-                    var bottomRadius = this.reader.getFloat(desc[i], "bottomRadius", true);
-                    var topRadius = this.reader.getFloat(desc[i], "topRadius", true);
-                    var height = this.reader.getFloat(desc[i], "height", true);
-                    var slices = this.reader.getInteger(desc[i], "slices", true);
-                    var stacks = this.reader.getInteger(desc[i], "stacks", true);
-                    primitive = new MyCylinder(this.scene, bottomRadius, topRadius, height, slices, stacks);
-                } else if (type == "sphere") {
-                    var radius = this.reader.getFloat(desc[i], "radius", true);
-                    var slices = this.reader.getInteger(desc[i], "slices", true);
-                    var stacks = this.reader.getInteger(desc[i], "stacks", true);
-                    primitive = new MySphere(this.scene, radius, slices, stacks);
-                } else if (type == "cube") {
-                    primitive = new MyCube(this.scene);
-                } else if (type == "torus") {
-                    var innerRadius = this.reader.getFloat(desc[i], "inner", true);
-                    var outerRadius = this.reader.getFloat(desc[i], "outer", true);
-                    var slices = this.reader.getInteger(desc[i], "slices", true);
-                    var loops = this.reader.getInteger(desc[i], "loops", true);
-                    primitive = new MyTorus(this.scene, innerRadius, outerRadius, slices, loops);
-                }
-
-                node.addPrimitive(primitive);
+                node.addPrimitive(type, desc[i], this.reader);
             }
         }
     }
@@ -806,9 +767,5 @@ class MySceneGraph {
         
         this.rootNode.display(this.textStack);
 
-        //this.quadMaterial.apply();
-        //this.ciloinders.display();
-        //this.torus.display();
-        //this.nodes[this.idRoot].display()
     }
 }
