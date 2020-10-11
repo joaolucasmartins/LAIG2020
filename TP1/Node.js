@@ -1,7 +1,7 @@
 class Node {
-    constructor(scene, id, textureId, materialId) {
+    constructor(scene, id, texture, materialId) {
         this.id = id;
-        this.textureId = textureId;
+        this.texture = texture;
         this.afs = 1; //texture amplification
         this.aft = 1; //texture aplification
         this.materialId = materialId;
@@ -52,59 +52,94 @@ class Node {
         this.primitives.push(primitive);
     }
 
-    updateTexture(textureId, afs, aft) {
-        this.textureId = textureId;
+    updateTexture(texture, afs, aft) {
+        this.texture = texture;
         this.aft = aft;
         this.afs = afs;
     }
 
-    display(parentTexture, parentMaterial) { // Equivalente do ProcessNode explicado nas teóricas
-        // Get textures and materials from scene
-        var texture;
-        // TODO Optimization or organization?
-        if (this.textureId == "clear") {
-            if (parentTexture != undefined)
-                parentTexture.unbind();
-        }
-        else if (this.textureId == "null") {
-            if (parentTexture != undefined) {
-                parentTexture.bind();
-                texture = parentTexture;
+    setMaterial(material) {
+        this.material = material;
+    }
+
+    display(matStack, textStack) {
+        /* null                 | clear                 | texture
+           Dont push to stack   | dont push to Stack    | push to stack
+           do nothing           | unbind prev texture   | bind texture
+           ------------------   | bind prev texture     | unbind texture*/
+
+        if (this.texture == null) {
+            var mat = this.material;
+            if (mat == null) {
+                mat = matStack[matStack.length - 1];
             }
-        }
-        else {
-            texture = this.scene.graph.textDict[this.textureId];
-            texture.bind();
-        }
 
-        var material;
+            this.scene.pushMatrix();
+            this.scene.multMatrix(this.transfMat);
 
-        this.scene.pushMatrix();
-        this.scene.multMatrix(this.transfMat);
-
-        for (var i = 0; i < this.primitives.length; i++) {
-            this.primitives[i].display();
-        }
-
-        // Draw leafs and nodes
-        for (var i = 0; i < this.descendants.length; i++) {
-            this.descendants[i].display(texture, material);
-        }
-
-        // Restore Scene
-        this.scene.popMatrix();
-
-        if (this.textureId == "clear") {
-            if (parentTexture != undefined)
-                parentTexture.bind();
-        }
-        else if (this.textureId == "null") {
-            if (parentTexture != undefined) {
-                parentTexture.unbind();
+            for (var i = 0; i < this.primitives.length; i++) {
+                this.primitives[i].display();
             }
-        }
-        else {
-            texture.unbind();
+
+            for (var i = 0; i < this.descendants.length; i++) {
+                this.descendants[i].display(matStack, textStack);
+            }
+
+            this.scene.popMatrix();
+        } else if (this.texture == "clear") {
+            var text = textStack[textStack.length - 1];
+
+            var mat = this.material;
+            if (mat == null) {
+                mat = matStack[matStack.length - 1];
+            }
+
+            this.scene.pushMatrix();
+            this.scene.multMatrix(this.transfMat);
+
+            mat.apply();
+            text.unbind();   //apply texture
+            textStack.push(text);
+            matStack.push(mat);
+            for (var i = 0; i < this.primitives.length; i++) {
+                this.primitives[i].display();
+            }
+            for (var i = 0; i < this.descendants.length; i++) {
+                this.descendants[i].display(matStack, textStack);
+            }
+            textStack.pop();
+            matStack.pop();
+
+            text.bind();   //apply texture
+
+            this.scene.popMatrix();
+        } else {
+            var text = this.texture;
+
+            var mat = this.material;
+            if (mat == null) {
+                mat = matStack[matStack.length - 1];
+            }
+
+            this.scene.pushMatrix();
+            this.scene.multMatrix(this.transfMat);
+
+            mat.apply();
+            text.bind();   //apply texture
+            textStack.push(text);
+            matStack.push(mat);
+            for (var i = 0; i < this.primitives.length; i++) {
+                this.primitives[i].display();
+            }
+            for (var i = 0; i < this.descendants.length; i++) {
+                this.descendants[i].display(matStack, textStack);
+            }
+            text.unbind();   //apply texture
+            textStack.pop();
+            matStack.pop();
+
+
+            this.scene.popMatrix();
         }
     }
 }

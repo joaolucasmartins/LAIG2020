@@ -52,7 +52,8 @@ class MySceneGraph {
         this.reader.open('scenes/' + filename, this);
 
 
-        this.textStack = [];
+        this.textStack = []; //stack used for texture hierarchy
+        this.matStack = []; //stack for material hierarchy
     }
 
     distributeDescendants(node) {
@@ -454,7 +455,7 @@ class MySceneGraph {
     }
 
 
-    parseMaterial(materialNode) {
+    parseMaterial(id, materialNode) {
         var nodeDict = this.createDict(materialNode);
 
         if (!("specular" in nodeDict || "diffuse" in nodeDict || "specular" in nodeDict ||
@@ -469,11 +470,11 @@ class MySceneGraph {
         var emissive = this.parseColor(nodeDict["emissive"], materialNode.nodeName + " couldn't get color");
 
         appearance.setShininess(shininess);
-        appearance.setSpecular(specular);
-        appearance.setDiffuse(diffuse);
-        appearance.setAmbient(ambient);
-        appearance.setEmission(emissive);
-        return appearance;
+        appearance.setSpecular(specular[0], specular[1], specular[2], specular[3]);
+        appearance.setDiffuse(diffuse[0], diffuse[1], diffuse[2], diffuse[3]);
+        appearance.setAmbient(ambient[0], ambient[1], ambient[2], ambient[3]);
+        appearance.setEmission(emissive[0], emissive[1], emissive[2], emissive[3]);
+        this.materials[id] = appearance;
     }
 
     /**
@@ -502,10 +503,9 @@ class MySceneGraph {
                 if (this.materials[materialID] != null)
                     return "ID must be unique for each light (conflict: ID = " + materialID + ")";
 
-                this.materials[materialID] = this.parseMaterial(children[i]);
+                this.parseMaterial(materialID, children[i]);
             }
 
-            this.materials[materialID] = null; //inherit material from parent
         }
         return null;
     }
@@ -518,18 +518,24 @@ class MySceneGraph {
     assignNodeTexture(node, textNode) {
         var afs = 1, dfs = 1; //amplification
         //check if texture field is null
-        var textureID = this.reader.getString(textNode, "id", true);
+        name = this.reader.getString(textNode, "id", true);
 
-        if (textureID != "null") {
-            if (!(textureID in this.textDict))
-                this.onXMLError("Undefined node texture " + textureID);
+        if (name != "null") {
+            if (name == "clear") {
+                node.updateTexture("clear", null, null);   //saving texture details in node object
+            } else {
 
-            if (textNode.children.length != 0) { //verification for non mandatory fields
-                afs = this.reader.getFloat(textNode.children[0], "afs", false);
-                dfs = this.reader.getFloat(textNode.children[0], "aft", false);
+                if (!(name in this.textDict))
+                    this.onXMLError("Undefined node texture!");
+
+                if (textNode.children.length != 0) { //verification for non mandatory fields
+                    afs = this.reader.getFloat(textNode.children[0], "afs", false);
+                    dfs = this.reader.getFloat(textNode.children[0], "aft", false);
+                }
+
+                node.updateTexture(this.textDict[name], afs, dfs);   //saving texture details in node object
             }
         }
-        node.updateTexture(textureID, afs, dfs);   //saving texture details in node object
 
         return null;
     }
@@ -600,10 +606,13 @@ class MySceneGraph {
 
         //assign material to current node
         var materialID = this.reader.getString(nodeDict["material"], "id", true);
-        if (materialID != "null" && !(materialID in this.materials))
-            this.onXMLError("Invalid material id " + materialID);
-        else
-            node.materialID = materialID;
+        
+        if (materialID != "null") {
+            if (!(materialID in this.materials))
+                this.onXMLError("Invalid material id!");
+            node.setMaterial(this.materials[materialID]);
+        }
+
 
         //node transformations
         if ("transformations" in nodeDict) {
@@ -764,8 +773,7 @@ class MySceneGraph {
      */
     displayScene() {
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
-        
-        this.rootNode.display(this.textStack);
+        this.rootNode.display(this.matStack, this.textStack);
 
     }
 }
