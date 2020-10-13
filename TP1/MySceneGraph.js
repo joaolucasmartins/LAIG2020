@@ -519,22 +519,24 @@ class MySceneGraph {
         //check if texture field is null
         name = this.reader.getString(textNode, "id", true);
 
-        if (name != "null") {
-            if (name == "clear") {
-                node.setDisplayText(false);
-            } else {
+        if (name == "clear")
+            node.setDisplayText(false);
+        else {
+            if (textNode.children.length != 0) { //verification for non mandatory fields
+                afs = this.reader.getFloat(textNode.children[0], "afs", false);
+                dfs = this.reader.getFloat(textNode.children[0], "aft", false);
+            }
+
+            if (name == "null")
+                node.updateTexture(null, afs, dfs);   //saving texture details in node object
+            else {
 
                 if (!(name in this.textDict))
                     this.onXMLError("Undefined node texture!");
-
-                if (textNode.children.length != 0) { //verification for non mandatory fields
-                    afs = this.reader.getFloat(textNode.children[0], "afs", false);
-                    dfs = this.reader.getFloat(textNode.children[0], "aft", false);
-                }
-
                 node.updateTexture(this.textDict[name], afs, dfs);   //saving texture details in node object
             }
         }
+
 
         return null;
     }
@@ -637,9 +639,9 @@ class MySceneGraph {
     }
 
     /**
-   * Parses the <nodes> block.
-   * @param {nodes block element} nodesNode
-   */
+    * Parses the <nodes> block.
+    * @param {nodes block element} nodesNode
+    */
     parseNodes(nodesNode) {
         var children = nodesNode.children;
 

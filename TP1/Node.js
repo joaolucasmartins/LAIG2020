@@ -20,7 +20,7 @@ class Node {
             var y1 = reader.getFloat(xmlDesc, "y1", true);
             var x2 = reader.getFloat(xmlDesc, "x2", true);
             var y2 = reader.getFloat(xmlDesc, "y2", true);
-            primitive = new MyRectangle(this.scene, x1, y1, x2, y2);
+            primitive = new MyRectangle(this.scene, x1, y1, x2, y2, this.aft, this.afs);
         } else if (type == "triangle") {
             var x1 = reader.getFloat(xmlDesc, "x1", true);
             var y1 = reader.getFloat(xmlDesc, "y1", true);
@@ -28,7 +28,7 @@ class Node {
             var y2 = reader.getFloat(xmlDesc, "y2", true);
             var x3 = reader.getFloat(xmlDesc, "x3", true);
             var y3 = reader.getFloat(xmlDesc, "y3", true);
-            primitive = new MyTriangle(this.scene, x1, y1, x2, y2, x3, y3);
+            primitive = new MyTriangle(this.scene, x1, y1, x2, y2, x3, y3, this.aft, this.afs);
         } else if (type == "cylinder") {
             var bottomRadius = reader.getFloat(xmlDesc, "bottomRadius", true);
             var topRadius = reader.getFloat(xmlDesc, "topRadius", true);
@@ -72,7 +72,6 @@ class Node {
            Dont push to stack   | dont push to Stack    | push to stack
            do nothing           | unbind prev texture   | bind texture
            ------------------   | bind prev texture     | unbind texture*/
-
         if (this.texture == null) {
             var mat = this.material;
             if (mat == null) {

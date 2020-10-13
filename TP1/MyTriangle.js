@@ -10,7 +10,7 @@
  * @param y3 - y coordinate corner 3
  */
 class MyTriangle extends CGFobject {
-    constructor(scene, x1, y1, x2, y2, x3, y3) {
+    constructor(scene, x1, y1, x2, y2, x3, y3, afs = 1.0, aft = 1.0) {
         super(scene);
         this.x1 = x1;
         this.x2 = x2;
@@ -18,6 +18,8 @@ class MyTriangle extends CGFobject {
         this.y2 = y2;
         this.x3 = x3;
         this.y3 = y3;
+        this.afs = afs;
+        this.aft = aft;
 
         this.initBuffers();
     }
@@ -51,10 +53,18 @@ class MyTriangle extends CGFobject {
         t
         */
 
+        var a, b, c, cosa, sina;
+        a = Math.sqrt(Math.pow(this.x2 - this.x1, 2) + Math.pow(this.y2 - this.y1, 2));
+        b = Math.sqrt(Math.pow(this.x3 - this.x2, 2) + Math.pow(this.y3 - this.y2, 2));
+        c = Math.sqrt(Math.pow(this.x1 - this.x3, 2) + Math.pow(this.y1 - this.y3, 2));
+        cosa = (Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2)) / (2 * a * c);
+        sina = Math.sqrt(1 - Math.pow(cosa, 2));
+
+        console.log(this.aft, this.afs);
         this.texCoords = [
-            0, 1,
-            1, 1,
-            0, 0
+            0, 0,
+            a / this.afs, 0,
+            c * cosa / this.aft, c * sina / this.afs
         ]
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();

@@ -64,15 +64,13 @@
       <material id="demoMaterial"/>
       <!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
       <texture id="demoTexture">
-        <!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
-        <amplification afs="2.0" aft="2.0"/>
-        <!-- for primitives = dx/afs, dy/aft -->
+        <amplification afs="0.5" aft="0.5"/>
       </texture>
       <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
       <transformations>
-        <translation x="0" y="1.0" z="1.0"/>
-        <rotation axis="yy" angle="45"/>
-        <scale sx="2" sy="1" sz="1"/>
+        <!--<translation x="0" y="1.0" z="1.0"/>-->
+        <!--<rotation axis="yy" angle="45"/>-->
+        <!--<scale sx="2" sy="1" sz="1"/>-->
       </transformations>
       <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
@@ -91,16 +89,17 @@
       <!-- next two lines are mandatory -->
       <material id="null"/>
       <!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
-      <texture id="clear">
+      <texture id="null">
+        <amplification afs="0.5" aft="0.5"/>
       </texture>
       <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
       <transformations>
-        <translation x="2" y="0.0" z="2.0"/>
+        <translation x="-1.0" y="0.0" z="0.0"/>
       </transformations>
       <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
       <descendants>
-        <leaf type="triangle" x1="0" y1="0" x2="1" y2="4" x3="-5" y3="-5"/>
+        <leaf type="triangle" x1="0" y1="0" x2="1" y2="1" x3="1" y3="0"/>
         <!-- x y z coordinates of each vertex -->
       </descendants>
     </node>
