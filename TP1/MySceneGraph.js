@@ -50,6 +50,7 @@ class MySceneGraph {
          * If any error occurs, the reader calls onXMLError on this object, with an error message
          */
         this.reader.open('scenes/' + filename, this);
+        this.textStack = [];
     }
 
     distributeDescendants(node) {
@@ -770,6 +771,11 @@ class MySceneGraph {
      */
     displayScene() {
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
-        this.rootNode.display();
+        this.rootNode.display(this.textStack);
+
+        //this.quadMaterial.apply();
+        //this.ciloinders.display();
+        //this.torus.display();
+        //this.nodes[this.idRoot].display()
     }
 }
