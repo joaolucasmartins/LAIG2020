@@ -306,7 +306,7 @@ class MySceneGraph {
             }
         }
         if (cameras.length < 1) {
-            this.onXMLWarning("No camera defined. Using default camera.");
+            this.onXMLMinorError("No camera defined. Using default camera.");
             this.scene.initDefaultCamera();
         } else
             this.scene.initCameras(cameras);
@@ -404,8 +404,9 @@ class MySceneGraph {
                 var attributeIndex = nodeNames.indexOf(attributeNames[j]);
 
                 if (attributeIndex != -1) {
-                    if (attributeTypes[j] == "boolean")
+                    if (attributeTypes[j] == "boolean") {
                         var aux = this.parseBoolean(grandChildren[attributeIndex], "value", "enabled attribute for light of ID" + lightId);
+                    }
                     else if (attributeTypes[j] == "position")
                         var aux = this.parseCoordinates4D(grandChildren[attributeIndex], "light position for ID" + lightId);
                     else
@@ -423,10 +424,10 @@ class MySceneGraph {
             numLights++;
         }
 
-        if (numLights == 0)
-            return "at least one light must be defined";
-        else if (numLights > 8)
-            this.onXMLMinorError("too many lights defined; WebGL imposes a limit of 8 lights");
+        //if (numLights == 0)
+        //return "at least one light must be defined";
+        //else if (numLights > 8)
+        //this.onXMLMinorError("too many lights defined; WebGL imposes a limit of 8 lights");
 
         this.log("Parsed lights");
         return null;
@@ -675,10 +676,12 @@ class MySceneGraph {
     parseBoolean(node, name, messageError) {
         var boolVal = true;
         boolVal = this.reader.getBoolean(node, name);
-        if (!(boolVal != null && !isNaN(boolVal) && (boolVal == true || boolVal == false)))
+        if (!(boolVal != null && !isNaN(boolVal) && (boolVal == true || boolVal == false))) {
             this.onXMLMinorError("unable to parse value component " + messageError + "; assuming 'value = 1'");
+            boolVal = true;
+        }
 
-        return boolVal || 1;
+        return boolVal;
     }
     /**
      * Parse the coordinates from a node with ID = id

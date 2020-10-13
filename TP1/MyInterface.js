@@ -36,6 +36,16 @@ class MyInterface extends CGFinterface {
         this.activeKeys = {};
     }
 
+    initCameraInterface() {
+        this.gui.add(this.scene, 'selectedCamera', this.scene.cameraIds).name('Selected Camera').onChange(this.scene.updateCamera.bind(this.scene));
+    }
+
+    initLightsInterface(lightsIds) {
+        for (var i = 0; i < this.scene.enabledLights.length; i++) {
+            this.gui.add(this.scene.enabledLights, i).name(lightsIds[i]);
+        }
+    }
+
     processKeyDown(event) {
         this.activeKeys[event.code] = true;
     };
@@ -47,8 +57,4 @@ class MyInterface extends CGFinterface {
     isKeyPressed(keyCode) {
         return this.activeKeys[keyCode] || false;
     }
-}
-
-function baz(bazinga) {
-    console.log("bazinga", bazinga);
 }

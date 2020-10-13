@@ -21,6 +21,7 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
         this.hasCamera = false;
+        this.enabledLights = [];
         this.enableTextures(true);
 
         this.gl.clearDepth(100.0);
@@ -59,7 +60,7 @@ class XMLscene extends CGFscene {
             this.cameras.push(camera[0]); // Camera
             this.cameraIds[camera[1]] = i; // Camera's ID
         }
-        this.interface.gui.add(this, 'selectedCamera', this.cameraIds).name('Selected Camera').onChange(this.updateCamera.bind(this));
+        this.interface.initCameraInterface();
 
         this.updateCamera();
         this.hasCamera = true;
@@ -71,6 +72,7 @@ class XMLscene extends CGFscene {
         var i = 0;
         // Lights index.
 
+        var lightsIds = [];
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
             if (i >= 8)
@@ -78,6 +80,7 @@ class XMLscene extends CGFscene {
 
             if (this.graph.lights.hasOwnProperty(key)) {
                 var graphLight = this.graph.lights[key];
+                lightsIds.push(key);
 
                 this.lights[i].setPosition(...graphLight[1]);
                 this.lights[i].setAmbient(...graphLight[2]);
@@ -85,16 +88,20 @@ class XMLscene extends CGFscene {
                 this.lights[i].setSpecular(...graphLight[4]);
 
                 this.lights[i].setVisible(true);
-                if (graphLight[0])
+                if (graphLight[0]) {
                     this.lights[i].enable();
-                else
+                    this.enabledLights.push(true);
+                }
+                else {
                     this.lights[i].disable();
+                    this.enabledLights.push(false);
+                }
 
                 this.lights[i].update();
-
                 i++;
             }
         }
+        this.interface.initLightsInterface(lightsIds);
     }
 
     /*
@@ -142,9 +149,15 @@ class XMLscene extends CGFscene {
 
         this.pushMatrix();
 
-        for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].setVisible(true);
-            this.lights[i].enable();
+        for (var i = 0; i < this.enabledLights.length; i++) {
+            if (this.enabledLights[i] == true) {
+                this.lights[i].setVisible(true);
+                this.lights[i].enable();
+            } else {
+                this.lights[i].setVisible(false);
+                this.lights[i].disable();
+            }
+            this.lights[i].update();
         }
 
         if (this.sceneInited) {
