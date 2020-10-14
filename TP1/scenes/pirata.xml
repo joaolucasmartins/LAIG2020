@@ -117,16 +117,16 @@
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <descendants>
-        <noderef id="cannon"/>
-        <!-- <noderef id="hull"/>
+        <noderef id="hull"/>
         <noderef id="wheel"/>
         <noderef id="stairs"/>
         <noderef id="cabin"/>
         <noderef id="mainMast"/>
         <noderef id="frontMast"/>
-        <noderef id="backMast"/> -->
+        <noderef id="backMast"/>
       </descendants>
     </node>
+    
     <!--//////////////////////////////////////////////////////////////////PRIMITIVAS -->
     <!--CUBO-->
     <node id="cube">
@@ -308,16 +308,17 @@
         <noderef id="lowerHull"/>
         <noderef id="frontHull"/>
         <noderef id="centerHull"/>
+        <noderef id="hullBeak"/>
       </descendants>
     </node>
     <node id="frontHull">
       <material id="null"/>
       <texture id="null"/>
       <transformations>
-        <translation x="0.0" y="-0.5" z="4.1"/>
+        <translation x="0.0" y="-0.5" z="4.12"/>
         <rotation axis="x" angle="-90"/>
         <rotation axis="z" angle="-90"/>
-        <scale sx="1.2" sy="2.03" sz="1.0"/>
+        <scale sx="1.25" sy="2.03" sz="1.0"/>
       </transformations>
       <descendants>
         <noderef id="triangularPrism"/>
@@ -343,6 +344,40 @@
       </transformations>
       <descendants>
         <noderef id="triangularPrism"/>
+      </descendants>
+    </node>
+    <node id="hullBeak">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <translation x="0" y="-0.5" z="5.4"/>
+        <scale sx="3.19" sy="1.7" sz="2"/>
+      </transformations>
+      <descendants>
+        <noderef id="hullBeakRight"/>
+        <noderef id="hullBeakLeft"/>
+      </descendants>
+    </node>
+    <node id="hullBeakRight">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <rotation axis="y" angle="60"/>
+        <rotation axis="x" angle="28.5"/>
+      </transformations>
+      <descendants>
+        <leaf type="triangle" x1="1.1" y1="0" x2="0" y2="0" x3="0.83" y3="-1"/>
+      </descendants>
+    </node>
+    <node id="hullBeakLeft">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <rotation axis="y" angle="-60"/>
+        <rotation axis="x" angle="28.5"/>
+      </transformations>
+      <descendants>
+        <leaf type="triangle" x1="0" y1="0" x2="-1.1" y2="0" x3="-0.83" y3="-1"/>
       </descendants>
     </node>
     <!--//////////////////////////////////////////////////////////////////CENA-->
