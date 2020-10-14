@@ -96,6 +96,7 @@
     <texture id="whiteFlag" path="./scenes/images/whiteFlag.jpg"/>
     <texture id="plainWoodText" path="./scenes/images/plainWood.jpg"/>
     <texture id="pirateFlag" path="./scenes/images/pirateFlag.jpg"/>
+    <texture id="castIron" path="./scenes/images/castIron.jpg"/>
   </textures>
   <materials>
     <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
@@ -116,13 +117,14 @@
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <descendants>
-        <noderef id="hull"/>
+        <noderef id="cannon"/>
+        <!-- <noderef id="hull"/>
         <noderef id="wheel"/>
         <noderef id="stairs"/>
         <noderef id="cabin"/>
         <noderef id="mainMast"/>
         <noderef id="frontMast"/>
-        <noderef id="backMast"/>
+        <noderef id="backMast"/> -->
       </descendants>
     </node>
     <!--//////////////////////////////////////////////////////////////////PRIMITIVAS -->
@@ -617,6 +619,83 @@
       </transformations>
       <descendants>
         <noderef id="cube"/>
+      </descendants>
+    </node>
+    <node id="cannon">
+      <material id="null"/>
+      <texture id="castIron"/>
+      <descendants>
+        <noderef id="base"/>
+        <noderef id="gun"/>
+      </descendants>
+    </node>
+    <node id="base">
+      <material id="null"/>
+      <texture id="woodText"/>
+      <descendants>
+        <noderef id="baseDown"/>
+        <noderef id="baseLeft"/>
+        <noderef id="baseRight"/>
+      </descendants>
+    </node>
+    <node id="baseDown">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations> 
+        <scale sx="0.3" sy="0.1" sz="0.6"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
+      </descendants>
+    </node>
+    <node id="baseLeft">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations> 
+        <translation x="-0.125" y="0.1" z="0"/>
+        <scale sx="0.05" sy="0.1" sz="0.6"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
+      </descendants>  
+    </node>
+    <node id="baseRight">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations> 
+        <translation x="0.125" y="0.1" z="0"/>
+        <scale sx="0.05" sy="0.1" sz="0.6"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
+      </descendants>
+    </node>
+    <node id="gun">
+      <material id="null"/>
+      <texture id="null"/>
+      <descendants>
+        <noderef id="tube"/>
+        <noderef id="back"/>
+      </descendants>
+    </node> 
+    <node id="tube">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations> 
+        <translation x="0" y="0.14" z="-0.3"/>
+      </transformations>
+      <descendants>
+        <leaf type="cylinder" bottomRadius="0.1" topRadius="0.08" height="0.9" slices="20" stacks="40"/>
+      </descendants>
+    </node>
+     <node id="back">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations> 
+        <translation x="0" y="0.14" z="-0.3"/>
+      </transformations>
+      <descendants>
+        <leaf type="sphere" radius="0.1" slices="20" stacks="40"/>
       </descendants>
     </node>
   </nodes>
