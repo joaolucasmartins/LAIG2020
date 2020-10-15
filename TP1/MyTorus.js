@@ -64,7 +64,6 @@ class MyTorus extends CGFobject {
             texCurrY += texStepY;
         }
 
-        //console.log(this.texCoords.length, this.vertices.length);
         for (var i = 0; i < this.loops; ++i) {
             for (var j = 0; j < this.slices; ++j) {
                 var one = j + i * (this.slices + 1);

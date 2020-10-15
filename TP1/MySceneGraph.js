@@ -271,21 +271,53 @@ class MySceneGraph {
     /**
      * Returns a new camera and its id as defined in a given camera Node.
      */
-    parseCamera(cameraNode) {
+    parseCamera(cameraNode, cameras) {
         var nodeDict = this.createDict(cameraNode);
 
         var id = this.reader.getString(cameraNode, "id", true);
         var near = this.reader.getFloat(cameraNode, "near", true);
         var far = this.reader.getInteger(cameraNode, "far", true);
-        //var angle = this.reader.getFloat(cameraNode, "angle", true); // TODO
+        // TODO Check this
 
-        if (!("from" in nodeDict || "to" in nodeDict))
-            this.onXMLError("Invalid camera syntax!");
+        if (!("from" in nodeDict))
+            return ("Missing 'from' field in camera", id);
+        if (!("to" in nodeDict))
+            return ("Missing 'to' field in camera", id);
 
         var position = this.parseCoordinates3D(nodeDict["from"], "From 3d coords failed")
-        var target = this.parseCoordinates3D(nodeDict["to"], "To 3d coords failed")
+        if (typeof position === 'string')
+            return position;
+        var target = this.parseCoordinates3D(nodeDict["to"], "To parameter of camera ", id)
+        if (typeof target === 'string')
+            return target;
 
-        return [new CGFcamera(DEF_FOV, near, far, position, target), id];
+        var camera;
+        if (cameraNode.nodeName === "perspective") {
+            //TODO Angle???
+            camera = new CGFcamera(DEF_FOV, near, far, position, target);
+        } else if (cameraNode.nodeName === "ortho") {
+            var left = this.reader.getFloat(cameraNode, "left", true);
+            var right = this.reader.getFloat(cameraNode, "right", true);
+            var top = this.reader.getFloat(cameraNode, "top", true);
+            var bottom = this.reader.getFloat(cameraNode, "bottom", true);
+
+            var up;
+            if (!("up" in nodeDict))
+                up = [0, 1, 0];
+            else {
+                up = this.parseCoordinates3D(nodeDict["up"], "Up 3d coords failed");
+                if (typeof up === 'string')
+                    return up;
+            }
+            console.log(up);
+            camera = new CGFcameraOrtho(left, right, top, bottom, near, far, position, target, up);
+            //<up x="0" y="0" z="10"/> Experiment with this
+        }
+        //var angle = this.reader.getFloat(cameraNode, "angle", true); // TODO
+
+
+        cameras.push([camera, id]);
+        return null;
     }
 
     /**
@@ -295,17 +327,17 @@ class MySceneGraph {
     parseViews(viewsNode) {
         var cameras = [];
         var children = viewsNode.children;
+        var error;
 
         for (var i = 0; i < children.length; i++) {
             var child = children[i];
-            var childName = child.nodeName;
 
-            if ("perspective" == childName) {
-                cameras.push(this.parseCamera(child));
-            } else if ("ortho" == childName) {
+            if ((error = this.parseCamera(child, cameras)) != null) {
+                this.onXMLMinorError(error);
+                continue;
             }
         }
-        if (cameras.length < 1) {
+        if (cameras.length < 1) { // TODO Move this
             this.onXMLMinorError("No camera defined. Using default camera.");
             this.scene.initDefaultCamera();
         } else
