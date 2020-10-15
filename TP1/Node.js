@@ -35,7 +35,7 @@ class Node {
             var height = reader.getFloat(xmlDesc, "height", true);
             var slices = reader.getInteger(xmlDesc, "slices", true);
             var stacks = reader.getInteger(xmlDesc, "stacks", true);
-            primitive = new MyCylinder(this.scene, bottomRadius, topRadius, height, slices, stacks);
+            primitive = new MyCylinder(this.scene, bottomRadius, topRadius, height, slices, stacks, this.aft, this.afs);
         } else if (type == "sphere") {
             var radius = reader.getFloat(xmlDesc, "radius", true);
             var slices = reader.getInteger(xmlDesc, "slices", true);

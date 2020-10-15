@@ -21,72 +21,66 @@ class MyCylinder extends CGFobject {
         var heightDelta = this.height / this.stacks;
         var rotationDelta = (2 * Math.PI) / this.slices;
         var z = 0, theta = 0;
-        var texStepX = 1.0 / (this.slices - 1); var texStepY = 1.0 / (this.stacks);
+        var texStepX = 1.0 / (this.slices); var texStepY = 1.0 / (this.stacks);
         var texCurrX = 0; var texCurrY = 0;
 
+        var v = 0;
         /* Set vertices */
         for (var i = 0; i < this.stacks + 1; ++i) {
-            for (var j = 0; j < this.slices; ++j) {
+            for (var j = 0; j < this.slices + 1; ++j) {
                 this.vertices.push(Math.cos(theta) * radius, Math.sin(theta) * radius, z);
                 this.normals.push(Math.cos(theta) * radius, Math.sin(theta) * radius, 0);
                 theta += rotationDelta;
-                //console.log(v++);
 
-                //console.log(texCurrY + " " + texCurrX);
                 this.texCoords.push(texCurrX, texCurrY);
                 texCurrX += texStepX;
             }
-            //console.log("-");
             z += heightDelta;
             radius += radiusDelta;
             texCurrY += texStepY;
             theta = 0; texCurrX = 0;
         }
-        //console.log("-----");
-        var bottom_vertex = (this.slices) * (this.stacks + 1);
+        /* Top and Bottom Faces */
+        var bottom_vertex = (this.slices + 1) * (this.stacks + 1);
         this.vertices.push(0, 0, 0); this.normals.push(0, 0, -1); // Bottom Vertex
-        this.texCoords.push(0.45, 1); // FIXME texcoords in base
+        this.texCoords.push(0.5, 0.5);
         var top_vertex = bottom_vertex + 1;
         this.vertices.push(0, 0, this.height); this.normals.push(0, 0, 1); // Top Vertex
-        this.texCoords.push(0.45, 0);
+        this.texCoords.push(0.5, 0.5);
 
         theta = 0;
-        for (var j = 0; j < this.slices; ++j) {
+        for (var j = 0; j < this.slices + 1; ++j) {
+            texCurrX = 0.5 * (Math.cos(theta) + 1);
+            texCurrY = 0.5 * (Math.sin(theta) + 1);
+
             this.vertices.push(Math.cos(theta) * this.bottomRadius, Math.sin(theta) * this.bottomRadius, 0);
             this.normals.push(0, 0, -1);
+            this.texCoords.push(texCurrX, texCurrY);
             this.vertices.push(Math.cos(theta) * this.topRadius, Math.sin(theta) * this.topRadius, this.height);
             this.normals.push(0, 0, 1);
+            this.texCoords.push(texCurrX, texCurrY);
             theta += rotationDelta;
         }
 
         /* Push Indeces */
         for (var i = 0; i < this.stacks; ++i) {
-            for (var j = 0; j < this.slices - 1; ++j) {
-                var one = j + i * this.slices;
-                var two = j + i * this.slices + 1;
-                var three = j + (i + 1) * this.slices;
-                var four = j + (i + 1) * this.slices + 1;
+            for (var j = 0; j < this.slices; ++j) {
+                var one = j + i * (this.slices + 1);
+                var two = one + 1;
+                var three = one + (this.slices + 1);
+                var four = two + (this.slices + 1);
                 this.indices.push(one, two, four);
-                this.indices.push(one, four, three);
+                this.indices.push(four, three, one);
             }
-            var one = i * this.slices;
-            var two = (i + 1) * this.slices;
-            var three = (i + 1) * this.slices - 1;
-            var four = (i + 2) * this.slices - 1;
-            this.indices.push(one, two, four);
-            this.indices.push(one, four, three);
         }
-
-        for (var j = 0; j < this.slices; ++j) {
-            var one = j;
-            var two = (j + 1) % this.slices;
-            var new_one = one + this.slices * (this.stacks);
-            var new_two = two + this.slices * (this.stacks);
-            //console.log(one, two, new_one, new_two, bottom_vertex, top_vertex);
-            this.indices.push(two, one, bottom_vertex);
-            this.indices.push(new_one, new_two, top_vertex);
+        for (var j = 1; j < 2 * this.slices + 1; j = j + 2) {
+            var one_bottom = top_vertex + j;
+            var two_bottom = top_vertex + 2 + j;
+            var one_top = one_bottom + 1;
+            var two_top = two_bottom + 1;
+            this.indices.push(two_bottom, one_bottom, bottom_vertex);
+            this.indices.push(one_top, two_top, top_vertex);
         }
-        //console.log(this.vertices);
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();

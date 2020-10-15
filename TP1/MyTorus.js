@@ -35,17 +35,17 @@ class MyTorus extends CGFobject {
         var outerDelta = (2 * Math.PI) / this.loops;
         var curInnerAlpha = 0;
         var curOuterAlpha = 0;
-        var texStepX = 1.0 / (this.slices - 1); var texStepY = 1.0 / (this.loops - 1);
+        var texStepX = 1.0 / (this.slices); var texStepY = 1.0 / (this.loops);
         var texCurrX = 0; var texCurrY = 0;
 
         // Vertices
-        for (var i = 0; i < this.loops; ++i) {
+        for (var i = 0; i <= this.loops; ++i) {
             var center = [
                 Math.cos(curOuterAlpha) * this.outerRadius,
                 Math.sin(curOuterAlpha) * this.outerRadius,
                 0];
 
-            for (var j = 0; j < this.slices; ++j) {
+            for (var j = 0; j <= this.slices; ++j) {
                 var pointInzOx = [Math.cos(curInnerAlpha) * this.innerRadius, 0,
                 Math.sin(curInnerAlpha) * this.innerRadius];
 
@@ -54,7 +54,6 @@ class MyTorus extends CGFobject {
 
                 this.vertices.push(newPoint[0], newPoint[1], newPoint[2]);
                 this.normals.push(pointRotated[0], pointRotated[1], pointRotated[2]);
-                //console.log(texCurrX, texCurrY);
                 this.texCoords.push(texCurrX, texCurrY);
                 texCurrX += texStepX;
                 curInnerAlpha += innerDelta;
@@ -68,12 +67,12 @@ class MyTorus extends CGFobject {
         //console.log(this.texCoords.length, this.vertices.length);
         for (var i = 0; i < this.loops; ++i) {
             for (var j = 0; j < this.slices; ++j) {
-                var one = j + i * this.slices;
-                var two = (j + 1) % this.slices + i * this.slices;
-                var three = (one + this.slices) % (this.slices * this.loops)
-                var four = (two + this.slices) % (this.slices * this.loops)
-                this.indices.push(two, one, three);
-                this.indices.push(two, three, four);
+                var one = j + i * (this.slices + 1);
+                var two = one + 1;
+                var three = one + this.slices + 1;
+                var four = two + this.slices + 1;
+                this.indices.push(one, three, four);
+                this.indices.push(one, four, two);
             }
         }
 
