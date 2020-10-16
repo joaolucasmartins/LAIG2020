@@ -118,7 +118,7 @@
       <descendants>
         <noderef id="hull"/>
         <noderef id="wheel"/>
-        <!--<noderef id="stairs"/>-->
+        <noderef id="stairs"/>
         <noderef id="cabin"/>
         <noderef id="mainMast"/>
         <noderef id="frontMast"/>
@@ -129,7 +129,7 @@
     <!--CUBO-->
     <node id="cube">
       <material id="null"/>
-      <texture id="null"/>
+      <texture id="clear"/>
       <descendants>
         <noderef id="faceCima"/>
         <noderef id="faceBaixo"/>
@@ -406,32 +406,29 @@
       <texture id="null"/>
       <transformations>
         <rotation axis="z" angle="45"/>
-        <scale sx="0.25" sy="2.5" sz="0.25"/>
       </transformations>
       <descendants>
-        <noderef id="cube"/>
+        <noderef id="wheelHandle1"/>
       </descendants>
     </node>
     <node id="wheelHandle3">
       <material id="null"/>
       <texture id="null"/>
       <transformations>
-        <rotation axis="z" angle="90"/>
-        <scale sx="0.25" sy="2.5" sz="0.25"/>
+        <rotation axis="z" angle="45"/>
       </transformations>
       <descendants>
-        <noderef id="cube"/>
+        <noderef id="wheelHandle2"/>
       </descendants>
     </node>
     <node id="wheelHandle4">
       <material id="null"/>
       <texture id="null"/>
       <transformations>
-        <rotation axis="z" angle="135"/>
-        <scale sx="0.25" sy="2.5" sz="0.25"/>
+        <rotation axis="z" angle="45"/>
       </transformations>
       <descendants>
-        <noderef id="cube"/>
+        <noderef id="wheelHandle3"/>
       </descendants>
     </node>
     <node id="mast">

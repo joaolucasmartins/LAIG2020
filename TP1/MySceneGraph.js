@@ -22,6 +22,7 @@ class MySceneGraph {
      */
     constructor(filename, scene) {
         this.cameras = [];
+        this.stop = false;
 
         this.loadedOk = null;
 
@@ -55,10 +56,15 @@ class MySceneGraph {
     }
 
     distributeDescendants(node) {
+        //var str = node.id + " " + node.descendantNames;
+        if (node.descendants.length != 0) // Already processed
+            return null;
+
         for (var i = 0; i < node.descendantNames.length; ++i) {
             var currentNodeName = node.descendantNames[i];
+            console.log(i, node.id, currentNodeName);
             if (!(currentNodeName in this.nodes)) {
-                this.onXMLError("Node " + currentNodeName + " missing");
+                this.onXMLError("Node " + currentNodeName + " missing"); // Fix this error
                 return true;
             }
 
@@ -66,6 +72,7 @@ class MySceneGraph {
             node.descendants.push(currNode);
             this.distributeDescendants(currNode);
         }
+        //console.log(str, node.id, node.descendants);
         return null;
     }
 
@@ -309,7 +316,6 @@ class MySceneGraph {
                 if (typeof up === 'string')
                     return up;
             }
-            console.log(up);
             camera = new CGFcameraOrtho(left, right, top, bottom, near, far, position, target, up);
             //<up x="0" y="0" z="10"/> Experiment with this
         }
@@ -456,10 +462,10 @@ class MySceneGraph {
             numLights++;
         }
 
-        //if (numLights == 0)
-        //return "at least one light must be defined";
-        //else if (numLights > 8)
-        //this.onXMLMinorError("too many lights defined; WebGL imposes a limit of 8 lights");
+        if (numLights == 0)
+            return "at least one light must be defined";
+        else if (numLights > 8)
+            this.onXMLMinorError("too many lights defined; WebGL imposes a limit of 8 lights");
 
         this.log("Parsed lights");
         return null;
@@ -809,5 +815,6 @@ class MySceneGraph {
     displayScene() {
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
         this.rootNode.display(this.matStack, this.textStack);
+
     }
 }
