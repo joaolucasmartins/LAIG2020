@@ -60,7 +60,6 @@ class MyTriangle extends CGFobject {
         cosa = (Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2)) / (2 * a * c);
         sina = Math.sqrt(1 - Math.pow(cosa, 2));
 
-        console.log(this.aft, this.afs);
         this.texCoords = [
             0, 0,
             a / this.afs, 0,
