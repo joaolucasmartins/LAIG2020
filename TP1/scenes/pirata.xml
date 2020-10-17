@@ -98,7 +98,6 @@
     <texture id="plainWoodText2" path="./scenes/images/plainWood2.jpg"/>
     <texture id="pirateFlag" path="./scenes/images/pirateFlag.jpg"/>
     <texture id="castIron" path="./scenes/images/castIron.jpg"/>
-    <texture id="castIron2" path="./scenes/images/castIron2.jpg"/>
   </textures>
   <materials>
     <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
