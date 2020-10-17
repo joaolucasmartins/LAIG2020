@@ -118,27 +118,19 @@
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <descendants>
-        <!--<noderef id="hull"/>-->
-        <!--<noderef id="wheel"/>-->
-        <!--<noderef id="stairs"/>-->
-        <!--<noderef id="cabin"/>-->
-        <!--<noderef id="mainMast"/>-->
-        <!--<noderef id="frontMast"/>-->
-        <!--<noderef id="backMast"/>-->
-        <!--<noderef id="cannons"/>-->
-        <!--<noderef id="ammoRacks"/>-->
-        <noderef id="testPrism"/>
+        <noderef id="hull"/>
+        <noderef id="wheel"/>
+        <noderef id="stairs"/>
+        <noderef id="cabin"/>
+        <noderef id="mainMast"/>
+        <noderef id="frontMast"/>
+        <noderef id="backMast"/>
+        <noderef id="cannons"/>
+        <noderef id="ammoRacks"/>
       </descendants>
     </node>
     <!--////////////////////////////////// PRIMITIVES //////////////////////////////////// -->
     <!--CUBE ////////////////-->
-    <node id="testPrism">
-      <material id="null"/>
-      <texture id="clear"/>
-      <descendants>
-        <noderef id="triangularPrism"/>
-      </descendants>
-    </node>
     <node id="cube">
       <material id="null"/>
       <texture id="clear"/>
@@ -232,7 +224,7 @@
     <node id="triangularPrismTop">
       <material id="null"/>
       <texture id="null">
-        <amplification afs="1.4" aft="1.4"/>
+        <amplification afs="1.8" aft="1.8"/>
         <!--TODO Alternative to this-->
       </texture>
       <transformations>
@@ -245,7 +237,7 @@
     <node id="triangularPrismBottom">
       <material id="null"/>
       <texture id="null">
-        <amplification afs="1.4" aft="1.4"/>
+        <amplification afs="1.8" aft="1.8"/>
       </texture>
       <transformations>
         <rotation axis="x" angle="180"/>
