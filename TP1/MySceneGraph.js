@@ -62,7 +62,7 @@ class MySceneGraph {
 
         for (var i = 0; i < node.descendantNames.length; ++i) {
             var currentNodeName = node.descendantNames[i];
-        
+
             if (!(currentNodeName in this.nodes)) {
                 this.onXMLError("Node " + currentNodeName + " missing"); // Fix this error
                 return true;
@@ -281,20 +281,28 @@ class MySceneGraph {
     parseCamera(cameraNode, cameras) {
         var nodeDict = this.createDict(cameraNode);
 
-        var id = this.reader.getString(cameraNode, "id", true);
-        var near = this.reader.getFloat(cameraNode, "near", true);
-        var far = this.reader.getInteger(cameraNode, "far", true);
-        // TODO Check this
+        var id;
+        if ((id = this.reader.getString(cameraNode, "id", false)) == null)
+            return "Missing 'id' attribute in a camera";
+        var postWarningMsg = "camera with id " + id;
+
+        var near = this.parseFloat(cameraNode, "near", postWarningMsg);
+        if (typeof near === 'string')
+            return near;
+
+        var far = this.parseInt(cameraNode, "far", postWarningMsg);
+        if (typeof far === 'string')
+            return far;
 
         if (!("from" in nodeDict))
-            return ("Missing 'from' field in camera", id);
+            return "Missing 'from' tag in " + postWarningMsg;
         if (!("to" in nodeDict))
-            return ("Missing 'to' field in camera", id);
+            return "Missing 'to' tag in " + postWarningMsg;
 
-        var position = this.parseCoordinates3D(nodeDict["from"], "From 3d coords failed")
+        var position = this.parseCoordinates3D(nodeDict["from"], "'from' tag in " + postWarningMsg);
         if (typeof position === 'string')
             return position;
-        var target = this.parseCoordinates3D(nodeDict["to"], "To parameter of camera ", id)
+        var target = this.parseCoordinates3D(nodeDict["to"], "'to' tag in " + postWarningMsg);
         if (typeof target === 'string')
             return target;
 
@@ -303,24 +311,32 @@ class MySceneGraph {
             //TODO Angle???
             camera = new CGFcamera(DEF_FOV, near, far, position, target);
         } else if (cameraNode.nodeName === "ortho") {
-            var left = this.reader.getFloat(cameraNode, "left", true);
-            var right = this.reader.getFloat(cameraNode, "right", true);
-            var top = this.reader.getFloat(cameraNode, "top", true);
-            var bottom = this.reader.getFloat(cameraNode, "bottom", true);
+            var left = this.parseFloat(cameraNode, "left", postWarningMsg);
+            if (typeof left === 'string')
+                return left;
+            var right = this.parseFloat(cameraNode, "right", postWarningMsg);
+            if (typeof right === 'string')
+                return right;
+            var top = this.parseFloat(cameraNode, "top", postWarningMsg);
+            if (typeof top === 'string')
+                return top;
+            var bottom = this.parseFloat(cameraNode, "bottom", postWarningMsg);
+            if (typeof bottom === 'string')
+                return bottom;
 
             var up;
             if (!("up" in nodeDict))
                 up = [0, 1, 0];
             else {
-                up = this.parseCoordinates3D(nodeDict["up"], "Up 3d coords failed");
+                up = this.parseCoordinates3D(nodeDict["up"], "'up' tag in " + postWarningMsg);
                 if (typeof up === 'string')
                     return up;
             }
             camera = new CGFcameraOrtho(left, right, top, bottom, near, far, position, target, up);
-            //<up x="0" y="0" z="10"/> Experiment with this
-        }
+            //<up x="0" y="0" z="10"/> Experiment with this FIXME
+        } else
+            return "Invalid camera type " + cameraNode.nodeName + postWarningMsg;
         //var angle = this.reader.getFloat(cameraNode, "angle", true); // TODO
-
 
         cameras.push([camera, id]);
         return null;
@@ -339,7 +355,7 @@ class MySceneGraph {
             var child = children[i];
 
             if ((error = this.parseCamera(child, cameras)) != null) {
-                this.onXMLMinorError(error);
+                this.onXMLMinorError(error + ". Camera not parsed.");
                 continue;
             }
         }
@@ -361,6 +377,7 @@ class MySceneGraph {
             dict[children[i].nodeName] = children[i];
         }
         return dict;
+        // TODO Make this more clear
     }
 
     /**
@@ -481,11 +498,20 @@ class MySceneGraph {
 
         //saving texture id and path in textures dictionary
         for (var i = 0; i < children.length; i++) {
-            var path = this.reader.getString(children[i], 'path', true);
             var name = this.reader.getString(children[i], 'id', true);
+            if (name == null) {
+                this.onXMLMinorError("missing 'id' attribute in a texture.");
+                continue;
+            }
+
+            var path = this.reader.getString(children[i], 'path', false);
+            if (name == null) {
+                this.onXMLMinorError("missing 'path' attribute in texture with id " + name);
+                continue;
+            }
 
             var text = new CGFtexture(this.scene, path);
-            this.textDict[name] = text; //saving texture in Dict for further use
+            this.textDict[name] = text; // saving texture in Dict for later use
         }
 
         return null;
@@ -494,24 +520,44 @@ class MySceneGraph {
 
     parseMaterial(id, materialNode) {
         var nodeDict = this.createDict(materialNode);
+        var postWarningMsg = " material with id " + id;
 
-        if (!("specular" in nodeDict || "diffuse" in nodeDict || "specular" in nodeDict ||
-            "ambient" in nodeDict || "emissive" in nodeDict))
-            this.onXMLError("Invalid material syntax!");
+        if (!("specular" in nodeDict))
+            return "Missing specular tag in" + postWarningMsg;
+        if (!("diffuse" in nodeDict))
+            return "Missing diffuse tag in" + postWarningMsg;
+        if (!("ambient" in nodeDict))
+            return "Missing ambient tag in" + postWarningMsg;
+        if (!("emissive" in nodeDict))
+            return "Missing emissive tag in" + postWarningMsg;
+        if (!("shininess" in nodeDict))
+            return "Missing shininess tag in" + postWarningMsg;
+
+        var shininess = this.parseFloat(nodeDict["shininess"], "value", postWarningMsg);
+        if (typeof shininess === 'string')
+            return shininess;
+        var specular = this.parseColor(nodeDict["specular"], "'specular' tag in" + postWarningMsg);
+        if (typeof specular === 'string')
+            return specular;
+        var diffuse = this.parseColor(nodeDict["diffuse"], "'diffuse' tag in" + postWarningMsg);
+        if (typeof diffuse === 'string')
+            return diffuse;
+        var ambient = this.parseColor(nodeDict["ambient"], "'ambient' tag in" + postWarningMsg);
+        if (typeof ambient === 'string')
+            return ambient;
+        var emissive = this.parseColor(nodeDict["emissive"], "'emissive' tag in" + postWarningMsg);
+        if (typeof emissive === 'string')
+            return emissive;
 
         var appearance = new CGFappearance(this.scene);
-        var shininess = this.reader.getFloat(nodeDict["shininess"], "value", true);
-        var specular = this.parseColor(nodeDict["specular"], materialNode.nodeName + " couldn't get color");
-        var diffuse = this.parseColor(nodeDict["diffuse"], materialNode.nodeName + " couldn't get color");
-        var ambient = this.parseColor(nodeDict["ambient"], materialNode.nodeName + " couldn't get color");
-        var emissive = this.parseColor(nodeDict["emissive"], materialNode.nodeName + " couldn't get color");
-
         appearance.setShininess(shininess);
-        appearance.setSpecular(specular[0], specular[1], specular[2], specular[3]);
-        appearance.setDiffuse(diffuse[0], diffuse[1], diffuse[2], diffuse[3]);
-        appearance.setAmbient(ambient[0], ambient[1], ambient[2], ambient[3]);
-        appearance.setEmission(emissive[0], emissive[1], emissive[2], emissive[3]);
+        appearance.setSpecular(...specular);
+        appearance.setDiffuse(...diffuse);
+        appearance.setAmbient(...ambient);
+        appearance.setEmission(...emissive);
         this.materials[id] = appearance;
+
+        return null;
     }
 
     /**
@@ -523,26 +569,24 @@ class MySceneGraph {
 
         // Any number of materials.
         for (var i = 0; i < children.length; i++) {
-
             if (children[i].nodeName != "material") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
 
-            // Get id of the current material.
-
             if (this.reader.hasAttribute(children[i], 'id')) {
+                // Get id of the current material.
                 var materialID = this.reader.getString(children[i], 'id');
-                if (materialID == null)
-                    return "no ID defined for material";
 
                 // Checks for repeated IDs.
                 if (this.materials[materialID] != null)
-                    return "ID must be unique for each light (conflict: ID = " + materialID + ")";
+                    return "ID must be unique for each material (conflict: ID = " + materialID + ")";
 
-                this.parseMaterial(materialID, children[i]);
-            }
-
+                var error;
+                if ((error = this.parseMaterial(materialID, children[i])) != null)
+                    this.onXMLMinorError(error + ". Material not parsed.");
+            } else
+                this.onXMLMinorError("Missing 'id' attribute in a camera");
         }
         return null;
     }
@@ -553,28 +597,40 @@ class MySceneGraph {
      * @param {texture nodes} textNode 
      */
     assignNodeTexture(node, textNode) {
-        var afs = 1, dfs = 1; //amplification
+        var afs = 1, aft = 1; //amplification
         //check if texture field is null
-        name = this.reader.getString(textNode, "id", true);
+        var name;
+        if ((name = this.reader.getString(textNode, "id")) == null)
+            return "Missing 'id' attribute in 'texture' tag";
 
         if (name == "clear")
             node.setDisplayText(false);
         else {
             if (textNode.children.length != 0) { //verification for non mandatory fields
-                afs = this.reader.getFloat(textNode.children[0], "afs", false);
-                dfs = this.reader.getFloat(textNode.children[0], "aft", false);
+                afs = this.parseFloat(textNode.children[0], "afs", " 'texture' tag in node with id "
+                    + node.id + ". Using default value 1.0");
+                aft = this.parseFloat(textNode.children[0], "aft", " 'texture' tag in node with id "
+                    + node.id + ". Using default value 1.0");
+
+                if (typeof afs === 'string') {
+                    this.onXMLMinorError(afs);
+                    afs = 1.0;
+                }
+                if (typeof aft === 'string') {
+                    this.onXMLMinorError(aft);
+                    aft = 1.0;
+                }
             }
 
             if (name == "null")
-                node.updateTexture(null, afs, dfs);   //saving texture details in node object
+                node.updateTexture(null, afs, aft);   //saving texture details in node object
             else {
 
                 if (!(name in this.textDict))
-                    this.onXMLError("Undefined node texture!");
-                node.updateTexture(this.textDict[name], afs, dfs);   //saving texture details in node object
+                    return "Undefined texture with id " + name;
+                node.updateTexture(this.textDict[name], afs, aft);   //saving texture details in node object
             }
         }
-
 
         return null;
     }
@@ -641,16 +697,21 @@ class MySceneGraph {
         }
 
         //parse and assign texture to node
-        this.assignNodeTexture(node, nodeDict["texture"]);
+        var error;
+        if ((error = this.assignNodeTexture(node, nodeDict["texture"])) != null) {
+            this.onXMLMinorError(error + " in node '" + nodeName + "'. Using texture as 'null'");
+            node.updateTexture(null, 1.0, 1.0);   //saving texture details in node object
+        }
 
         //assign material to current node
-        var materialID = this.reader.getString(nodeDict["material"], "id", true);
+        var materialID = this.reader.getString(nodeDict["material"], "id");
 
-        if (materialID != "null") {
-            if (!(materialID in this.materials))
-                this.onXMLError("Invalid material id!");
-            node.setMaterial(this.materials[materialID]);
+        if (materialID != "null" && (materialID == null || !(materialID in this.materials))) {
+            this.onXMLError("Invalid material id '" + materialID + "' in node '" + nodeName + "'. Using 'null' material.");
+            node.setMaterial(this.defaultMaterial);
         }
+        else
+            node.setMaterial(this.materials[materialID]);
 
 
         //node transformations
@@ -809,6 +870,19 @@ class MySceneGraph {
         return color;
     }
 
+    parseFloat(node, floatName, messageError) {
+        var res = this.reader.getFloat(node, floatName);
+        if (res == null || isNaN(res))
+            return "unable to parse field '" + floatName + "' of the " + messageError;
+        return res;
+    }
+
+    parseInt(node, intName, messageError) {
+        var res = this.reader.getInteger(node, intName);
+        if (res == null || isNaN(res))
+            return "unable to parse field '" + intName + "' of the " + messageError;
+        return res;
+    }
     /**
      * Displays the scene, processing each node, starting in the root node.
      */

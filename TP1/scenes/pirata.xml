@@ -109,6 +109,7 @@
       <diffuse r="0.5" g="0.5" b="0.5" a="1.0"/>
       <specular r="0.5" g="0.5" b="0.5" a="1.0"/>
       <emissive r="0.5" g="0.5" b="0.5" a="1.0"/>
+      <!--TODO Emmision??-->
     </material>
   </materials>
   <nodes>
