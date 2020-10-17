@@ -581,7 +581,7 @@
     <!-- STAIR ///////////////-->
     <node id="stair">
       <material id="null"/>
-      <texture id="woodText"/>
+      <texture id="woodText2"/>
       <descendants>
         <noderef id="step1"/>
         <noderef id="step2"/>
@@ -803,7 +803,7 @@
     <!-- STAIRS ///////////////-->
     <node id="stairs">
       <material id="null"/>
-      <texture id="null"/>
+      <texture id="woodText"/>
       <descendants>
         <noderef id="rightStair"/>
         <noderef id="leftStair"/>
