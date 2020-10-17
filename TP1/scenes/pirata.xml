@@ -350,8 +350,8 @@
       <material id="null"/>
       <texture id="null"/>
       <transformations>
-        <translation x="0" y="-0.5" z="5.4"/>
-        <scale sx="3.19" sy="1.7" sz="2"/>
+        <translation x="0" y="-0.5" z="5.38"/>
+        <scale sx="3.16" sy="1.716" sz="1.97"/>
       </transformations>
       <descendants>
         <noderef id="hullBeakRight"/>
@@ -362,8 +362,8 @@
       <material id="null"/>
       <texture id="null"/>
       <transformations>
-        <rotation axis="y" angle="60"/>
-        <rotation axis="x" angle="28.5"/>
+        <rotation axis="y" angle="60.1"/>
+        <rotation axis="x" angle="28.51"/>
       </transformations>
       <descendants>
         <leaf type="triangle" x1="1.1" y1="0" x2="0" y2="0" x3="0.83" y3="-1"/>
@@ -373,8 +373,8 @@
       <material id="null"/>
       <texture id="null"/>
       <transformations>
-        <rotation axis="y" angle="-60"/>
-        <rotation axis="x" angle="28.5"/>
+        <rotation axis="y" angle="-60.1"/>
+        <rotation axis="x" angle="28.51"/>
       </transformations>
       <descendants>
         <leaf type="triangle" x1="0" y1="0" x2="-1.1" y2="0" x3="-0.83" y3="-1"/>
