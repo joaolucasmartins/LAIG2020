@@ -95,8 +95,10 @@
     <texture id="woodText2" path="./scenes/images/woodText2.jpg"/>
     <texture id="whiteFlag" path="./scenes/images/whiteFlag.jpg"/>
     <texture id="plainWoodText" path="./scenes/images/plainWood.jpg"/>
+    <texture id="plainWoodText2" path="./scenes/images/plainWood2.jpg"/>
     <texture id="pirateFlag" path="./scenes/images/pirateFlag.jpg"/>
     <texture id="castIron" path="./scenes/images/castIron.jpg"/>
+    <texture id="castIron2" path="./scenes/images/castIron2.jpg"/>
   </textures>
   <materials>
     <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
@@ -124,6 +126,11 @@
         <noderef id="mainMast"/>
         <noderef id="frontMast"/>
         <noderef id="backMast"/>
+        <noderef id="rightCannon1"/>
+        <noderef id="rightCannon2"/>
+        <noderef id="leftCannon1"/>
+        <noderef id="leftCannon2"/>
+        <noderef id="cannonBall"/>
       </descendants>
     </node>
     
@@ -656,9 +663,56 @@
         <noderef id="cube"/>
       </descendants>
     </node>
+    <node id="rightCannon1">  <!--right front cannon-->
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <translation x="1.3" y="0.57" z="1.5"/>
+        <rotation axis="y" angle="90"/>
+      </transformations>
+      <descendants>
+        <noderef id="cannon"/>
+      </descendants>
+    </node>
+    <node id="rightCannon2">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <translation x="1.3" y="0.57" z="0"/>
+        <rotation axis="y" angle="90"/>
+      </transformations>
+      <descendants>
+        <noderef id="cannon"/>
+      </descendants>
+    </node>
+    <node id="leftCannon1">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+         <translation x="-1.3" y="0.57" z="1.5"/>
+        <rotation axis="y" angle="-90"/>
+      </transformations>
+      <descendants>
+        <noderef id="cannon"/>
+      </descendants>
+    </node>
+    <node id="leftCannon2">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+         <translation x="-1.3" y="0.57" z="0"/>
+        <rotation axis="y" angle="-90"/>
+      </transformations>
+      <descendants>
+        <noderef id="cannon"/>
+      </descendants>
+    </node>
     <node id="cannon">
       <material id="null"/>
       <texture id="castIron"/>
+      <transformations>
+         <scale sx="1.4" sy="1.4" sz="1.4"/>
+      </transformations>
       <descendants>
         <noderef id="base"/>
         <noderef id="gun"/>
@@ -666,7 +720,7 @@
     </node>
     <node id="base">
       <material id="null"/>
-      <texture id="woodText"/>
+      <texture id="plainWoodText2"/>
       <descendants>
         <noderef id="baseDown"/>
         <noderef id="baseLeft"/>
@@ -731,6 +785,16 @@
       </transformations>
       <descendants>
         <leaf type="sphere" radius="0.1" slices="20" stacks="40"/>
+      </descendants>
+    </node>
+    <node id="cannonBall">
+      <material id="null"/>
+      <texture id="castIron"/>
+      <transformations>
+        <translation x="1" y="0.57" z="1.1"/>
+      </transformations>
+      <descendants>
+        <leaf type="sphere" radius="0.08" slices="20" stacks="40"/>
       </descendants>
     </node>
   </nodes>

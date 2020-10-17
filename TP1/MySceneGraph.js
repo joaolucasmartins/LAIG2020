@@ -62,7 +62,7 @@ class MySceneGraph {
 
         for (var i = 0; i < node.descendantNames.length; ++i) {
             var currentNodeName = node.descendantNames[i];
-            console.log(i, node.id, currentNodeName);
+        
             if (!(currentNodeName in this.nodes)) {
                 this.onXMLError("Node " + currentNodeName + " missing"); // Fix this error
                 return true;
