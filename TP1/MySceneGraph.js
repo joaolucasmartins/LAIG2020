@@ -33,6 +33,8 @@ class MySceneGraph {
         this.nodes = {}; // Temporary struct that holds nodes before attribution to their parents
         this.materials = {};
         this.textDict = {};
+        this.textStack = []; //stack used for texture hierarchy
+        this.matStack = []; //stack for material hierarchy
 
         this.rootNode = null;
         this.idRoot = null; // The id of the root element.
@@ -51,12 +53,10 @@ class MySceneGraph {
          * If any error occurs, the reader calls onXMLError on this object, with an error message
          */
         this.reader.open('scenes/' + filename, this);
-        this.textStack = []; //stack used for texture hierarchy
-        this.matStack = []; //stack for material hierarchy
+        this.primitiveCreator = new MyPrimitiveCreator(this.reader, this.scene);
     }
 
     distributeDescendants(node) {
-        //var str = node.id + " " + node.descendantNames;
         if (node.descendants.length != 0) // Already processed
             return null;
 
@@ -72,7 +72,7 @@ class MySceneGraph {
             node.descendants.push(currNode);
             this.distributeDescendants(currNode);
         }
-        //console.log(str, node.id, node.descendants);
+
         return null;
     }
 
@@ -284,7 +284,7 @@ class MySceneGraph {
         var id;
         if ((id = this.reader.getString(cameraNode, "id", false)) == null)
             return "Missing 'id' attribute in a camera";
-        var postWarningMsg = "camera with id " + id;
+        var postWarningMsg = "camera with id '" + id + "'";
 
         var near = this.parseFloat(cameraNode, "near", postWarningMsg);
         if (typeof near === 'string')
@@ -597,7 +597,7 @@ class MySceneGraph {
      * @param {texture nodes} textNode 
      */
     assignNodeTexture(node, textNode) {
-        var afs = 1, aft = 1; //amplification
+        var afs, aft;
         //check if texture field is null
         var name;
         if ((name = this.reader.getString(textNode, "id")) == null)
@@ -606,11 +606,19 @@ class MySceneGraph {
         if (name == "clear")
             node.setDisplayText(false);
         else {
-            if (textNode.children.length != 0) { //verification for non mandatory fields
-                afs = this.parseFloat(textNode.children[0], "afs", " 'texture' tag in node with id "
-                    + node.id + ". Using default value 1.0");
-                aft = this.parseFloat(textNode.children[0], "aft", " 'texture' tag in node with id "
-                    + node.id + ". Using default value 1.0");
+            var textureDict = this.createDict(textNode);
+            // Get aft and afs
+            if (!("amplification" in textureDict)) {
+                //this.onXMLMinorError("Missing 'amplification' tag in node with id '" + TODO
+                //node.id + "'. Using default value 1.0 for afs and aft attributes.");
+                afs = 1.0;
+                aft = 1.0;
+            } else {
+                var amplificationNode = textureDict["amplification"];
+                afs = this.parseFloat(amplificationNode, "afs", "'texture' tag in node with id '"
+                    + node.id + "'. Using default value 1.0");
+                aft = this.parseFloat(amplificationNode, "aft", "'texture' tag in node with id '"
+                    + node.id + "'. Using default value 1.0");
 
                 if (typeof afs === 'string') {
                     this.onXMLMinorError(afs);
@@ -636,49 +644,83 @@ class MySceneGraph {
     }
 
     parseTransformations(node, transfNode) {
-
         var children = transfNode.children;
-
         var matrix = mat4.create(); //identity matrix
+        var baseWarningMsg = "node with id '" + node.id + "'. Ignoring transformation.";
 
         for (var i = 0; i < children.length; i++) {
             var nodeName = children[i].nodeName;
 
-            var x = 0, y = 0, z = 0;
-            var axis, angle = 0;
             switch (nodeName) {
-
                 case "translation":
+                    var x = 0, y = 0, z = 0;
+                    var postWarningMsg = "'translation' tag in " + baseWarningMsg;
 
-                    x = this.reader.getFloat(children[i], "x", true);
-                    y = this.reader.getFloat(children[i], "y", true);
-                    z = this.reader.getFloat(children[i], "z", true);
+                    if (typeof (x = this.parseFloat(children[i], "x", postWarningMsg)) === 'string') {
+                        this.onXMLMinorError(x);
+                        break;
+                    }
+                    y = this.parseFloat(children[i], "y", postWarningMsg);
+                    if (typeof (y = this.parseFloat(children[i], "y", postWarningMsg)) === 'string') {
+                        this.onXMLMinorError(y);
+                        break;
+                    }
+                    z = this.parseFloat(children[i], "z", postWarningMsg);
+                    if (typeof (z = this.parseFloat(children[i], "z", postWarningMsg)) === 'string') {
+                        this.onXMLMinorError(z);
+                        break;
+                    }
+
                     mat4.translate(matrix, matrix, vec3.fromValues(x, y, z));
                     break;
 
                 case "rotation":
+                    var axis, angle = 0;
+                    postWarningMsg = "'scale' tag in " + baseWarningMsg;
+                    axis = this.reader.getString(children[i], "axis", false);
 
-                    axis = this.reader.getString(children[i], "axis", true);
-                    angle = this.reader.getFloat(children[i], "angle", true);
+                    if (axis != "x" && axis != "y" && axis != "z") {
+                        this.onXMLMinorError("unable to parse field 'axis' of the " + postWarningMsg);
+                        break;
+                    }
+                    if (typeof (angle = this.parseFloat(children[i], "angle", postWarningMsg)) === 'string') {
+                        this.onXMLMinorError(angle);
+                        break;
+                    }
+
                     var rad = angle * DEGREE_TO_RAD;
                     mat4.rotate(matrix, matrix, rad, vec3.fromValues(axis == "x", axis == "y", axis == "z"));
                     break;
 
                 case "scale":
+                    var sx = 0, sy = 0, sz = 0;
+                    postWarningMsg = "'scale' tag in " + baseWarningMsg;
 
-                    x = this.reader.getFloat(children[i], "sx", true);
-                    y = this.reader.getFloat(children[i], "sy", true);
-                    z = this.reader.getFloat(children[i], "sz", true);
-                    mat4.scale(matrix, matrix, vec3.fromValues(x, y, z));
+                    if (typeof (sx = this.parseFloat(children[i], "sx", postWarningMsg)) === 'string') {
+                        this.onXMLMinorError(sx);
+                        break;
+                    }
+                    y = this.parseFloat(children[i], "sy", postWarningMsg);
+                    if (typeof (sy = this.parseFloat(children[i], "sy", postWarningMsg)) === 'string') {
+                        this.onXMLMinorError(sy);
+                        break;
+                    }
+                    z = this.parseFloat(children[i], "z", postWarningMsg);
+                    if (typeof (sz = this.parseFloat(children[i], "sz", postWarningMsg)) === 'string') {
+                        this.onXMLMinorError(sz);
+                        break;
+                    }
+
+                    mat4.scale(matrix, matrix, vec3.fromValues(sx, sy, sz));
                     break;
-                default:
-                    this.onXMLError("Invalid Transformation!");
 
+                default:
+                    this.onXMLMinorError("Invalid transformation " + nodeName + " in node '" + node.id + "'");
             }
 
             node.transfMat = matrix;    //assign node transformations
-
         }
+        return null;
     }
 
     /**
@@ -686,55 +728,77 @@ class MySceneGraph {
      * @param {node element} node 
      */
     parseNode(nodeName, nodeDict) {
-
-        if (!("material" in nodeDict || "texture" in nodeDict))
-            this.onXMLError("Missing mandatory fields (node)!");
-
         var node = new Node(this.scene, nodeName, null, null);
 
         if (nodeName == this.idRoot) {
-            this.rootNode = node;
+            this.rootNode = node; // TODO Verify special cases for root node
         }
 
         //parse and assign texture to node
         var error;
-        if ((error = this.assignNodeTexture(node, nodeDict["texture"])) != null) {
-            this.onXMLMinorError(error + " in node '" + nodeName + "'. Using texture as 'null'");
+        if (!("texture" in nodeDict)) {
+            this.onXMLMinorError("Missing 'texture' tag in node '" + nodeName + "'. Using 'null' texture");
             node.updateTexture(null, 1.0, 1.0);   //saving texture details in node object
+        } else {
+            if ((error = this.assignNodeTexture(node, nodeDict["texture"])) != null) {
+                this.onXMLMinorError(error + " in node '" + nodeName + "'. Using 'null' texture");
+                node.updateTexture(null, 1.0, 1.0);   //saving texture details in node object
+            }
         }
 
         //assign material to current node
-        var materialID = this.reader.getString(nodeDict["material"], "id");
-
-        if (materialID != "null" && (materialID == null || !(materialID in this.materials))) {
-            this.onXMLError("Invalid material id '" + materialID + "' in node '" + nodeName + "'. Using 'null' material.");
-            node.setMaterial(this.defaultMaterial);
+        if (!("material" in nodeDict)) {
+            this.onXMLMinorError("Missing 'material' tag in node '" + nodeName + "'. Using 'null' material");
+            node.setMaterial(null);
         }
-        else
-            node.setMaterial(this.materials[materialID]);
+        else {
+            var materialID = this.reader.getString(nodeDict["material"], "id");
 
+            if (materialID != "null" && !(materialID in this.materials)) {
+                this.onXMLMinorError("Invalid material id '" + materialID + "' in node '" + nodeName + "'. Using 'null' material.");
+                node.setMaterial(null);
+            }
+            else
+                node.setMaterial(this.materials[materialID]);
+        }
 
         //node transformations
         if ("transformations" in nodeDict) {
-            this.parseTransformations(node, nodeDict["transformations"]);
+            var error = this.parseTransformations(node, nodeDict["transformations"]);
+            if (error != null) {
+                this.onXMLMinorError(error + "in node'" + nodeName + "'. No transformations were applied.");
+                node.transfMat = mat4.create();
+            }
         }
+        //else TODO use this mb and switch if order
+        //this.onXMLMinorError("Missing transformations tag in node '" + nodeName + "'");
 
-        // TODO Verify
         this.nodes[nodeName] = node;
+
         this.parseDescendants(node, nodeDict["descendants"].children);
     }
 
     parseDescendants(node, desc) {
         for (var i = 0; i < desc.length; i++) {
             if (desc[i].nodeName == "noderef") {
-                var descId = this.reader.getString(desc[i], "id", true);
-                node.descendantNames.push(descId)
+                var descId = this.reader.getString(desc[i], "id");
+                if (descId == null) {
+                    this.onXMLMinorError("unable to parse field 'id' of a 'noderef' tag in node '"
+                        + node.id + "'");
+                } else
+                    node.descendantNames.push(descId)
             }
             else {  //leaf
                 var type = this.reader.getString(desc[i], "type", true);
-                node.addPrimitive(type, desc[i], this.reader);
+                var primitive = this.primitiveCreator.createPrimitive(desc[i], type, node.afs, node.aft);
+                if (typeof primitive === 'string')
+                    this.onXMLMinorError(primitive + "leaf '" + type + "' in node id '" +
+                        node.id + "'. Primitive not added.");
+                else
+                    node.addPrimitive(primitive);
             }
         }
+        return null;
     }
 
     /**
@@ -743,34 +807,29 @@ class MySceneGraph {
     */
     parseNodes(nodesNode) {
         var children = nodesNode.children;
-
-        var grandChildren = [];
         this.nodes = [];
 
         // Any number of nodes.
         for (var i = 0; i < children.length; i++) {
-
             if (children[i].nodeName != "node") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
 
-            // Get id of the current node.
             var nodeID = this.reader.getString(children[i], 'id');
-
-            if (nodeID == null)
-                return "no ID defined for nodeID";
+            if (nodeID == null) {
+                this.onXMLMinorError("No ID defined for node number " + i);
+                continue;
+            }
 
             // Checks for repeated IDs.
-            if (this.nodes[nodeID] != null)
-                return "ID must be unique for each node (conflict: ID = " + nodeID + ")";
-
-            grandChildren = children[i].children;
-
-            var name = this.reader.getString(children[i], "id", true);
+            if (this.nodes[nodeID] != null) {
+                this.onXMLMinorError("ID must be unique for each node (conflict: ID = " + nodeID + ")");
+                continue;
+            }
 
             var nodeDict = this.createDict(children[i]);
-            this.parseNode(name, nodeDict);
+            this.parseNode(nodeID, nodeDict);
         }
     }
 
@@ -871,14 +930,14 @@ class MySceneGraph {
     }
 
     parseFloat(node, floatName, messageError) {
-        var res = this.reader.getFloat(node, floatName);
+        var res = this.reader.getFloat(node, floatName, false);
         if (res == null || isNaN(res))
             return "unable to parse field '" + floatName + "' of the " + messageError;
         return res;
     }
 
     parseInt(node, intName, messageError) {
-        var res = this.reader.getInteger(node, intName);
+        var res = this.reader.getInteger(node, intName, false);
         if (res == null || isNaN(res))
             return "unable to parse field '" + intName + "' of the " + messageError;
         return res;
