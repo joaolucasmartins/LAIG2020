@@ -69,7 +69,8 @@ class Node {
             this.scene.pushMatrix();
             this.scene.multMatrix(this.transfMat);
 
-            mat.apply();
+            if (mat != undefined)
+                mat.apply();
             text.unbind();   //apply texture
             textStack.push(text);
             matStack.push(mat);
@@ -97,7 +98,8 @@ class Node {
             this.scene.pushMatrix();
             this.scene.multMatrix(this.transfMat);
 
-            mat.apply();
+            if (mat != undefined)
+                mat.apply();
             text.bind();   //apply texture
             textStack.push(text);
             matStack.push(mat);

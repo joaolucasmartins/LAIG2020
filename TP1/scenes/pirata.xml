@@ -9,15 +9,15 @@
   </initials>
   <views default="defaultCamera">
     <!-- at least one of the following type of cameras must be declared -->
-    <perspective id="camera0" near="0.1" far="500" angle="180">
+    <perspective id="camera0" near="0.1" far="500" angle="1">
       <from x="10" y="15" z="10"/>
       <to x="0" y="0" z="0"/>
     </perspective>
-    <perspective id="camera2" near="0.1" far="500" angle="180">
+    <perspective id="camera2" near="0.1" far="500" angle="1">
       <from x="10" y="25" z="10"/>
       <to x="0" y="0" z="0"/>
     </perspective>
-    <perspective id="camera1" near="0.1" far="500" angle="180">
+    <perspective id="camera1" near="0.1" far="500" angle="1">
       <from x="20" y="25" z="20"/>
       <to x="0" y="0" z="0"/>
     </perspective>
@@ -101,9 +101,9 @@
     <texture id="bottomSkyBox" path="./scenes/images/bottom.jpg"/>
     <texture id="leftSkyBox" path="./scenes/images/left.jpg"/>
     <texture id="centerSkyBox" path="./scenes/images/center.jpg"/>
-    <texture id="rightSkyBox" path="./scenes/images/right.jpg"/> 
-    <texture id="topSkyBox" path="./scenes/images/top.jpg"/> 
-    <texture id="frontSkyBox" path="./scenes/images/front.jpg"/> 
+    <texture id="rightSkyBox" path="./scenes/images/right.jpg"/>
+    <texture id="topSkyBox" path="./scenes/images/top.jpg"/>
+    <texture id="frontSkyBox" path="./scenes/images/front.jpg"/>
   </textures>
   <materials>
     <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
@@ -129,7 +129,6 @@
         <noderef id="skyBox"/>
       </descendants>
     </node>
-
     <!--////////////////////////////////// PRIMITIVES //////////////////////////////////// -->
     <!--CUBE ////////////////-->
     <node id="cube">
@@ -822,91 +821,88 @@
         <noderef id="stair"/>
       </descendants>
     </node>
-
-  <!-- SKYBOX /////////////////-->
-  <node id="bottom">
-    <material id="null"/>
-    <texture id="bottomSkyBox">
+    <!-- SKYBOX /////////////////-->
+    <node id="bottom">
+      <material id="null"/>
+      <texture id="bottomSkyBox">
     </texture>
-    <transformations>
-      <rotation axis="x" angle="-90"/>
-      <scale sx="25" sy="25" sz="25"/>
-      <rotation axis="z" angle="90"/>
-    </transformations>
-    <descendants>
-      <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
-    </descendants>
-  </node>
-  <node id="left">
-    <material id="null"/>
-    <texture id="leftSkyBox">
+      <transformations>
+        <rotation axis="x" angle="-90"/>
+        <scale sx="25" sy="25" sz="25"/>
+        <rotation axis="z" angle="90"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="left">
+      <material id="null"/>
+      <texture id="leftSkyBox">
     </texture>
-    <transformations>
-      <translation x="0" y="12.5" z="12.5"/>
-      <rotation axis="y" angle="180"/>
-      <scale sx="25" sy="25" sz="25"/>
-    </transformations>
-    <descendants>
-      <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
-    </descendants>
-  </node>
-  <node id="center">
-    <material id="null"/>
-    <texture id="centerSkyBox">
+      <transformations>
+        <translation x="0" y="12.5" z="12.5"/>
+        <rotation axis="y" angle="180"/>
+        <scale sx="25" sy="25" sz="25"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="center">
+      <material id="null"/>
+      <texture id="centerSkyBox">
     </texture>
-    <transformations>
-      <translation x="-12.5" y="12.5" z="0"/>
-      <rotation axis="y" angle="90"/>
-      <scale sx="25" sy="25" sz="25"/>
-    </transformations>
-    <descendants>
-      <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
-    </descendants>
-  </node>
-  <node id="right">
-    <material id="null"/>
-    <texture id="rightSkyBox">
+      <transformations>
+        <translation x="-12.5" y="12.5" z="0"/>
+        <rotation axis="y" angle="90"/>
+        <scale sx="25" sy="25" sz="25"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="right">
+      <material id="null"/>
+      <texture id="rightSkyBox">
     </texture>
-    <transformations>
-      <translation x="0" y="12.5" z="-12.5"/>
-      <scale sx="25" sy="25" sz="25"/>
-    </transformations>
-    <descendants>
-      <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
-    </descendants>
-  </node>
-  <node id="top">
-    <material id="null"/>
-    <texture id="topSkyBox">
+      <transformations>
+        <translation x="0" y="12.5" z="-12.5"/>
+        <scale sx="25" sy="25" sz="25"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="top">
+      <material id="null"/>
+      <texture id="topSkyBox">
     </texture>
-    <transformations>
-      <translation x="0" y="25" z="0"/>
-      <rotation axis="x" angle="90"/>
-      <rotation axis="z" angle="-90"/>
-      <scale sx="25" sy="25" sz="25"/>
-    </transformations>
-    <descendants>
-      <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
-    </descendants>
-  </node>
-  <node id="front">
-    <material id="null"/>
-    <texture id="frontSkyBox">
+      <transformations>
+        <translation x="0" y="25" z="0"/>
+        <rotation axis="x" angle="90"/>
+        <rotation axis="z" angle="-90"/>
+        <scale sx="25" sy="25" sz="25"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="front">
+      <material id="null"/>
+      <texture id="frontSkyBox">
     </texture>
-    <transformations>
-      <translation x="12.5" y="12.5" z="0"/>
-      <rotation axis="y" angle="-90"/>
-      <scale sx="25" sy="25" sz="25"/>
-    </transformations>
-    <descendants>
-      <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
-    </descendants>
-  </node>
-
-  <!--//////////////////////////////////// ELEMENT POSITIONING ///////////////////////////////-->
-
-  <!-- SHIP /////////////////-->
-  <node id="ship">
+      <transformations>
+        <translation x="12.5" y="12.5" z="0"/>
+        <rotation axis="y" angle="-90"/>
+        <scale sx="25" sy="25" sz="25"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <!--//////////////////////////////////// ELEMENT POSITIONING ///////////////////////////////-->
+    <!-- SHIP /////////////////-->
+    <node id="ship">
       <material id="defaultMaterial"/>
       <texture id="woodText2">
         <amplification afs="1.0" aft="1.0"/>
@@ -926,10 +922,9 @@
         <noderef id="ammoRacks"/>
       </descendants>
     </node>
-
     <!-- SKYBOX /////////////////-->
     <node id="skyBox">
-     <material id="null"/>
+      <material id="null"/>
       <texture id="null"/>
       <transformations>
         <scale sx="2" sy="2" sz="2"/>
@@ -943,7 +938,6 @@
         <noderef id="front"/>
       </descendants>
     </node>
-
     <!--//////////////////////////////////// ELEMENT POSITIONING ///////////////////////////////-->
     <!-- CANNONS ///////////////-->
     <node id="cannons">

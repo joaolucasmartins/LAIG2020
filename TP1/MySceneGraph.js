@@ -8,7 +8,6 @@ var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
 var NODES_INDEX = 6;
-var DEF_FOV = 0.4;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -308,8 +307,10 @@ class MySceneGraph {
 
         var camera;
         if (cameraNode.nodeName === "perspective") {
-            //TODO Angle???
-            camera = new CGFcamera(DEF_FOV, near, far, position, target);
+            var angle = this.parseFloat(cameraNode, "angle", postWarningMsg);
+            if (typeof angle === 'string')
+                return angle;
+            camera = new CGFcamera(angle, near, far, position, target);
         } else if (cameraNode.nodeName === "ortho") {
             var left = this.parseFloat(cameraNode, "left", postWarningMsg);
             if (typeof left === 'string')
@@ -336,7 +337,6 @@ class MySceneGraph {
             //<up x="0" y="0" z="10"/> Experiment with this FIXME
         } else
             return "Invalid camera type " + cameraNode.nodeName + postWarningMsg;
-        //var angle = this.reader.getFloat(cameraNode, "angle", true); // TODO
 
         cameras.push([camera, id]);
         return null;
@@ -731,7 +731,7 @@ class MySceneGraph {
         var node = new Node(this.scene, nodeName, null, null);
 
         if (nodeName == this.idRoot) {
-            this.rootNode = node; // TODO Verify special cases for root node
+            this.rootNode = node;
         }
 
         //parse and assign texture to node
