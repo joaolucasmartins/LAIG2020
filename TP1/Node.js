@@ -4,7 +4,6 @@ class Node {
         this.scene = scene;
 
         this.texture = texture;
-        this.displayText = true;
         this.afs = 1; //texture amplification
         this.aft = 1; //texture aplification
 
@@ -22,19 +21,16 @@ class Node {
     }
 
     updateTexture(texture, afs, aft) {
-        if (texture == null)
+        if (texture == "null")
             this.texture = new NullTexture();
+        else if (texture == "clear")
+            this.texture = new ClearTexture();
         else
             this.texture = texture;
         this.aft = aft;
         this.afs = afs;
     }
 
-    setDisplayText(value) {
-        this.displayText = value;
-        if (value == false)
-            this.texture = new ClearTexture();
-    }
 
     setMaterial(mat) {
         if (mat == null)

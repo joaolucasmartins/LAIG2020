@@ -610,16 +610,14 @@ class MySceneGraph {
      */
     assignNodeTexture(node, textNode) {
         var afs, aft;
-        //check if texture field is null
-        var name;
-        if ((name = this.reader.getString(textNode, "id")) == null)
+        var textureId, texture;
+        if ((textureId = this.reader.getString(textNode, "id")) == null)
             return "Missing 'id' attribute in 'texture' tag";
 
-        if (name == "clear")
-            node.setDisplayText(false);
-        else {
+        if (textureId == "clear")
+            texture = "clear";
+        else { // Get Afs and Aft
             var textureDict = this.createDict(textNode);
-            // Get aft and afs
             if (!("amplification" in textureDict)) {
                 //this.onXMLMinorError("Missing 'amplification' tag in node with id '" + TODO
                 //node.id + "'. Using default value 1.0 for afs and aft attributes.");
@@ -642,17 +640,16 @@ class MySceneGraph {
                 }
             }
 
-            if (name == "null")
-                node.updateTexture(null, afs, aft);   //saving texture details in node object
+            if (textureId == "null")
+                texture = "null"
             else {
-
-                if (!(name in this.textDict))
-                    return "Undefined texture with id " + name;
-                node.updateTexture(this.textDict[name], afs, aft);   //saving texture details in node object
+                if (!(textureId in this.textDict))
+                    return "Undefined texture with id " + texture;
+                texture = this.textDict[textureId];
             }
         }
 
-        console.log(node.id, node.texture);
+        node.updateTexture(texture, afs, aft);   //saving texture details in node object
         return null;
     }
 
