@@ -334,7 +334,7 @@ class MySceneGraph {
                     return up;
             }
             camera = new CGFcameraOrtho(left, right, top, bottom, near, far, position, target, up);
-            //<up x="0" y="0" z="10"/> Experiment with this FIXME
+            //<up x="0" y="0" z="10"/> Experiment with this TODO
         } else
             return "Invalid camera type " + cameraNode.nodeName + postWarningMsg;
 
@@ -710,12 +710,12 @@ class MySceneGraph {
                         this.onXMLMinorError(sx);
                         break;
                     }
-                    y = this.parseFloat(children[i], "sy", postWarningMsg);
+
                     if (typeof (sy = this.parseFloat(children[i], "sy", postWarningMsg)) === 'string') {
                         this.onXMLMinorError(sy);
                         break;
                     }
-                    z = this.parseFloat(children[i], "z", postWarningMsg);
+
                     if (typeof (sz = this.parseFloat(children[i], "sz", postWarningMsg)) === 'string') {
                         this.onXMLMinorError(sz);
                         break;
