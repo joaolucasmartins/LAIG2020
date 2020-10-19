@@ -29,9 +29,9 @@
     </ortho>
   </views>
   <illumination>
-    <ambient r="0.2" g="0.2" b="0.2" a="1.0"/>
+    <ambient r="1.0" g="1.0" b="1.0" a="1.0"/>
     <!-- global ambient -->
-    <background r="0.1" g="0.7" b="1.0" a="1.0"/>
+    <background r="1.0" g="1.0" b="1.0" a="1.0"/>
     <!-- background color -->
   </illumination>
   <lights>
@@ -40,9 +40,9 @@
       <!-- light identifier -->
       <enable value="1"/>
       <!-- enable/disable -->
-      <position x="10" y="12" z="9.5" w="1.0"/>
+      <position x="0" y="12" z="0.0" w="1.0"/>
       <!-- light position; w=1: point light; w=0: directional light -->
-      <ambient r="0" g="0" b="0" a="1.0"/>
+      <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
       <!-- ambient component -->
       <diffuse r="1.0" g="1.0" b="1.0" a="1.0"/>
       <!-- diffuse component -->
@@ -110,11 +110,11 @@
 
          requires a distinct "id". At least one material should be present. -->
     <material id="defaultMaterial">
-      <shininess value="10"/>
+      <shininess value="0"/>
       <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
       <diffuse r="0.5" g="0.5" b="0.5" a="1.0"/>
-      <specular r="0.5" g="0.5" b="0.5" a="1.0"/>
-      <emissive r="0.5" g="0.5" b="0.5" a="1.0"/>
+      <specular r="0.1" g="0.1" b="0.1" a="1.0"/>
+      <emissive r="0.0" g="0.0" b="0.0" a="1.0"/>
       <!--TODO Emmision??-->
     </material>
   </materials>
@@ -133,7 +133,7 @@
     <!--CUBE ////////////////-->
     <node id="cube">
       <material id="null"/>
-      <texture id="clear"/>
+      <texture id="null"/>
       <descendants>
         <noderef id="faceCima"/>
         <noderef id="faceBaixo"/>

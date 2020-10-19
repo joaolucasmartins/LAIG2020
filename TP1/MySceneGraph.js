@@ -652,6 +652,7 @@ class MySceneGraph {
             }
         }
 
+        console.log(node.id, node.texture);
         return null;
     }
 
