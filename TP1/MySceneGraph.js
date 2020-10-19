@@ -338,7 +338,7 @@ class MySceneGraph {
         } else
             return "Invalid camera type " + cameraNode.nodeName + postWarningMsg;
 
-        cameras.push([camera, id]);
+        cameras[id] = camera;
         return null;
     }
 
@@ -347,7 +347,7 @@ class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseViews(viewsNode) {
-        var cameras = [];
+        var cameras = {};
         var children = viewsNode.children;
         var error;
 
@@ -359,11 +359,23 @@ class MySceneGraph {
                 continue;
             }
         }
-        if (cameras.length < 1) { // TODO Move this
+
+        var cameraIds = Object.keys(cameras);
+        if (cameraIds.length < 1) {
             this.onXMLMinorError("No camera defined. Using default camera.");
             this.scene.initDefaultCamera();
-        } else
-            this.scene.initCameras(cameras);
+        } else {
+            var defaultCameraId = this.reader.getString(viewsNode, "default", false);
+            if (defaultCameraId == null) {
+                this.onXMLMinorError("No default camera given. Using camera '" + cameraIds[0] + "' as default.");
+                defaultCameraId = cameraIds[0];
+            } else if (!cameraIds.includes(defaultCameraId)) {
+                this.onXMLMinorError("No such camera with id '" + defaultCameraId +
+                    "'. Using camera '" + cameraIds[0] + "' as default.");
+                defaultCameraId = cameraIds[0];
+            }
+            this.scene.initCameras(cameras, cameraIds, defaultCameraId);
+        }
 
         return null;
     }

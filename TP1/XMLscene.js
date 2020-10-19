@@ -51,17 +51,12 @@ class XMLscene extends CGFscene {
     /**
      * Initializes the cameras defined in the xml. Called by parser after parsing all views.
      */
-    initCameras(cameras) {
-        this.cameraIds = {};
-        this.cameras = [];
-        this.selectedCamera = 0; // Select first camera in the xml by defaul
-        for (var i = 0; i < cameras.length; ++i) {
-            var camera = cameras[i];
-            this.cameras.push(camera[0]); // Camera
-            this.cameraIds[camera[1]] = i; // Camera's ID
-        }
-        this.interface.initCameraInterface();
+    initCameras(cameras, cameraIds, defaultCameraId) {
+        this.cameras = cameras;
+        this.cameraIds = cameraIds;
+        this.selectedCamera = defaultCameraId;
 
+        this.interface.initCameraInterface();
         this.updateCamera();
         this.hasCamera = true;
     }
