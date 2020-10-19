@@ -1,5 +1,6 @@
 class NullMaterial {
     constructor() {
+        this.parentTexture = null;
     }
 
     apply() {

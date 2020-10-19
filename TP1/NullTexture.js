@@ -1,5 +1,6 @@
 class NullTexture {
     constructor() {
+        this.parentTexture = null;
     }
 
     bind() {
