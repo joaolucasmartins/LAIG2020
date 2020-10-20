@@ -37,8 +37,10 @@ class Node {
      * @param {*} aft - amplification factor
      */
     updateTexture(texture, afs, aft) {
-        if (texture == null)
+        if (texture == "null")
             this.texture = new NullTexture();
+        else if (texture == "clear")
+            this.texture = new ClearTexture();
         else
             this.texture = texture;
         this.aft = aft;
