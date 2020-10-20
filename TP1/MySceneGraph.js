@@ -55,6 +55,12 @@ class MySceneGraph {
         this.primitiveCreator = new MyPrimitiveCreator(this.reader, this.scene);
     }
 
+    /**
+     * Distribute descendants.
+     * Iterates over descendantNames of the current node and fetches the respective descendant node object.
+     * The descendant nodes are saved in the current node.
+     * @param {Node} node - where the descendants will be stored
+     */
     distributeDescendants(node) {
         if (node.descendants.length != 0) // Already processed
             return null;
@@ -63,7 +69,7 @@ class MySceneGraph {
             var currentNodeName = node.descendantNames[i];
 
             if (!(currentNodeName in this.nodes)) {
-                this.onXMLError("Node " + currentNodeName + " missing"); // Fix this error
+                this.onXMLError("Node " + currentNodeName + " missing"); //TODO Fix this error
                 return true;
             }
 
@@ -380,6 +386,12 @@ class MySceneGraph {
         return null;
     }
 
+    /**
+     * Auxiliary function for parsing xml sections.
+     * Saves all the atributes from the current section into a dictionary.
+     * The keys are the attribute name and values are the atribute's contents.
+     * @param {*} node - section to be saved into dicitonary.
+     */
     createDict(node) {
         var children = node.children;
         var dict = {};
@@ -529,7 +541,11 @@ class MySceneGraph {
         return null;
     }
 
-
+    /**
+     * Parses the atributes of a <material> node in the xml file.
+     * @param {*} id - id of the current material node.
+     * @param {*} materialNode - the atributes of the material node.
+     */
     parseMaterial(id, materialNode) {
         var nodeDict = this.createDict(materialNode);
         var postWarningMsg = " material with id " + id;
@@ -604,9 +620,9 @@ class MySceneGraph {
     }
 
     /**
-     * Assigns a texture to the respective node
-     * @param {node element} node 
-     * @param {texture nodes} textNode 
+     * Parses and assigns a texture to the respective node.
+     * @param {Node} node - where the texture will be saved.
+     * @param {node element} textNode - texture's atributes.
      */
     assignNodeTexture(node, textNode) {
         var afs, aft;
@@ -652,11 +668,16 @@ class MySceneGraph {
             }
         }
 
-        console.log(node.id, node.texture);
+        //console.log(node.id, node.texture);
         return null;
     }
 
-    parseTransformations(node, transfNode) {
+    /**
+     * Parses transformations and assigns them to the curent node.
+     * @param {Node} node - where the transformations will be applied.
+     * @param {node element} transfNode - atributes from the transformations node.
+     */
+    parseTransformations(node, transfNode) {    //TODO fix errors
         var children = transfNode.children;
         var matrix = mat4.create(); //identity matrix
         var baseWarningMsg = "node with id '" + node.id + "'. Ignoring transformation.";
@@ -738,7 +759,8 @@ class MySceneGraph {
 
     /**
      * Parses node information
-     * @param {node element} node 
+     * @param {string} nodeName - id of the node that's being processed.
+     * @param {dictionary} nodeDict - dictionary with the node's atributes.
      */
     parseNode(nodeName, nodeDict) {
         var node = new Node(this.scene, nodeName, null, null);
@@ -791,6 +813,12 @@ class MySceneGraph {
         this.parseDescendants(node, nodeDict["descendants"].children);
     }
 
+    /**
+     * Parses <descendants> block of the current node.
+     * Saves the desncendants into the node according to their type.
+     * @param {Node} node - where the descendants wil be stored.
+     * @param {node element} desc - descendants.
+     */
     parseDescendants(node, desc) {
         for (var i = 0; i < desc.length; i++) {
             if (desc[i].nodeName == "noderef") {
@@ -846,6 +874,12 @@ class MySceneGraph {
         }
     }
 
+    /**
+     * Parses the bolean value of a node
+     * @param {block element} node 
+     * @param {string} name - attribute id.
+     * @param {string} messageError - message to be displayed in case of error.
+     */
     parseBoolean(node, name, messageError) {
         var boolVal = true;
         boolVal = this.reader.getBoolean(node, name);
@@ -942,6 +976,12 @@ class MySceneGraph {
         return color;
     }
 
+    /**
+     * Parses float value from node.
+     * @param {block element} node 
+     * @param {string} floatName - attribute id
+     * @param {string} messageError - message to be displayed in case of error
+     */
     parseFloat(node, floatName, messageError) {
         var res = this.reader.getFloat(node, floatName, false);
         if (res == null || isNaN(res))
@@ -949,6 +989,13 @@ class MySceneGraph {
         return res;
     }
 
+    
+    /**
+     * Parses integer value from node.
+     * @param {block element} node 
+     * @param {string} intName - attribute id
+     * @param {string} messageError - message to be displayed in case of error
+     */
     parseInt(node, intName, messageError) {
         var res = this.reader.getInteger(node, intName, false);
         if (res == null || isNaN(res))
