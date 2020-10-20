@@ -1,3 +1,9 @@
+/**
+ * Node
+ * @constructor
+ * @param scene - Reference to MyScene object
+ * @param id - node id
+ */
 class Node {
     constructor(scene, id) {
         this.id = id;
@@ -16,10 +22,20 @@ class Node {
         this.primitives = [];
     }
 
+    /**
+     * Add primitive to primitives array.
+     * @param {primitive object} primitive 
+     */
     addPrimitive(primitive) {
         this.primitives.push(primitive);
     }
 
+    /**
+     * Update texture according to the values read from xml file.
+     * @param {*} texture 
+     * @param {*} afs - amplification factor
+     * @param {*} aft - amplification factor
+     */
     updateTexture(texture, afs, aft) {
         if (texture == null)
             this.texture = new NullTexture();
@@ -40,11 +56,16 @@ class Node {
      Stack    | Dont push to stack    | Push to Stack         | Push to stack
      Bind()   | Bind Parent texture   | Unbind Parent texture | Bind texture
      Unbind() | Unbind Parent texture | Bind Parent texture   | Unbind texture
-
-     Para conseguirmos este comportamento criamos duas classes NullTexture
-     e ClearTexture. Nelas definimos o respetivo bind() e unbind() descrito acima.
-     Foi usada a mesma approach para os materials. (mas sem o clear - apenas NullMaterial)
+     
+     To achieve this behaviour we created two classes NullTexture and ClearTexture.
+     In each we defined the respective bind() and unbind() as described in the table.
+     We used the same approach for the materials (without the clear - only with NullMaterial)
     */
+    /**
+     * Display function.
+     * @param {array} matStack - materials stack
+     * @param {array} textStack - textures stack
+     */
     display(matStack, textStack) {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transfMat);
