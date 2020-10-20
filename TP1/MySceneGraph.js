@@ -770,6 +770,15 @@ class MySceneGraph {
             this.rootNode = node;
         }
 
+        //node transformations
+        if ("transformations" in nodeDict) {
+            var error = this.parseTransformations(node, nodeDict["transformations"]);
+            if (error != null) {
+                this.onXMLMinorError(error + "in node'" + nodeName + "'. No transformations were applied.");
+                node.transfMat = mat4.create();
+            }
+        }
+
         //parse and assign texture to node
         var error;
         if (!("texture" in nodeDict)) {
@@ -785,33 +794,26 @@ class MySceneGraph {
         //assign material to current node
         if (!("material" in nodeDict)) {
             this.onXMLMinorError("Missing 'material' tag in node '" + nodeName + "'. Using 'null' material");
-            node.setMaterial(null);
+            node.setMaterial("null");
         }
         else {
             var materialID = this.reader.getString(nodeDict["material"], "id");
 
-            if (materialID != "null" && !(materialID in this.materials)) {
+            if (materialID == "null")
+                node.setMaterial("null");
+            else if (!(materialID in this.materials)) {
                 this.onXMLMinorError("Invalid material id '" + materialID + "' in node '" + nodeName + "'. Using 'null' material.");
-                node.setMaterial(null);
-            }
-            else
+                node.setMaterial("null");
+            } else
                 node.setMaterial(this.materials[materialID]);
         }
 
-        //node transformations
-        if ("transformations" in nodeDict) {
-            var error = this.parseTransformations(node, nodeDict["transformations"]);
-            if (error != null) {
-                this.onXMLMinorError(error + "in node'" + nodeName + "'. No transformations were applied.");
-                node.transfMat = mat4.create();
-            }
-        }
-        //else TODO use this mb and switch if order
-        //this.onXMLMinorError("Missing transformations tag in node '" + nodeName + "'");
-
         this.nodes[nodeName] = node;
 
-        this.parseDescendants(node, nodeDict["descendants"].children);
+        var error = this.parseDescendants(node, nodeDict["descendants"].children);
+        if (typeof error === "string")
+            this.onXMLMinorError(error);
+        return null;
     }
 
     /**
@@ -840,6 +842,9 @@ class MySceneGraph {
                     node.addPrimitive(primitive);
             }
         }
+
+        if (desc.length == 0)
+            return "leaf with id '" + node.id + "' has no descendants.";
         return null;
     }
 

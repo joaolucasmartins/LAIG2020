@@ -48,7 +48,7 @@ class Node {
     }
 
     setMaterial(mat) {
-        if (mat == null)
+        if (mat == "null")
             this.material = new NullMaterial();
         else
             this.material = mat;
