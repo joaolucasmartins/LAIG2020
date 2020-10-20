@@ -1,3 +1,13 @@
+/**
+ * MyCylinder
+ * @constructor
+ * @param {GCFscene} scene - Reference to MyScene object
+ * @param {float} bottomRadius
+ * @param {float} topRadius
+ * @param {float} height
+ * @param {integer} slices
+ * @param {integer} stacks
+ */
 class MyCylinder extends CGFobject {
     constructor(scene, bottomRadius, topRadius, height, slices, stacks) {
         super(scene);

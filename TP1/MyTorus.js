@@ -1,8 +1,11 @@
 /**
  * MyTorus
  * @constructor
- * @param scene - Reference to MyScene object
- TODO
+ * @param {GCFscene} scene - Reference to MyScene object
+ * @param {float} innerRadius
+ * @param {float} outerRadius
+ * @param {integer} slices
+ * @param {integer} loops
  */
 class MyTorus extends CGFobject {
     constructor(scene, innerRadius, outerRadius, slices, loops) {
@@ -15,6 +18,11 @@ class MyTorus extends CGFobject {
         this.initBuffers();
     }
 
+    /**
+     * Rotates a point arround the Z axis.
+     * @param {vec3} point 
+     * @param {float} alpha 
+     */
     rotatePointInZ(point, alpha) {
         var x = point[0], y = point[1], z = point[2];
         var new_point = [
