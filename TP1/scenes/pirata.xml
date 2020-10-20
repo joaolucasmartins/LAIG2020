@@ -920,6 +920,7 @@
         <noderef id="backMast"/>
         <noderef id="cannons"/>
         <noderef id="ammoRacks"/>
+        <noderef id="board"/>
       </descendants>
     </node>
     <!-- SKYBOX /////////////////-->
@@ -939,6 +940,19 @@
       </descendants>
     </node>
     <!--//////////////////////////////////// ELEMENT POSITIONING ///////////////////////////////-->
+    <!-- BOARD ////////////////-->
+    <node id="board">
+      <!--right front cannon-->
+      <material id="null"/>
+      <texture id="woodText2"/>
+      <transformations>
+        <translation x="2" y="0.55" z="2.2"/>
+        <scale sx="1" sy="0.1" sz="0.4"/>
+      </transformations>
+      <descendants>
+         <noderef id="cube"/>
+      </descendants>
+    </node>
     <!-- CANNONS ///////////////-->
     <node id="cannons">
       <material id="null"/>
