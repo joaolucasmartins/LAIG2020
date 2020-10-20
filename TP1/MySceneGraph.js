@@ -307,13 +307,12 @@ class MySceneGraph {
             return "Missing 'id' attribute in a camera";
         var postWarningMsg = "camera with id '" + id + "'";
 
+        // Common attributes for both camera
         var near = this.parseFloat(cameraNode, "near", postWarningMsg);
-        if (typeof near === 'string')
-            return near;
+        if (typeof near === 'string') return near;
 
         var far = this.parseInt(cameraNode, "far", postWarningMsg);
-        if (typeof far === 'string')
-            return far;
+        if (typeof far === 'string') return far;
 
         if (!("from" in nodeDict))
             return "Missing 'from' tag in " + postWarningMsg;
@@ -321,42 +320,36 @@ class MySceneGraph {
             return "Missing 'to' tag in " + postWarningMsg;
 
         var position = this.parseCoordinates3D(nodeDict["from"], "'from' tag in " + postWarningMsg);
-        if (typeof position === 'string')
-            return position;
+        if (typeof position === 'string') return position;
+
         var target = this.parseCoordinates3D(nodeDict["to"], "'to' tag in " + postWarningMsg);
-        if (typeof target === 'string')
-            return target;
+        if (typeof target === 'string') return target;
 
         var camera;
         if (cameraNode.nodeName === "perspective") {
             var angle = this.parseFloat(cameraNode, "angle", postWarningMsg);
-            if (typeof angle === 'string')
-                return angle;
+            if (typeof angle === 'string') return angle;
             camera = new CGFcamera(angle, near, far, position, target);
+
         } else if (cameraNode.nodeName === "ortho") {
             var left = this.parseFloat(cameraNode, "left", postWarningMsg);
-            if (typeof left === 'string')
-                return left;
+            if (typeof left === 'string') return left;
             var right = this.parseFloat(cameraNode, "right", postWarningMsg);
-            if (typeof right === 'string')
-                return right;
+            if (typeof right === 'string') return right;
             var top = this.parseFloat(cameraNode, "top", postWarningMsg);
-            if (typeof top === 'string')
-                return top;
+            if (typeof top === 'string') return top;
             var bottom = this.parseFloat(cameraNode, "bottom", postWarningMsg);
-            if (typeof bottom === 'string')
-                return bottom;
+            if (typeof bottom === 'string') return bottom;
 
             var up;
             if (!("up" in nodeDict))
                 up = [0, 1, 0];
             else {
                 up = this.parseCoordinates3D(nodeDict["up"], "'up' tag in " + postWarningMsg);
-                if (typeof up === 'string')
-                    return up;
+                if (typeof up === 'string') return up;
             }
+
             camera = new CGFcameraOrtho(left, right, top, bottom, near, far, position, target, up);
-            //<up x="0" y="0" z="10"/> Experiment with this FIXME
         } else
             return "Invalid camera type " + cameraNode.nodeName + postWarningMsg;
 
@@ -580,17 +573,13 @@ class MySceneGraph {
         var shininess = this.parseFloat(nodeDict["shininess"], "value", postWarningMsg);
         if (typeof shininess === 'string') return shininess;
         var specular = this.parseColor(nodeDict["specular"], "'specular' tag in" + postWarningMsg);
-        if (typeof specular === 'string')
-            return specular;
+        if (typeof specular === 'string') return specular;
         var diffuse = this.parseColor(nodeDict["diffuse"], "'diffuse' tag in" + postWarningMsg);
-        if (typeof diffuse === 'string')
-            return diffuse;
+        if (typeof diffuse === 'string') return diffuse;
         var ambient = this.parseColor(nodeDict["ambient"], "'ambient' tag in" + postWarningMsg);
-        if (typeof ambient === 'string')
-            return ambient;
+        if (typeof ambient === 'string') return ambient;
         var emissive = this.parseColor(nodeDict["emissive"], "'emissive' tag in" + postWarningMsg);
-        if (typeof emissive === 'string')
-            return emissive;
+        if (typeof emissive === 'string') return emissive;
 
         var appearance = new CGFappearance(this.scene);
         appearance.setShininess(shininess);
@@ -1021,8 +1010,6 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        //To do: Create display loop for transversing the scene graph, calling the root node's display function
         this.rootNode.display(this.matStack, this.textStack);
-
     }
 }
