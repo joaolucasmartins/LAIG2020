@@ -903,8 +903,8 @@
     <!--//////////////////////////////////// ELEMENT POSITIONING ///////////////////////////////-->
     <!-- SHIP /////////////////-->
     <node id="ship">
-      <material id="defaultMaterial"/>
-      <texture id="woodText2">
+      <material id="null"/>
+      <texture id="null">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <transformations>
@@ -950,7 +950,7 @@
         <scale sx="1" sy="0.1" sz="0.4"/>
       </transformations>
       <descendants>
-         <noderef id="cube"/>
+        <noderef id="cube"/>
       </descendants>
     </node>
     <!-- CANNONS ///////////////-->

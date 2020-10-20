@@ -1,14 +1,13 @@
 class Node {
-    constructor(scene, id, texture, materialId) {
+    constructor(scene, id) {
         this.id = id;
         this.scene = scene;
 
-        this.texture = texture;
-        this.displayText = true;
+        this.texture = null; // Set to null and not to NullMaterial so that it crashes when there is a parsing problem
         this.afs = 1; //texture amplification
         this.aft = 1; //texture aplification
 
-        this.materialId = materialId;
+        this.material = null; // Set to null and not to NullMaterial so that it crashes when there is a parsing problem
 
         this.transfMat = mat4.create();//matrix with all of the nodes tranformations
 
@@ -28,12 +27,6 @@ class Node {
             this.texture = texture;
         this.aft = aft;
         this.afs = afs;
-    }
-
-    setDisplayText(value) {
-        this.displayText = value;
-        if (value == false)
-            this.texture = new ClearTexture();
     }
 
     setMaterial(mat) {

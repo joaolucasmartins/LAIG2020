@@ -56,22 +56,36 @@ class MySceneGraph {
     }
 
     distributeDescendants(node) {
-        if (node.descendants.length != 0) // Already processed
+        if (node.descendantNames == undefined) // Already processed
             return null;
 
         for (var i = 0; i < node.descendantNames.length; ++i) {
             var currentNodeName = node.descendantNames[i];
 
             if (!(currentNodeName in this.nodes)) {
-                this.onXMLError("Node " + currentNodeName + " missing"); // Fix this error
-                return true;
+                this.onXMLMinorError("Reference to Node '" + currentNodeName + "' in node '" + node.id + "' invalid. Reference ignored.");
+                continue;
+            }
+
+            if (node.descendants.find(n => (n.id === currentNodeName)) != undefined) {
+                this.onXMLMinorError("Repeated reference to Node '" + currentNodeName + "' in node '" + node.id + "'.");
+                continue;
             }
 
             var currNode = this.nodes[currentNodeName];
             node.descendants.push(currNode);
             this.distributeDescendants(currNode);
         }
+        delete node.descendantNames; // Not needed anymore
 
+        return null;
+    }
+
+    postProcessNodes() {
+        if (this.rootNode == null)
+            return "Root node undefined/missing. Can't continue.";
+        this.distributeDescendants(this.rootNode);
+        delete this.nodes; // No need reference to nodes anymore
         return null;
     }
 
@@ -91,9 +105,11 @@ class MySceneGraph {
         }
 
         // TODO Check for acyclic graphs
-        this.distributeDescendants(this.rootNode);
-        delete this.nodes;
-
+        error = this.postProcessNodes();
+        if (error != null) {
+            this.onXMLError(error);
+            return;
+        }
         this.loadedOk = true;
 
         // As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
@@ -652,7 +668,6 @@ class MySceneGraph {
             }
         }
 
-        console.log(node.id, node.texture);
         return null;
     }
 
@@ -741,7 +756,7 @@ class MySceneGraph {
      * @param {node element} node 
      */
     parseNode(nodeName, nodeDict) {
-        var node = new Node(this.scene, nodeName, null, null);
+        var node = new Node(this.scene, nodeName);
 
         if (nodeName == this.idRoot) {
             this.rootNode = node;
