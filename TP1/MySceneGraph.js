@@ -1002,6 +1002,7 @@ class MySceneGraph {
             return "unable to parse field '" + intName + "' of the " + messageError;
         return res;
     }
+    
     /**
      * Displays the scene, processing each node, starting in the root node.
      */

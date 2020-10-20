@@ -1,3 +1,9 @@
+/**
+ * Node
+ * @constructor
+ * @param scene - Reference to MyScene object
+ * @param id - node id
+ */
 class Node {
     constructor(scene, id, texture, materialId) {
         this.id = id;
@@ -17,10 +23,20 @@ class Node {
         this.primitives = [];
     }
 
+    /**
+     * Add primitive to primitives array.
+     * @param {primitive object} primitive 
+     */
     addPrimitive(primitive) {
         this.primitives.push(primitive);
     }
 
+    /**
+     * Update texture according to the values read from xml file.
+     * @param {*} texture 
+     * @param {*} afs - amplification factor
+     * @param {*} aft - amplification factor
+     */
     updateTexture(texture, afs, aft) {
         if (texture == null)
             this.texture = new NullTexture();
@@ -30,12 +46,20 @@ class Node {
         this.afs = afs;
     }
 
+    /**
+     * Toggle texture.
+     * @param {boolean} value 
+     */
     setDisplayText(value) {
         this.displayText = value;
         if (value == false)
             this.texture = new ClearTexture();
     }
 
+    /**
+     * Initialize material according to value read from xml file.
+     * @param {CGFappearance} mat 
+     */
     setMaterial(mat) {
         if (mat == null)
             this.material = new NullMaterial();
@@ -47,10 +71,15 @@ class Node {
      Stack    | Dont push to stack    | Push to Stack         | Push to stack
      Bind()   | Bind Parent texture   | Unbind Parent texture | Bind texture
      Unbind() | Unbind Parent texture | Bind Parent texture   | Unbind texture
-
-     Para conseguirmos este comportamento criamos duas classes NullTexture
-     e ClearTexture. Nelas definimos o respetivo bind() e unbind() descrito acima.
-     Foi usada a mesma approach para os materials. (mas sem o clear - apenas NullMaterial)
+     
+     To achieve this behaviour we created two classes NullTexture and ClearTexture.
+     In each we defined the respective bind() and unbind() described previously.
+     We used the same approach for the materials (without the clear - only with NullMaterial)
+    */
+   /**
+    * Display function.
+    * @param {array} matStack - materials satck
+    * @param {array} textStack - textures stack
     */
     display(matStack, textStack) {
         this.scene.pushMatrix();
