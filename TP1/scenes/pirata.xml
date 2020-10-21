@@ -91,8 +91,8 @@
   </lights>
   <textures>
     <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
-    <texture id="woodText" path="./scenes/images/woodText1.jpg"/>
-    <texture id="woodText2" path="./scenes/images/woodText2.jpg"/>
+    <texture id="woodText" path="./scenes/images/woodRev.jpg"/>
+    <texture id="woodText2" path="./scenes/images/wood.jpg"/>
     <texture id="whiteFlag" path="./scenes/images/whiteFlag.jpg"/>
     <texture id="plainWoodText" path="./scenes/images/plainWood.jpg"/>
     <texture id="plainWoodText2" path="./scenes/images/plainWood2.jpg"/>
@@ -188,7 +188,10 @@
     </node>
     <node id="faceCima">
       <material id="null"/>
-      <texture id="null"/>
+      <texture id="null">
+                <amplification afs="0.5" aft=".5"/>
+
+      </texture>
       <transformations>
         <translation x="0.0" y="0.5" z="0.0"/>
         <rotation axis="x" angle="-90"/>
@@ -358,7 +361,7 @@
       <material id="null"/>
       <texture id="null"/>
       <transformations>
-        <translation x="0" y="-0.5" z="5.38"/>
+        <translation x="0" y="-0.5" z="5.37"/>
         <scale sx="3.16" sy="1.716" sz="1.97"/>
       </transformations>
       <descendants>
