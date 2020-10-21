@@ -188,10 +188,7 @@
     </node>
     <node id="faceCima">
       <material id="null"/>
-      <texture id="null">
-                <amplification afs="0.5" aft=".5"/>
-
-      </texture>
+      <texture id="null"/>
       <transformations>
         <translation x="0.0" y="0.5" z="0.0"/>
         <rotation axis="x" angle="-90"/>
