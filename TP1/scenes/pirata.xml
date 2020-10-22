@@ -129,6 +129,7 @@
       <descendants>
         <noderef id="ship"/>
         <noderef id="skyBox"/>
+        <noderef id="rail"/>
       </descendants>
     </node>
     
@@ -173,7 +174,6 @@
         <noderef id="front"/>
       </descendants>
     </node>
-
 
     <!--////////////////////////////////// PRIMITIVES //////////////////////////////////// -->
     <!--CUBE ////////////////-->
@@ -254,6 +254,7 @@
         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
       </descendants>
     </node>
+
     <!--TRIANGULAR PRISM ////////////////-->
     <node id="triangularPrism">
       <material id="null"/>
@@ -462,7 +463,7 @@
         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
       </descendants>
     </node>
-    <node id="hullSide3"> <!-- back of cabin -->
+    <node id="hullSide3"> <!-- back -->
       <material id="null"/>
       <texture id="woodText2">
         <amplification afs="0.5" aft="1"/>
@@ -475,7 +476,7 @@
         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
       </descendants>
     </node>
-    <node id="hullSide2"> <!--right side of cabin -->
+    <node id="hullSide2"> <!--right  -->
       <material id="null"/>
       <texture id="woodText2">
         <amplification afs="0.2" aft="1.0"/>
@@ -488,7 +489,7 @@
         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
       </descendants>
     </node>
-    <node id="hullSide4"> <!-- left side of cabin -->
+    <node id="hullSide4"> <!-- left  -->
       <material id="null"/>
       <texture id="woodText2">
         <amplification afs="0.20" aft="1.0"/>
@@ -526,16 +527,15 @@
       </descendants>
     </node>
 
+
     <!-- CABIN /////////////////-->
     <node id="cabin">
       <material id="null"/>
       <texture id="null"/>
-      <transformations>
-        <translation x="0.0" y="1.0" z="-3.5"/>
-        <scale sx="3.5" sy="1.0" sz="2.0"/>
-      </transformations>
+      
       <descendants>
         <noderef id="cabinElements"/>
+        <noderef id="cabinRail"/>
       </descendants>
     </node>
 
@@ -543,6 +543,10 @@
     <node id="cabinElements">
       <material id="null"/>
       <texture id="woodText"/>
+        <transformations>
+          <translation x="0.0" y="1.0" z="-3.5"/>
+          <scale sx="3.5" sy="1.0" sz="2.0"/>
+        </transformations>
       <descendants>
         <noderef id="cabinTop"/>
         <noderef id="cabinBottom"/>
@@ -619,6 +623,138 @@
       </transformations>
       <descendants>
         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+
+    <!-- CABIN RAILS //////////////////////////-->
+    <node id="cabinRail">
+      <material id="null"/>
+      <texture id="plainWoodText"/>
+      <descendants>
+        <noderef id="railRightCorner"/>
+        <noderef id="rail1"/>
+        <noderef id="rail2"/>
+        <noderef id="rail3"/>
+        <noderef id="rail4"/>
+        <noderef id="rail5"/>
+        <noderef id="rail6"/>
+      </descendants>
+    </node>
+
+    <node id="rail1">
+      <material id="null"/>
+      <texture id="null"/>
+       <transformations>
+        <translation x="1.2" y="1.7" z="-4.3"/>
+        <!-- <scale sx="0.2" sy="1.0" sz="0.2"/> -->
+      </transformations>
+      <descendants>
+        <noderef id="railStand"/>
+        <noderef id="railTop"/>
+      </descendants>
+    </node>
+    <node id="rail2">
+      <material id="null"/>
+      <texture id="null"/>
+       <transformations>
+        <translation x="0.7" y="1.7" z="-4.3"/>
+        <!-- <scale sx="0.2" sy="1.0" sz="0.2"/> -->
+      </transformations>
+      <descendants>
+        <noderef id="railStand"/>
+        <noderef id="railTop"/>
+      </descendants>
+    </node>
+    <node id="rail3">
+      <material id="null"/>
+      <texture id="null"/>
+       <transformations>
+        <translation x="0.2" y="1.7" z="-4.3"/>
+        <!-- <scale sx="0.2" sy="1.0" sz="0.2"/> -->
+      </transformations>
+      <descendants>
+        <noderef id="railStand"/>
+        <noderef id="railTop"/>
+      </descendants>
+    </node>
+    <node id="rail4">
+      <material id="null"/>
+      <texture id="null"/>
+       <transformations>
+        <translation x="-0.3" y="1.7" z="-4.3"/>
+        <!-- <scale sx="0.2" sy="1.0" sz="0.2"/> -->
+      </transformations>
+      <descendants>
+        <noderef id="railStand"/>
+        <noderef id="railTop"/>
+      </descendants>
+    </node>
+    <node id="rail5">
+      <material id="null"/>
+      <texture id="null"/>
+       <transformations>
+        <translation x="-0.8" y="1.7" z="-4.3"/>
+        <!-- <scale sx="0.2" sy="1.0" sz="0.2"/> -->
+      </transformations>
+      <descendants>
+        <noderef id="railStand"/>
+        <noderef id="railTop"/>
+      </descendants>
+    </node>
+     <node id="rail6">
+      <material id="null"/>
+      <texture id="null"/>
+       <transformations>
+        <translation x="-1.3" y="1.7" z="-4.3"/>
+        <!-- <scale sx="0.2" sy="1.0" sz="0.2"/> -->
+      </transformations>
+      <descendants>
+        <noderef id="railStand"/>
+        <noderef id="railTop"/>
+      </descendants>
+    </node>
+
+    <node id="railRightCorner">
+     <material id="null"/>
+      <texture id="null"/>
+       <transformations>
+        <translation x="1.7" y="1.75" z="-4.3"/>
+        <scale sx="1" sy="1.2" sz="1"/>
+      </transformations>
+      <descendants>
+        <noderef id="railStand"/>
+      </descendants>
+    </node>
+
+    <node id="rail">
+      <material id="null"/>
+      <texture id="plainWoodText"/>
+      <descendants>
+        <noderef id="railStand"/>
+        <noderef id="railTop"/>
+      </descendants>
+    </node>
+    <node id="railStand">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <translation x="-0.2" y="0" z="0"/>
+        <scale sx="0.1" sy="0.5" sz="0.1"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
+      </descendants>
+    </node>
+    <node id="railTop">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <rotation axis="z" angle="90"/>
+        <translation x="0.3" y="0" z="0"/>
+        <scale sx="0.1" sy="0.5" sz="0.1"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
       </descendants>
     </node>
 
@@ -762,6 +898,7 @@
       <material id="null"/>
       <texture id="pirateFlag"/>
       <transformations>
+        <rotation axis="y" angle="90"/>
         <translation x="0.5" y="5.5" z="0.0"/>
         <scale sx="1.0" sy="0.7" sz="1.0"/>
       </transformations>
