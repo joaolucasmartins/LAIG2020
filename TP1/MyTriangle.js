@@ -61,9 +61,9 @@ class MyTriangle extends CGFobject {
         sina = Math.sqrt(1 - Math.pow(cosa, 2));
 
         this.texCoords = [
-            0, 0,
-            a / this.afs, 0,
-            c * cosa / this.afs, c * sina / this.aft
+            0, 1,
+            a / this.afs, 1,
+            c * cosa / this.afs, 1 - (c * sina / this.aft)
         ]
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();

@@ -51,13 +51,16 @@ class MyRectangle extends CGFobject {
 		v
         t
         */
+        var dx = Math.sqrt(Math.pow(this.x1 - this.x2, 2));
+        var dy = Math.sqrt(Math.pow(this.y1 - this.y2, 2));
 
         this.texCoords = [
-            0, 1 / this.aft,
-            1 / this.afs, 1 / this.aft,
-            0, 0,
-            1 / this.afs, 0
+            0, 1,
+            dx / this.afs, 1,
+            0, 1 - dy / this.aft,
+            dx / this.afs, 1 - dy / this.aft
         ]
+
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }

@@ -10,8 +10,9 @@
   <views default="defaultCamera">
     <!-- at least one of the following type of cameras must be declared -->
     <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-      <from x="30" y="15" z="30"/>
-      <to x="0" y="-2" z="0"/>
+      <from x="0" y="0" z="-2"/>
+      <!-- 0 -3 0-->
+      <to x="0" y="0" z="0"/>
     </perspective>
     <ortho id="demoOrtho" near="0.2" far="100" left="-2" right="2" top="2" bottom="-2">
       <from x="0" y="0" z="-5"/>
@@ -44,14 +45,14 @@
   </lights>
   <textures>
     <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
-    <texture id="demoTexture" path="./scenes/images/vidral.jpg"/>
+    <texture id="demoTexture" path="./scenes/images/demo.jpg"/>
     <texture id="pirateFlag" path="./scenes/images/pirateFlag.jpg"/>
   </textures>
   <materials>
     <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
          requires a distinct "id". At least one material should be present. -->
     <material id="demoMaterial">
-      <shininess value="ff"/>
+      <shininess value="1"/>
       <ambient r="0.2" g="0.4" b="0.8" a="1.0"/>
       <diffuse r="0.6" g="0.2" b="0.4" a="1.0"/>
       <specular r="0.6" g="0.4" b="0.8" a="1.0"/>
@@ -65,7 +66,7 @@
       <material id="demoMaterial"/>
       <!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
       <texture id="demoTexture">
-        <amplification afs="0.5" aft="0.5"/>
+        <amplification afs="1.0" aft="1.0"/>
       </texture>
       <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
       <transformations>
@@ -76,13 +77,12 @@
       <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
       <descendants>
-        <noderef id="demoChild"/>
-        <noderef id="primitive"/>
+        <!--<noderef id="demoChild"/>-->
         <!-- "ss" is the identifier of a node or of leaf; -->
         <!-- may be repeated as necessary. It can refer an -->
         <!-- identifier of another node, before or later defined in the file. -->
         <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
-        <leaf type="rectangle" x1="0" y1="1" x2="1" y2="0"/>
+        <leaf type="rectangle" x1="0" y1="0" x2="2" y2="2"/>
         <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
       </descendants>
     </node>
@@ -92,16 +92,15 @@
       <material id="null"/>
       <!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
       <texture id="null">
-        <amplification afs="0.5" aft="0.5"/>
+        <amplification afs="1.0" aft="1.0"/>
       </texture>
       <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
       <transformations>
-        <translation x="-1.0" y="0.0" z="0.0"/>
       </transformations>
       <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
       <descendants>
-        <leaf type="triangle" x1="0" y1="0" x2="1" y2="1" x3="1" y3="0"/>
+        <leaf type="triangle" x1="0" y1="0" x2="1" y2="0" x3="0" y3="1"/>
         <!-- x y z coordinates of each vertex -->
       </descendants>
     </node>
