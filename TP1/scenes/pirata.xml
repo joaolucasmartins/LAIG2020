@@ -104,6 +104,8 @@
     <texture id="rightSkyBox" path="./scenes/images/right.jpg"/>
     <texture id="topSkyBox" path="./scenes/images/top.jpg"/>
     <texture id="frontSkyBox" path="./scenes/images/front.jpg"/>
+    <texture id="backWindow" path="./scenes/images/backWindow.jpg"/>
+    <texture id="sideWindow" path="./scenes/images/sideWindow.jpg"/>
   </textures>
   <materials>
     <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
@@ -308,6 +310,177 @@
         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
       </descendants>
     </node>
+
+    <!-- CABIN ELEMENTS //////////////////-->
+    <node id="cabinElements">
+      <material id="null"/>
+      <texture id="woodText"/>
+      <descendants>
+        <noderef id="cabinTop"/>
+        <noderef id="cabinBottom"/>
+        <noderef id="side1"/>
+        <noderef id="side2"/>
+        <noderef id="side3"/>
+        <noderef id="side4"/>
+      </descendants>
+    </node>
+    <node id="side1"> <!-- front of cabin -->
+      <material id="null"/>
+      <texture id="woodText2"/>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.5"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="side3"> <!-- back of cabin -->
+      <material id="null"/>
+      <texture id="backWindow">
+        <amplification afs="0.5" aft="1"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="-0.5"/>
+        <rotation axis="x" angle="180"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="side2"> <!--right side of cabin -->
+      <material id="null"/>
+      <texture id="sideWindow"/>
+      <transformations>
+        <translation x="0.5" y="0.0" z="0.0"/>
+        <rotation axis="y" angle="90"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="side4"> <!-- left side of cabin -->
+      <material id="null"/>
+      <texture id="sideWindow"/>
+      <transformations>
+        <translation x="-0.5" y="0.0" z="0.0"/>
+        <rotation axis="y" angle="270"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="cabinTop">
+      <material id="null"/>
+      <texture id="woodText2">
+        <amplification afs="0.25" aft="0.5"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.5" z="0.0"/>
+        <rotation axis="x" angle="-90"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="cabinBottom">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <translation x="0.0" y="-0.5" z="0.0"/>
+        <rotation axis="x" angle="90"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+
+    <!-- CENTER HULL ELEMENTS ///////////////-->
+    <node id="centerHullElements">
+      <material id="null"/>
+      <texture id="woodText"/>
+      <descendants>
+        <noderef id="hullTop"/>
+        <noderef id="hullBottom"/>
+        <noderef id="hullSide1"/>
+        <noderef id="hullSide2"/>
+        <noderef id="hullSide3"/>
+        <noderef id="hullSide4"/>
+      </descendants>
+    </node>
+    <node id="hullSide1"> <!-- front-->
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.5"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="hullSide3"> <!-- back of cabin -->
+      <material id="null"/>
+      <texture id="woodText2">
+        <amplification afs="0.5" aft="1"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="-0.5"/>
+        <rotation axis="x" angle="180"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="hullSide2"> <!--right side of cabin -->
+      <material id="null"/>
+      <texture id="woodText2">
+        <amplification afs="0.2" aft="1.0"/>
+      </texture>
+      <transformations>
+        <translation x="0.5" y="0.0" z="0.0"/>
+        <rotation axis="y" angle="90"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="hullSide4"> <!-- left side of cabin -->
+      <material id="null"/>
+      <texture id="woodText2">
+        <amplification afs="0.20" aft="1.0"/>
+      </texture>
+      <transformations>
+        <translation x="-0.5" y="0.0" z="0.0"/>
+        <rotation axis="y" angle="270"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="hullTop">
+      <material id="null"/>
+      <texture id="woodText2">
+        <amplification afs="0.5" aft="0.5"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.5" z="0.0"/>
+        <rotation axis="x" angle="-90"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+    <node id="hullBottom">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <translation x="0.0" y="-0.5" z="0.0"/>
+        <rotation axis="x" angle="90"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+      </descendants>
+    </node>
+
     <!--////////////////////////////// ELEMENT DECLARATION ///////////////////////////////////-->
     <node id="hull">
       <material id="null"/>
@@ -339,7 +512,7 @@
         <scale sx="3.5" sy="1.0" sz="7.0"/>
       </transformations>
       <descendants>
-        <noderef id="cube"/>
+        <noderef id="centerHullElements"/>
       </descendants>
     </node>
     <node id="lowerHull">
@@ -397,7 +570,7 @@
         <scale sx="3.5" sy="1.0" sz="2.0"/>
       </transformations>
       <descendants>
-        <noderef id="cube"/>
+        <noderef id="cabinElements"/>
       </descendants>
     </node>
     <node id="wheel">
