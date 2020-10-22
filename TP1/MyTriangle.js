@@ -1,13 +1,13 @@
 /**
  * MyTriangle
  * @constructor
- * @param scene - Reference to MyScene object
- * @param x1 - x coordinate corner 1
- * @param y1 - y coordinate corner 1
- * @param x2 - x coordinate corner 2
- * @param y2 - y coordinate corner 2
- * @param x3 - x coordinate corner 3
- * @param y3 - y coordinate corner 3
+ * @param {CGFscene} scene - Reference to MyScene object
+ * @param {float} x1 - x coordinate corner 1
+ * @param {float} y1 - y coordinate corner 1
+ * @param {float} x2 - x coordinate corner 2
+ * @param {float} y2 - y coordinate corner 2
+ * @param {float} x3 - x coordinate corner 3
+ * @param {float} y3 - y coordinate corner 3
  */
 class MyTriangle extends CGFobject {
     constructor(scene, x1, y1, x2, y2, x3, y3, afs = 1.0, aft = 1.0) {
