@@ -33,7 +33,7 @@ class MyInterface extends CGFinterface {
     initKeys() {
         this.scene.gui = this;
         this.processKeyboard = function () {};
-        this.activeKeys = {};
+        this.activeKeys = {}
     }
 
     /**
@@ -52,5 +52,17 @@ class MyInterface extends CGFinterface {
         for (var i = 0; i < this.scene.enabledLights.length; i++) {
             this.gui.add(this.scene.enabledLights, i).name(lightsIds[i]);
         }
+    }
+
+    processKeyDown(event) {
+        this.activeKeys[event.code] = true;
+    }
+
+    processKeyUp(event) {
+        this.activeKeys[event.code] = false;
+    }
+
+    isKeyPressed(keyCode) {
+        return this.activeKeys[keyCode] || false;
     }
 }

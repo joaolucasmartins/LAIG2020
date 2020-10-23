@@ -77,6 +77,7 @@
       <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
       <descendants>
+        <!--<noderef id="demoChild"/>-->
         <noderef id="demoChild"/>
         <!-- "ss" is the identifier of a node or of leaf; -->
         <!-- may be repeated as necessary. It can refer an -->
@@ -91,7 +92,7 @@
       <!-- next two lines are mandatory -->
       <material id="null"/>
       <!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
-      <texture id="null">
+      <texture id="clear">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
@@ -103,6 +104,7 @@
         <!--<leaf type="triangle" x1="0" y1="0" x2="1" y2="0" x3="0" y3="1"/>-->
         <!--<leaf type="torus" inner="0.5" outer="1.0" slices="100" loops="100"/>-->
         <!--<leaf type="cylinder" bottomRadius="0.5" topRadius="0.5" height="3.0" slices="100" stacks="400"/>-->
+        <leaf type="sphere" radius="1.0" slices="10" stacks="40"/>
         <!-- x y z coordinates of each vertex -->
       </descendants>
     </node>
@@ -111,7 +113,7 @@
       <!-- next two lines are mandatory -->
       <material id="null"/>
       <!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
-      <texture id="pirateFlag">
+      <texture id="demoTexture">
       </texture>
       <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
       <transformations>
@@ -119,7 +121,7 @@
       <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
       <descendants>
-        <leaf type="cylinder" bottomRadius="1.00" topRadius="1.00" height="3.0" slices="5" stacks="5"/>
+        <!--<leaf type="cylinder" bottomRadius="1.00" topRadius="10.00" height="3.0" slices="100" stacks="100"/>-->
         <!-- x y z coordinates of each vertex -->
       </descendants>
     </node>

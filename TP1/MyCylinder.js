@@ -32,10 +32,11 @@ class MyCylinder extends CGFobject {
         var rotationDelta = (2 * Math.PI) / this.slices;
         var z = 0, theta = 0;
         var texStepX = 1.0 / (this.slices); var texStepY = 1.0 / (this.stacks);
-        var texCurrX = 0; var texCurrY = 0;
+        var texCurrX = 0; var texCurrY = 1;
 
         var v = 0;
         /* Set vertices */
+        /* Face */
         for (var i = 0; i < this.stacks + 1; ++i) {
             for (var j = 0; j < this.slices + 1; ++j) {
                 this.vertices.push(Math.cos(theta) * radius, Math.sin(theta) * radius, z);
@@ -47,10 +48,10 @@ class MyCylinder extends CGFobject {
             }
             z += heightDelta;
             radius += radiusDelta;
-            texCurrY += texStepY;
+            texCurrY -= texStepY;
             theta = 0; texCurrX = 0;
         }
-        /* Top and Bottom Faces */
+        /* Top and Bottom Bases */
         var bottom_vertex = (this.slices + 1) * (this.stacks + 1);
         this.vertices.push(0, 0, 0); this.normals.push(0, 0, -1); // Bottom Vertex
         this.texCoords.push(0.5, 0.5);
@@ -60,12 +61,13 @@ class MyCylinder extends CGFobject {
 
         theta = 0;
         for (var j = 0; j < this.slices + 1; ++j) {
+            /* Base's texture is a circumference with center 0.5 0.5 and radius 0.5 */
             texCurrX = 0.5 * (Math.cos(theta) + 1);
-            texCurrY = 0.5 * (Math.sin(theta) + 1);
+            texCurrY = 0.5 * (Math.sin(-theta) + 1);
 
             this.vertices.push(Math.cos(theta) * this.bottomRadius, Math.sin(theta) * this.bottomRadius, 0);
             this.normals.push(0, 0, -1);
-            this.texCoords.push(texCurrX, texCurrY);
+            this.texCoords.push(1 - texCurrX, texCurrY);
             this.vertices.push(Math.cos(theta) * this.topRadius, Math.sin(theta) * this.topRadius, this.height);
             this.normals.push(0, 0, 1);
             this.texCoords.push(texCurrX, texCurrY);

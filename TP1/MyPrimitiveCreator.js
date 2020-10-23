@@ -36,12 +36,12 @@ class MyPrimitiveCreator {
         return new MyRectangle(this.scene, x1, y1, x2, y2, afs, aft);
     }
 
-     /**
-     * Parse <leaf> node (Triangle)
-     * @param {node element} node 
-     * @param {float} afs - texture amplification
-     * @param {float} aft - texture amplification
-     */
+    /**
+    * Parse <leaf> node (Triangle)
+    * @param {node element} node 
+    * @param {float} afs - texture amplification
+    * @param {float} aft - texture amplification
+    */
     createTriangle(node, afs, aft) {
         var x1 = this.reader.getFloat(node, "x1");
         if (x1 == null || isNaN(x1))
@@ -70,10 +70,10 @@ class MyPrimitiveCreator {
         return new MyTriangle(this.scene, x1, y1, x2, y2, x3, y3, afs, aft);
     }
 
-     /**
-     * Parse <leaf> node (Cylinder)
-     * @param {node element} node 
-     */
+    /**
+    * Parse <leaf> node (Cylinder)
+    * @param {node element} node 
+    */
     createCylinder(node) {
         var bottomRadius = this.reader.getFloat(node, "bottomRadius");
         if (bottomRadius == null || isNaN(bottomRadius))
@@ -98,10 +98,10 @@ class MyPrimitiveCreator {
         return new MyCylinder(this.scene, bottomRadius, topRadius, height, slices, stacks);
     }
 
-     /**
-     * Parse <leaf> node (Sphere)
-     * @param {node element} node 
-     */
+    /**
+    * Parse <leaf> node (Sphere)
+    * @param {node element} node 
+    */
     createSphere(node) {
         var radius = this.reader.getFloat(node, "radius");
         if (radius == null || isNaN(radius))
@@ -117,18 +117,10 @@ class MyPrimitiveCreator {
         return new MySphere(this.scene, radius, slices, stacks);
     }
 
-     /**
-     * Parse <leaf> node (Cube)     //TODO
-     * @param {node element} node
-     */
-    createCube(node) {
-        return new MyCube(this.scene); // TODO
-    }
-
-     /**
-     * Parse <leaf> node (Torus)
-     * @param {node element} node 
-     */
+    /**
+    * Parse <leaf> node (Torus)
+    * @param {node element} node 
+    */
     createTorus(node) {
         var innerRadius = this.reader.getFloat(node, "inner");
         if (innerRadius == null || isNaN(innerRadius))
@@ -149,13 +141,13 @@ class MyPrimitiveCreator {
         return new MyTorus(this.scene, innerRadius, outerRadius, slices, loops);
     }
 
-     /**
-     * Create primitive switcher.
-     * @param {node element} node 
-     * @param {string} type - leaf type
-     * @param {float} afs - texture amplification
-     * @param {float} aft - texture amplification
-     */
+    /**
+    * Create primitive switcher.
+    * @param {node element} node 
+    * @param {string} type - leaf type
+    * @param {float} afs - texture amplification
+    * @param {float} aft - texture amplification
+    */
     createPrimitive(node, type, afs = 1, aft = 1) {
         var primitive;
         if (type == "rectangle")
@@ -166,8 +158,6 @@ class MyPrimitiveCreator {
             primitive = this.createCylinder(node);
         else if (type == "sphere")
             primitive = this.createSphere(node);
-        else if (type == "cube")
-            primitive = this.createCube(node);
         else if (type == "torus")
             primitive = this.createTorus(node);
 
