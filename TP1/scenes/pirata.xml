@@ -75,7 +75,7 @@
       <specular r="1.0" g="1.0" b="1.0" a="1.0"/>
       <!-- specular component -->
     </light>
-    <light id="verde">
+    <light id="green">
       <!-- light identifier -->
       <enable value="0"/>
       <!-- enable/disable -->
@@ -98,7 +98,7 @@
     <texture id="plainWoodText2" path="./scenes/images/plainWood2.jpg"/>
     <texture id="pirateFlag" path="./scenes/images/pirateFlag.jpg"/>
     <texture id="castIron" path="./scenes/images/castIron.jpg"/>
-    <texture id="bottomSkyBox" path="./scenes/images/bottom.jpg"/>
+    <texture id="bottomSkyBox" path="./scenes/images/sea.jpg"/>
     <texture id="leftSkyBox" path="./scenes/images/left.png"/>
     <texture id="centerSkyBox" path="./scenes/images/center.png"/>
     <texture id="rightSkyBox" path="./scenes/images/right.png"/>
@@ -116,7 +116,7 @@
       <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
       <diffuse r="0.5" g="0.5" b="0.5" a="1.0"/>
       <specular r="0.1" g="0.1" b="0.1" a="1.0"/>
-      <emissive r="0.0" g="0.0" b="0.0" a="1.0"/>
+      <emissive r="0.1" g="0.1" b="0.1" a="1.0"/>
     </material>
     <material id="flagMaterial">
       <shininess value="10"/>
@@ -134,17 +134,24 @@
     </material>
     <material id="shinyWoodMaterial">
       <shininess value="10"/>
-      <ambient r="0.3" g="0.3" b="0.3" a="1.0"/>
+      <ambient r="0.35" g="0.35" b="0.35" a="1.0"/>
       <diffuse r="0.4" g="0.4" b="0.4" a="1.0"/>
       <specular r="0.5" g="0.5" b="0.5" a="1.0"/>
       <emissive r="0" g="0" b="0" a="1.0"/>
     </material>
     <material id="metalMaterial">
-      <shininess value="10"/>
+      <shininess value="20"/>
       <ambient r="0.1" g="0.1" b="0.1" a="1.0"/>
       <diffuse r="0.3" g="0.3" b="0.3" a="1.0"/>
       <specular r="0.7" g="0.7" b="0.7" a="1.0"/>
       <emissive r="0.2" g="0.2" b="0.2" a="1.0"/>
+    </material>
+    <material id="seaMaterial">
+      <shininess value="10"/>
+      <ambient r="0.3" g="0.3" b="0.5" a="1.0"/>
+      <diffuse r="0.3" g="0.3" b="0.3" a="1.0"/>
+      <specular r="0.7" g="0.7" b="0.7" a="1.0"/>
+      <emissive r="0.2" g="0.2" b="0.3" a="1.0"/>
     </material>
   </materials>
   <nodes>
@@ -1341,9 +1348,10 @@
     </node>
     <!-- SKYBOX /////////////////-->
     <node id="bottom">
-      <material id="null"/>
+      <material id="seaMaterial"/>
       <texture id="bottomSkyBox">
-    </texture>
+        <amplification afs="0.5" aft="0.5"/>
+      </texture>
       <transformations>
         <rotation axis="x" angle="-90"/>
         <scale sx="25" sy="25" sz="25"/>
