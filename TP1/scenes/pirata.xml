@@ -99,11 +99,11 @@
     <texture id="pirateFlag" path="./scenes/images/pirateFlag.jpg"/>
     <texture id="castIron" path="./scenes/images/castIron.jpg"/>
     <texture id="bottomSkyBox" path="./scenes/images/bottom.jpg"/>
-    <texture id="leftSkyBox" path="./scenes/images/left.jpg"/>
-    <texture id="centerSkyBox" path="./scenes/images/center.jpg"/>
-    <texture id="rightSkyBox" path="./scenes/images/right.jpg"/>
-    <texture id="topSkyBox" path="./scenes/images/top.jpg"/>
-    <texture id="frontSkyBox" path="./scenes/images/front.jpg"/>
+    <texture id="leftSkyBox" path="./scenes/images/left.png"/>
+    <texture id="centerSkyBox" path="./scenes/images/center.png"/>
+    <texture id="rightSkyBox" path="./scenes/images/right.png"/>
+    <texture id="topSkyBox" path="./scenes/images/top.png"/>
+    <texture id="frontSkyBox" path="./scenes/images/front.png"/>
     <texture id="backWindow" path="./scenes/images/backWindow.jpg"/>
     <texture id="sideWindow" path="./scenes/images/sideWindow.jpg"/>
   </textures>
@@ -120,7 +120,7 @@
     </material>
     <material id="flagMaterial">
       <shininess value="10"/>
-      <ambient r="0.8" g="0.4" b="0.2" a="1.0"/>
+      <ambient r="0.4" g="0.4" b="0.3" a="1.0"/>
       <diffuse r="0.5" g="0.5" b="0.5" a="1.0"/>
       <specular r="0.1" g="0.1" b="0.1" a="1.0"/>
       <emissive r="0.3" g="0.3" b="0.3" a="1.0"/>
