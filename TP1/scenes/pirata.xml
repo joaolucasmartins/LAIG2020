@@ -112,12 +112,39 @@
 
          requires a distinct "id". At least one material should be present. -->
     <material id="defaultMaterial">
-      <shininess value="0"/>
+      <shininess value="10"/>
       <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
       <diffuse r="0.5" g="0.5" b="0.5" a="1.0"/>
       <specular r="0.1" g="0.1" b="0.1" a="1.0"/>
       <emissive r="0.0" g="0.0" b="0.0" a="1.0"/>
-      <!--TODO Emmision??-->
+    </material>
+    <material id="flagMaterial">
+      <shininess value="10"/>
+      <ambient r="0.8" g="0.4" b="0.2" a="1.0"/>
+      <diffuse r="0.5" g="0.5" b="0.5" a="1.0"/>
+      <specular r="0.1" g="0.1" b="0.1" a="1.0"/>
+      <emissive r="0.3" g="0.3" b="0.3" a="1.0"/>
+    </material>
+    <material id="woodMaterial">
+      <shininess value="10"/>
+      <ambient r="0.3" g="0.3" b="0.3" a="1.0"/>
+      <diffuse r="0.5" g="0.5" b="0.5" a="1.0"/>
+      <specular r="0.1" g="0.1" b="0.1" a="1.0"/>
+      <emissive r="0.1" g="0.1" b="0.1" a="1.0"/>
+    </material>
+    <material id="shinyWoodMaterial">
+      <shininess value="10"/>
+      <ambient r="0.3" g="0.3" b="0.3" a="1.0"/>
+      <diffuse r="0.4" g="0.4" b="0.4" a="1.0"/>
+      <specular r="0.5" g="0.5" b="0.5" a="1.0"/>
+      <emissive r="0" g="0" b="0" a="1.0"/>
+    </material>
+    <material id="metalMaterial">
+      <shininess value="10"/>
+      <ambient r="0.1" g="0.1" b="0.1" a="1.0"/>
+      <diffuse r="0.3" g="0.3" b="0.3" a="1.0"/>
+      <specular r="0.7" g="0.7" b="0.7" a="1.0"/>
+      <emissive r="0.2" g="0.2" b="0.2" a="1.0"/>
     </material>
   </materials>
   <nodes>
@@ -134,7 +161,7 @@
     <!--//////////////////////// MAIN OBJECTS ////////////////////////////-->
     <!-- SHIP /////////////////-->
     <node id="ship">
-      <material id="defaultMaterial"/>
+      <material id="woodMaterial"/>
       <texture id="woodText2">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
@@ -277,9 +304,7 @@
     </node>
     <node id="triangularPrismBottom">
       <material id="null"/>
-      <texture id="null">
-        <amplification afs="1.8" aft="1.8"/>
-      </texture>
+      <texture id="null"/>
       <transformations>
         <rotation axis="x" angle="180"/>
       </transformations>
@@ -289,7 +314,8 @@
     </node>
     <node id="triangularPrismFace1">
       <material id="null"/>
-      <texture id="null"/>
+      <texture id="null">
+      </texture>
       <transformations>
         <translation x="-0.5" y="0.866" z="1.0"/>
         <rotation axis="z" angle="-30"/>
@@ -311,7 +337,8 @@
     </node>
     <node id="triangularPrismFace3">
       <material id="null"/>
-      <texture id="null"/>
+      <texture id="null">
+      </texture>
       <transformations>
         <rotation axis="z" angle="120"/>
       </transformations>
@@ -631,6 +658,10 @@
         <noderef id="rail4"/>
         <noderef id="rail5"/>
         <noderef id="rail6"/>
+        <noderef id="railRight1"/>
+        <noderef id="railRight2"/>
+        <noderef id="railLeft1"/>
+        <noderef id="railLeft2"/>
       </descendants>
     </node>
     <node id="rail1">
@@ -648,7 +679,6 @@
       <texture id="null"/>
       <transformations>
         <translation x="0.7" y="1.7" z="-4.3"/>
-        <!-- <scale sx="0.2" sy="1.0" sz="0.2"/> -->
       </transformations>
       <descendants>
         <noderef id="rail"/>
@@ -659,7 +689,6 @@
       <texture id="null"/>
       <transformations>
         <translation x="0.2" y="1.7" z="-4.3"/>
-        <!-- <scale sx="0.2" sy="1.0" sz="0.2"/> -->
       </transformations>
       <descendants>
         <noderef id="rail"/>
@@ -670,7 +699,6 @@
       <texture id="null"/>
       <transformations>
         <translation x="-0.3" y="1.7" z="-4.3"/>
-        <!-- <scale sx="0.2" sy="1.0" sz="0.2"/> -->
       </transformations>
       <descendants>
         <noderef id="rail"/>
@@ -681,7 +709,6 @@
       <texture id="null"/>
       <transformations>
         <translation x="-0.8" y="1.7" z="-4.3"/>
-        <!-- <scale sx="0.2" sy="1.0" sz="0.2"/> -->
       </transformations>
       <descendants>
         <noderef id="rail"/>
@@ -692,14 +719,57 @@
       <texture id="null"/>
       <transformations>
         <translation x="-1.3" y="1.7" z="-4.3"/>
-        <!-- <scale sx="0.2" sy="1.0" sz="0.2"/> -->
+      </transformations>
+      <descendants>
+        <noderef id="rail"/>
+      </descendants>
+    </node>
+    <node id="railRight1">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <translation x="1.5" y="1.7" z="-4"/>
+        <rotation axis="y" angle="90"/>
+      </transformations>
+      <descendants>
+        <noderef id="rail"/>
+      </descendants>
+    </node>
+    <node id="railRight2">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <translation x="1.5" y="1.7" z="-3.5"/>
+        <rotation axis="y" angle="90"/>
+      </transformations>
+      <descendants>
+        <noderef id="rail"/>
+      </descendants>
+    </node>
+    <node id="railLeft1">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <translation x="-1.5" y="1.7" z="-4"/>
+        <rotation axis="y" angle="90"/>
+      </transformations>
+      <descendants>
+        <noderef id="rail"/>
+      </descendants>
+    </node>
+    <node id="railLeft2">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <translation x="-1.5" y="1.7" z="-3.5"/>
+        <rotation axis="y" angle="90"/>
       </transformations>
       <descendants>
         <noderef id="rail"/>
       </descendants>
     </node>
     <node id="railRightCorner">
-      <material id="null"/>
+      <material id="shinyWoodMaterial"/>
       <texture id="null"/>
       <transformations>
         <translation x="1.7" y="1.75" z="-4.3"/>
@@ -710,7 +780,7 @@
       </descendants>
     </node>
     <node id="rail">
-      <material id="null"/>
+      <material id="shinyWoodMaterial"/>
       <texture id="plainWoodText"/>
       <descendants>
         <noderef id="railStand"/>
@@ -742,7 +812,7 @@
     </node>
     <!-- WHEEL OBJECT /////////////////-->
     <node id="wheel">
-      <material id="null"/>
+      <material id="shinyWoodMaterial"/>
       <texture id="plainWoodText"/>
       <transformations>
         <translation x="0.0" y="2.0" z="-3.0"/>
@@ -819,7 +889,7 @@
     </node>
     <!-- MAST OBJECT ////////////////////-->
     <node id="mast">
-      <material id="null"/>
+      <material id="shinyWoodMaterial"/>
       <texture id="null"/>
       <transformations>
       </transformations>
@@ -852,7 +922,7 @@
       </descendants>
     </node>
     <node id="mastSail">
-      <material id="null"/>
+      <material id="flagMaterial"/>
       <texture id="whiteFlag"/>
       <transformations>
         <rotation axis="y" angle="90"/>
@@ -875,7 +945,7 @@
     </node>
     <!-- FLAG OBJECT ///////////////////////////-->
     <node id="flag">
-      <material id="null"/>
+      <material id="defaultMaterial"/>
       <texture id="pirateFlag"/>
       <transformations>
         <rotation axis="y" angle="90"/>
@@ -1015,7 +1085,7 @@
     </node>
     <!-- CANNONS ///////////////-->
     <node id="cannons">
-      <material id="null"/>
+      <material id="metalMaterial"/>
       <texture id="null"/>
       <descendants>
         <noderef id="rightCannon1"/>
@@ -1071,7 +1141,7 @@
     </node>
     <!-- CANNON OBJECT ///////////////-->
     <node id="cannon">
-      <material id="null"/>
+      <material id="shinyWoodMaterial"/>
       <texture id="castIron"/>
       <transformations>
         <scale sx="1.4" sy="1.4" sz="1.4"/>
@@ -1123,7 +1193,7 @@
       </descendants>
     </node>
     <node id="gun">
-      <material id="null"/>
+      <material id="metalMaterial"/>
       <texture id="null"/>
       <descendants>
         <noderef id="tube"/>
@@ -1213,7 +1283,7 @@
       </descendants>
     </node>
     <node id="cannonBall">
-      <material id="null"/>
+      <material id="metalMaterial"/>
       <texture id="castIron"/>
       <descendants>
         <leaf type="sphere" radius="0.08" slices="20" stacks="40"/>
