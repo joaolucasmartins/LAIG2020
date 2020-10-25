@@ -25,7 +25,7 @@ class MyCylinder extends CGFobject {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
-        this.texCoords = []; // TODO tex coords of bases
+        this.texCoords = [];
         // Aux Variables
         var radius = this.bottomRadius; var radiusDelta = (this.topRadius - this.bottomRadius) / this.stacks;
         var heightDelta = this.height / this.stacks;

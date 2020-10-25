@@ -677,7 +677,7 @@ class MySceneGraph {
      * @param {Node} node - where the transformations will be applied.
      * @param {node element} transfNode - atributes from the transformations node.
      */
-    parseTransformations(node, transfNode) {    //TODO fix errors
+    parseTransformations(node, transfNode) {
         var children = transfNode.children;
         var matrix = mat4.create(); //identity matrix
         var baseWarningMsg = "node with id '" + node.id + "'. Ignoring transformation.";
