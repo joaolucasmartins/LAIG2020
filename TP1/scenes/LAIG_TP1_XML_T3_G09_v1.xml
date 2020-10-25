@@ -109,7 +109,6 @@
   </textures>
   <materials>
     <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
-
          requires a distinct "id". At least one material should be present. -->
     <material id="defaultMaterial">
       <shininess value="10"/>
