@@ -410,7 +410,6 @@ class MySceneGraph {
             dict[children[i].nodeName] = children[i];
         }
         return dict;
-        // TODO Make this more clear
     }
 
     /**

@@ -9,14 +9,17 @@
 ----
 ## Project information
 
-- Good texture wrapping around the ship
-- A few complex elements (helm, flag)
-- Use of multiple primitives
+- A few complex elements (helm, masts, canons)
+- Use of all primitives
+- Multiple cameras and lights
+- Use of different materials
+- Separated texture/material behavior into multiple files to make them
+independent between each other
+- Resistant parser
 - Scene
   - Pirate ship scene
-  - [Scene XML](scenes/pirata.xml)
+  - [Scene XML](scenes/LAIG_TP1_XML_T3_G09_v1.xml)
 ----
 ## Issues/Problems
 
-- Cylinder and torus aren't displaying textures properly
-- Addition of a new torus to the scene causes lag
+- Nothing that we are aware of

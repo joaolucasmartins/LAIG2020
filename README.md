@@ -12,12 +12,16 @@
 
 ### [Scene Graph](TP1/MySceneGraph.js)
 
-- Good texture wrapping around the ship
-- A few complex elements (helm, flag)
-- Use of multiple primitives
+- A few complex elements (helm, masts, canons)
+- Use of all primitives
+- Use of different materials
+- Multiple cameras and lights
+- Separated texture/material behavior into multiple files to make them
+independent between each other
+- Resistant parser
 - Scene
   - Pirate ship scene
-  - [Scene XML](TP1/scenes/pirata.xml)
+  - [Scene XML](scenes/LAIG_TP1_XML_T3_G09_v1.xml)
 
 -----
 
