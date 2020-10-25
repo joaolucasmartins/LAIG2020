@@ -21,7 +21,7 @@ independent between each other
 - Resistant parser
 - Scene
   - Pirate ship scene
-  - [Scene XML](scenes/LAIG_TP1_XML_T3_G09_v1.xml)
+  - [Scene XML](TP1/scenes/LAIG_TP1_XML_T3_G09_v1.xml)
 
 -----
 
