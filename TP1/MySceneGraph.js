@@ -780,14 +780,9 @@ class MySceneGraph {
 
         //parse and assign texture to node
         var error;
-        if (!("texture" in nodeDict)) {
-            this.onXMLMinorError("Missing 'texture' tag in node '" + nodeName + "'. Using 'null' texture");
-            node.updateTexture(null, 1.0, 1.0);   //saving texture details in node object
-        } else {
-            if ((error = this.assignNodeTexture(node, nodeDict["texture"])) != null) {
-                this.onXMLMinorError(error + " in node '" + nodeName + "'. Using 'null' texture");
-                node.updateTexture(null, 1.0, 1.0);   //saving texture details in node object
-            }
+        if ((error = this.assignNodeTexture(node, nodeDict["texture"])) != null) {
+            this.onXMLMinorError(error + " in node '" + nodeName + "'. Using 'null' texture");
+            node.updateTexture("null", 1.0, 1.0);   //saving texture details in node object
         }
 
         //assign material to current node
