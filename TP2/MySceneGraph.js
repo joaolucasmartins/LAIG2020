@@ -7,6 +7,7 @@ var ILLUMINATION_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
+var ANIMATIONS_INDEX = 6;
 var NODES_INDEX = 6;
 
 /**
@@ -32,6 +33,7 @@ class MySceneGraph {
         this.nodes = {}; // Temporary struct that holds nodes before attribution to their parents
         this.materials = {};
         this.textDict = {};
+        this.animations = {};
         this.textStack = []; //stack used for texture hierarchy
         this.matStack = []; //stack for material hierarchy
 
@@ -239,11 +241,33 @@ class MySceneGraph {
             if ((error = this.parseMaterials(nodes[index])) != null)
                 return error;
         }
+        
 
         // <nodes>
         if ((index = nodeNames.indexOf("nodes")) == -1)
             return "tag <nodes> missing";
         else {
+
+            var animationsIndex;
+            // <animations>
+            if ((animationsIndex = nodes.indexOf("animations")) == -1) {
+                this.onXMLMinorError("tag <animations> undeclared")
+            }
+            else {
+                NODES_INDEX = 7; //if animations node is declared update nodes index
+
+                if (animationsIndex != index-1)   //animations block must preced nodes block
+                    return "Animations node out of place";
+                else if (animationsIndex != ANIMATIONS_INDEX)
+                    this.onXMLMinorError("tag <animations> out of order");
+
+                //Parse animations node
+                if ((error = this.parseAnimations(nodes[index])) != null)
+                    return error;
+            }
+
+
+
             if (index != NODES_INDEX)
                 this.onXMLMinorError("tag <nodes> out of order");
 
@@ -757,6 +781,111 @@ class MySceneGraph {
         return null;
     }
 
+
+    parseAnimation(animationNode) {
+
+        var children = animationNode.children;
+        if (children == null) 
+            return "No keyframe for " + animationsNode.nodeID;
+        
+        var transformations = [];
+        var instants = [];
+        //Parse keyframes
+        for (var i = 0; i < children.length; i++) {
+            var current = children[i].nodeID;
+
+            var previous = instants.pop();
+            if (current <= previous)
+                return "KeyFrame instance out of order for " + animationNode.nodeID;
+
+            instants.push(previous, current);
+
+            var attributes = children[i].children; //keyframe nodes
+            
+            //Translation
+            if (attributtes[0].nodeName != "translation") 
+                return "Keyframe transformation out of order for instant " + current;
+            var translation = this.parseCoordinates3D(attributes[0], "translation node of keyframe " + children[i].nodeID);
+  
+            //Rotations
+            var nodeName;
+            if (attributes[1].nodeName != "rotation")
+                return "Keyframe transformation out of order for instant " + current;
+            if ((nodeName = this.reader.getString(attributes[1], "axis", false)) != "x")
+                return "Keyframe transformation out of order for instant " + current;
+
+            var xAxis = this.reader.getFLoat(attribute[1], "angle", false);
+
+            if (attributes[2].nodeName != "rotation")
+                return "Keyframe transformation out of order for instant " + current;
+            if ((nodeName = this.reader.getString(attributes[2], "axis", false)) != "y")
+                return "Keyframe transformation out of order for instant " + current;
+
+            var yAxis = this.reader.getFLoat(attribute[2], "angle", false);
+
+            if (attributes[3].nodeName != "rotation")
+                return "Keyframe transformation out of order for instant " + current;
+            if ((nodeName = this.reader.getString(attributes[3], "axis", false)) != "z")
+                return "Keyframe transformation out of order for instant " + current;
+
+            var zAxis = this.reader.getFLoat(attribute[z], "angle", false);
+
+            var rotation = [xAxis, yAxis, zAxis];   //TODO check null values?
+
+            //Scaling
+            if (attributes[4].nodeName != "scale")
+                return "Keyframe transformation out of order for instant " + current;
+
+            var scale = this.parseCoordinates3D(attributes[4], "scaling node of keyframe " + children[i].nodeID);
+
+            var transf = new Transformation([...translation, ...rotation, ...scaling]);
+
+            transformations.push(transf);
+            
+        }
+
+        this.animations.push(new MyAnimation(instants, transformations));
+        
+        return null;
+    }
+
+    parseAnimations(nodesNode) {
+
+        if (nodesNode.children == null) {    //animations block can be empty
+            this.onXMLMinorError("<animations> block is empty");
+            return null;
+        }
+
+        var children = nodesNode.children;
+        this.nodes = [];
+
+        // Any number of nodes.
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName != "animation") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            var nodeID = this.reader.getString(children[i], 'id');
+            if (nodeID == null) {
+                this.onXMLMinorError("No ID defined for node number " + i);
+                continue;
+            }
+
+            // Checks for repeated IDs.
+            if (this.animations[nodeID] != null) {
+                this.onXMLMinorError("ID must be unique for each animation (conflict: ID = " + nodeID + ")");
+                continue;
+            }
+
+           var error;
+           if ((error = this.parseAnimation(nodeID, children[i])) != null) {
+               this.onXMLMinorError(error);
+               continue;
+           } 
+        }
+
+    }
     /**
      * Parses node information
      * @param {string} nodeName - id of the node that's being processed.
