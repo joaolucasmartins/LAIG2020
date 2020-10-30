@@ -1,6 +1,12 @@
 class MyKeyFrameAnimation extends MyAnimation {
-    constructor(instants, transformations) {
-        super(instants, transformations);
+    static selectAxis = [
+        [1, 0, 0], // Select X
+        [0, 1, 0], // Select Y
+        [0, 0, 1]  // Select Z
+    ];
+
+    constructor(instants, transformations, scene) {
+        super(instants, transformations, scene);
 
         if (transformations.length == 0)
             this.currentTransformation = null; // Updated by update()
@@ -33,6 +39,12 @@ class MyKeyFrameAnimation extends MyAnimation {
     }
 
     apply() {
-        throw new Error("Apply method of abstract class animation called");
+        this.scene.scale(...this.scale);
+        this.scene.translate(...this.translation);
+        for (var i = 0; i < 3; ++i) {
+            if (this.rotation[i] != 0) {
+                this.scene.rotate(this.rotation[i], selectAxis[i]);
+            }
+        }
     }
 }

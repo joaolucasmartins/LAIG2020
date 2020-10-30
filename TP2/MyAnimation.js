@@ -1,8 +1,13 @@
 class MyAnimation {
-    constructor(instants, transformations) {
+    constructor(instants, transformations, scene) {
         this.transformations = {}
+        this.scene = scene;
         for (var i = 0; i < instants.length; ++i) {
             this.transformations[instants[i]] = transformations[i];
+        }
+
+        if (!(0 in this.transformations)) {
+            this.transformations[0] = Transformation.newEmptyTransformation();
         }
     }
 
@@ -22,6 +27,14 @@ class Transformation {
         this.scale = transformations[2];
     }
 
+    static newEmptyTransformation() {
+        return new Transformation([
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ]);
+    }
+
     /* Apply a transformation after 'this' transformation with given weight */
     interpolate(applyTransf, weight) {
         if (applyTransf == null)
@@ -29,9 +42,9 @@ class Transformation {
 
         var resTranslation = [], resRotation = [], resScale = [];
         for (var i = 0; i < 3; ++i) {
-            resTranslation.push(this.translation[i] + applyTransf.translation[i] * weight);
-            resRotation.push(this.rotation[i] + applyTransf.rotation[i] * weight);
-            resScale.push(this.scale[i] + applyTransf.scale[i] * weight);
+            resTranslation.push(this.translation[i] + (applyTransf.translation[i] - this.translation[i]) * weight);
+            resRotation.push(this.rotation[i] + (applyTransf.rotation[i] - this.rotation[i]) * weight);
+            resScale.push(this.scale[i] + (applyTransf.scale[i] - this.scale[i]) * weight);
         }
 
         var resTransf = new Transformation([resTranslation, resRotation, resScale]);

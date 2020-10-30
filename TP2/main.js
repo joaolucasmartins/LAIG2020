@@ -15,37 +15,29 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.j
     'Node.js', 'MySphere.js', 'MyPrimitiveCreator.js', 'ClearTexture.js', 'NullTexture.js', 'NullMaterial.js', 'MyAnimation.js', 'MyKeyFrameAnimation.js',
 
     main = function () {
-        var instants = [1, 10, 20];
-        var T1 = new Transformation([[0, 0, 1], [1, 1, 1], [90, 0, 0]]);
-        var T2 = new Transformation([[0, 4, 0], [1, 2, 1], [180, 0, 0]]);
-        var T3 = new Transformation([[2, 0, 1], [1, 1, 1], [90, 0, 0]]);
-        var transformations = [T1, T2, T3];
-        var anim = new MyKeyFrameAnimation(instants, transformations);
-        anim.update(5);
-        console.log(anim);
         // Standard application, scene and interface setup
-        //var app = new CGFapplication(document.body);
-        //var myInterface = new MyInterface();
-        //var myScene = new XMLscene(myInterface);
+        var app = new CGFapplication(document.body);
+        var myInterface = new MyInterface();
+        var myScene = new XMLscene(myInterface);
 
-        //app.init();
+        app.init();
 
-        //app.setScene(myScene);
-        //app.setInterface(myInterface);
+        app.setScene(myScene);
+        app.setInterface(myInterface);
 
-        //myInterface.setActiveCamera(myScene.camera);
+        myInterface.setActiveCamera(myScene.camera);
 
-        //// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
-        //// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
+        // get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
+        // or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 
-        //var filename = getUrlVars()['file'] || "LAIG_TP1_XML_T3_G09_v1.xml";
+        var filename = getUrlVars()['file'] || "LAIG_TP1_XML_T3_G09_v1.xml";
 
-        //// create and load graph, and associate it to scene. 
-        //// Check console for loading errors
-        //var myGraph = new MySceneGraph(filename, myScene);
+        // create and load graph, and associate it to scene. 
+        // Check console for loading errors
+        var myGraph = new MySceneGraph(filename, myScene);
 
-        //// start
-        //app.run();
+        // start
+        app.run();
     }
 
 ]);
