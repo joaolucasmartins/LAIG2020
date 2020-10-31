@@ -1,10 +1,7 @@
 class MyAnimation {
-    constructor(instants, transformations, scene) {
-        this.transformations = {}
+    constructor(scene, transformations) {
+        this.transformations = transformations;
         this.scene = scene;
-        for (var i = 0; i < instants.length; ++i) {
-            this.transformations[instants[i]] = transformations[i];
-        }
 
         if (!(0 in this.transformations)) {
             this.transformations[0] = Transformation.newEmptyTransformation();
@@ -21,6 +18,12 @@ class MyAnimation {
 }
 
 class Transformation {
+    static selectAxis = [
+        [1, 0, 0], // Select X
+        [0, 1, 0], // Select Y
+        [0, 0, 1]  // Select Z
+    ];
+
     constructor(transformations) {
         this.translation = transformations[0];
         this.rotation = transformations[1];

@@ -91,9 +91,11 @@
   </lights>
   <textures>
     <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
-    <texture id="woodText" path="./scenes/images/woodRev.jpg"/>     <!--vertical wood texture-->
-    <texture id="woodText2" path="./scenes/images/wood.jpg"/>       <!--horizontal wood texture-->
-    <texture id="whiteFlag" path="./scenes/images/whiteFlag.jpg"/>  
+    <texture id="woodText" path="./scenes/images/woodRev.jpg"/>
+    <!--vertical wood texture-->
+    <texture id="woodText2" path="./scenes/images/wood.jpg"/>
+    <!--horizontal wood texture-->
+    <texture id="whiteFlag" path="./scenes/images/whiteFlag.jpg"/>
     <texture id="plainWoodText" path="./scenes/images/plainWood.jpg"/>
     <texture id="plainWoodText2" path="./scenes/images/plainWood2.jpg"/>
     <texture id="pirateFlag" path="./scenes/images/pirateFlag.jpg"/>
@@ -153,6 +155,17 @@
       <emissive r="0.2" g="0.2" b="0.3" a="1.0"/>
     </material>
   </materials>
+  <animations>
+    <animation id="anim1">
+      <keyframe instant="20.0">
+        <translation x="0" y="10" z="10"/>
+        <rotation axis="x" angle="-180"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1.0" sy="1.0" sz="1.0"/>
+      </keyframe>
+    </animation>
+  </animations>
   <nodes>
     <node id="rootNode">
       <material id="defaultMaterial"/>
@@ -171,6 +184,7 @@
       <texture id="woodText2">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
+      <animationref id="anim1"/>
       <transformations>
         <translation x="0" y="1.2" z="0"/>
       </transformations>

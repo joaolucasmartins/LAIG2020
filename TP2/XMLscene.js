@@ -123,6 +123,11 @@ class XMLscene extends CGFscene {
         this.sceneInited = true;
     }
 
+    update(time) {
+        if (this.sceneInited)
+            this.graph.rootNode.update(time);
+    }
+
     /**
      * Displays the scene.
      */

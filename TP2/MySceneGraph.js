@@ -7,7 +7,8 @@ var ILLUMINATION_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
-var NODES_INDEX = 6;
+var ANIMATIONS_INDEX = 6;
+var NODES_INDEX = 7;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -32,6 +33,7 @@ class MySceneGraph {
         this.nodes = {}; // Temporary struct that holds nodes before attribution to their parents
         this.materials = {};
         this.textDict = {};
+        this.animations = {};
         this.textStack = []; //stack used for texture hierarchy
         this.matStack = []; //stack for material hierarchy
 
@@ -237,6 +239,20 @@ class MySceneGraph {
 
             //Parse materials block
             if ((error = this.parseMaterials(nodes[index])) != null)
+                return error;
+        }
+
+        // <animations>
+        if ((index = nodeNames.indexOf("animations")) == -1) {
+            this.onXMLMinorError("tag <animations> missing");
+            NODES_INDEX--;
+        }
+        else {
+            if (index != ANIMATIONS_INDEX)
+                this.onXMLMinorError("tag <animations> out of order");
+
+            //Parse animations block
+            if ((error = this.parseAnimations(nodes[index])) != null)
                 return error;
         }
 
@@ -617,8 +633,130 @@ class MySceneGraph {
                 if ((error = this.parseMaterial(materialID, children[i])) != null)
                     this.onXMLMinorError(error + ". Material not parsed.");
             } else
-                this.onXMLMinorError("Missing 'id' attribute in a camera");
+                this.onXMLMinorError("Missing 'id' attribute in a material");
         }
+        return null;
+    }
+
+    /**
+     * Parses the atributes of a <keyframe> node in the xml file.
+     * @param {*} id - id of the current keyframe node.
+     * @param {*} keyframeNode - the atributes of the keyframe node.
+     */
+    parseKeyframe(keyframeNode) {
+        var children = keyframeNode.children;
+        var transformation = [];
+        if (children.length != 5)
+            return "invalid number of transformations";
+
+
+        var translationNode = children[0];
+        if (translationNode.nodeName != "translation")
+            return "expected 'translationNode' but got " + translationNode.nodeName;
+        var translation = this.parseTranslation(translationNode, "in translation node");
+        if (typeof translation === "string") return translation;
+
+        var rotationXNode = children[1];
+        if (rotationXNode.nodeName != "rotation")
+            return "expected 'rotation' but got " + rotationXNode.nodeName;
+        var rotationX = this.parseRotation(rotationXNode, "in rotation X node");
+        if (typeof rotationX === "string") return rotationX;
+        if (rotationX[1] != "x") return "expected rotation in X";
+
+        var rotationYNode = children[2];
+        if (rotationYNode.nodeName != "rotation")
+            return "expected 'rotation' but got " + rotationYNode.nodeName;
+        var rotationY = this.parseRotation(rotationYNode, "in rotation Y node")
+        if (typeof rotationY === "string") return rotationY;
+        if (rotationY[1] != "y") return "expected rotation in Y";
+
+        var rotationZNode = children[3];
+        if (rotationZNode.nodeName != "rotation")
+            return "expected 'rotation' but got " + rotationZNode.nodeName;
+        var rotationZ = this.parseRotation(rotationZNode, "in rotation Z node")
+        if (typeof rotationZ === "string") return rotationZ;
+        if (rotationZ[1] != "z") return "expected rotation in Z";
+
+        var scaleNode = children[4];
+        if (scaleNode.nodeName != "scale")
+            return "expected 'scale' but got " + scaleNode.nodeName;
+        var scale = this.parseScale(scaleNode, "in scale node");
+        if (typeof scale === "string") return scale;
+
+        var rotation = [rotationX[0], rotationY[0], rotationZ[0]]; // TODO Convert indices to Proprieties
+        transformation = new Transformation([translation, rotation, scale]);
+        return transformation;
+    }
+
+    /**
+     * Parses the atributes of a <animation> node in the xml file.
+     * @param {*} id - id of the current animation node.
+     * @param {*} animationNode - the atributes of the animation node.
+     */
+    parseAnimation(id, animationNode) {
+        // Checks for repeated IDs.
+        if (this.animations[id] != null)
+            return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
+
+        var postWarningMsg = " animation with id " + id;
+        var children = animationNode.children;
+        var keyframes = {};
+
+        // Any number of materials.
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName != "keyframe") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + "> in" + postWarningMsg);
+                continue;
+            }
+
+            if (this.reader.hasAttribute(children[i], 'instant')) {
+                // Get instant of the current keyframe.
+                var instant = this.parseFloat(children[i], 'instant', postWarningMsg);
+                if (typeof instant === 'string') return instant;
+                if (instant in keyframes) {
+                    this.onXMLMinorError("instant must be unique for each keyframe (conflict: ID = " + instant + ") in" + postWarningMsg);
+                    continue;
+                }
+
+                var keyframe = this.parseKeyframe(children[i]);
+                if (typeof keyframe === 'string')
+                    this.onXMLMinorError(keyframe + ". Keyframe with instant '" +
+                        instant + "' not parsed in animation '" + id + "'");
+                else
+                    keyframes[instant] = keyframe;
+
+            } else
+                this.onXMLMinorError("Missing 'instant' attribute in a keyframe" + postWarningMsg);
+        }
+
+        var animation = new MyKeyFrameAnimation(this.scene, keyframes);
+        this.animations[id] = animation;
+        return null;
+    }
+
+    /**
+     * Parses the <animations> block.
+     * @param {materials block element} animationsNode
+     */
+    parseAnimations(animationsNode) {
+        var children = animationsNode.children;
+
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName != "animation") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + "> in 'animations' tag");
+                continue;
+            }
+
+            if (this.reader.hasAttribute(children[i], 'id')) {
+                var animationID = this.reader.getString(children[i], 'id');
+
+                var error;
+                if ((error = this.parseAnimation(animationID, children[i])) != null)
+                    this.onXMLMinorError(error + ". animation not parsed.");
+            } else
+                this.onXMLMinorError("Missing 'id' attribute in an animation");
+        }
+
         return null;
     }
 
@@ -687,65 +825,27 @@ class MySceneGraph {
 
             switch (nodeName) {
                 case "translation":
-                    var x = 0, y = 0, z = 0;
-                    var postWarningMsg = "'translation' tag in " + baseWarningMsg;
+                    var res = this.parseTranslation(children[i], baseWarningMsg);
+                    if (typeof res === "string")
+                        this.onXMLMinorError(res);
 
-                    if (typeof (x = this.parseFloat(children[i], "x", postWarningMsg)) === 'string') {
-                        this.onXMLMinorError(x);
-                        break;
-                    }
-                    y = this.parseFloat(children[i], "y", postWarningMsg);
-                    if (typeof (y = this.parseFloat(children[i], "y", postWarningMsg)) === 'string') {
-                        this.onXMLMinorError(y);
-                        break;
-                    }
-                    z = this.parseFloat(children[i], "z", postWarningMsg);
-                    if (typeof (z = this.parseFloat(children[i], "z", postWarningMsg)) === 'string') {
-                        this.onXMLMinorError(z);
-                        break;
-                    }
-
-                    mat4.translate(matrix, matrix, vec3.fromValues(x, y, z));
+                    mat4.translate(matrix, matrix, res);
                     break;
-
                 case "rotation":
-                    var axis, angle = 0;
-                    postWarningMsg = "'scale' tag in " + baseWarningMsg;
-                    axis = this.reader.getString(children[i], "axis", false);
-
-                    if (axis != "x" && axis != "y" && axis != "z") {
-                        this.onXMLMinorError("unable to parse field 'axis' of the " + postWarningMsg);
-                        break;
-                    }
-                    if (typeof (angle = this.parseFloat(children[i], "angle", postWarningMsg)) === 'string') {
-                        this.onXMLMinorError(angle);
-                        break;
-                    }
-
-                    var rad = angle * DEGREE_TO_RAD;
-                    mat4.rotate(matrix, matrix, rad, vec3.fromValues(axis == "x", axis == "y", axis == "z"));
+                    var res = this.parseRotation(children[i], baseWarningMsg);
+                    if (typeof res === "string")
+                        this.onXMLMinorError(res);
+                    var rotationAngle = res[0];
+                    var axis = [res[1] == "x", res[1] == "y", res[1] == "z"];
+                    mat4.rotate(matrix, matrix, rotationAngle, axis);
                     break;
 
                 case "scale":
-                    var sx = 0, sy = 0, sz = 0;
-                    postWarningMsg = "'scale' tag in " + baseWarningMsg;
+                    var res = this.parseScale(children[i], baseWarningMsg);
+                    if (typeof res === "string")
+                        this.onXMLMinorError(res);
 
-                    if (typeof (sx = this.parseFloat(children[i], "sx", postWarningMsg)) === 'string') {
-                        this.onXMLMinorError(sx);
-                        break;
-                    }
-
-                    if (typeof (sy = this.parseFloat(children[i], "sy", postWarningMsg)) === 'string') {
-                        this.onXMLMinorError(sy);
-                        break;
-                    }
-
-                    if (typeof (sz = this.parseFloat(children[i], "sz", postWarningMsg)) === 'string') {
-                        this.onXMLMinorError(sz);
-                        break;
-                    }
-
-                    mat4.scale(matrix, matrix, vec3.fromValues(sx, sy, sz));
+                    mat4.scale(matrix, matrix, res);
                     break;
 
                 default:
@@ -800,6 +900,14 @@ class MySceneGraph {
                 node.setMaterial("null");
             } else
                 node.setMaterial(this.materials[materialID]);
+        }
+
+        if ("animationref" in nodeDict) {
+            var animationId = this.reader.getString(nodeDict["animationref"], "id");
+            if (!(animationId))
+                this.onXMLMinorError("Invalid animation id '" + animationId + "' in node '" + nodeName + "'");
+            else
+                node.setAnimation(this.animations[animationId]);
         }
 
         this.nodes[nodeName] = node;
@@ -974,6 +1082,55 @@ class MySceneGraph {
         color.push(...[r, g, b, a]);
 
         return color;
+    }
+
+    parseTranslation(node, baseWarningMsg) {
+        var x = 0, y = 0, z = 0;
+        var postWarningMsg = "'translation' tag in " + baseWarningMsg;
+
+        x = this.parseFloat(node, "x", postWarningMsg);
+        if (typeof (x = this.parseFloat(node, "x", postWarningMsg)) === 'string')
+            return x;
+
+        y = this.parseFloat(node, "y", postWarningMsg);
+        if (typeof (y = this.parseFloat(node, "y", postWarningMsg)) === 'string')
+            return y;
+
+        z = this.parseFloat(node, "z", postWarningMsg);
+        if (typeof (z = this.parseFloat(node, "z", postWarningMsg)) === 'string')
+            return z;
+
+        return [x, y, z];
+    }
+
+    parseRotation(node, baseWarningMsg) {
+        var axis, angle = 0;
+        var postWarningMsg = "'rotation' tag in " + baseWarningMsg;
+        axis = this.reader.getString(node, "axis", false);
+
+        if (axis != "x" && axis != "y" && axis != "z")
+            return "unable to parse field 'axis' of the " + postWarningMsg;
+        if (typeof (angle = this.parseFloat(node, "angle", postWarningMsg)) === 'string')
+            return angle;
+
+        var rad = angle * DEGREE_TO_RAD;
+        return [rad, axis];
+    }
+
+    parseScale(node, baseWarningMsg) {
+        var sx = 0, sy = 0, sz = 0;
+        var postWarningMsg = "'scale' tag in " + baseWarningMsg;
+
+        if (typeof (sx = this.parseFloat(node, "sx", postWarningMsg)) === 'string')
+            return sx;
+
+        if (typeof (sy = this.parseFloat(node, "sy", postWarningMsg)) === 'string')
+            return sy;
+
+        if (typeof (sz = this.parseFloat(node, "sz", postWarningMsg)) === 'string')
+            return sz;
+
+        return [sx, sy, sz];
     }
 
     /**

@@ -1,13 +1,8 @@
 class MyKeyFrameAnimation extends MyAnimation {
-    static selectAxis = [
-        [1, 0, 0], // Select X
-        [0, 1, 0], // Select Y
-        [0, 0, 1]  // Select Z
-    ];
+    constructor(scene, transformations) {
+        super(scene, transformations);
 
-    constructor(instants, transformations, scene) {
-        super(instants, transformations, scene);
-
+        this.initialInstant = null;
         if (transformations.length == 0)
             this.currentTransformation = null; // Updated by update()
         else {
@@ -15,13 +10,21 @@ class MyKeyFrameAnimation extends MyAnimation {
         }
     }
 
-    update(instant) {
+    update(time) {
+        if (this.initialInstant == null)
+            this.initialInstant = time;
+
+        var instant = (time - this.initialInstant) / 1000;
         var instants = Object.keys(this.transformations);
 
-        if (instant <= instants[0])
-            return this.transformations[0];
-        if (instant >= instants[instants.length - 1])
-            return this.transformations[instants.length - 1];
+        if (instant <= instants[0]) {
+            this.currentTransformation = this.transformations[0];
+            return;
+        }
+        if (instant >= instants[instants.length - 1]) {
+            this.currentTransformation = this.transformations[instants[instants.length - 1]];
+            return;
+        }
 
         var prevTransformation, nextTransformation,
             initialInstant, endInstant;
@@ -39,11 +42,11 @@ class MyKeyFrameAnimation extends MyAnimation {
     }
 
     apply() {
-        this.scene.scale(...this.scale);
-        this.scene.translate(...this.translation);
+        this.scene.scale(...this.currentTransformation.scale);
+        this.scene.translate(...this.currentTransformation.translation);
         for (var i = 0; i < 3; ++i) {
-            if (this.rotation[i] != 0) {
-                this.scene.rotate(this.rotation[i], selectAxis[i]);
+            if (this.currentTransformation.rotation[i] != 0) {
+                this.scene.rotate(this.currentTransformation.rotation[i], ...Transformation.selectAxis[i]);
             }
         }
     }
