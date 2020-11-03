@@ -11,9 +11,10 @@ class MySpriteAnimation extends MyAnimation { // TODO Make this work with KeyFra
         this.scene = scene;
         this.spritesheet = spritesheet;
         this.rectangle = new MyRectangle(scene, 0, 0, 1, 1);
-        this.durStep = durStep;
-        this.currInstant = 0;
+        this.currInstantIndex = 0;
+        this.currInstant = this.instants[this.currInstantIndex];
         this.currElement = this.elements[this.currInstant];
+        console.log(this);
     }
 
     update(time) {
@@ -23,18 +24,21 @@ class MySpriteAnimation extends MyAnimation { // TODO Make this work with KeyFra
         var instant = (time - this.initialInstant) / 1000;
 
         if (instant <= this.instants[0]) {
-            this.currInstant = 0;
-            this.currElement = this.elements[0];
+            this.currInstantIndex = 0;
+            this.currInstant = this.instants[this.currInstantIndex];
+            this.currElement = this.elements[this.currInstant];
             return;
         }
 
         while (instant > this.currInstant) {
-            this.currInstant += this.durStep;
+            this.currInstantIndex++;
+            this.currInstant = this.instants[this.currInstantIndex];
         }
         this.currElement = this.elements[this.currInstant];
 
         if (instant >= this.instants[this.instants.length - 1]) {
-            this.currInstant = this.instants[this.instants.length - 1];
+            this.currInstantIndex = this.instants.length - 1;
+            this.currInstant = this.instants[this.currInstantIndex];
             this.currElement = this.elements[this.currInstant];
             return;
         }

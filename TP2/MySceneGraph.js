@@ -23,7 +23,7 @@ class MySceneGraph {
     constructor(filename, scene) {
         let texture = new CGFtexture(scene, SPRITE_IMG);
         var spritesheet = new MySpritesheet(scene, texture, 16, 16);
-        this.sprAnim = new MySpriteAnimation(scene, spritesheet, 64, 70, 10);
+        this.sprAnim = new MySpriteAnimation(scene, spritesheet, 64, 70, 5);
 
         this.cameras = [];
         this.stop = false;
