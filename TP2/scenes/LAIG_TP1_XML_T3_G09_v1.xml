@@ -157,6 +157,13 @@
   </materials>
   <animations>
     <animation id="anim1">
+      <keyframe instant="10.0">
+        <translation x="0" y="10" z="-10"/>
+        <rotation axis="x" angle="-90"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1.0" sy="1.0" sz="1.0"/>
+      </keyframe>
       <keyframe instant="20.0">
         <translation x="0" y="10" z="10"/>
         <rotation axis="x" angle="-180"/>

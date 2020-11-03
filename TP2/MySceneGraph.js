@@ -21,6 +21,8 @@ class MySceneGraph {
      * @param {XMLScene} scene
      */
     constructor(filename, scene) {
+        this.spritesheet = new MySpriteText(scene, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+
         this.cameras = [];
         this.stop = false;
 
@@ -1165,6 +1167,8 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        this.rootNode.display(this.matStack, this.textStack);
+        // this.rootNode.display(this.matStack, this.textStack);
+        this.spritesheet.display();
+        this.scene.setActiveShader(this.scene.defaultShader);
     }
 }
