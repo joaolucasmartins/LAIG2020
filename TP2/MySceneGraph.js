@@ -21,6 +21,10 @@ class MySceneGraph {
      * @param {XMLScene} scene
      */
     constructor(filename, scene) {
+        let texture = new CGFtexture(scene, SPRITE_IMG);
+        var spritesheet = new MySpritesheet(scene, texture, 16, 16);
+        this.sprAnim = new MySpriteAnimation(scene, spritesheet, 64, 70, 10);
+
         this.cameras = [];
         this.stop = false;
 
@@ -1165,6 +1169,9 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        this.rootNode.display(this.matStack, this.textStack);
+        this.sprAnim.display();
+        //this.rootNode.display(this.matStack, this.textStack);
+        //this.spritesheet.display();
+        //this.scene.setActiveShader(this.scene.defaultShader);
     }
 }

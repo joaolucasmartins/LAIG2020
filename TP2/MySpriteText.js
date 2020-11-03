@@ -1,9 +1,11 @@
+const SPRITE_IMG = "scenes/images/spriteText.png";
+
 class MySpriteText {
     constructor(scene, text) {
         this.scene = scene;
         this.text = text;
 
-        let texture = new CGFtexture(scene, "scenes/images/spriteText.png");
+        let texture = new CGFtexture(scene, SPRITE_IMG);
         this.textsheet = new MySpritesheet(scene, texture, 16, 16);
 
         this.chars = [];
