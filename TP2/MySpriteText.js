@@ -10,7 +10,8 @@ class MySpriteText {
 
         this.chars = [];
         for (let i in text) {
-            let rect = new MyRectangle(scene, i, 0, parseInt(i) + 1, 1);
+            let x = parseInt(i) - text.length / 2;
+            let rect = new MyRectangle(scene, x, -0.5, x + 1, 0.5);
             let currCharCode = this.getCharacterPosition(text[i]);
             this.chars.push([rect, currCharCode]);
         }

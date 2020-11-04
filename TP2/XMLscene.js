@@ -125,9 +125,7 @@ class XMLscene extends CGFscene {
 
     update(time) {
         if (this.sceneInited) {
-            //this.graph.rootNode.update(time);
-
-            this.graph.sprAnim.update(time);
+            this.graph.updateScene(time);
         }
     }
 

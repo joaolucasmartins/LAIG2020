@@ -142,6 +142,18 @@ class MyPrimitiveCreator {
     }
 
     /**
+    * Parse <leaf> node (SpriteText)
+    * @param {node element} node 
+    */
+    createSpriteText(node) {
+        var text = this.reader.getString(node, "text");
+        if (text == null)
+            return "unable to parse field 'text' of the ";
+
+        return new MySpriteText(this.scene, text);
+    }
+
+    /**
     * Create primitive switcher.
     * @param {node element} node 
     * @param {string} type - leaf type
@@ -160,6 +172,8 @@ class MyPrimitiveCreator {
             primitive = this.createSphere(node);
         else if (type == "torus")
             primitive = this.createTorus(node);
+        else if (type == "spritetext")
+            primitive = this.createSpriteText(node);
 
         return primitive;
     }

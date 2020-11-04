@@ -10,7 +10,7 @@ class MySpriteAnimation extends MyAnimation { // TODO Make this work with KeyFra
         super(scene, cells)
         this.scene = scene;
         this.spritesheet = spritesheet;
-        this.rectangle = new MyRectangle(scene, 0, 0, 1, 1);
+        this.rectangle = new MyRectangle(scene, 1, 1, 2, 2);
         this.durStep = durStep;
         this.currInstant = 0;
         this.currElement = this.elements[this.currInstant];
