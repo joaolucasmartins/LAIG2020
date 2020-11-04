@@ -2,7 +2,7 @@ class MyAnimation {
     constructor(scene, elements) {
         this.elements = elements; // What instances are mapped to
         this.scene = scene;
-        this.instants = Object.keys(this.elements);
+        this.instants = Object.keys(this.elements).sort();
     }
 
     update(frame) {
