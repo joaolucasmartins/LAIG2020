@@ -1,4 +1,5 @@
 class MySpriteAnimation extends MyAnimation { // TODO Make this work with KeyFrames too
+    // TODO Make sprite animation repeat over time
     constructor(scene, spritesheet, startCell, endCell, duration) {
         let cells = [];
         let currDur = 0, durStep = duration / (endCell - startCell)
@@ -14,7 +15,6 @@ class MySpriteAnimation extends MyAnimation { // TODO Make this work with KeyFra
         this.currInstantIndex = 0;
         this.currInstant = this.instants[this.currInstantIndex];
         this.currElement = this.elements[this.currInstant];
-        console.log(this);
     }
 
     update(time) {
@@ -44,7 +44,7 @@ class MySpriteAnimation extends MyAnimation { // TODO Make this work with KeyFra
         }
     }
 
-    display() {
+    apply() {
         this.spritesheet.activateCellP(this.currElement);
         this.rectangle.display();
         this.scene.setActiveShader(this.scene.defaultShader);

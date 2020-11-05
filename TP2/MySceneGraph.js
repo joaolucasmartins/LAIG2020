@@ -8,7 +8,8 @@ var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
 var ANIMATIONS_INDEX = 6;
-var NODES_INDEX = 7;
+var SPRITESHEETS_INDEX = 7;
+var NODES_INDEX = 8;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -34,6 +35,7 @@ class MySceneGraph {
         this.materials = {};
         this.textDict = {};
         this.animations = {};
+        this.spritesheetDict = {};
         this.textStack = []; //stack used for texture hierarchy
         this.matStack = []; //stack for material hierarchy
 
@@ -54,7 +56,7 @@ class MySceneGraph {
          * If any error occurs, the reader calls onXMLError on this object, with an error message
          */
         this.reader.open('scenes/' + filename, this);
-        this.primitiveCreator = new MyPrimitiveCreator(this.reader, this.scene);
+        this.primitiveCreator = new MyPrimitiveCreator(this.reader, this.scene, this.spritesheetDict);
     }
 
     /**
@@ -246,7 +248,8 @@ class MySceneGraph {
         // <animations>
         if ((index = nodeNames.indexOf("animations")) == -1) {
             this.onXMLMinorError("tag <animations> missing");
-            NODES_INDEX--;
+            NODES_INDEX--; // Decrease nodes index if there is no animations tag
+            SPRITESHEETS_INDEX--;
         }
         else {
             if (index != ANIMATIONS_INDEX)
@@ -254,6 +257,19 @@ class MySceneGraph {
 
             //Parse animations block
             if ((error = this.parseAnimations(nodes[index])) != null)
+                return error;
+        }
+
+        // <spritesheets>
+        if ((index = nodeNames.indexOf("spritesheets")) == -1) {
+            this.onXMLMinorError("tag <spritesheets> missing");
+            NODES_INDEX--;
+        }
+        else {
+            if (index != SPRITESHEETS_INDEX)
+                this.onXMLMinorError("tag <spritesheets> out of order");
+
+            if ((error = this.parseSpritesheets(nodes[index])) != null)
                 return error;
         }
 
@@ -290,7 +306,7 @@ class MySceneGraph {
             return "No root id defined for scene.";
 
         var rootNode = children[rootIndex];
-        var id = this.reader.getString(rootNode, 'id');
+        var id = this.reader.getString(rootNode, 'id', false);
         if (id == null)
             return "No root id defined for scene.";
 
@@ -302,7 +318,7 @@ class MySceneGraph {
             this.onXMLMinorError("no axis_length defined for scene; assuming 'length = 1'");
 
         var refNode = children[referenceIndex];
-        var axis_length = this.reader.getFloat(refNode, 'length');
+        var axis_length = this.reader.getFloat(refNode, 'length', false);
         if (axis_length == null)
             this.onXMLMinorError("no axis_length defined for scene; assuming 'length = 1'");
 
@@ -488,7 +504,7 @@ class MySceneGraph {
             }
 
             // Get id of the current light.
-            var lightId = this.reader.getString(children[i], 'id');
+            var lightId = this.reader.getString(children[i], 'id', false);
             if (lightId == null)
                 return "no ID defined for light";
 
@@ -547,7 +563,12 @@ class MySceneGraph {
 
         //saving texture id and path in textures dictionary
         for (var i = 0; i < children.length; i++) {
-            var name = this.reader.getString(children[i], 'id', true);
+            if (children[i].nodeName != "texture") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            var name = this.reader.getString(children[i], 'id', false);
             if (name == null) {
                 this.onXMLMinorError("missing 'id' attribute in a texture.");
                 continue;
@@ -624,7 +645,7 @@ class MySceneGraph {
 
             if (this.reader.hasAttribute(children[i], 'id')) {
                 // Get id of the current material.
-                var materialID = this.reader.getString(children[i], 'id');
+                var materialID = this.reader.getString(children[i], 'id', false);
 
                 // Checks for repeated IDs.
                 if (this.materials[materialID] != null)
@@ -749,13 +770,61 @@ class MySceneGraph {
             }
 
             if (this.reader.hasAttribute(children[i], 'id')) {
-                var animationID = this.reader.getString(children[i], 'id');
+                var animationID = this.reader.getString(children[i], 'id', false);
 
                 var error;
                 if ((error = this.parseAnimation(animationID, children[i])) != null)
                     this.onXMLMinorError(error + ". animation not parsed.");
             } else
                 this.onXMLMinorError("Missing 'id' attribute in an animation");
+        }
+
+        return null;
+    }
+
+    parseSpritesheet(node, postWarningMsg) {
+        var path;
+        if ((path = this.reader.getString(node, 'path', false)) == null)
+            return "failed to get path" + postWarningMsg;
+
+        var texture = new CGFtexture(this.scene, path);
+        if (texture == null)
+            return "invalid texture path " + path + " " + postWarningMsg;
+
+        var sizeM = this.parseInt(node, "sizeM", postWarningMsg);
+        if (typeof sizeM === 'string') return sizeM;
+
+        var sizeN = this.parseInt(node, "sizeN", postWarningMsg);
+        if (typeof sizeN === 'string') return sizeN;
+
+        return new MySpritesheet(this.scene, texture, sizeM, sizeN);
+    }
+
+    parseSpritesheets(node) {
+        var children = node.children;
+
+        //saving texture id and path in textures dictionary
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName != "spritesheet") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            var id = this.reader.getString(children[i], 'id', false);
+            if (id == null) {
+                this.onXMLMinorError("missing 'id' attribute in a spritesheet.");
+                continue;
+            }
+
+            var spritesheet = this.parseSpritesheet(children[i], " in spritesheet with id " + id);
+            if (typeof spritesheet === "string")
+                this.onXMLMinorError(spritesheet);
+            else {
+                if ((id in this.spritesheetDict))
+                    this.onXMLMinorError("ID must be unique for each spritesheet (conflict: ID = " + id + ")");
+                else
+                    this.spritesheetDict[id] = spritesheet;
+            }
         }
 
         return null;
@@ -769,7 +838,7 @@ class MySceneGraph {
     assignNodeTexture(node, textNode) {
         var afs, aft;
         var textureId, texture;
-        if ((textureId = this.reader.getString(textNode, "id")) == null)
+        if ((textureId = this.reader.getString(textNode, "id", false)) == null)
             return "Missing 'id' attribute in 'texture' tag";
 
         if (textureId == "clear")
@@ -892,7 +961,7 @@ class MySceneGraph {
             node.setMaterial("null");
         }
         else {
-            var materialID = this.reader.getString(nodeDict["material"], "id");
+            var materialID = this.reader.getString(nodeDict["material"], "id", false);
 
             if (materialID == "null")
                 node.setMaterial("null");
@@ -904,11 +973,11 @@ class MySceneGraph {
         }
 
         if ("animationref" in nodeDict) {
-            var animationId = this.reader.getString(nodeDict["animationref"], "id");
+            var animationId = this.reader.getString(nodeDict["animationref"], "id", false);
             if (!(animationId))
                 this.onXMLMinorError("Invalid animation id '" + animationId + "' in node '" + nodeName + "'");
             else
-                node.setAnimation(this.animations[animationId]);
+                node.addAnimation(this.animations[animationId]);
         }
 
         this.nodes[nodeName] = node;
@@ -928,7 +997,7 @@ class MySceneGraph {
     parseDescendants(node, desc) {
         for (var i = 0; i < desc.length; i++) {
             if (desc[i].nodeName == "noderef") {
-                var descId = this.reader.getString(desc[i], "id");
+                var descId = this.reader.getString(desc[i], "id", false);
                 if (descId == null) {
                     this.onXMLMinorError("unable to parse field 'id' of a 'noderef' tag in node '"
                         + node.id + "'");
@@ -936,13 +1005,17 @@ class MySceneGraph {
                     node.descendantNames.push(descId)
             }
             else {  //leaf
-                var type = this.reader.getString(desc[i], "type", true);
+                var type = this.reader.getString(desc[i], "type", false);
                 var primitive = this.primitiveCreator.createPrimitive(desc[i], type, node.afs, node.aft);
                 if (typeof primitive === 'string')
                     this.onXMLMinorError(primitive + "leaf '" + type + "' in node id '" +
                         node.id + "'. Primitive not added.");
-                else
-                    node.addPrimitive(primitive);
+                else {
+                    if (primitive instanceof MySpriteAnimation) // FIXME Maybe there is an alternative to this?
+                        node.addAnimation(primitive)
+                    else
+                        node.addPrimitive(primitive);
+                }
             }
         }
 
@@ -966,7 +1039,7 @@ class MySceneGraph {
                 continue;
             }
 
-            var nodeID = this.reader.getString(children[i], 'id');
+            var nodeID = this.reader.getString(children[i], 'id', false);
             if (nodeID == null) {
                 this.onXMLMinorError("No ID defined for node number " + i);
                 continue;
@@ -991,7 +1064,7 @@ class MySceneGraph {
      */
     parseBoolean(node, name, messageError) {
         var boolVal = true;
-        boolVal = this.reader.getBoolean(node, name);
+        boolVal = this.reader.getBoolean(node, name, false);
         if (!(boolVal != null && !isNaN(boolVal) && (boolVal == true || boolVal == false))) {
             this.onXMLMinorError("unable to parse value component " + messageError + "; assuming 'value = 1'");
             boolVal = true;
@@ -1008,17 +1081,17 @@ class MySceneGraph {
         var position = [];
 
         // x
-        var x = this.reader.getFloat(node, 'x');
+        var x = this.reader.getFloat(node, 'x', false);
         if (!(x != null && !isNaN(x)))
             return "unable to parse x-coordinate of the " + messageError;
 
         // y
-        var y = this.reader.getFloat(node, 'y');
+        var y = this.reader.getFloat(node, 'y', false);
         if (!(y != null && !isNaN(y)))
             return "unable to parse y-coordinate of the " + messageError;
 
         // z
-        var z = this.reader.getFloat(node, 'z');
+        var z = this.reader.getFloat(node, 'z', false);
         if (!(z != null && !isNaN(z)))
             return "unable to parse z-coordinate of the " + messageError;
 
@@ -1043,7 +1116,7 @@ class MySceneGraph {
 
 
         // w
-        var w = this.reader.getFloat(node, 'w');
+        var w = this.reader.getFloat(node, 'w', false);
         if (!(w != null && !isNaN(w)))
             return "unable to parse w-coordinate of the " + messageError;
 
@@ -1061,22 +1134,22 @@ class MySceneGraph {
         var color = [];
 
         // R
-        var r = this.reader.getFloat(node, 'r');
+        var r = this.reader.getFloat(node, 'r', false);
         if (!(r != null && !isNaN(r) && r >= 0 && r <= 1))
             return "unable to parse R component of the " + messageError;
 
         // G
-        var g = this.reader.getFloat(node, 'g');
+        var g = this.reader.getFloat(node, 'g', false);
         if (!(g != null && !isNaN(g) && g >= 0 && g <= 1))
             return "unable to parse G component of the " + messageError;
 
         // B
-        var b = this.reader.getFloat(node, 'b');
+        var b = this.reader.getFloat(node, 'b', false);
         if (!(b != null && !isNaN(b) && b >= 0 && b <= 1))
             return "unable to parse B component of the " + messageError;
 
         // A
-        var a = this.reader.getFloat(node, 'a');
+        var a = this.reader.getFloat(node, 'a', false);
         if (!(a != null && !isNaN(a) && a >= 0 && a <= 1))
             return "unable to parse A component of the " + messageError;
 

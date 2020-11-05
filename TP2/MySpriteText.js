@@ -38,5 +38,6 @@ class MySpriteText {
             this.textsheet.activateCellP(code);
             rect.display();
         }
+        this.scene.setActiveShader(this.scene.defaultShader);
     }
 }
