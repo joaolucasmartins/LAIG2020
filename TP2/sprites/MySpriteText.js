@@ -1,4 +1,4 @@
-const SPRITE_IMG = "scenes/images/spriteText.png";
+const SPRITE_IMG = "../scenes/images/spriteText.png";
 
 class MySpriteText {
     constructor(scene, text) {

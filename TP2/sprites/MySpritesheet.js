@@ -4,7 +4,7 @@ class MySpritesheet {
         this.texture = texture;
         this.sizeM = sizeM;
         this.sizeN = sizeN;
-        this.shader = new CGFshader(this.scene.gl, "shaders/MySpriteShader.vert", "shaders/MySpriteShader.frag");
+        this.shader = new CGFshader(this.scene.gl, "../shaders/MySpriteShader.vert", "../shaders/MySpriteShader.frag");
         this.shader.setUniformsValues({sizeM: sizeM});
         this.shader.setUniformsValues({sizeN: sizeN});
     }
