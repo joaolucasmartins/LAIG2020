@@ -14,13 +14,13 @@ class Node {
         this.aft = 1; //texture aplification
 
         this.material = null; // Set to null and not to NullMaterial so that it crashes when there is a parsing problem
-        this.animation = null;
 
         this.transfMat = mat4.create();//matrix with all of the nodes tranformations
 
         this.descendantNames = []; // Temporary, to be used as placeholder for nodes not yet constructed/parsed
         this.descendants = [];
         this.primitives = [];
+        this.animations = [];
     }
 
     /**
@@ -29,6 +29,10 @@ class Node {
      */
     addPrimitive(primitive) {
         this.primitives.push(primitive);
+    }
+
+    addAnimation(animation) {
+        this.animations.push(animation);
     }
 
     /**
@@ -59,13 +63,17 @@ class Node {
         this.animation = anim;
     }
 
+    applyAnimations() {
+        for (let anim in this.animations)
+            this.animations[anim].apply();
+    }
+
     update(t) {
-        if (this.animation != null) {
-            this.animation.update(t);
-        }
-        for (var i = 0; i < this.descendants.length; i++) {
+        for (let anim in this.animations)
+            this.animations[anim].update(t);
+
+        for (var i = 0; i < this.descendants.length; i++)
             this.descendants[i].update(t);
-        }
     }
 
     /*          null                  | clear                 | texture
@@ -85,8 +93,7 @@ class Node {
     display(matStack, textStack) {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transfMat);
-        if (this.animation != null)
-            this.animation.apply();
+        this.applyAnimations();
 
         // Push/Top Textures
         var pushedTexture = false;

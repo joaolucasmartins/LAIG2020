@@ -2,7 +2,12 @@ class MyAnimation {
     constructor(scene, elements) {
         this.elements = elements; // What instances are mapped to
         this.scene = scene;
-        this.instants = Object.keys(this.elements).sort();
+        this.instants = Object.keys(elements).map(parseFloat); // Cast String keys to float
+
+        // Sort instances so that we evaluate them in order
+        this.instants.sort(function (a, b) {
+            return a - b;
+        });
     }
 
     update(frame) {

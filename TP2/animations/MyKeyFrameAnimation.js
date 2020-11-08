@@ -3,7 +3,6 @@ class MyKeyFrameAnimation extends MyAnimation {
         if (!(0 in transformations)) {
             transformations[0] = Transformation.newEmptyTransformation();
         }
-
         super(scene, transformations);
 
         this.initialInstant = null;
