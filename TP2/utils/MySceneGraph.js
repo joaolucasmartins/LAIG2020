@@ -57,6 +57,8 @@ class MySceneGraph {
          */
         this.reader.open('scenes/' + filename, this);
         this.primitiveCreator = new MyPrimitiveCreator(this.reader, this.scene, this.spritesheetDict);
+
+        this.plane = new MyPlane(this.scene, 3,3);
     }
 
     /**
@@ -1011,7 +1013,7 @@ class MySceneGraph {
                     this.onXMLMinorError(primitive + "leaf '" + type + "' in node id '" +
                         node.id + "'. Primitive not added.");
                 else {
-                    if (primitive instanceof MySpriteAnimation) // FIXME Maybe there is an alternative to this?
+                    if (type == "spriteanim") // FIXME Maybe there is an alternative to this?
                         node.addAnimation(primitive)
                     else
                         node.addPrimitive(primitive);
@@ -1238,9 +1240,10 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        this.rootNode.display(this.matStack, this.textStack);
+        //this.rootNode.display(this.matStack, this.textStack);
         //this.spritesheet.display();
         //this.scene.setActiveShader(this.scene.defaultShader);
+        this.plane.display();
     }
 
     updateScene(time) {
