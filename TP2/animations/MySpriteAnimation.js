@@ -1,14 +1,14 @@
-class MySpriteAnimation extends MyAnimation { // TODO Make this work with KeyFrames too
-    // TODO Make sprite animation repeat over time
+class MySpriteAnimation extends MyAnimation {
     constructor(scene, spritesheet, startCell, endCell, duration) {
         let cells = [];
-        let currDur = 0, durStep = duration / (endCell - startCell)
+        let durStep = duration / (endCell - startCell + 1), currDur = durStep;
+        cells[0] = startCell;
         for (let i = startCell; i <= endCell; ++i) {
             cells[currDur] = i;
             currDur += durStep;
         }
 
-        super(scene, cells)
+        super(scene, cells);
         this.scene = scene;
         this.spritesheet = spritesheet;
         this.rectangle = new MyRectangle(scene, 0, 0, 1, 1);
@@ -17,31 +17,19 @@ class MySpriteAnimation extends MyAnimation { // TODO Make this work with KeyFra
         this.currElement = this.elements[this.currInstant];
     }
 
-    update(time) {
-        if (this.initialInstant == null)
-            this.initialInstant = time;
-
-        var instant = (time - this.initialInstant) / 1000;
-
-        if (instant <= this.instants[0]) {
-            this.currInstantIndex = 0;
-            this.currInstant = this.instants[this.currInstantIndex];
-            this.currElement = this.elements[this.currInstant];
-            return;
-        }
-
-        while (instant > this.currInstant) {
-            this.currInstantIndex++;
-            this.currInstant = this.instants[this.currInstantIndex];
-        }
+    onBeforeAnimation() {
+        this.currElement = this.elements[this.getInitialInstant()];
+    }
+    onEndAnimation() {
+        this.currElement = this.elements[this.getLastInstant()];
+        this.initialInstant = null; // Reset to first char
+    }
+    onMidAnimation() {
         this.currElement = this.elements[this.currInstant];
+    }
 
-        if (instant >= this.instants[this.instants.length - 1]) {
-            this.currInstantIndex = this.instants.length - 1;
-            this.currInstant = this.instants[this.currInstantIndex];
-            this.currElement = this.elements[this.currInstant];
-            return;
-        }
+    update(time) {
+        super.update(time);
     }
 
     apply() {

@@ -104,7 +104,7 @@
       <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
       <descendants>
-        <leaf type="spriteanim" ssid="sheet1" startCell="64" endCell="85" duration="10"/>
+        <leaf type="spriteanim" ssid="sheet1" startCell="64" endCell="70" duration="4"/>
         <!--<leaf type="spritetext" text="olaa"/>-->
         <!--<leaf type="triangle" x1="0" y1="0" x2="1" y2="0" x3="0" y3="1"/>-->
         <!--<leaf type="torus" inner="0.5" outer="1.0" slices="100" loops="100"/>-->

@@ -13,34 +13,21 @@ class MyKeyFrameAnimation extends MyAnimation {
         }
     }
 
-    update(time) {
-        if (this.initialInstant == null)
-            this.initialInstant = time;
-
-        var instant = (time - this.initialInstant) / 1000;
-
-        if (instant <= this.instants[0]) {
-            this.currentTransformation = this.elements[0];
-            return;
-        }
-        if (instant >= this.instants[this.instants.length - 1]) {
-            this.currentTransformation = this.elements[this.instants[this.instants.length - 1]];
-            return;
-        }
-
-        var prevTransformation, nextTransformation,
-            initialInstant, endInstant;
-        for (var i = 0; i < this.instants.length - 1; ++i) {
-            if (instant >= this.instants[i] && instant <= this.instants[i + 1]) {
-                initialInstant = this.instants[i];
-                prevTransformation = this.elements[initialInstant];
-                endInstant = this.instants[i + 1];
-                nextTransformation = this.elements[endInstant];
-            }
-        }
-
-        var weight = (instant - initialInstant) / (endInstant - initialInstant);
+    onBeforeAnimation() {
+        this.currentTransformation = this.elements[super.getInitialInstant()];
+    }
+    onEndAnimation() {
+        this.currentTransformation = this.elements[super.getLastInstant()];
+    }
+    onMidAnimation(instant) {
+        var weight = (instant - this.previousInstant) / (this.currInstant - this.previousInstant);
+        var prevTransformation = this.elements[this.previousInstant];
+        var nextTransformation = this.elements[this.currInstant];
         this.currentTransformation = prevTransformation.interpolate(nextTransformation, weight)
+    }
+
+    update(time) {
+        super.update(time);
     }
 
     apply() {

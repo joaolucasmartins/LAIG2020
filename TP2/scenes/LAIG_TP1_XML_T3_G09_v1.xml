@@ -173,6 +173,9 @@
       </keyframe>
     </animation>
   </animations>
+  <spritesheets>
+    <spritesheet id="sheet1" path="./scenes/images/spriteText.png" sizeM="16" sizeN="16"/>
+  </spritesheets>
   <nodes>
     <node id="rootNode">
       <material id="defaultMaterial"/>
@@ -180,6 +183,7 @@
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <descendants>
+        <noderef id="testAnim"/>
         <noderef id="ship"/>
         <noderef id="skyBox"/>
       </descendants>
@@ -206,6 +210,18 @@
         <noderef id="cannons"/>
         <noderef id="ammoRacks"/>
         <noderef id="board"/>
+      </descendants>
+    </node>
+    <!-- TODO Remove: for testing /////////////////-->
+    <node id="testAnim">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <scale sx="2" sy="2" sz="2"/>
+        <translation x="0" y="10" z="0"/>
+      </transformations>
+      <descendants>
+        <leaf type="spriteanim" ssid="sheet1" startCell="64" endCell="79" duration="4"/>
       </descendants>
     </node>
     <!-- SKYBOX /////////////////-->
