@@ -190,7 +190,7 @@ class MyPrimitiveCreator {
         if (npartsU == null || isNaN(npartsU))
             return "unable to parse field 'npartsU' of the ";
 
-        var npartsV = this.reader.getFloat(node, "npartsV", false);
+        var npartsV = this.reader.getInteger(node, "npartsV", false);
         if (npartsV == null || isNaN(npartsV))
             return "unable to parse field 'npartsV' of the ";
 
