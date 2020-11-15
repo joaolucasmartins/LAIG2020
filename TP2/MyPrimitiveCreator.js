@@ -182,6 +182,22 @@ class MyPrimitiveCreator {
     }
 
     /**
+    * Parse <leaf> node (Plane)
+    * @param {node element} node 
+    */
+    createPlane(node) {
+        var npartsU = this.reader.getInteger(node, "npartsU", false);
+        if (npartsU == null || isNaN(npartsU))
+            return "unable to parse field 'npartsU' of the ";
+
+        var npartsV = this.reader.getInteger(node, "npartsV", false);
+        if (npartsV == null || isNaN(npartsV))
+            return "unable to parse field 'npartsV' of the ";
+
+        return new MyPlane(this.scene, npartsU, npartsV);
+    }
+
+    /**
     * Create primitive switcher.
     * @param {node element} node 
     * @param {string} type - leaf type
@@ -204,6 +220,8 @@ class MyPrimitiveCreator {
             primitive = this.createSpriteText(node);
         else if (type == "spriteanim")
             primitive = this.createSpriteAnim(node);
+        else if (type == "plane")
+            primitive = this.createPlane(node);
 
         return primitive;
     }
