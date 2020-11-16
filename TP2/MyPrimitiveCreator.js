@@ -197,6 +197,70 @@ class MyPrimitiveCreator {
         return new MyPlane(this.scene, npartsU, npartsV);
     }
 
+    parseControlPoints(node, nPointsU, nPointsV) {
+        let nPoints = nPointsU * nPointsV;
+
+        var controlPoints = [];
+
+        for (let i = 0; i < nPoints; i++) {
+            var x = this.reader.getFloat(node[i], "xx", false);
+            if (x == null || isNaN(x))
+                return "unable to parse field 'x' of the ";
+
+            var y = this.reader.getFloat(node[i], "yy", false);
+            if (y == null || isNaN(y))
+                return "unable to parse field 'y' of the ";
+
+            var z = this.reader.getFloat(node[i], "zz", false);
+            if (z == null || isNaN(z))
+                return "unable to parse field 'z' of the ";
+            
+            var point = [x, y, z, 1.0];
+            controlPoints.push(point);
+        }
+        
+
+        var ret = [];
+        var auxMat = [];
+        var cnt = 0;
+       
+        for (var i = 0; i < nPointsU; i++) {
+            for (var j = 0; j < nPointsV; j++) {
+                console.log(i,j ,cnt);
+                auxMat.push(controlPoints[cnt++]);
+            }
+            ret.push(auxMat);
+            auxMat = [];
+        }
+        return ret;
+    }
+    /**
+    * Parse <leaf> node (Plane)
+    * @param {node element} node 
+    */
+    createPatch(node) {
+        var npointsU = this.reader.getInteger(node, "npointsU", false);
+        if (npointsU == null || isNaN(npointsU))
+            return "unable to parse field 'npointsU' of the ";
+
+        var npointsV = this.reader.getInteger(node, "npointsV", false);
+        if (npointsV == null || isNaN(npointsV))
+            return "unable to parse field 'npointsV' of the ";
+        var npartsU = this.reader.getInteger(node, "npartsU", false);
+        if (npartsU == null || isNaN(npartsU))
+            return "unable to parse field 'npartsU' of the ";
+
+        var npartsV = this.reader.getInteger(node, "npartsV", false);
+        if (npartsV == null || isNaN(npartsV))
+            return "unable to parse field 'npartsV' of the ";
+
+        var controlPoints = this.parseControlPoints(node.children, npointsU, npointsV);
+
+        return new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
+}
+
+
+
     /**
     * Create primitive switcher.
     * @param {node element} node 
@@ -222,6 +286,8 @@ class MyPrimitiveCreator {
             primitive = this.createSpriteAnim(node);
         else if (type == "plane")
             primitive = this.createPlane(node);
+        else if (type == "patch")
+            primitive = this.createPatch(node);
 
         return primitive;
     }

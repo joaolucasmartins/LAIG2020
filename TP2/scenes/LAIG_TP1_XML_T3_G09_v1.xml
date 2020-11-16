@@ -188,6 +188,19 @@
         <noderef id="skyBox"/>
       </descendants>
     </node>
+
+    <!-- TODO Front flag-->
+    <!-- <leaf type="patch" npointsU="2" npointsV="3" npartsU="15" npartsV="15">
+          <controlpoint xx="0.5" yy="0" zz="-0.5"/>
+          <controlpoint xx="0.5" yy="1.0" zz="0"/>
+          <controlpoint xx="0.5" yy="0" zz="0.5"/>
+
+          <controlpoint xx="-0.5" yy="0" zz="-0.5"/>
+          <controlpoint xx="-0.5" yy="1.0" zz="0.0"/>
+          <controlpoint xx="-0.5" yy="0.0" zz="0.5"/>
+    </leaf> -->
+
+
     <!--//////////////////////// MAIN OBJECTS ////////////////////////////-->
     <!-- SHIP /////////////////-->
     <node id="ship">

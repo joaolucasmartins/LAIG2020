@@ -13,18 +13,19 @@ class MyPlane extends CGFobject {
         this.v = v;
 
         var controlPoints = [
-            [
-                [0.5, 0, -0.5, 1],
-                [0.5, 0, 0.5, 1]
+            [//U
+                //V
+                [0.5, 0, -0.5, 1],  //1
+                [0.5, 0, 0.5, 1]    //2
             ],
 
             [
-                [-0.5, 0, -0.5, 1],
-                [-0.5, 0, 0.5, 1]
+                [-0.5, 0, -0.5, 1], //3
+                [-0.5, 0, 0.5, 1]   //4
             ]
         ]
 
-        //u degree and v degree = 0 (plane)
+        //u degree and v degree = 1 (plane)
         var surface = new CGFnurbsSurface(1,1, controlPoints);
 
         this.obj = new CGFnurbsObject(scene, this.u, this.v, surface);
