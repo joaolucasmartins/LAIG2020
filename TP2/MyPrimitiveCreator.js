@@ -284,10 +284,10 @@ class MyPrimitiveCreator {
             return "unable to parse field 'stacks' of the ";
 
         var tilt = this.reader.getFloat(node, "tilt", false);
-        if (isNaN(tilt) || tilt <= 0 || tilt >= 90)
-            return "unable to parse field 'tilt' of the ";
-        else if (tilt == null) // Not specified
+        if (tilt == null) // Not specified
             return new MyDefBarrel(this.scene, base, middle, height, slices, stacks);
+        else if (isNaN(tilt) || tilt <= 0 || tilt >= 90)
+            return "unable to parse field 'tilt' of the ";
         else // given tilt
             return new MyDefBarrel(this.scene, base, middle, height, slices, stacks, tilt);
     }
@@ -320,14 +320,10 @@ class MyPrimitiveCreator {
             primitive = this.createPlane(node);
         else if (type == "patch")
             primitive = this.createPatch(node);
-        else if (type == "defbarrel") {
-            // Change type
+        else if (type == "defbarrel")
             primitive = this.createBarrel(node);
-            console.log(primitive);
-            //primitive = "bazinga";
-        } else {
+        else
             primitive = "type '" + type + "' is not a valid type in ";
-        }
 
         return primitive;
     }

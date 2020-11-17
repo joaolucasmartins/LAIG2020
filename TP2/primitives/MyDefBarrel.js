@@ -5,30 +5,7 @@
 function getRotMatrix(degrees) {
     let mat = mat4.create();
     mat4.rotateZ(mat, mat, degrees);
-    console.log(mat);
     return mat;
-}
-
-/**
- * Rotates a point arround the Z axis.
- * @param {vec3} point 
- * @param {float} alpha 
- */
-function rotatePointInZ(point, alpha) {
-    var x = point[0], y = point[1], z = point[2];
-    var new_point = [
-        x * Math.cos(alpha) - y * Math.sin(alpha),
-        x * Math.sin(alpha) + y * Math.cos(alpha),
-        z
-    ];
-    return new_point;
-}
-
-// TODO
-function radToDeg(rad) {
-    // 180 - pi
-    // deg - rad
-    return (180 * rad) / Math.PI;
 }
 
 /**
@@ -44,59 +21,37 @@ class MyDefBarrel extends CGFobject {
     constructor(scene, base, middle, height, slices, stacks, tilt = MyDefBarrel.ALPHA) {
         super(scene);
 
-        const H = (4 / 3) * (middle - base);
         // Moved in x by r/bottom to be rotated in Z later
+        const H = (4 / 3) * (middle - base);
         const baseQ = [
             [0, 0, 0],
-            [H, 0, H / Math.tan(tilt)],
-            [H, 0, height - H / Math.tan(tilt)],
+            [H, 0, Math.min(H / Math.tan(tilt), height / 2)],
+            [H, 0, Math.max(height - H / Math.tan(tilt), height / 2)],
             [0, 0, height],
         ];
-        console.log('H', H);
-        console.log('baseQ', baseQ);
 
-        const newH = 4 * base / 3;
-        const nh = (16 * middle - 4 * base) / 9;
-        const nr = (4 * middle - base) / 3;
-        const P1 = [-base, 0, 0, 1];
-        const P2 = [-base, newH, 0, 1];
-        const P3 = [base, newH, 0, 1];
-        const P4 = [base, 0, 0, 1];
-        const PList = [P1, P2, P3, P4];
+        const h = 4 * base / 3;
+        const PList =
+            [
+                [-base, 0, 0, 1],
+                [-base, h, 0, 1],
+                [base, h, 0, 1],
+                [base, 0, 0, 1]
+            ];
 
         let controlPoints = [];
         for (let j = 0; j < 4; ++j) {
             let currentP = PList[j];
             let currentPx = currentP[0], currentPy = currentP[1];
-
-            let rot = Math.atan(currentPy / currentPx);
+            let signal = 1;
             if (currentPx < 0)
-                rot = Math.PI + rot;
-            console.log(rot);
+                signal = -1;
+
             let res = [];
             for (let k = 3; k >= 0; --k) {
-                let Q = [0, 0, 0];
-                if (k == 1 || k == 2) {
-                    Q[2] = baseQ[k][2];
-                    if (j == 1) {
-                        Q[0] = - nr;
-                        Q[1] = nh;
-                    }
-                    else if (j == 2) {
-                        Q[0] = nr;
-                        Q[1] = nh;
-                    }
-                    else {
-                        Q = rotatePointInZ(baseQ[k], rot);
-                        Q[0] += currentPx;
-                        Q[1] += currentPy;
-                    }
-                }
-                else {
-                    Q = rotatePointInZ(baseQ[k], rot);
-                    Q[0] += currentPx;
-                    Q[1] += currentPy;
-                }
+                let Q = [...baseQ[k]];
+                Q[0] = currentPx + Q[0] * signal;
+                Q[1] = currentPy + Q[1] * signal;
                 Q.push(1);
                 res.push(Q);
             }
@@ -104,7 +59,17 @@ class MyDefBarrel extends CGFobject {
             controlPoints.push(res);
         }
 
-        console.log('CP', controlPoints);
+        const nr = base + H;
+        const nh = (4 / 3) * nr;
+        for (let j = 0; j < 2; ++j) { // Iterate trough Q2 and Q3
+            let P2_Points = controlPoints[1];
+            let P3_Points = controlPoints[2];
+            P2_Points[1 + j][0] = - nr;
+            P2_Points[1 + j][1] = nh;
+            P3_Points[1 + j][0] = nr;
+            P3_Points[1 + j][1] = nh;
+        }
+
         var surface = new CGFnurbsSurface(3, 3, controlPoints);
         this.obj = new CGFnurbsObject(scene, slices, stacks, surface);
     }
