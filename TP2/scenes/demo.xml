@@ -82,6 +82,7 @@
       <descendants>
         <!--<noderef id="demoChild"/>-->
         <noderef id="demoChild"/>
+        <noderef id="primitive"/>
         <!-- "ss" is the identifier of a node or of leaf; -->
         <!-- may be repeated as necessary. It can refer an -->
         <!-- identifier of another node, before or later defined in the file. -->
@@ -104,7 +105,7 @@
       <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
       <descendants>
-        <leaf type="spriteanim" ssid="sheet1" startCell="64" endCell="70" duration="4"/>
+        <!--<leaf type="spriteanim" ssid="sheet1" startCell="64" endCell="70" duration="4"/>-->
         <!--<leaf type="spritetext" text="olaa"/>-->
         <!--<leaf type="triangle" x1="0" y1="0" x2="1" y2="0" x3="0" y3="1"/>-->
         <!--<leaf type="torus" inner="0.5" outer="1.0" slices="100" loops="100"/>-->
@@ -126,6 +127,16 @@
       <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
       <descendants>
+        <!--<leaf type="patch" npointsU="3" npointsV="2" npartsU="18" npartsV="18">-->
+        <!--<controlpoint xx="-1.0" yy="0.0" zz="-1.0"/>-->
+        <!--<controlpoint xx="1.0" yy="0.0" zz="-1.0"/>-->
+        <!--<controlpoint xx="-1.0" yy="1.0" zz="0.0"/>-->
+        <!--<controlpoint xx="1.0" yy="1.0" zz="0.0"/>-->
+        <!--<controlpoint xx="-1.0" yy="0.0" zz="1.0"/>-->
+        <!--<controlpoint xx="1.0" yy="0.0" zz="1.0"/>-->
+        <!--</leaf>-->
+        <!--<leaf type="plane" npartsU="8" npartsV="8"/>-->
+        <leaf type="defbarrel" base="0.1" middle="1.3" height="3.0" slices="10" stacks="10" tilt="20"/>
         <!--<leaf type="cylinder" bottomRadius="1.00" topRadius="10.00" height="3.0" slices="100" stacks="100"/>-->
         <!-- x y z coordinates of each vertex -->
       </descendants>

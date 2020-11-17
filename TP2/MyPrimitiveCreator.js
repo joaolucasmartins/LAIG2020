@@ -205,28 +205,28 @@ class MyPrimitiveCreator {
         for (let i = 0; i < nPoints; i++) {
             var x = this.reader.getFloat(node[i], "xx", false);
             if (x == null || isNaN(x))
-                return "unable to parse field 'x' of the ";
+                return "unable to parse field 'xx' of the ";
 
             var y = this.reader.getFloat(node[i], "yy", false);
             if (y == null || isNaN(y))
-                return "unable to parse field 'y' of the ";
+                return "unable to parse field 'yy' of the ";
 
             var z = this.reader.getFloat(node[i], "zz", false);
             if (z == null || isNaN(z))
-                return "unable to parse field 'z' of the ";
-            
+                return "unable to parse field 'zz' of the ";
+
             var point = [x, y, z, 1.0];
             controlPoints.push(point);
         }
-        
+
 
         var ret = [];
         var auxMat = [];
         var cnt = 0;
-       
+
         for (var i = 0; i < nPointsU; i++) {
             for (var j = 0; j < nPointsV; j++) {
-                console.log(i,j ,cnt);
+                //console.log(i, j, cnt);
                 auxMat.push(controlPoints[cnt++]);
             }
             ret.push(auxMat);
@@ -255,10 +255,42 @@ class MyPrimitiveCreator {
             return "unable to parse field 'npartsV' of the ";
 
         var controlPoints = this.parseControlPoints(node.children, npointsU, npointsV);
+        if (typeof controlPoints === "string")
+            return "unable to parse control points with error " + controlPoints;
 
         return new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
-}
+    }
 
+    /**
+    * Parse <leaf> node (Barrel)
+    * @param {node element} node 
+    */
+    createBarrel(node) {
+        var base = this.reader.getFloat(node, "base", false);
+        if (base == null || isNaN(base))
+            return "unable to parse field 'base' of the ";
+        var middle = this.reader.getFloat(node, "middle", false);
+        if (middle == null || isNaN(middle))
+            return "unable to parse field 'middle' of the ";
+        var height = this.reader.getFloat(node, "height", false);
+        if (height == null || isNaN(height))
+            return "unable to parse field 'height' of the ";
+
+        var slices = this.reader.getInteger(node, "slices", false);
+        if (slices == null || isNaN(slices))
+            return "unable to parse field 'slices' of the ";
+        var stacks = this.reader.getInteger(node, "stacks", false);
+        if (stacks == null || isNaN(stacks))
+            return "unable to parse field 'stacks' of the ";
+
+        var tilt = this.reader.getFloat(node, "tilt", false);
+        if (isNaN(tilt) || tilt <= 0 || tilt >= 90)
+            return "unable to parse field 'tilt' of the ";
+        else if (tilt == null) // Not specified
+            return new MyDefBarrel(this.scene, base, middle, height, slices, stacks);
+        else // given tilt
+            return new MyDefBarrel(this.scene, base, middle, height, slices, stacks, tilt);
+    }
 
 
     /**
@@ -288,6 +320,14 @@ class MyPrimitiveCreator {
             primitive = this.createPlane(node);
         else if (type == "patch")
             primitive = this.createPatch(node);
+        else if (type == "defbarrel") {
+            // Change type
+            primitive = this.createBarrel(node);
+            console.log(primitive);
+            //primitive = "bazinga";
+        } else {
+            primitive = "type '" + type + "' is not a valid type in ";
+        }
 
         return primitive;
     }

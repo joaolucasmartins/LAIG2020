@@ -11,13 +11,13 @@ function getUrlVars() {
     return vars;
 }
 //Include additional files here
-serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MyInterface.js', 
-                'primitives/MyRectangle.js', 'primitives/MyTriangle.js', 'primitives/MyCylinder.js', 'primitives/MyTorus.js', 'primitives/MySphere.js',
-                'primitives/MyPlane.js', 'primitives/MyPatch.js',
-                'animations/MyAnimation.js', 'animations/MyKeyFrameAnimation.js', 'animations/MySpriteAnimation.js',
-                'appearances/ClearTexture.js', 'appearances/NullTexture.js', 'appearances/NullMaterial.js',
-                'Node.js', 'MyPrimitiveCreator.js',
-                'sprites/MySpritesheet.js', 'sprites/MySpriteText.js', 'MySceneGraph.js', 
+serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MyInterface.js',
+    'primitives/MyRectangle.js', 'primitives/MyTriangle.js', 'primitives/MyCylinder.js', 'primitives/MyTorus.js', 'primitives/MySphere.js',
+    'primitives/MyPlane.js', 'primitives/MyPatch.js', 'primitives/MyDefBarrel.js',
+    'animations/MyAnimation.js', 'animations/MyKeyFrameAnimation.js', 'animations/MySpriteAnimation.js',
+    'appearances/ClearTexture.js', 'appearances/NullTexture.js', 'appearances/NullMaterial.js',
+    'Node.js', 'MyPrimitiveCreator.js',
+    'sprites/MySpritesheet.js', 'sprites/MySpriteText.js', 'MySceneGraph.js',
 
     main = function () {
         // Standard application, scene and interface setup

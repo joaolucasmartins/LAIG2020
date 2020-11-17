@@ -1,5 +1,5 @@
 /**
- * My Plane
+ * MyPlane
  * @constructor
  * @param {CGFscene} scene - Reference to MyScene object
  * @param {integer} u  - number of u divisions
@@ -26,16 +26,11 @@ class MyPlane extends CGFobject {
         ]
 
         //u degree and v degree = 1 (plane)
-        var surface = new CGFnurbsSurface(1,1, controlPoints);
-
+        var surface = new CGFnurbsSurface(1, 1, controlPoints);
         this.obj = new CGFnurbsObject(scene, this.u, this.v, surface);
-
     }
 
     display() {
         this.obj.display();
     }
-
-
 }
-
