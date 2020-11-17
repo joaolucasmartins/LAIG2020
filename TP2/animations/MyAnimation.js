@@ -37,17 +37,17 @@ class MyAnimation {
         var instant = (time - this.initialInstant) / 1000;
 
         if (instant <= this.getInitialInstant()) {
-            this.currInstantIndex = this.getInitialInstant();
+            this.currInstantIndex = 0;
             this.previousInstant = null;
-            this.currInstant = this.instants[this.currInstantIndex];
+            this.currInstant = this.getInitialInstant();
             this.onBeforeAnimation(instant);
             return;
         }
 
         if (instant >= this.getLastInstant()) {
-            this.currInstantIndex = this.getLastInstant();
+            this.currInstantIndex = this.instants.length - 1;
             this.previousInstant = this.currInstant;
-            this.currInstant = this.instants[this.currInstantIndex];
+            this.currInstant = this.getLastInstant();
             this.onEndAnimation(instant);
             return;
         }
