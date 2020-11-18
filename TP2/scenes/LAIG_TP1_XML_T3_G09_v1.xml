@@ -186,18 +186,12 @@
         <noderef id="testAnim"/>
         <noderef id="ship"/>
         <noderef id="skyBox"/>
+        
+        
       </descendants>
     </node>
     <!-- TODO Front flag-->
-    <!-- <leaf type="patch" npointsU="2" npointsV="3" npartsU="15" npartsV="15">
-          <controlpoint xx="0.5" yy="0" zz="-0.5"/>
-          <controlpoint xx="0.5" yy="1.0" zz="0"/>
-          <controlpoint xx="0.5" yy="0" zz="0.5"/>
-
-          <controlpoint xx="-0.5" yy="0" zz="-0.5"/>
-          <controlpoint xx="-0.5" yy="1.0" zz="0.0"/>
-          <controlpoint xx="-0.5" yy="0.0" zz="0.5"/>
-    </leaf> -->
+  
     <!--//////////////////////// MAIN OBJECTS ////////////////////////////-->
     <!-- SHIP /////////////////-->
     <node id="ship">
@@ -205,7 +199,7 @@
       <texture id="woodText2">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
-      <animationref id="anim1"/>
+      <!-- <animationref id="anim1"/> -->
       <transformations>
         <translation x="0" y="1.2" z="0"/>
       </transformations>
@@ -960,8 +954,26 @@
         <rotation axis="y" angle="90"/>
       </transformations>
       <descendants>
-        <leaf type="cylinder" bottomRadius="0.05" topRadius="0.05" height="3.0" slices="100" stacks="400"/>
+        <noderef id="sailSupportTop"/>
         <noderef id="mastSail"/>
+        <noderef id="sailSupportBottom"/>
+      </descendants>
+    </node>
+    <node id="sailSupportTop">
+      <material id="null"/>
+      <texture id="null"/>
+      <descendants>
+        <leaf type="cylinder" bottomRadius="0.05" topRadius="0.05" height="3.0" slices="20" stacks="20"/>
+      </descendants>
+    </node>
+    <node id="sailSupportBottom">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <translation x="0" y="-3" z="0"/>
+      </transformations>
+      <descendants>
+        <leaf type="cylinder" bottomRadius="0.05" topRadius="0.05" height="3.0" slices="20" stacks="20"/>
       </descendants>
     </node>
     <node id="mastPole">
@@ -979,11 +991,31 @@
       <texture id="whiteFlag"/>
       <transformations>
         <rotation axis="y" angle="90"/>
-        <translation x="-1.5" y="-1.5" z="0.0"/>
-        <scale sx="3.0" sy="3.0" sz="1.0"/>
+        <rotation axis="x" angle="-90"/>
+        <translation x="-1.5" y="0" z="-1.5"/>
+        <scale sx="3" sy="1.0" sz="3.0"/>
       </transformations>
       <descendants>
-        <noderef id="plane"/>
+        <!-- front of the sail -->
+        <leaf type="patch" npointsU="2" npointsV="3" npartsU="15" npartsV="15">
+          <controlpoint xx="0.5" yy="0" zz="-0.5"/>
+          <controlpoint xx="0.5" yy="0.5" zz="0"/>
+          <controlpoint xx="0.5" yy="0" zz="0.5"/>
+
+          <controlpoint xx="-0.5" yy="0" zz="-0.5"/>
+          <controlpoint xx="-0.5" yy="0.5" zz="0.0"/>
+          <controlpoint xx="-0.5" yy="0.0" zz="0.5"/>
+        </leaf>
+        <!-- front of the sail -->
+        <leaf type="patch" npointsU="2" npointsV="3" npartsU="15" npartsV="15">
+          <controlpoint xx="0.5" yy="0" zz="0.5"/>
+          <controlpoint xx="0.5" yy="0.5" zz="0"/>
+          <controlpoint xx="0.5" yy="0" zz="-0.5"/>
+
+          <controlpoint xx="-0.5" yy="0.0" zz="0.5"/>
+          <controlpoint xx="-0.5" yy="0.5" zz="0.0"/>
+          <controlpoint xx="-0.5" yy="0" zz="-0.5"/>
+        </leaf>
       </descendants>
     </node>
     <node id="mainMast">
@@ -996,7 +1028,8 @@
         <noderef id="flag"/>
       </descendants>
     </node>
-    <!-- FLAG OBJECT ///////////////////////////-->
+    
+    <!-- PIRATE FLAG OBJECT ///////////////////////////-->
     <node id="flag">
       <material id="defaultMaterial"/>
       <texture id="pirateFlag"/>
