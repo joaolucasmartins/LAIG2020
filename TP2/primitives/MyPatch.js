@@ -11,12 +11,10 @@ class MyPatch extends CGFobject {
         super(scene);
         this.degreeU = npointsU - 1; //curv degree is number of points -1
         this.degreeV = npointsV - 1;
-        this.npartsU = npartsU;
-        this.npartsV = npartsV;
         this.controlPoints = controlPoints;
 
         var surface = new CGFnurbsSurface(this.degreeU, this.degreeV, controlPoints);
-        this.obj = new CGFnurbsObject(scene, this.npartsU, this.npartsV, surface);
+        this.obj = new CGFnurbsObject(scene, npartsU, npartsV, surface);
     }
 
     display() {

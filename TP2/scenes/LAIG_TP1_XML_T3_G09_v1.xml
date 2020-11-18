@@ -184,9 +184,9 @@
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <descendants>
-        <noderef id="testAnim"/>
+        <!-- <noderef id="testAnim"/>
         <noderef id="ship"/>
-        <noderef id="skyBox"/>
+        <noderef id="skyBox"/> -->
         <noderef id="barrel"/>
       </descendants>
     </node>
@@ -577,10 +577,9 @@
       </texture>
       <transformations>
         <translation x="0.0" y="0.5" z="0.0"/>
-        <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
-        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+        <leaf type="plane" npartsU="5" npartsV="5"/>
       </descendants>
     </node>
     <node id="hullBottom">
@@ -1529,6 +1528,17 @@
       </transformations>
       <descendants>
         <leaf type="defbarrel" base="0.5" middle="0.65" height="1.5" slices="20" stacks="20" tilt="20"/>
+        <noderef id="barrelCover"/>
+      </descendants>
+    </node>
+    <node id="barrelCover">
+      <material id="null"/>
+      <texture id="woodText"/>
+      <transformations>
+        <translation x="0" y="0" z="1.5"/>
+      </transformations>
+      <descendants>
+        <leaf type="circle" radius="0.51" slices="30"/>
       </descendants>
     </node>
 
