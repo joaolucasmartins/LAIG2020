@@ -128,12 +128,12 @@
              descendants may be mixed, nodes and leafs -->
       <descendants>
         <!--<leaf type="patch" npointsU="3" npointsV="2" npartsU="18" npartsV="18">-->
-        <!--<controlpoint xx="-1.0" yy="0.0" zz="-1.0"/>-->
-        <!--<controlpoint xx="1.0" yy="0.0" zz="-1.0"/>-->
-        <!--<controlpoint xx="-1.0" yy="1.0" zz="0.0"/>-->
-        <!--<controlpoint xx="1.0" yy="1.0" zz="0.0"/>-->
-        <!--<controlpoint xx="-1.0" yy="0.0" zz="1.0"/>-->
-        <!--<controlpoint xx="1.0" yy="0.0" zz="1.0"/>-->
+        <!--<controlpoint x="-1.0" y="0.0" z="-1.0"/>-->
+        <!--<controlpoint x="1.0" y="0.0" z="-1.0"/>-->
+        <!--<controlpoint x="-1.0" y="1.0" z="0.0"/>-->
+        <!--<controlpoint x="1.0" y="1.0" z="0.0"/>-->
+        <!--<controlpoint x="-1.0" y="0.0" z="1.0"/>-->
+        <!--<controlpoint x="1.0" y="0.0" z="1.0"/>-->
         <!--</leaf>-->
         <!--<leaf type="plane" npartsU="8" npartsV="8"/>-->
         <leaf type="defbarrel" base="0.1" middle="1.3" height="3.0" slices="100" stacks="100" tilt="40"/>

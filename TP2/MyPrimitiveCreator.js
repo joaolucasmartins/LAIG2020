@@ -203,17 +203,17 @@ class MyPrimitiveCreator {
         var controlPoints = [];
 
         for (let i = 0; i < nPoints; i++) {
-            var x = this.reader.getFloat(node[i], "xx", false);
+            var x = this.reader.getFloat(node[i], "x", false);
             if (x == null || isNaN(x))
-                return "unable to parse field 'xx' of the ";
+                return "unable to parse field 'x' of the ";
 
-            var y = this.reader.getFloat(node[i], "yy", false);
+            var y = this.reader.getFloat(node[i], "y", false);
             if (y == null || isNaN(y))
-                return "unable to parse field 'yy' of the ";
+                return "unable to parse field 'y' of the ";
 
-            var z = this.reader.getFloat(node[i], "zz", false);
+            var z = this.reader.getFloat(node[i], "z", false);
             if (z == null || isNaN(z))
-                return "unable to parse field 'zz' of the ";
+                return "unable to parse field 'z' of the ";
 
             var point = [x, y, z, 1.0];
             controlPoints.push(point);
