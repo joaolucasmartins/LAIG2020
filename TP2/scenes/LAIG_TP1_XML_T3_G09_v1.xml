@@ -108,6 +108,7 @@
     <texture id="frontSkyBox" path="./scenes/images/front.png"/>
     <texture id="backWindow" path="./scenes/images/backWindow.jpg"/>
     <texture id="sideWindow" path="./scenes/images/sideWindow.jpg"/>
+    <texture id="barrelText" path="./scenes/images/barrel.jpg"/>
   </textures>
   <materials>
     <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
@@ -186,8 +187,7 @@
         <noderef id="testAnim"/>
         <noderef id="ship"/>
         <noderef id="skyBox"/>
-        
-        
+        <noderef id="barrel"/>
       </descendants>
     </node>
     <!-- TODO Front flag-->
@@ -1517,5 +1517,20 @@
         <noderef id="cube"/>
       </descendants>
     </node>
+
+    <!-- BARREL //////////////-->
+    <node id="barrel">
+      <material id="null"/>
+      <texture id="barrelText"/>
+      <transformations>
+        <rotation axis="x" angle="-90"/>
+        <translation x="0" y="-0.6" z="1.7"/>
+        <scale sx="0.5" sy="0.5" sz="0.5"/>
+      </transformations>
+      <descendants>
+        <leaf type="defbarrel" base="0.5" middle="0.65" height="1.5" slices="20" stacks="20" tilt="20"/>
+      </descendants>
+    </node>
+
   </nodes>
 </lsf>
