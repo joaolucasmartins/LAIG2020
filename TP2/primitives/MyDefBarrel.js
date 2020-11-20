@@ -1,14 +1,4 @@
 /**
- * Returns a rotation in Z matrix with given degrees
- * @param {float} degrees 
- */
-function getRotMatrix(degrees) {
-    let mat = mat4.create();
-    mat4.rotateZ(mat, mat, degrees);
-    return mat;
-}
-
-/**
  * MyDefBarrel
  * @constructor
  * @param {CGFscene} scene - Reference to MyScene object
@@ -17,7 +7,6 @@ function getRotMatrix(degrees) {
  */
 class MyDefBarrel extends CGFobject {
     static ALPHA = 20; // Default value of tilt if not given
-    static rotMatrix = getRotMatrix(Math.PI);
     constructor(scene, base, middle, height, slices, stacks, tilt = MyDefBarrel.ALPHA) {
         super(scene);
 
@@ -77,7 +66,7 @@ class MyDefBarrel extends CGFobject {
     display() {
         this.obj.display();
         this.scene.pushMatrix();
-        this.scene.multMatrix(MyDefBarrel.rotMatrix);
+        this.scene.rotate(180, 1, 0, 0);
         this.obj.display();
         this.scene.popMatrix();
     }

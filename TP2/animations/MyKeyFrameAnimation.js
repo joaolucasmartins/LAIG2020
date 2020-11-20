@@ -1,8 +1,6 @@
 class MyKeyFrameAnimation extends MyAnimation {
     constructor(scene, transformations) {
         super(scene, transformations);
-
-        console.log(transformations);
     }
 
     onBeforeAnimation() {

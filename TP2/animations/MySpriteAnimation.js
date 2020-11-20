@@ -12,9 +12,7 @@ class MySpriteAnimation extends MyAnimation {
         this.scene = scene;
         this.spritesheet = spritesheet;
         this.rectangle = new MyRectangle(scene, 0, 0, 1, 1);
-        this.currInstantIndex = 0;
-        this.currInstant = this.instants[this.currInstantIndex];
-        this.currElement = this.elements[this.currInstant];
+        this.currElement = this.elements[this.getInitialInstant()];
     }
 
     onBeforeAnimation() {

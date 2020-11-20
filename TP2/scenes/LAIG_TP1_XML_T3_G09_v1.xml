@@ -996,21 +996,21 @@
       <descendants>
         <!-- front of the sail -->
         <leaf type="patch" npointsU="2" npointsV="3" npartsU="15" npartsV="15">
-          <controlpoint xx="0.5" yy="0" zz="-0.5"/>
-          <controlpoint xx="0.5" yy="0.5" zz="0"/>
-          <controlpoint xx="0.5" yy="0" zz="0.5"/>
-          <controlpoint xx="-0.5" yy="0" zz="-0.5"/>
-          <controlpoint xx="-0.5" yy="0.5" zz="0.0"/>
-          <controlpoint xx="-0.5" yy="0.0" zz="0.5"/>
+          <controlpoint x="0.5" y="0" z="-0.5"/>
+          <controlpoint x="0.5" y="0.5" z="0"/>
+          <controlpoint x="0.5" y="0" z="0.5"/>
+          <controlpoint x="-0.5" y="0" z="-0.5"/>
+          <controlpoint x="-0.5" y="0.5" z="0.0"/>
+          <controlpoint x="-0.5" y="0.0" z="0.5"/>
         </leaf>
         <!-- front of the sail -->
         <leaf type="patch" npointsU="2" npointsV="3" npartsU="15" npartsV="15">
-          <controlpoint xx="0.5" yy="0" zz="0.5"/>
-          <controlpoint xx="0.5" yy="0.5" zz="0"/>
-          <controlpoint xx="0.5" yy="0" zz="-0.5"/>
-          <controlpoint xx="-0.5" yy="0.0" zz="0.5"/>
-          <controlpoint xx="-0.5" yy="0.5" zz="0.0"/>
-          <controlpoint xx="-0.5" yy="0" zz="-0.5"/>
+          <controlpoint x="0.5" y="0" z="0.5"/>
+          <controlpoint x="0.5" y="0.5" z="0"/>
+          <controlpoint x="0.5" y="0" z="-0.5"/>
+          <controlpoint x="-0.5" y="0.0" z="0.5"/>
+          <controlpoint x="-0.5" y="0.5" z="0.0"/>
+          <controlpoint x="-0.5" y="0" z="-0.5"/>
         </leaf>
       </descendants>
     </node>

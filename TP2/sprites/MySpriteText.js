@@ -1,19 +1,18 @@
-const SPRITE_IMG = "../scenes/images/spriteText.png";
+const SPRITE_IMG = "scenes/images/spriteText.png";
 
 class MySpriteText {
     constructor(scene, text) {
         this.scene = scene;
         this.text = text;
 
-        let texture = new CGFtexture(scene, SPRITE_IMG);
-        this.textsheet = new MySpritesheet(scene, texture, 16, 16);
+        this.textsheet = new MySpritesheet(scene, SPRITE_IMG, 16, 16);
 
         this.chars = [];
+        this.beginX = - text.length / 2.0 + 0.5;
+        this.rect = new MyRectangle(scene, -0.5, -0.5, 0.5, 0.5);
         for (let i in text) {
-            let x = parseInt(i) - text.length / 2;
-            let rect = new MyRectangle(scene, x, -0.5, x + 1, 0.5);
             let currCharCode = this.getCharacterPosition(text[i]);
-            this.chars.push([rect, currCharCode]);
+            this.chars.push(currCharCode);
         }
     }
 
@@ -31,13 +30,16 @@ class MySpriteText {
     }
 
     display() {
-        for (let i in this.chars) {
-            let rect = this.chars[i][0];
-            let code = this.chars[i][1];
+        this.scene.pushMatrix();
+        this.scene.translate(this.beginX, 0, 0);
+        for (let i = 0; i < this.chars.length; ++i) {
+            let code = this.chars[i];
 
             this.textsheet.activateCellP(code);
-            rect.display();
+            this.rect.display();
+            this.scene.translate(1, 0, 0);
         }
+        this.scene.popMatrix();
         this.scene.setActiveShader(this.scene.defaultShader);
     }
 }

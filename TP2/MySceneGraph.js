@@ -788,17 +788,17 @@ class MySceneGraph {
         if ((path = this.reader.getString(node, 'path', false)) == null)
             return "failed to get path" + postWarningMsg;
 
-        var texture = new CGFtexture(this.scene, path);
-        if (texture == null)
-            return "invalid texture path " + path + " " + postWarningMsg;
-
         var sizeM = this.parseInt(node, "sizeM", postWarningMsg);
         if (typeof sizeM === 'string') return sizeM;
 
         var sizeN = this.parseInt(node, "sizeN", postWarningMsg);
         if (typeof sizeN === 'string') return sizeN;
 
-        return new MySpritesheet(this.scene, texture, sizeM, sizeN);
+        let sheet = new MySpritesheet(this.scene, path, sizeM, sizeN);
+        if (sheet == null)
+            return "could not create spritesheet";
+        else
+            return sheet;
     }
 
     parseSpritesheets(node) {
