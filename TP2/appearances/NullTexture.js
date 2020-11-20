@@ -4,22 +4,33 @@
  */
 class NullTexture {
     constructor() {
-        this.parentTexture = null;
+        this.parentMaterial = null;
+    }
+
+    /**
+     * Get parent texture from stack
+     */
+    pushStack(matStack) {
+        this.parentMaterial = matStack[matStack.length - 1];
+    }
+
+    popStack() {
+        this.parentMaterial = null;
     }
 
     /**
      * Apply texture in defined
      */
     bind() {
-        if (this.parentTexture != undefined)
-            this.parentTexture.bind();
+        if (this.parentMaterial != undefined)
+            this.parentMaterial.bind();
     }
 
     /**
      * Remove texture if defined
      */
     unbind() {
-        if (this.parentTexture != undefined)
-            this.parentTexture.unbind();
+        if (this.parentMaterial != undefined)
+            this.parentMaterial.unbind();
     }
 }

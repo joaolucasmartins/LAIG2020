@@ -1,15 +1,14 @@
 /**
- * ClearTexture
- * Clear texture representation (explained in Node.js)
+ * MyTexture (Wrapper for CGFTexture)
+ * Normal texture representation (explained in Node.js)
  */
-class ClearTexture {
-    constructor() {
-        this.parentTexture = null;
+class MyTexture {
+    constructor(texture) {
         this.pushedTexture = false;
+        this.texture = texture;
     }
 
     pushStack(textStack) {
-        this.parentTexture = textStack[textStack.length - 1];
         textStack.push(this);
         this.pushedTexture = true;
     }
@@ -17,7 +16,6 @@ class ClearTexture {
     popStack(textStack) {
         if (this.pushedTexture) {
             textStack.pop();
-            this.parentTexture = null;
             this.pushedTexture = false;
         }
     }
@@ -26,16 +24,13 @@ class ClearTexture {
      * Apply texture if defined.
      */
     bind() {
-        if (this.parentTexture != undefined) {
-            this.parentTexture.unbind();
-        }
+        this.texture.bind();
     }
 
     /**
      * Remove texture if defined.
      */
     unbind() {
-        if (this.parentTexture != undefined)
-            this.parentTexture.bind();
+        this.texture.unbind();
     }
 }

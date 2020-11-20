@@ -47,7 +47,7 @@ class Node {
         else if (texture == "clear")
             this.texture = new ClearTexture();
         else
-            this.texture = texture;
+            this.texture = new MyTexture(texture);
         this.aft = aft;
         this.afs = afs;
     }
@@ -56,7 +56,7 @@ class Node {
         if (mat == "null")
             this.material = new NullMaterial();
         else
-            this.material = mat;
+            this.material = new MyMaterial(mat);
     }
 
     setAnimation(anim) {
@@ -95,27 +95,8 @@ class Node {
         this.scene.multMatrix(this.transfMat);
         this.applyAnimations();
 
-        // Push/Top Textures
-        var pushedTexture = false;
-        if (this.texture instanceof ClearTexture) {
-            this.texture.parentTexture = textStack[textStack.length - 1];
-            textStack.push(this.texture);
-            pushedTexture = true;
-        } else if (this.texture instanceof NullTexture)
-            this.texture.parentTexture = textStack[textStack.length - 1];
-        else {
-            textStack.push(this.texture);
-            pushedTexture = true;
-        }
-
-        // Push/Top Materials
-        var pushedMaterial = false;
-        if (this.material instanceof NullMaterial)
-            this.material.parentMaterial = matStack[matStack.length - 1];
-        else {
-            matStack.push(this.material);
-            pushedMaterial = true;
-        }
+        this.texture.pushStack(textStack);
+        this.material.pushStack(matStack);
 
         // Bind and display
         this.material.apply();
@@ -130,10 +111,8 @@ class Node {
         this.texture.unbind();
 
         // Pop Stacks
-        if (pushedTexture)
-            textStack.pop();
-        if (pushedMaterial)
-            matStack.pop();
+        this.texture.popStack(textStack);
+        this.material.popStack(matStack);
         this.scene.popMatrix();
     }
 }

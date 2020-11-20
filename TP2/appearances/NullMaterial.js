@@ -4,7 +4,15 @@
  */
 class NullMaterial {
     constructor() {
-        this.parentTexture = null;
+        this.parentMaterial = null;
+    }
+
+    pushStack(matStack) {
+        this.parentMaterial = matStack[matStack.length - 1];
+    }
+
+    popStack() {
+        this.parentMaterial = null;
     }
 
     /**
