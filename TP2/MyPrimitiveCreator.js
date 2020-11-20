@@ -292,6 +292,22 @@ class MyPrimitiveCreator {
             return new MyDefBarrel(this.scene, base, middle, height, slices, stacks, tilt);
     }
 
+    /**
+    * Parse <leaf> node (Circle)
+    * @param {node element} node 
+    */
+    createCircle(node) {
+        var radius = this.reader.getFloat(node, "radius", false);
+        if (radius == null || isNaN(radius))
+            return "unable to parse field 'radius' of the ";
+
+        var slices = this.reader.getFloat(node, "slices", false);
+        if (slices == null || isNaN(slices))
+            return "unable to parse field 'slices' of the ";
+
+        return new MyCircle(this.scene, radius, slices);
+    }
+
 
     /**
     * Create primitive switcher.
@@ -322,6 +338,8 @@ class MyPrimitiveCreator {
             primitive = this.createPatch(node);
         else if (type == "defbarrel")
             primitive = this.createBarrel(node);
+        else if (type == "circle")
+            primitive = this.createCircle(node);
         else
             primitive = "type '" + type + "' is not a valid type in ";
 
