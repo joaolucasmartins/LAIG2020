@@ -184,14 +184,13 @@
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <descendants>
-        <!-- <noderef id="testAnim"/>
+        <noderef id="testAnim"/>
         <noderef id="ship"/>
-        <noderef id="skyBox"/> -->
-        <noderef id="barrel"/>
+        <noderef id="skyBox"/>
+        <!--<noderef id="barrel"/>-->
       </descendants>
     </node>
     <!-- TODO Front flag-->
-  
     <!--//////////////////////// MAIN OBJECTS ////////////////////////////-->
     <!-- SHIP /////////////////-->
     <node id="ship">
@@ -1000,7 +999,6 @@
           <controlpoint xx="0.5" yy="0" zz="-0.5"/>
           <controlpoint xx="0.5" yy="0.5" zz="0"/>
           <controlpoint xx="0.5" yy="0" zz="0.5"/>
-
           <controlpoint xx="-0.5" yy="0" zz="-0.5"/>
           <controlpoint xx="-0.5" yy="0.5" zz="0.0"/>
           <controlpoint xx="-0.5" yy="0.0" zz="0.5"/>
@@ -1010,7 +1008,6 @@
           <controlpoint xx="0.5" yy="0" zz="0.5"/>
           <controlpoint xx="0.5" yy="0.5" zz="0"/>
           <controlpoint xx="0.5" yy="0" zz="-0.5"/>
-
           <controlpoint xx="-0.5" yy="0.0" zz="0.5"/>
           <controlpoint xx="-0.5" yy="0.5" zz="0.0"/>
           <controlpoint xx="-0.5" yy="0" zz="-0.5"/>
@@ -1027,7 +1024,6 @@
         <noderef id="flag"/>
       </descendants>
     </node>
-    
     <!-- PIRATE FLAG OBJECT ///////////////////////////-->
     <node id="flag">
       <material id="defaultMaterial"/>
@@ -1516,7 +1512,6 @@
         <noderef id="cube"/>
       </descendants>
     </node>
-
     <!-- BARREL //////////////-->
     <node id="barrel">
       <material id="null"/>
@@ -1541,6 +1536,5 @@
         <leaf type="circle" radius="0.51" slices="30"/>
       </descendants>
     </node>
-
   </nodes>
 </lsf>
