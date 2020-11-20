@@ -159,6 +159,8 @@ class XMLscene extends CGFscene {
             this.lights[i].update();
         }
 
+        this.gl.enable(this.gl.BLEND);
+        this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
         if (this.sceneInited) {
             // Draw axis
             this.axis.display();
@@ -177,6 +179,7 @@ class XMLscene extends CGFscene {
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
+        this.gl.disable(this.gl.BLEND);
 
         this.popMatrix();
         // ---- END Background, camera and axis setup

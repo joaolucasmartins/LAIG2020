@@ -29,7 +29,7 @@ class MySpriteText {
         return A_pos + inc;
     }
 
-    display() {
+    display(matStack, textStack) {
         this.scene.pushMatrix();
         this.scene.translate(this.beginX, 0, 0);
         for (let i = 0; i < this.chars.length; ++i) {
@@ -39,7 +39,11 @@ class MySpriteText {
             this.rect.display();
             this.scene.translate(1, 0, 0);
         }
+
+        // Restore scene
         this.scene.popMatrix();
         this.scene.setActiveShader(this.scene.defaultShader);
+        if (textStack.length != 0)
+            textStack[textStack.length - 1].bind();
     }
 }

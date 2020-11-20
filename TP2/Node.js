@@ -93,7 +93,6 @@ class Node {
     display(matStack, textStack) {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transfMat);
-        this.applyAnimations();
 
         this.texture.pushStack(textStack);
         this.material.pushStack(matStack);
@@ -102,12 +101,14 @@ class Node {
         this.material.apply();
         this.texture.bind();
         for (var i = 0; i < this.primitives.length; i++) {
-            this.primitives[i].display();
+            // Some primitives apply other textures and need to restore them through the stack
+            this.primitives[i].display(matStack, textStack);
         }
 
         for (var i = 0; i < this.descendants.length; i++) {
             this.descendants[i].display(matStack, textStack);
         }
+        this.applyAnimations();
         this.texture.unbind();
 
         // Pop Stacks
