@@ -1,23 +1,22 @@
 class MyKeyFrameAnimation extends MyAnimation {
     constructor(scene, transformations) {
         super(scene, transformations);
+        this.emptyTransformation = Transformation.newEmptyTransformation();
     }
 
     onBeforeAnimation() {
-        this.currentTransformation = Transformation.newEmptyTransformation();
-        this.currInstant = super.getInitialInstant();
+        this.currentTransformation = this.emptyTransformation;
     }
+
     onEndAnimation() {
         this.currentTransformation = this.elements[this.currInstant];
     }
+
     onMidAnimation(instant) {
         var weight = (instant - this.previousInstant) / (this.currInstant - this.previousInstant);
         var prevTransformation = this.elements[this.previousInstant];
         var nextTransformation = this.elements[this.currInstant];
-        if (!prevTransformation)
-            this.currentTransformation = Transformation.newEmptyTransformation();
-        else
-            this.currentTransformation = prevTransformation.interpolate(nextTransformation, weight);
+        this.currentTransformation = prevTransformation.interpolate(nextTransformation, weight);
     }
 
     update(time) {

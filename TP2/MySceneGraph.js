@@ -1012,7 +1012,7 @@ class MySceneGraph {
                     this.onXMLMinorError(primitive + "leaf '" + type + "' in node id '" +
                         node.id + "'. Primitive not added.");
                 else {
-                    if (type == "spriteanim") // FIXME Maybe there is an alternative to this?
+                    if (type == "spriteanim")
                         node.addAnimation(primitive)
                     else
                         node.addPrimitive(primitive);

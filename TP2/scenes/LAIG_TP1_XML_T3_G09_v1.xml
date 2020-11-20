@@ -198,7 +198,7 @@
       <texture id="woodText2">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
-      <!-- <animationref id="anim1"/> -->
+      <animationref id="anim1"/>
       <transformations>
         <translation x="0" y="1.2" z="0"/>
       </transformations>
@@ -224,7 +224,7 @@
         <translation x="0" y="10" z="0"/>
       </transformations>
       <descendants>
-        <leaf type="spriteanim" ssid="sheet1" startCell="64" endCell="79" duration="4"/>
+        <leaf type="spriteanim" ssid="sheet1" startCell="64" endCell="73" duration="10"/>
       </descendants>
     </node>
     <!-- SKYBOX /////////////////-->
