@@ -20,7 +20,7 @@ class MySpriteAnimation extends MyAnimation {
     }
     onEndAnimation() {
         this.currElement = this.elements[this.getLastInstant()];
-        this.initialInstant = null; // Reset to first char
+        this.initialInstant = null; // Reset animation to first char
     }
     onMidAnimation() {
         this.currElement = this.elements[this.currInstant];

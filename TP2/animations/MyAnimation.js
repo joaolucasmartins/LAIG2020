@@ -1,5 +1,5 @@
 class MyAnimation {
-    constructor(scene, elements,) {
+    constructor(scene, elements) {
         this.elements = elements; // What instances are mapped to
         this.scene = scene;
         this.instants = Object.keys(elements).map(parseFloat); // Cast String keys to float
@@ -12,6 +12,8 @@ class MyAnimation {
         });
     }
 
+    // Methods to be overwritten by subclasses
+    // They are called by update and are treated as event handlers
     onBeforeAnimation() {
         throw new Error("onBeforeAnimation method of abstract class animation called");
     }
@@ -31,8 +33,9 @@ class MyAnimation {
     }
 
     update(time) {
+        // Animation has been reset/is starting for the first time
         if (this.initialInstant == null)
-            this.initialInstant = time;
+            this.initialInstant = time; // Update initial time
 
         var instant = (time - this.initialInstant) / 1000;
 

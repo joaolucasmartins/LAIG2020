@@ -37,12 +37,13 @@ class MySpriteText {
 
             this.textsheet.activateCellP(code);
             this.rect.display();
-            this.scene.translate(1, 0, 0);
+            this.scene.translate(1, 0, 0); // Add 1 in x for each rectangle
         }
 
         // Restore scene
         this.scene.popMatrix();
         this.scene.setActiveShader(this.scene.defaultShader);
+        // Reset previous bound texture
         if (textStack.length != 0)
             textStack[textStack.length - 1].bind();
     }
