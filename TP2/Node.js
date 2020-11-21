@@ -100,6 +100,7 @@ class Node {
         // Bind and display
         this.material.apply();
         this.texture.bind();
+        this.applyAnimations();
         for (var i = 0; i < this.primitives.length; i++) {
             // Some primitives apply other textures and need to restore them through the stack
             this.primitives[i].display(matStack, textStack);
@@ -108,7 +109,6 @@ class Node {
         for (var i = 0; i < this.descendants.length; i++) {
             this.descendants[i].display(matStack, textStack);
         }
-        this.applyAnimations();
         this.texture.unbind();
 
         // Pop Stacks
