@@ -253,12 +253,12 @@
         <scale sx="1.0" sy="1.0" sz="1.0"/>
       </keyframe>
       <keyframe instant="20.0">
-      <translation x="0" y="0" z="3"/>
-      <rotation axis="x" angle="0"/>
-      <rotation axis="y" angle="0"/>
-      <rotation axis="z" angle="0"/>
-      <scale sx="1.0" sy="1.0" sz="1.0"/>
-    </keyframe>
+        <translation x="0" y="0" z="3"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1.0" sy="1.0" sz="1.0"/>
+      </keyframe>
     </animation>
   </animations>
   <spritesheets>
@@ -314,9 +314,8 @@
         <leaf type="spriteanim" ssid="sheet1" startCell="64" endCell="73" duration="10"/>
       </descendants>
     </node>
-    
-  <!-- CANNON BALL FIRE -->
-   <node id="projectile1">
+    <!-- CANNON BALL FIRE -->
+    <node id="projectile1">
       <material id="metalMaterial"/>
       <texture id="castIron"/>
       <transformations>
@@ -1146,17 +1145,52 @@
       </descendants>
     </node>
     <!-- PIRATE FLAG OBJECT ///////////////////////////-->
-    <node id="flag">
-      <material id="defaultMaterial"/>
+    <node id="flagBannerFront">
+      <texture id="null"/>
+      <material id="null"/>
+      <descendants>
+        <!-- front of the flag -->
+        <leaf type="patch" npointsU="4" npointsV="2" npartsU="15" npartsV="15">
+          <controlpoint x="0.5" y="-0.5" z="0"/>
+          <controlpoint x="0.5" y="0.5" z="0"/>
+          <controlpoint x="0.25" y="-0.5" z="0.5"/>
+          <controlpoint x="0.25" y="0.5" z="0.5"/>
+          <controlpoint x="-0.25" y="-0.5" z="-0.5"/>
+          <controlpoint x="-0.25" y="0.5" z="-0.5"/>
+          <controlpoint x="-0.5" y="-0.5" z="0"/>
+          <controlpoint x="-0.5" y="0.5" z="0"/>
+        </leaf>
+      </descendants>
+    </node>
+    <node id="flagBannerBack">
+      <texture id="null"/>
+      <transformations>
+        <rotation axis="y" angle="180"/>
+      </transformations>
+      <material id="null"/>
+      <descendants>
+        <noderef id="flagBannerFront"/>
+      </descendants>
+    </node>
+    <node id="flagBanner">
       <texture id="pirateFlag"/>
+      <material id="defaultMaterial"/>
+      <descendants>
+        <noderef id="flagBannerFront"/>
+        <noderef id="flagBannerBack"/>
+      </descendants>
+    </node>
+    <node id="flag">
+      <texture id="null"/>
+      <material id="defaultMaterial"/>
       <transformations>
         <rotation axis="y" angle="90"/>
         <translation x="0.5" y="5.5" z="0.0"/>
         <scale sx="1.0" sy="0.7" sz="1.0"/>
       </transformations>
       <descendants>
-        <noderef id="plane"/>
         <noderef id="flagPole"/>
+        <noderef id="flagBanner"/>
       </descendants>
     </node>
     <node id="flagPole">
@@ -1658,6 +1692,4 @@
       </descendants>
     </node>
   </nodes>
-
-
 </lsf>
