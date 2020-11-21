@@ -25,8 +25,17 @@ independent between each other
 
 -----
 
-### [TP2 - ...](TP2)
-- (items briefly describing main strong points)
+### [Scene Graph](TP2/MySceneGraph.js)
+
+- Resistant parser
+- Use of patches in flag and sail
+- Complex keyframe animations for ship and ball movement
+- Sprite animations when firing canons and keyframe animation
+to hide it afterwards
+- Use of barrel
+- Scene
+  - Pirate ship scene
+  - [Scene XML](TP2/scenes/LAIG_TP1_XML_T3_G09_v1.xml)
 
 ----
 

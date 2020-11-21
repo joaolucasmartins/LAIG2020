@@ -1,4 +1,4 @@
-# LAIG 2020/2021 - TP1
+# LAIG 2020/2021 - TP2
 
 ## Group T03G09
 | Name             | Number    | E-Mail              |
@@ -11,11 +11,13 @@
 
 - A few complex elements (helm, masts, canons)
 - Use of all primitives
-- Multiple cameras and lights
-- Use of different materials
 - Separated texture/material behavior into multiple files to make them
 independent between each other
 - Resistant parser
+- Use of patches in flag and sail
+- Complex keyframe animations for ship and ball movement
+- Sprite animations when firing canons
+- Use of barrel
 - Scene
   - Pirate ship scene
   - [Scene XML](scenes/LAIG_TP1_XML_T3_G09_v1.xml)
