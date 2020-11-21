@@ -285,7 +285,7 @@
         <rotation axis="z" angle="0"/>
         <scale sx="1" sy="1" sz="1"/>
       </keyframe>
-       <keyframe instant="21.9">
+      <keyframe instant="21.9">
         <translation x="0" y="0" z="0"/>
         <rotation axis="x" angle="0"/>
         <rotation axis="y" angle="0"/>
@@ -300,7 +300,7 @@
         <scale sx="0" sy="0" sz="0"/>
       </keyframe>
     </animation>
-     <animation id="explosionAnim2">
+    <animation id="explosionAnim2">
       <keyframe instant="23">
         <translation x="0" y="0" z="0"/>
         <rotation axis="x" angle="0"/>
@@ -308,7 +308,7 @@
         <rotation axis="z" angle="0"/>
         <scale sx="1" sy="1" sz="1"/>
       </keyframe>
-       <keyframe instant="23.9">
+      <keyframe instant="23.9">
         <translation x="0" y="0" z="0"/>
         <rotation axis="x" angle="0"/>
         <rotation axis="y" angle="0"/>
@@ -335,9 +335,8 @@
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <descendants>
-        <noderef id="testAnim"/>
         <noderef id="skyBox"/>
-        <noderef id="ship"/>        
+        <noderef id="ship"/>
       </descendants>
     </node>
     <!--//////////////////////// MAIN OBJECTS ////////////////////////////-->
@@ -363,10 +362,10 @@
         <noderef id="ammoRacks"/>
         <noderef id="board"/>
         <noderef id="barrel"/>
-        <noderef id="cannonFire"/> <!-- cannon firing animations -->
+        <noderef id="cannonFire"/>
+        <!-- cannon firing animations -->
       </descendants>
     </node>
-
     <!-- SKYBOX /////////////////-->
     <node id="skyBox">
       <material id="null"/>
@@ -383,7 +382,6 @@
         <noderef id="front"/>
       </descendants>
     </node>
-
     <!--////////////////////////////////// PRIMITIVES //////////////////////////////////// -->
     <!--CUBE ////////////////-->
     <node id="cube">
@@ -1712,7 +1710,6 @@
         <leaf type="circle" radius="0.51" slices="30"/>
       </descendants>
     </node>
-
     <!-- FIRE CANNON ANIMATIONS /////////////////////-->
     <node id="cannonFire">
       <material id="null"/>
@@ -1733,7 +1730,7 @@
         <translation x="-2.0" y="0.2" z="2.2"/>
       </transformations>
       <descendants>
-        <leaf type="spriteanim" ssid="explosionSheet" startCell="0" endCell="24" duration="2.1"/>      
+        <leaf type="spriteanim" ssid="explosionSheet" startCell="0" endCell="24" duration="2.1"/>
       </descendants>
     </node>
     <node id="explosionSpriteAnim2">
@@ -1745,12 +1742,11 @@
         <translation x="-0.5" y="0.2" z="2.2"/>
       </transformations>
       <descendants>
-        <leaf type="spriteanim" ssid="explosionSheet" startCell="0" endCell="24" duration="2.1"/>      
+        <leaf type="spriteanim" ssid="explosionSheet" startCell="0" endCell="24" duration="2.1"/>
       </descendants>
-  </node>
-    
-  <!-- PROJECTILES /////////////////////////////////////////////////// -->
-   <node id="projectile1">
+    </node>
+    <!-- PROJECTILES /////////////////////////////////////////////////// -->
+    <node id="projectile1">
       <material id="metalMaterial"/>
       <texture id="castIron"/>
       <transformations>
@@ -1758,7 +1754,7 @@
       </transformations>
       <animationref id="projectileAnimation"/>
       <descendants>
-        <leaf type="sphere" radius="0.08" slices="20" stacks="40"/>  
+        <leaf type="sphere" radius="0.08" slices="20" stacks="40"/>
       </descendants>
     </node>
     <node id="projectile2">
@@ -1782,6 +1778,5 @@
         <noderef id="projectile2"/>
       </descendants>
     </node>
-
   </nodes>
 </lsf>
