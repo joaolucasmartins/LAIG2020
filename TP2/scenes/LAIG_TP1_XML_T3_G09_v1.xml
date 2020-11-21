@@ -49,6 +49,19 @@
       <specular r="1.0" g="1.0" b="1.0" a="1.0"/>
       <!-- specular component -->
     </light>
+    <light id="light_2">
+      <!-- light identifier -->
+      <enable value="0"/>
+      <!-- enable/disable -->
+      <position x="-12" y="12" z="0.0" w="1.0"/>
+      <!-- light position; w=1: point light; w=0: directional light -->
+      <ambient r="0.3" g="0.3" b="0.3" a="1.0"/>
+      <!-- ambient component -->
+      <diffuse r="0.5" g="0.5" b="0.5" a="1.0"/>
+      <!-- diffuse component -->
+      <specular r="1.0" g="1.0" b="1.0" a="1.0"/>
+      <!-- specular component -->
+    </light>
     <light id="red">
       <!-- light identifier -->
       <enable value="0"/>
@@ -157,21 +170,95 @@
     </material>
   </materials>
   <animations>
-    <animation id="anim1">
+    <animation id="projectileAnimation">
+      <keyframe instant="21.0">
+        <translation x="0" y="0" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1.0" sy="1.0" sz="1.0"/>
+      </keyframe>
+      <keyframe instant="23.0">
+        <translation x="10" y="-1" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="45"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1.0" sy="1.0" sz="1.0"/>
+      </keyframe>
+      <keyframe instant="25.0">
+        <translation x="20" y="-2" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="20"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1.0" sy="1.0" sz="1.0"/>
+      </keyframe>
+    </animation>
+    <animation id="nextProjectileAnimation">
+      <keyframe instant="23.0">
+        <translation x="0" y="0" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1.0" sy="1.0" sz="1.0"/>
+      </keyframe>
+      <keyframe instant="25.0">
+        <translation x="8" y="-1" z="-0.5"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="45"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1.0" sy="1.0" sz="1.0"/>
+      </keyframe>
+      <keyframe instant="27.0">
+        <translation x="18" y="-2" z="-1"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="20"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1.0" sy="1.0" sz="1.0"/>
+      </keyframe>
+    </animation>
+    <animation id="boatMovementAnim">
+      <keyframe instant="0.0">
+        <translation x="-10" y="0" z="-20"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1.0" sy="1.0" sz="1.0"/>
+      </keyframe>
       <keyframe instant="5.0">
-        <translation x="0" y="10" z="-10"/>
-        <rotation axis="x" angle="-90"/>
+        <translation x="-10" y="0" z="-10"/>
+        <rotation axis="x" angle="0"/>
         <rotation axis="y" angle="0"/>
         <rotation axis="z" angle="0"/>
         <scale sx="1.0" sy="1.0" sz="1.0"/>
       </keyframe>
-      <keyframe instant="7.0">
-        <translation x="0" y="10" z="10"/>
-        <rotation axis="x" angle="-180"/>
-        <rotation axis="y" angle="0"/>
+      <keyframe instant="10.0">
+        <translation x="-5" y="0" z="-5"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="45"/>
         <rotation axis="z" angle="0"/>
         <scale sx="1.0" sy="1.0" sz="1.0"/>
       </keyframe>
+      <keyframe instant="15.0">
+        <translation x="0" y="0" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="20"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1.0" sy="1.0" sz="1.0"/>
+      </keyframe>
+      <keyframe instant="18.0">
+        <translation x="0" y="0" z="2"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="10"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1.0" sy="1.0" sz="1.0"/>
+      </keyframe>
+      <keyframe instant="20.0">
+      <translation x="0" y="0" z="3"/>
+      <rotation axis="x" angle="0"/>
+      <rotation axis="y" angle="0"/>
+      <rotation axis="z" angle="0"/>
+      <scale sx="1.0" sy="1.0" sz="1.0"/>
+    </keyframe>
     </animation>
   </animations>
   <spritesheets>
@@ -187,10 +274,8 @@
         <noderef id="testAnim"/>
         <noderef id="ship"/>
         <noderef id="skyBox"/>
-        <!--<noderef id="barrel"/>-->
       </descendants>
     </node>
-    <!-- TODO Front flag-->
     <!--//////////////////////// MAIN OBJECTS ////////////////////////////-->
     <!-- SHIP /////////////////-->
     <node id="ship">
@@ -198,7 +283,7 @@
       <texture id="woodText2">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
-      <animationref id="anim1"/>
+      <animationref id="boatMovementAnim"/>
       <transformations>
         <translation x="0" y="1.2" z="0"/>
       </transformations>
@@ -213,6 +298,8 @@
         <noderef id="cannons"/>
         <noderef id="ammoRacks"/>
         <noderef id="board"/>
+        <noderef id="barrel"/>
+        <noderef id="cannonBalls"/>
       </descendants>
     </node>
     <!-- TODO Remove: for testing /////////////////-->
@@ -225,6 +312,40 @@
       </transformations>
       <descendants>
         <leaf type="spriteanim" ssid="sheet1" startCell="64" endCell="73" duration="10"/>
+      </descendants>
+    </node>
+    
+  <!-- CANNON BALL FIRE -->
+   <node id="projectile1">
+      <material id="metalMaterial"/>
+      <texture id="castIron"/>
+      <transformations>
+        <translation x="2" y="0.8" z="1.5"/>
+      </transformations>
+      <animationref id="projectileAnimation"/>
+      <descendants>
+        <leaf type="sphere" radius="0.08" slices="20" stacks="40"/>
+      </descendants>
+    </node>
+    <node id="projectile2">
+      <material id="metalMaterial"/>
+      <texture id="castIron"/>
+      <transformations>
+        <translation x="2" y="0.8" z="0"/>
+      </transformations>
+      <animationref id="nextProjectileAnimation"/>
+      <descendants>
+        <leaf type="sphere" radius="0.08" slices="20" stacks="40"/>
+      </descendants>
+    </node>
+    <node id="cannonBalls">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+      </transformations>
+      <descendants>
+        <noderef id="projectile1"/>
+        <noderef id="projectile2"/>
       </descendants>
     </node>
     <!-- SKYBOX /////////////////-->
@@ -1518,7 +1639,7 @@
       <texture id="barrelText"/>
       <transformations>
         <rotation axis="x" angle="-90"/>
-        <translation x="0" y="-0.6" z="1.7"/>
+        <translation x="0" y="-0.6" z="0.55"/>
         <scale sx="0.5" sy="0.5" sz="0.5"/>
       </transformations>
       <descendants>
@@ -1528,7 +1649,7 @@
     </node>
     <node id="barrelCover">
       <material id="null"/>
-      <texture id="woodText"/>
+      <texture id="plainWoodText"/>
       <transformations>
         <translation x="0" y="0" z="1.5"/>
       </transformations>
@@ -1537,4 +1658,6 @@
       </descendants>
     </node>
   </nodes>
+
+
 </lsf>
