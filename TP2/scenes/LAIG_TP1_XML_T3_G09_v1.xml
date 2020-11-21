@@ -170,6 +170,7 @@
     </material>
   </materials>
   <animations>
+    <!-- PROJECTILE ANIMATIONS -->
     <animation id="projectileAnimation">
       <keyframe instant="21.0">
         <translation x="0" y="0" z="0"/>
@@ -191,6 +192,13 @@
         <rotation axis="y" angle="20"/>
         <rotation axis="z" angle="0"/>
         <scale sx="1.0" sy="1.0" sz="1.0"/>
+      </keyframe>
+      <keyframe instant="25.1">
+        <translation x="20" y="-2" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="20"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="0" sy="0" sz="0"/>
       </keyframe>
     </animation>
     <animation id="nextProjectileAnimation">
@@ -215,7 +223,15 @@
         <rotation axis="z" angle="0"/>
         <scale sx="1.0" sy="1.0" sz="1.0"/>
       </keyframe>
+      <keyframe instant="27.1">
+        <translation x="18" y="-2" z="-1"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="20"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="0" sy="0" sz="0"/>
+      </keyframe>
     </animation>
+    <!-- SHIP ANIMATION -->
     <animation id="boatMovementAnim">
       <keyframe instant="0.0">
         <translation x="-10" y="0" z="-20"/>
@@ -253,16 +269,64 @@
         <scale sx="1.0" sy="1.0" sz="1.0"/>
       </keyframe>
       <keyframe instant="20.0">
-      <translation x="0" y="0" z="3"/>
-      <rotation axis="x" angle="0"/>
-      <rotation axis="y" angle="0"/>
-      <rotation axis="z" angle="0"/>
-      <scale sx="1.0" sy="1.0" sz="1.0"/>
-    </keyframe>
+        <translation x="0" y="0" z="3"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1.0" sy="1.0" sz="1.0"/>
+      </keyframe>
+    </animation>
+    <!-- EXPLOSION ANIMATIONS -->
+    <animation id="explosionAnim1">
+      <keyframe instant="21">
+        <translation x="0" y="0" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+       <keyframe instant="21.9">
+        <translation x="0" y="0" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+      <keyframe instant="22">
+        <translation x="0" y="0" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="0" sy="0" sz="0"/>
+      </keyframe>
+    </animation>
+     <animation id="explosionAnim2">
+      <keyframe instant="23">
+        <translation x="0" y="0" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+       <keyframe instant="23.9">
+        <translation x="0" y="0" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+      <keyframe instant="24">
+        <translation x="0" y="0" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="0" sy="0" sz="0"/>
+      </keyframe>
     </animation>
   </animations>
   <spritesheets>
     <spritesheet id="sheet1" path="./scenes/images/spriteText.png" sizeM="16" sizeN="16"/>
+    <spritesheet id="explosionSheet" path="./scenes/images/explosionSheet.png" sizeM="5" sizeN="5"/>
   </spritesheets>
   <nodes>
     <node id="rootNode">
@@ -272,8 +336,8 @@
       </texture>
       <descendants>
         <noderef id="testAnim"/>
-        <noderef id="ship"/>
         <noderef id="skyBox"/>
+        <noderef id="ship"/>        
       </descendants>
     </node>
     <!--//////////////////////// MAIN OBJECTS ////////////////////////////-->
@@ -299,55 +363,10 @@
         <noderef id="ammoRacks"/>
         <noderef id="board"/>
         <noderef id="barrel"/>
-        <noderef id="cannonBalls"/>
+        <noderef id="cannonFire"/> <!-- cannon firing animations -->
       </descendants>
     </node>
-    <!-- TODO Remove: for testing /////////////////-->
-    <node id="testAnim">
-      <material id="null"/>
-      <texture id="null"/>
-      <transformations>
-        <scale sx="2" sy="2" sz="2"/>
-        <translation x="0" y="10" z="0"/>
-      </transformations>
-      <descendants>
-        <leaf type="spriteanim" ssid="sheet1" startCell="64" endCell="73" duration="10"/>
-      </descendants>
-    </node>
-    
-  <!-- CANNON BALL FIRE -->
-   <node id="projectile1">
-      <material id="metalMaterial"/>
-      <texture id="castIron"/>
-      <transformations>
-        <translation x="2" y="0.8" z="1.5"/>
-      </transformations>
-      <animationref id="projectileAnimation"/>
-      <descendants>
-        <leaf type="sphere" radius="0.08" slices="20" stacks="40"/>
-      </descendants>
-    </node>
-    <node id="projectile2">
-      <material id="metalMaterial"/>
-      <texture id="castIron"/>
-      <transformations>
-        <translation x="2" y="0.8" z="0"/>
-      </transformations>
-      <animationref id="nextProjectileAnimation"/>
-      <descendants>
-        <leaf type="sphere" radius="0.08" slices="20" stacks="40"/>
-      </descendants>
-    </node>
-    <node id="cannonBalls">
-      <material id="null"/>
-      <texture id="null"/>
-      <transformations>
-      </transformations>
-      <descendants>
-        <noderef id="projectile1"/>
-        <noderef id="projectile2"/>
-      </descendants>
-    </node>
+
     <!-- SKYBOX /////////////////-->
     <node id="skyBox">
       <material id="null"/>
@@ -364,6 +383,7 @@
         <noderef id="front"/>
       </descendants>
     </node>
+
     <!--////////////////////////////////// PRIMITIVES //////////////////////////////////// -->
     <!--CUBE ////////////////-->
     <node id="cube">
@@ -1657,7 +1677,76 @@
         <leaf type="circle" radius="0.51" slices="30"/>
       </descendants>
     </node>
+
+    <!-- FIRE CANNON ANIMATIONS /////////////////////-->
+    <node id="cannonFire">
+      <material id="null"/>
+      <texture id="null"/>
+      <descendants>
+        <noderef id="projectile1"/>
+        <noderef id="explosionSpriteAnim1"/>
+        <noderef id="projectile2"/>
+        <noderef id="explosionSpriteAnim2"/>
+      </descendants>
+    </node>
+    <node id="explosionSpriteAnim1">
+      <material id="null"/>
+      <texture id="null"/>
+      <animationref id="explosionAnim1"/>
+      <transformations>
+        <rotation axis="y" angle="90"/>
+        <translation x="-2.0" y="0.2" z="2.2"/>
+      </transformations>
+      <descendants>
+        <leaf type="spriteanim" ssid="explosionSheet" startCell="0" endCell="24" duration="2.1"/>      
+      </descendants>
+    </node>
+    <node id="explosionSpriteAnim2">
+      <material id="null"/>
+      <texture id="null"/>
+      <animationref id="explosionAnim2"/>
+      <transformations>
+        <rotation axis="y" angle="90"/>
+        <translation x="-0.5" y="0.2" z="2.2"/>
+      </transformations>
+      <descendants>
+        <leaf type="spriteanim" ssid="explosionSheet" startCell="0" endCell="24" duration="2.1"/>      
+      </descendants>
+  </node>
+    
+  <!-- PROJECTILES /////////////////////////////////////////////////// -->
+   <node id="projectile1">
+      <material id="metalMaterial"/>
+      <texture id="castIron"/>
+      <transformations>
+        <translation x="2" y="0.8" z="1.5"/>
+      </transformations>
+      <animationref id="projectileAnimation"/>
+      <descendants>
+        <leaf type="sphere" radius="0.08" slices="20" stacks="40"/>  
+      </descendants>
+    </node>
+    <node id="projectile2">
+      <material id="metalMaterial"/>
+      <texture id="castIron"/>
+      <transformations>
+        <translation x="2" y="0.8" z="0"/>
+      </transformations>
+      <animationref id="nextProjectileAnimation"/>
+      <descendants>
+        <leaf type="sphere" radius="0.08" slices="20" stacks="40"/>
+      </descendants>
+    </node>
+    <node id="projectiles">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+      </transformations>
+      <descendants>
+        <noderef id="projectile1"/>
+        <noderef id="projectile2"/>
+      </descendants>
+    </node>
+
   </nodes>
-
-
 </lsf>
