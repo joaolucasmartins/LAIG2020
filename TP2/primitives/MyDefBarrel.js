@@ -33,7 +33,7 @@ class MyDefBarrel extends CGFobject {
             ];
 
         let controlPoints = [];
-        for (let j = 0; j < 4; ++j) { // For each P
+        for (let j = 3; j >= 0; --j) { // For each P
             let currentP = PList[j];
             let currentPx = currentP[0], currentPy = currentP[1];
             let signal = 1;
@@ -41,7 +41,7 @@ class MyDefBarrel extends CGFobject {
                 signal = -1;
 
             let res = [];
-            for (let k = 3; k >= 0; --k) { // For each Q 
+            for (let k = 0; k < 4; ++k) { // For each Q 
                 let Q = [...baseQ[k]];
                 Q[0] = currentPx + Q[0] * signal;
                 Q[1] = currentPy + Q[1] * signal;

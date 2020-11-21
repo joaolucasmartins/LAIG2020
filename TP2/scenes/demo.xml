@@ -137,7 +137,7 @@
         <!--<controlpoint x="1.0" y="0.0" z="1.0"/>-->
         <!--</leaf>-->
         <!--<leaf type="plane" npartsU="8" npartsV="8"/>-->
-        <leaf type="defbarrel" base="0.1" middle="1.3" height="3.0" slices="100" stacks="100" tilt="40"/>
+        <leaf type="defbarrel" base="0.6" middle="1.3" height="3.0" slices="20" stacks="20" tilt="30"/>
         <!--<leaf type="cylinder" bottomRadius="1.00" topRadius="10.00" height="3.0" slices="100" stacks="100"/>-->
         <!-- x y z coordinates of each vertex -->
       </descendants>
