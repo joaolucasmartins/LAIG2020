@@ -198,11 +198,9 @@ class MyPrimitiveCreator {
     }
 
     parseControlPoints(node, nPointsU, nPointsV) {
-        let nPoints = nPointsU * nPointsV;
-
         var controlPoints = [];
 
-        for (let i = 0; i < nPoints; i++) {
+        for (let i = 0; i < node.length; i++) {
             var x = this.reader.getFloat(node[i], "x", false);
             if (x == null || isNaN(x))
                 return "unable to parse field 'x' of the ";
@@ -219,6 +217,9 @@ class MyPrimitiveCreator {
             controlPoints.push(point);
         }
 
+        let nPoints = nPointsU * nPointsV;
+        if (controlPoints.length != nPoints)
+            return "expected " + nPoints + " control points but got " + nPoints + " in ";
 
         var ret = [];
         var auxMat = [];
