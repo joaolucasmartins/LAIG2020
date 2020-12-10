@@ -1,3 +1,4 @@
+const boardCells = 20;
 /**
  * MyGameBoard
  * @constructor
@@ -8,8 +9,19 @@
 class MyGameBoard extends CGFobject {
     constructor(scene, x1, y1, x2, y2) {
         super(scene);
+        this.scene = scene;
         this.tiles = []; 
         this.pieces = []; 
+
+        this.createGameBoard();
+    }
+
+    createGameBoard(tileSize) {
+        for ( let i = 0; i < boardCells; i++) {
+            for (let j = 0; j < boardCells; j++) {
+                this.tiles.push(new MyTile(this.scene, this, null, i, j));
+            }
+        }
     }
 
     getTileAt(line, col) { return this.tiles[line][col] }
@@ -26,7 +38,7 @@ class MyGameBoard extends CGFobject {
     display() {
         for (let i = 0; i < this.tiles.length; i++) {
             this.tiles[i].display();
-            this.pieces[i].display();
+            // this.pieces[i].display();
         }
     }
 }

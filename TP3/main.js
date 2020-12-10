@@ -18,6 +18,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MyInterface.js',
     'appearances/ClearTexture.js', 'appearances/NullTexture.js', 'appearances/NullMaterial.js', 'appearances/MyTexture.js',
     'appearances/MyMaterial.js', 'Node.js', 'MyPrimitiveCreator.js',
     'sprites/MySpritesheet.js', 'sprites/MySpriteText.js', 'MySceneGraph.js',
+    'primitives/MyGameBoard.js', 'primitives/MyTile.js', 'primitives/MyPiece.js',
 
     main = function() {
         // Standard application, scene and interface setup

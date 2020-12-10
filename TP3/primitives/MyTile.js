@@ -1,3 +1,5 @@
+const offset = 10;
+
 /**
  * MyTile
  * @constructor
@@ -6,11 +8,16 @@
  * @param {MyPiece} piece - piece on top of this tile
  */
 class MyTile extends CGFobject {
-    constructor(scene, gameboard, piece) {
+    constructor(scene, gameboard, piece, line, col) {
         super(scene);
+        this.scene = scene;
         this.gameboard = gameboard //pointer to board
         this.piece = piece; //pointer to piece in tile
-        this.obj = new MyRectangle(scene, 0.5, 0, -0.5, 0.5);  //placeholder
+
+        this.obj = new MyPlane(scene,5,5);  //tile representation
+
+        this.line = line;
+        this.col = col;
     }
 
     getTile() { return this.tile; }
@@ -24,7 +31,13 @@ class MyTile extends CGFobject {
     removePiece() { this.piece = null; }
 
     display() {
+        this.scene.pushMatrix();
+        this.scene.translate(this.col-offset, 0, this.line-offset);
         this.obj.display();
+        this.scene.popMatrix();
     }
+
+
+    
 }
 
