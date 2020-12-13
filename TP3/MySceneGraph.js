@@ -58,8 +58,7 @@ class MySceneGraph {
         this.reader.open('scenes/' + filename, this);
         this.primitiveCreator = new MyPrimitiveCreator(this.reader, this.scene, this.spritesheetDict);
 
-        this.board = new MyGameBoard(this.scene, 0,0,0,0);
-
+        this.orchestrator = new MyGameOrchestrator(this.scene);
     }
 
     /**
@@ -1242,13 +1241,13 @@ class MySceneGraph {
      */
     displayScene() {
         // this.rootNode.display(this.matStack, this.textStack);
-        this.board.display();
+        this.orchestrator.display();
         //this.spritesheet.display();
         //this.scene.setActiveShader(this.scene.defaultShader);
     }
 
     updateScene(time) {
         // this.rootNode.update(time);
- 
+
     }
 }

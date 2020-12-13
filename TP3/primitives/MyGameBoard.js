@@ -1,4 +1,3 @@
-const boardCells = 21;
 /**
  * MyGameBoard
  * @constructor
@@ -7,18 +6,19 @@ const boardCells = 21;
  * @param {MyPiece} piece - piece on top of this tile
  */
 class MyGameBoard extends CGFobject {
-    constructor(scene, x1, y1, x2, y2) {
+    constructor(scene, x1, y1, x2, y2, initialBoard) {
         super(scene);
         this.scene = scene;
         this.tiles = [];
         this.pieces = [];
 
-        this.createGameBoard(boardCells);
+        this.createGameBoard(initialBoard);
     }
 
-    createGameBoard(tileSize) {
-        for (let i = 0; i < tileSize; i++) {
-            for (let j = 0; j < tileSize; j++) {
+    createGameBoard(board) {
+        console.log(board);
+        for (let i = 0; i < 21; i++) {
+            for (let j = 0; j < 21; j++) {
                 let tile = new MyTile(this.scene, this, null, i, j);
                 let piece;
                 if ((j + (i % 2)) % 2)
