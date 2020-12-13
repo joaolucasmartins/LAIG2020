@@ -14,30 +14,32 @@ class MyTile extends CGFobject {
         this.gameboard = gameboard //pointer to board
         this.piece = piece; //pointer to piece in tile
 
-        this.obj = new MyPlane(scene,5,5);  //tile representation
+        this.obj = new MyPlane(scene, 5, 5);  //tile representation
 
         this.line = line;
         this.col = col;
     }
 
-    getTile() { return this.tile; }
+    getTile() {return this.tile;}
 
-    setTile(tile) { this.tile = tile; }
+    setTile(tile) {this.tile = tile;}
 
-    setObj(obj) { this.obj = obj; }
+    setObj(obj) {this.obj = obj;}
 
-    setPiece(piece) { this.piece = piece; }
+    setPiece(piece) {this.piece = piece;}
 
-    removePiece() { this.piece = null; }
+    removePiece() {this.piece = null;}
 
     display() {
         this.scene.pushMatrix();
-        this.scene.translate(this.col-offset, 0, this.line-offset);
+        this.scene.translate(this.col - offset, 0, this.line - offset);
+        if (this.piece)
+            this.piece.display();
         this.obj.display();
         this.scene.popMatrix();
     }
 
 
-    
+
 }
 
