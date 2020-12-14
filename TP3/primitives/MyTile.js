@@ -20,9 +20,9 @@ class MyTile extends CGFobject {
         this.col = col;
     }
 
-    getTile() {return this.tile;}
+    getPiece() {return this.piece;}
 
-    setTile(tile) {this.tile = tile;}
+    setPiece(piece) {this.piece = piece;}
 
     setObj(obj) {this.obj = obj;}
 
@@ -38,8 +38,5 @@ class MyTile extends CGFobject {
         this.obj.display();
         this.scene.popMatrix();
     }
-
-
-
 }
 

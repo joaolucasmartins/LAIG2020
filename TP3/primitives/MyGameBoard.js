@@ -11,25 +11,32 @@ class MyGameBoard extends CGFobject {
         this.scene = scene;
         this.tiles = [];
         this.pieces = [];
+        this.currentPlayer = 0;
 
         this.createGameBoard(initialBoard);
     }
 
     createGameBoard(board) {
-        console.log(board);
-        for (let i = 0; i < 21; i++) {
-            for (let j = 0; j < 21; j++) {
+        for (let i = 0; i < board.length; ++i) {
+            let row = board[i];
+            let tileRes = [], piecesRes = [];
+            for (let j = 0; j < row.length; ++j) {
+                let value = row[j];
                 let tile = new MyTile(this.scene, this, null, i, j);
                 let piece;
-                if ((j + (i % 2)) % 2)
+
+                if (value === 1)
                     piece = new MyPiece(this.scene, tile, false);
                 else
                     piece = new MyPiece(this.scene, tile, true);
 
+
                 tile.setPiece(piece);
-                this.tiles.push(tile);
-                this.pieces.push(piece);
+                tileRes.push(tile);
+                piecesRes.push(piece);
             }
+            this.tiles.push(tileRes);
+            this.pieces.push(piecesRes);
         }
     }
 
@@ -39,16 +46,19 @@ class MyGameBoard extends CGFobject {
     removePiece(tile) {tile.setPiece(null);}
     getPiece(tile) {return tile.getPiece();}
     getTile(piece) {return piece.getTile();}
-    movePiece(piece, sourceTile, destTile) {
-        sourceTile.removePiece();
-        destTile.setPiece(piece);
+
+    switchPiece(sourceTile, destTile) {
+        var sourcePiece = sourceTile.getPiece();
+        var destPiece = destTile.getPiece();
+        sourceTile.setPiece(destPiece);
+        destTile.setPiece(sourcePiece);
     }
 
     display() {
-        for (let i = 0; i < this.tiles.length; i++) {
-            this.tiles[i].display();
-            // this.pieces[i].display();
-        }
+        for (let i = 0; i < this.tiles.length; ++i)
+            for (let j = 0; j < this.tiles[i].length; ++j)
+                this.tiles[i][j].display();
+        // this.pieces[i].display();
     }
 }
 

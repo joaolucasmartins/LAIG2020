@@ -13,6 +13,7 @@ class MyPiece extends CGFobject {
             this.obj = new MySphere(scene, 0.2, 10, 10);  //placeholder for black piece
         else
             this.obj = new MySphere(scene, 0.1, 10, 10);  //placeholder for white piece
+        this.isBlack = isBlack;
     }
 
     getTile() {return this.tile;}
@@ -24,6 +25,10 @@ class MyPiece extends CGFobject {
 
     display() {
         this.obj.display();
+    }
+
+    toString() {
+        return this.isBlack ? "1" : "0";
     }
 }
 
