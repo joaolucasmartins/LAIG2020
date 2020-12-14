@@ -14,6 +14,7 @@ class MyGameBoard extends CGFobject {
         this.currentPlayer = 0;
 
         this.createGameBoard(initialBoard);
+        this.length = this.tiles.length;
     }
 
     createGameBoard(board) {
@@ -48,10 +49,12 @@ class MyGameBoard extends CGFobject {
     getTile(piece) {return piece.getTile();}
 
     switchPiece(sourceTile, destTile) {
+        console.log("moving", sourceTile.getCoords(), "to", destTile.getCoords());
         var sourcePiece = sourceTile.getPiece();
         var destPiece = destTile.getPiece();
         sourceTile.setPiece(destPiece);
         destTile.setPiece(sourcePiece);
+        this.currentPlayer = (this.currentPlayer + 1) % 2;
     }
 
     display() {

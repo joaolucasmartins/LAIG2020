@@ -4,17 +4,27 @@ class MyPrologInterface {
     constructor() {
     }
 
-    piecesToString(pieces) {
+    tilesToString(tiles) {
         let res = "[";
-        for (let i = 0; i < pieces.length - 1; ++i) {
+        for (let i = 0; i < tiles.length - 1; ++i) {
             res += "[";
-            res += pieces[i].toString();
+            let row = tiles[i];
+            for (let j = 0; j < row.length - 1; ++j) {
+                res += row[j].getPiece().toString() + ",";
+            }
+            if (row.length != 0)
+                res += row[row.length - 1].getPiece().toString();
             res += "],";
         }
 
-        if (pieces.length != 0) {
+        if (tiles.length != 0) {
             res += "[";
-            res += pieces[pieces.length - 1].toString();
+            let row = tiles[tiles.length - 1];
+            for (let j = 0; j < row.length - 1; ++j) {
+                res += row[j].getPiece().toString() + ",";
+            }
+            if (row.length != 0)
+                res += row[row.length - 1].getPiece().toString();
             res += "]";
         }
         res += "]";
@@ -37,7 +47,7 @@ class MyPrologInterface {
     }
 
     gameBoardToState(gameBoard) {
-        let board = this.piecesToString(gameBoard.pieces);
+        let board = this.tilesToString(gameBoard.tiles);
         let player = gameBoard.currentPlayer;
 
         let result = this.getPrologRequest("getStateFromBoard(_," + board + "," + player + ")");
@@ -51,6 +61,7 @@ class MyPrologInterface {
 
     canMove(gameBoard, source, dest) {
         let state = this.gameBoardToState(gameBoard);
+        console.log("Req", "isValidMove(" + state + "," + source + "," + dest + ")");
         let result = eval(this.getPrologRequest("isValidMove(" + state + "," + source + "," + dest + ")"));
         return result;
     }

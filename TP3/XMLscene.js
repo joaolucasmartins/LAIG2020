@@ -37,6 +37,9 @@ class XMLscene extends CGFscene {
 
         this.defaultAppearance = new CGFappearance(this);
 
+        this.orchestrator = new MyGameOrchestrator(this);
+        // enable picking
+        this.setPickEnabled(true);
     }
 
     /**
@@ -134,6 +137,8 @@ class XMLscene extends CGFscene {
      */
     display() {
         // ---- BEGIN Background, camera and axis setup
+        this.orchestrator.managePick(this.pickMode, this.pickResults);
+        this.clearPickRegistration();
 
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);

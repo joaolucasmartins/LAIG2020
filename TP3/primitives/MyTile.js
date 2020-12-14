@@ -22,7 +22,7 @@ class MyTile extends CGFobject {
 
     getPiece() {return this.piece;}
 
-    setPiece(piece) {this.piece = piece;}
+    setPiece(piece) {this.piece = piece; this.piece.setTile(this);}
 
     setObj(obj) {this.obj = obj;}
 
@@ -30,7 +30,11 @@ class MyTile extends CGFobject {
 
     removePiece() {this.piece = null;}
 
+    getCoords() {return [this.line, this.col];}
+
     display() {
+        // TODO Restrict this maybe?
+        this.scene.registerForPick(this.col + this.line * this.gameboard.length, this);
         this.scene.pushMatrix();
         this.scene.translate(this.col - offset, 0, this.line - offset);
         if (this.piece)

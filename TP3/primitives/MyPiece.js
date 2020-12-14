@@ -22,7 +22,6 @@ class MyPiece extends CGFobject {
 
     setObj(obj) {this.obj = obj;}
 
-
     display() {
         this.obj.display();
     }
