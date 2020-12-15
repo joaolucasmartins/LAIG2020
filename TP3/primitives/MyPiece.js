@@ -22,7 +22,14 @@ class MyPiece extends CGFobject {
 
     setObj(obj) {this.obj = obj;}
 
+    registerForPick() {
+        let [col, line] = this.getTile().getCoords();
+        let gameboard = this.getTile().gameboard;
+        this.scene.registerForPick(col + line * gameboard.length, this);
+    }
+
     display() {
+        this.registerForPick();
         this.obj.display();
     }
 

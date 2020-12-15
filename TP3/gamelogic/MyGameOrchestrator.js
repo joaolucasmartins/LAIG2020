@@ -1,4 +1,4 @@
-const BOARD_SIZE = 3;
+const BOARD_SIZE = 10;
 class MyGameOrchestrator {
     constructor(scene) {
         //this.gameSequence= new MyGameSequence(...);
@@ -6,8 +6,10 @@ class MyGameOrchestrator {
         //this.theme= new MyScenegraph(...);
         this.scene = scene;
         this.prolog = new MyPrologInterface();
-        let initial_board = this.prolog.getInitialBoard(BOARD_SIZE);
-        this.board = new MyGameBoard(scene, 0, 0, 0, 0, initial_board);
+        this.prolog.getInitialBoard(BOARD_SIZE).then(response => {
+            let initial_board = eval(response.target.response);
+            this.board = new MyGameBoard(scene, 0, 0, 0, 0, initial_board);
+        });
     }
 
     managePick(mode, results) {
@@ -26,9 +28,9 @@ class MyGameOrchestrator {
     }
 
     onObjectSelected(obj, id) {
-        if (obj instanceof MyTile) {
-            console.log("selected", obj.getCoords());
-            this.selectTile(obj);
+        if (obj instanceof MyPiece) {
+            console.log("selected", obj.getTile().getCoords());
+            this.selectPiece(obj);
         }
     }
 
@@ -37,17 +39,25 @@ class MyGameOrchestrator {
         return "[" + coord.join(",") + "]";
     }
 
-    selectTile(obj) {
-        if (this.selectedTile == null)
-            this.selectedTile = obj;
+    selectPiece(obj) {
+        if (this.selectedPiece == null)
+            this.selectedPiece = obj;
         else { // Second piece selected
-            var prev_coords = this.selectedTile.getCoords();
-            var curr_coords = obj.getCoords();
-            if (this.prolog.canMove(this.board, this.coordToString(prev_coords), this.coordToString(curr_coords)))
-                this.board.switchPiece(this.selectedTile, obj);
-            else
-                console.log("nao");
-            this.selectedTile = null;
+            let sourceTile = this.selectedPiece.getTile();
+            let destTile = obj.getTile();
+            var prev_coords = sourceTile.getCoords();
+            var curr_coords = destTile.getCoords();
+            let promise = this.prolog.canMove(this.board, this.coordToString(prev_coords), this.coordToString(curr_coords));
+
+            promise.then((response) => {
+                let canMove = eval(response.target.response);
+                if (canMove)
+                    this.board.switchPiece(sourceTile, destTile);
+                else
+                    console.log("nao");
+            });
+
+            this.selectedPiece = null;
         }
     }
 

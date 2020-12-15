@@ -113,7 +113,7 @@ test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
 :-include('Proj/PLOG_TP1_RI_T3_Emulsion_1.pl').
 % BOARD
 parse_input(genInitBoard(L), Board) :- genInitBoard(Board, L).
-parse_input(getStateFromBoard(GameSettings, Board, Player), State) :- make_state(GameSettings, Board, Player, State).
+% parse_input(getStateFromBoard(GameSettings, Board, Player), State) :- make_state(GameSettings, Board, Player, State).
 
 % MOVEMENT
 parse_input(isValidMove(GameState, Source, Dest), true) :- state_getPlayer(GameState, P), valid_move_full(GameState, P, [Source, Dest]), !.

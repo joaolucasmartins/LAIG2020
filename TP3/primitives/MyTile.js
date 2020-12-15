@@ -1,4 +1,4 @@
-const offset = 10;
+const offset = 0;
 
 /**
  * MyTile
@@ -34,7 +34,6 @@ class MyTile extends CGFobject {
 
     display() {
         // TODO Restrict this maybe?
-        this.scene.registerForPick(this.col + this.line * this.gameboard.length, this);
         this.scene.pushMatrix();
         this.scene.translate(this.col - offset, 0, this.line - offset);
         if (this.piece)
