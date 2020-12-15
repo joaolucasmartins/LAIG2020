@@ -22,7 +22,7 @@ class MyTile extends CGFobject {
 
     getPiece() {return this.piece;}
 
-    setPiece(piece) {this.piece = piece; this.piece.setTile(this);}
+    setPiece(piece) {this.piece = piece;}
 
     setObj(obj) {this.obj = obj;}
 
@@ -30,7 +30,7 @@ class MyTile extends CGFobject {
 
     removePiece() {this.piece = null;}
 
-    getCoords() {return [this.line, this.col];}
+    getCoords() {return [this.col, this.line];}
 
     display() {
         // TODO Restrict this maybe?

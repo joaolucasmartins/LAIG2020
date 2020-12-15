@@ -1,4 +1,4 @@
-const BOARD_SIZE = 10;
+const BOARD_SIZE = 3;
 class MyGameOrchestrator {
     constructor(scene) {
         //this.gameSequence= new MyGameSequence(...);
@@ -47,14 +47,23 @@ class MyGameOrchestrator {
             let destTile = obj.getTile();
             var prev_coords = sourceTile.getCoords();
             var curr_coords = destTile.getCoords();
-            let promise = this.prolog.canMove(this.board, this.coordToString(prev_coords), this.coordToString(curr_coords));
+            let movePromise = this.prolog.canMove(this.board, this.coordToString(prev_coords), this.coordToString(curr_coords));
 
-            promise.then((response) => {
+            movePromise.then((response) => {
                 let canMove = eval(response.target.response);
                 if (canMove)
                     this.board.switchPiece(sourceTile, destTile);
                 else
                     console.log("nao");
+
+                console.log(this.prolog.tilesToString(this.board.tiles));
+                return this.prolog.isGameOver(this.board);
+            }).then((response) => {
+                let isGameOver = response.target.response;
+                if (isGameOver == "false")
+                    console.log("Still going")
+                else
+                    console.log(isGameOver);
             });
 
             this.selectedPiece = null;

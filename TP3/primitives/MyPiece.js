@@ -34,7 +34,7 @@ class MyPiece extends CGFobject {
     }
 
     toString() {
-        return this.isBlack ? "1" : "0";
+        return this.isBlack ? "0" : "1";
     }
 }
 

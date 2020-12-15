@@ -116,7 +116,13 @@ parse_input(genInitBoard(L), Board) :- genInitBoard(Board, L).
 % parse_input(getStateFromBoard(GameSettings, Board, Player), State) :- make_state(GameSettings, Board, Player, State).
 
 % MOVEMENT
-parse_input(isValidMove(GameState, Source, Dest), true) :- state_getPlayer(GameState, P), valid_move_full(GameState, P, [Source, Dest]), !.
+parse_input(isValidMove(GameState, Source, Dest), true) :- state_getPlayer(GameState, P),
+    (valid_move_full(GameState, P, [Source, Dest]); valid_move_full(GameState, P, [Dest, Source])), !.
 parse_input(isValidMove(_, _, _), false).
 parse_input(validMoves(GameState, Source), Moves) :- valid_moves_from_pos(GameState, Source, Moves).
 parse_input(validMoves(_, _), []).
+
+% GAME OVER
+
+parse_input(isGameOver(State), Winner) :- game_over(State, Winner), !.
+parse_input(isGameOver(_), false).

@@ -70,6 +70,10 @@ class MyPrologInterface {
     validMoves(gameBoard, source) {
         let state = this.getGameStateFromBoard(gameBoard);
         return this.getPrologRequest("validMoves(" + state + "," + source + ")");
+    }
 
+    isGameOver(gameBoard) {
+        let state = this.getGameStateFromBoard(gameBoard);
+        return this.getPrologRequest("isGameOver(" + state + ")");
     }
 }

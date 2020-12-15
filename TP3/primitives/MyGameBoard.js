@@ -53,7 +53,10 @@ class MyGameBoard extends CGFobject {
         var sourcePiece = sourceTile.getPiece();
         var destPiece = destTile.getPiece();
         sourceTile.setPiece(destPiece);
+        destPiece.setTile(sourceTile);
+
         destTile.setPiece(sourcePiece);
+        sourcePiece.setTile(destTile);
         this.currentPlayer = (this.currentPlayer + 1) % 2;
     }
 

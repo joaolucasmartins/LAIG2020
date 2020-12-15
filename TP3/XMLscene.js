@@ -38,7 +38,6 @@ class XMLscene extends CGFscene {
         this.defaultAppearance = new CGFappearance(this);
 
         this.orchestrator = new MyGameOrchestrator(this);
-        this.barrel = new MyDefBarrel(this, 0.5, 1, 3, 10, 10);
         // enable picking
         this.setPickEnabled(true);
     }
