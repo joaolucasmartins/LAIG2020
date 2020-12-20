@@ -34,17 +34,12 @@ class MyGameOrchestrator {
         }
     }
 
-    // TODO Move this to utils class along with gameState to String
-    coordToString(coord) {
-        return "[" + coord.join(",") + "]";
-    }
-
-    selectPiece(obj) { // TODO Refactor this
+    selectPiece(obj) {
 
         if (this.selectedPiece == null) {
             this.selectedPiece = obj;
             let coords = this.selectedPiece.getTile().getCoords();
-            let movePromise = this.prolog.validMoves(this.board, this.coordToString(coords));
+            let movePromise = this.prolog.validMoves(this.board, coordToString(coords));
             movePromise.then((response) => {
                 let coordList = eval(response.target.response);
                 let pieceList = coordList.map((coord) => {return this.board.getPieceAt(coord[0], coord[1])});
@@ -57,7 +52,7 @@ class MyGameOrchestrator {
             let destTile = obj.getTile();
             var prev_coords = sourceTile.getCoords();
             var curr_coords = destTile.getCoords();
-            let movePromise = this.prolog.canMove(this.board, this.coordToString(prev_coords), this.coordToString(curr_coords));
+            let movePromise = this.prolog.canMove(this.board, coordToString(prev_coords), coordToString(curr_coords));
 
             movePromise.then((response) => {
                 let canMove = eval(response.target.response);
@@ -66,7 +61,7 @@ class MyGameOrchestrator {
                 else
                     console.log("nao");
 
-                console.log(this.prolog.tilesToString(this.board.tiles));
+                console.log(tilesToString(this.board.tiles));
                 return this.prolog.isGameOver(this.board);
             }).then((response) => {
                 let isGameOver = response.target.response;
