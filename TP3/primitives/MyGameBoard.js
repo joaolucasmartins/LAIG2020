@@ -41,7 +41,8 @@ class MyGameBoard extends CGFobject {
         }
     }
 
-    getTileAt(line, col) {return this.tiles[line][col]}
+    getTileAt(col, line) {return this.tiles[line][col]}
+    getPieceAt(col, line) {return this.getTileAt(col, line).getPiece()};
 
     addPiece(piece, tile) {tile.setPiece(piece);}
     removePiece(tile) {tile.setPiece(null);}
@@ -65,6 +66,28 @@ class MyGameBoard extends CGFobject {
             for (let j = 0; j < this.tiles[i].length; ++j)
                 this.tiles[i][j].display();
         // this.pieces[i].display();
+    }
+
+    /* Selects all pieces from coordList. Returns all pieces selected */
+    selectPieces(pieceList) {
+        let res = []
+        for (let i = 0; i < pieceList.length; ++i) {
+            let piece = pieceList[i];
+            piece.selected = true;
+            res.push(piece);
+        }
+        return res;
+    }
+
+    /* Deselects all pieces from coordList. Returns all pieces deselected */
+    deselectPieces(pieceList) {
+        let res = []
+        for (let i = 0; i < pieceList.length; ++i) {
+            let piece = pieceList[i];
+            piece.selected = false;
+            res.push(piece);
+        }
+        return res;
     }
 }
 

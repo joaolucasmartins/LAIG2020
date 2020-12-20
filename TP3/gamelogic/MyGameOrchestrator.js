@@ -39,9 +39,19 @@ class MyGameOrchestrator {
         return "[" + coord.join(",") + "]";
     }
 
-    selectPiece(obj) {
-        if (this.selectedPiece == null)
+    selectPiece(obj) { // TODO Refactor this
+
+        if (this.selectedPiece == null) {
             this.selectedPiece = obj;
+            let coords = this.selectedPiece.getTile().getCoords();
+            let movePromise = this.prolog.validMoves(this.board, this.coordToString(coords));
+            movePromise.then((response) => {
+                let coordList = eval(response.target.response);
+                let pieceList = coordList.map((coord) => {return this.board.getPieceAt(coord[0], coord[1])});
+                this.selectPiece.possiblePieces = this.board.selectPieces(pieceList);
+            });
+            this.selectedPiece.selected = true;
+        }
         else { // Second piece selected
             let sourceTile = this.selectedPiece.getTile();
             let destTile = obj.getTile();
@@ -66,6 +76,9 @@ class MyGameOrchestrator {
                     console.log(isGameOver);
             });
 
+            this.board.deselectPieces(this.selectPiece.possiblePieces);
+            this.selectPiece.possiblePieces = [];
+            this.selectedPiece.selected = false;
             this.selectedPiece = null;
         }
     }

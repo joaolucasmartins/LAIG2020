@@ -14,6 +14,7 @@ class MyPiece extends CGFobject {
         else
             this.obj = new MySphere(scene, 0.1, 10, 10);  //placeholder for white piece
         this.isBlack = isBlack;
+        this.selected = false;
     }
 
     getTile() {return this.tile;}
@@ -30,7 +31,12 @@ class MyPiece extends CGFobject {
 
     display() {
         this.registerForPick();
+        //TODO Use matrices instead of scene.scale
+        if (this.selected)
+            this.scene.scale(1.5, 1.0, 1.5);
         this.obj.display();
+        if (this.selected)
+            this.scene.scale(1.0 / 1.5, 1.0, 1.0 / 1.5);
     }
 
     toString() {

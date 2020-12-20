@@ -80,10 +80,16 @@ valid_moves(GameState, Player, ListOfMoves) :-
   bagof(Move, valid_move_full(GameState, Player, Move), ListOfMoves).
 
 % returns a list of all the valid moves for a given position
+% Depends on the value of the position
 % ListOfMoves : [[X1, Y1], [X2, Y2]] Switch coord 1 with 2
 valid_moves_from_pos(GameState, Start, ListOfMoves) :-
-  state_getPlayer(GameState, P),
-  bagof(End, valid_move_full(GameState, P, [Start, End]), ListOfMoves).
+  state_getPlayer(GameState, Player),
+  state_nth0Board(GameState, Start, Player),
+  bagof(End, valid_move_full(GameState, Player, [Start, End]), ListOfMoves).
+valid_moves_from_pos(GameState, End, ListOfMoves) :-
+  state_getPlayer(GameState, Player),
+  \+ state_nth0Board(GameState, End, Player),
+  bagof(Start, valid_move_full(GameState, Player, [Start, End]), ListOfMoves).
 
 % gets the next move from a Player or AI
 % Player move
