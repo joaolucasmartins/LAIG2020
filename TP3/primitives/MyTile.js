@@ -14,7 +14,7 @@ class MyTile extends CGFobject {
         this.gameboard = gameboard //pointer to board
         this.piece = piece; //pointer to piece in tile
 
-        this.obj = new MyPlane(scene, 5, 5);  //tile representation
+        this.obj = new MyRectangleXZ(this.scene, -0.5, 0.5, 0.5,-0.5);  //tile representation
 
         this.line = line;
         this.col = col;

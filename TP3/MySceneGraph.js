@@ -1240,7 +1240,6 @@ class MySceneGraph {
     displayScene() {
         // this.rootNode.display(this.matStack, this.textStack);
         this.scene.orchestrator.display();
-        //this.spritesheet.display();
         //this.scene.setActiveShader(this.scene.defaultShader);
     }
 
