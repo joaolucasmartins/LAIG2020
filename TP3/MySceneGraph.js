@@ -57,6 +57,8 @@ class MySceneGraph {
          */
         this.reader.open('scenes/' + filename, this);
         this.primitiveCreator = new MyPrimitiveCreator(this.reader, this.scene, this.spritesheetDict);
+
+        this.rec = new MyRectangleXZ(this.scene, -0.5, 0.5, 0.5, -0.5);
     }
 
     /**

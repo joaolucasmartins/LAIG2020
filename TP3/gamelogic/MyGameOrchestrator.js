@@ -8,6 +8,8 @@ class MyGameOrchestrator {
         this.prolog = new MyPrologInterface();
         let initial_board = this.prolog.getInitialBoard(BOARD_SIZE);
         this.board = new MyGameBoard(scene, 0, 0, 0, 0, initial_board);
+
+        console.log(initial_board);
     }
 
     managePick(mode, results) {
