@@ -6,6 +6,12 @@ class MyGameOrchestrator {
         //this.theme= new MyScenegraph(...);
         this.scene = scene;
         this.prolog = new MyPrologInterface();
+
+        // 0 - Player, 1 - AI
+        let firstPlayer = 0;
+        let secondPlayer = 1;
+        this.gameState = new MyGameState(firstPlayer, secondPlayer);
+
         this.prolog.getInitialBoard(BOARD_SIZE).then(response => {
             let initial_board = eval(response.target.response);
             this.board = new MyGameBoard(scene, 0, 0, 0, 0, initial_board);
@@ -34,47 +40,74 @@ class MyGameOrchestrator {
         }
     }
 
+    selectPossiblePieces(coords) {
+        let movePromise = this.prolog.validMoves(this.board, this.gameState, coordToString(coords));
+        movePromise.then((response) => {
+            let coordList = eval(response.target.response);
+            let pieceList = coordList.map((coord) => {return this.board.getPieceAt(coord[0], coord[1])});
+            this.selectPiece.possiblePieces = this.board.selectPieces(pieceList);
+        });
+    }
+
+    makeAIMove() {
+        let movePromise = this.prolog.getAIMove(this.board, this.gameState);
+        movePromise.then((response) => {
+            let move = eval(response.target.response);
+            let sourceTile = this.board.getTileAt(...move[0])
+            let destTile = this.board.getTileAt(...move[1])
+            this.makeMove(sourceTile, destTile);
+        })
+
+    }
+
+    makeMove(sourceTile, destTile) {
+        let prev_coords = sourceTile.getCoords();
+        let curr_coords = destTile.getCoords();
+        let movePromise = this.prolog.canMove(this.board, this.gameState, coordToString(prev_coords), coordToString(curr_coords));
+
+        movePromise.then((response) => {
+            let canMove = eval(response.target.response);
+            if (canMove) {
+                this.board.switchPiece(sourceTile, destTile);
+
+                this.gameState.nextPlayer();
+            }
+            else
+                console.log("nao");
+
+            console.log(tilesToString(this.board.tiles));
+            return this.prolog.isGameOver(this.board, this.gameState);
+        }).then((response) => {
+            let isGameOver = response.target.response;
+            if (isGameOver == "false") {
+                console.log("Still going")
+                if (this.gameState.isAITurn())
+                    this.makeAIMove();
+            }
+            else
+                console.log("Winner is " + isGameOver);
+        });
+    }
+
     selectPiece(obj) {
 
-        if (this.selectedPiece == null) {
-            this.selectedPiece = obj;
-            let coords = this.selectedPiece.getTile().getCoords();
-            let movePromise = this.prolog.validMoves(this.board, coordToString(coords));
-            movePromise.then((response) => {
-                let coordList = eval(response.target.response);
-                let pieceList = coordList.map((coord) => {return this.board.getPieceAt(coord[0], coord[1])});
-                this.selectPiece.possiblePieces = this.board.selectPieces(pieceList);
-            });
-            this.selectedPiece.selected = true;
-        }
-        else { // Second piece selected
-            let sourceTile = this.selectedPiece.getTile();
-            let destTile = obj.getTile();
-            var prev_coords = sourceTile.getCoords();
-            var curr_coords = destTile.getCoords();
-            let movePromise = this.prolog.canMove(this.board, coordToString(prev_coords), coordToString(curr_coords));
+        if (this.gameState.isPlayerTurn()) {
+            if (this.selectedPiece == null) {
+                this.selectedPiece = obj;
+                this.selectedPiece.selected = true;
+                let coords = this.selectedPiece.getTile().getCoords();
+                this.selectPossiblePieces(coords);
+            }
+            else { // Second piece selected
+                let sourceTile = this.selectedPiece.getTile();
+                let destTile = obj.getTile();
+                this.makeMove(sourceTile, destTile);
 
-            movePromise.then((response) => {
-                let canMove = eval(response.target.response);
-                if (canMove)
-                    this.board.switchPiece(sourceTile, destTile);
-                else
-                    console.log("nao");
-
-                console.log(tilesToString(this.board.tiles));
-                return this.prolog.isGameOver(this.board);
-            }).then((response) => {
-                let isGameOver = response.target.response;
-                if (isGameOver == "false")
-                    console.log("Still going")
-                else
-                    console.log(isGameOver);
-            });
-
-            this.board.deselectPieces(this.selectPiece.possiblePieces);
-            this.selectPiece.possiblePieces = [];
-            this.selectedPiece.selected = false;
-            this.selectedPiece = null;
+                this.board.deselectPieces(this.selectPiece.possiblePieces);
+                this.selectPiece.possiblePieces = [];
+                this.selectedPiece.selected = false;
+                this.selectedPiece = null;
+            }
         }
     }
 

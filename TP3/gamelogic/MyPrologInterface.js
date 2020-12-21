@@ -18,10 +18,13 @@ class MyPrologInterface {
     }
 
     // TODO Guardar isto all the time algures
-    getGameStateFromBoard(gameBoard) {
+    getGameStateFromBoard(gameBoard, gameState) {
         let board = tilesToString(gameBoard.tiles);
         let length = gameBoard.tiles.length;
-        let player = gameBoard.currentPlayer;
+        let player = gameState.currentPlayer;
+        let settings = coordToString(gameState.gameSettings);
+        console.log(settings);
+        console.log(player);
 
         return "gameState(_," + length + "," + board + "," + player + ")";
     }
@@ -32,21 +35,28 @@ class MyPrologInterface {
         //return result;
     }
 
-    canMove(gameBoard, source, dest) {
-        let state = this.getGameStateFromBoard(gameBoard);
+    getAIMove(gameBoard, gameState) {
+        let state = this.getGameStateFromBoard(gameBoard, gameState);
+        let aiDifficulty = gameState.getCurrentAIDifficulty();
+
+        return this.getPrologRequest("getAIMove(" + state + "," + aiDifficulty + ")");
+    }
+
+    canMove(gameBoard, gameState, source, dest) {
+        let state = this.getGameStateFromBoard(gameBoard, gameState);
         //console.log("Req", "isValidMove(" + state + "," + source + "," + dest + ")");
         return this.getPrologRequest("isValidMove(" + state + "," + source + "," + dest + ")");
         //let result = eval(this.getPrologRequest("isValidMove(" + state + "," + source + "," + dest + ")"));
         //return result;
     }
 
-    validMoves(gameBoard, source) {
-        let state = this.getGameStateFromBoard(gameBoard);
+    validMoves(gameBoard, gameState, source) {
+        let state = this.getGameStateFromBoard(gameBoard, gameState);
         return this.getPrologRequest("validMoves(" + state + "," + source + ")");
     }
 
-    isGameOver(gameBoard) {
-        let state = this.getGameStateFromBoard(gameBoard);
+    isGameOver(gameBoard, gameState) {
+        let state = this.getGameStateFromBoard(gameBoard, gameState);
         return this.getPrologRequest("isGameOver(" + state + ")");
     }
 }

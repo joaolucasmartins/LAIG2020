@@ -115,6 +115,12 @@ test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
 parse_input(genInitBoard(L), Board) :- genInitBoard(Board, L).
 % parse_input(getStateFromBoard(GameSettings, Board, Player), State) :- make_state(GameSettings, Board, Player, State).
 
+% AI
+parse_input(getAIMove(GameState, Difficulty), Move) :-
+    state_getPlayer(GameState, Player),
+    valid_moves(GameState, Player, Moves),
+    ai_getBestMove(GameState, Player, Moves, Difficulty, Move, _).
+
 % MOVEMENT
 parse_input(isValidMove(GameState, Source, Dest), true) :- state_getPlayer(GameState, P),
     (valid_move_full(GameState, P, [Source, Dest]); valid_move_full(GameState, P, [Dest, Source])), !.

@@ -11,7 +11,6 @@ class MyGameBoard extends CGFobject {
         this.scene = scene;
         this.tiles = [];
         this.pieces = [];
-        this.currentPlayer = 0;
 
         this.createGameBoard(initialBoard);
         this.length = this.tiles.length;
@@ -58,7 +57,6 @@ class MyGameBoard extends CGFobject {
 
         destTile.setPiece(sourcePiece);
         sourcePiece.setTile(destTile);
-        this.currentPlayer = (this.currentPlayer + 1) % 2;
     }
 
     display() {

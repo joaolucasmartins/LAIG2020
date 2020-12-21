@@ -19,7 +19,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MyInterface.js',
     'appearances/MyMaterial.js', 'Node.js', 'MyPrimitiveCreator.js', 'Utils.js',
     'sprites/MySpritesheet.js', 'sprites/MySpriteText.js', 'MySceneGraph.js',
     'primitives/MyGameBoard.js', 'primitives/MyTile.js', 'primitives/MyPiece.js',
-    'gamelogic/MyPrologInterface.js', 'gamelogic/MyGameOrchestrator.js',
+    'gamelogic/MyPrologInterface.js', 'gamelogic/MyGameOrchestrator.js', 'gamelogic/MyGameState.js',
 
     main = function () {
         // Standard application, scene and interface setup
