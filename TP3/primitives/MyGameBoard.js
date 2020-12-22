@@ -6,12 +6,13 @@
  * @param {MyPiece} piece - piece on top of this tile
  */
 class MyGameBoard extends CGFobject {
-    constructor(scene, x1, y1, x2, y2, initialBoard, blackTile, whiteTile, blackPiece, whitePiece) {
+    constructor(scene, gameboard, initialBoard, blackTile, whiteTile, blackPiece, whitePiece) {
         super(scene);
         this.scene = scene;
         this.tiles = [];
         this.pieces = [];
 
+        this.obj = gameboard;
         this.createGameBoard(initialBoard, blackTile, whiteTile, blackPiece, whitePiece);
         this.length = this.tiles.length;
     }
@@ -63,10 +64,15 @@ class MyGameBoard extends CGFobject {
     }
 
     display() {
+        //TODO Use matrices and optimize to not resize when size 3
+        // Normalize board to be 3x3
+        this.obj.display();
+        this.scene.scale(3 / this.length, 1, 3 / this.length);
         for (let i = 0; i < this.tiles.length; ++i)
             for (let j = 0; j < this.tiles[i].length; ++j)
                 this.tiles[i][j].display();
-        // this.pieces[i].display();
+
+        this.scene.scale(this.length / 3, 1, this.length / 3);
     }
 
     /* Selects all pieces from coordList. Returns all pieces selected */

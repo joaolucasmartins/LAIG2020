@@ -110,6 +110,7 @@ class MySceneGraph {
         this.addGameObject("blackTile", tilePlaceholder);
         this.addGameObject("whitePiece", tilePlaceholder);
         this.addGameObject("blackPiece", tilePlaceholder);
+        this.addGameObject("gameBoard", tilePlaceholder);
 
         this.distributeDescendants(this.rootNode);
         delete this.nodes; // No need reference to nodes anymore

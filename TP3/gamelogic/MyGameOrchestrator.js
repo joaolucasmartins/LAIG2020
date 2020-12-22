@@ -1,4 +1,4 @@
-const BOARD_SIZE = 3;
+const BOARD_SIZE = 6;
 class MyGameOrchestrator {
     constructor(scene) {
         //this.gameSequence= new MyGameSequence(...);
@@ -20,11 +20,12 @@ class MyGameOrchestrator {
         let blackTile = this.theme.gameObjects["blackTile"];
         let whitePiece = this.theme.gameObjects["whitePiece"];
         let blackPiece = this.theme.gameObjects["blackPiece"];
+        let gameBoard = this.theme.gameObjects["gameBoard"];
         console.log(this.theme.gameObjects);
 
         this.prolog.getInitialBoard(BOARD_SIZE).then(response => {
             let initial_board = eval(response.target.response);
-            this.board = new MyGameBoard(this.scene, 0, 0, 0, 0, initial_board, whiteTile, blackTile, whitePiece, blackPiece);
+            this.board = new MyGameBoard(this.scene, gameBoard, initial_board, whiteTile, blackTile, whitePiece, blackPiece);
 
             if (this.gameState.isAITurn())
                 this.makeAIMove();
