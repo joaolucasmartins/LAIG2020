@@ -23,8 +23,6 @@ class MyPrologInterface {
         let length = gameBoard.tiles.length;
         let player = gameState.currentPlayer;
         let settings = coordToString(gameState.gameSettings);
-        console.log(settings);
-        console.log(player);
 
         return "gameState(_," + length + "," + board + "," + player + ")";
     }
@@ -58,5 +56,10 @@ class MyPrologInterface {
     isGameOver(gameBoard, gameState) {
         let state = this.getGameStateFromBoard(gameBoard, gameState);
         return this.getPrologRequest("isGameOver(" + state + ")");
+    }
+
+    getScore(gameBoard, gameState) {
+        let state = this.getGameStateFromBoard(gameBoard, gameState);
+        return this.getPrologRequest("getScore(" + state + ")");
     }
 }

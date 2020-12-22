@@ -129,6 +129,10 @@ parse_input(validMoves(GameState, Source), Moves) :- valid_moves_from_pos(GameSt
 parse_input(validMoves(_, _), []).
 
 % GAME OVER
-
 parse_input(isGameOver(State), Winner) :- game_over(State, Winner), !.
 parse_input(isGameOver(_), false).
+
+% SCORE
+parse_input(getScore(GameState), [S1, S2]) :-
+    value(GameState, 0, S1),
+    value(GameState, 1, S2).

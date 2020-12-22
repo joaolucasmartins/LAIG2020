@@ -70,7 +70,16 @@ class MyGameOrchestrator {
             let destTile = this.board.getTileAt(...move[1])
             this.makeMove(sourceTile, destTile);
         })
+    }
 
+    updateGameScore() {
+        let scorePromise = this.prolog.getScore(this.board, this.gameState);
+        scorePromise.then((response) => {
+            let score = eval(response.target.response);
+            let [p1Score, p2Score] = score;
+            console.log("P1 Score", p1Score);
+            console.log("P2 Score", p2Score);
+        })
     }
 
     makeMove(sourceTile, destTile) {
@@ -82,18 +91,17 @@ class MyGameOrchestrator {
             let canMove = eval(response.target.response);
             if (canMove) {
                 this.board.switchPiece(sourceTile, destTile);
-
                 this.gameState.nextPlayer();
             }
             else
                 console.log("nao");
 
-            console.log(tilesToString(this.board.tiles));
             return this.prolog.isGameOver(this.board, this.gameState);
         }).then((response) => {
             let isGameOver = response.target.response;
             if (isGameOver == "false") {
-                console.log("Still going")
+                this.updateGameScore();
+
                 if (this.gameState.isAITurn())
                     this.makeAIMove();
             }
