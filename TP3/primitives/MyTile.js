@@ -8,13 +8,13 @@ const offset = 0;
  * @param {MyPiece} piece - piece on top of this tile
  */
 class MyTile extends CGFobject {
-    constructor(scene, gameboard, piece, line, col) {
+    constructor(scene, obj, gameboard, piece, line, col) {
         super(scene);
         this.scene = scene;
         this.gameboard = gameboard //pointer to board
         this.piece = piece; //pointer to piece in tile
 
-        this.obj = new MyRectangleXZ(this.scene, -0.5, 0.5, 0.5,-0.5);  //tile representation
+        this.obj = obj;  //tile representation
 
         this.line = line;
         this.col = col;

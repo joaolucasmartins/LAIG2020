@@ -91,9 +91,26 @@ class MySceneGraph {
         return null;
     }
 
+    addGameObject(name, placeholder) {
+        if (!(name in this.nodes)) {
+            this.onXMLMinorError("No specified geometry for " + name + ". Assuming placeholder");
+            this.gameObjects[name] = placeholder;
+        } else
+            this.gameObjects[name] = this.nodes[name];
+
+    }
+
     postProcessNodes() {
         if (this.rootNode == null)
             return "Root node undefined/missing. Can't continue.";
+
+        this.gameObjects = [];
+        let tilePlaceholder = new MyRectangle(this.scene, 0, 0, 1, 1);
+        this.addGameObject("whiteTile", tilePlaceholder);
+        this.addGameObject("blackTile", tilePlaceholder);
+        this.addGameObject("whitePiece", tilePlaceholder);
+        this.addGameObject("blackPiece", tilePlaceholder);
+
         this.distributeDescendants(this.rootNode);
         delete this.nodes; // No need reference to nodes anymore
         return null;

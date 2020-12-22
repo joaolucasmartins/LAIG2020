@@ -124,6 +124,8 @@ class XMLscene extends CGFscene {
         this.initLights();
 
         this.sceneInited = true;
+
+        this.orchestrator.onGraphLoaded();
     }
 
     update(time) {

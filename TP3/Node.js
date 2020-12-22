@@ -94,8 +94,10 @@ class Node {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.transfMat);
 
-        this.texture.pushStack(textStack);
-        this.material.pushStack(matStack);
+        if (textStack)
+            this.texture.pushStack(textStack);
+        if (matStack)
+            this.material.pushStack(matStack);
 
         // Bind and display
         this.material.apply();

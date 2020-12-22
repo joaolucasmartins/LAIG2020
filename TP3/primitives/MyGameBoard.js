@@ -6,29 +6,33 @@
  * @param {MyPiece} piece - piece on top of this tile
  */
 class MyGameBoard extends CGFobject {
-    constructor(scene, x1, y1, x2, y2, initialBoard) {
+    constructor(scene, x1, y1, x2, y2, initialBoard, blackTile, whiteTile, blackPiece, whitePiece) {
         super(scene);
         this.scene = scene;
         this.tiles = [];
         this.pieces = [];
 
-        this.createGameBoard(initialBoard);
+        this.createGameBoard(initialBoard, blackTile, whiteTile, blackPiece, whitePiece);
         this.length = this.tiles.length;
     }
 
-    createGameBoard(board) {
+    createGameBoard(board, whiteTile, blackTile, blackPiece, whitePiece) {
         for (let i = 0; i < board.length; ++i) {
             let row = board[i];
             let tileRes = [], piecesRes = [];
             for (let j = 0; j < row.length; ++j) {
                 let value = row[j];
-                let tile = new MyTile(this.scene, this, null, i, j);
-                let piece;
+                let piece, tile;
 
-                if (value === 1)
-                    piece = new MyPiece(this.scene, tile, false);
-                else
-                    piece = new MyPiece(this.scene, tile, true);
+                if (value === 1) {
+                    tile = new MyTile(this.scene, whiteTile, this, null, i, j);
+                    piece = new MyPiece(this.scene, whitePiece, tile);
+                }
+                else {
+                    tile = new MyTile(this.scene, blackTile, this, null, i, j);
+                    piece = new MyPiece(this.scene, blackPiece, tile);
+                }
+                console.log(tile);
 
 
                 tile.setPiece(piece);

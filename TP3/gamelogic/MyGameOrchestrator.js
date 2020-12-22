@@ -7,14 +7,24 @@ class MyGameOrchestrator {
         this.scene = scene;
         this.prolog = new MyPrologInterface();
 
+
         // 0 - Player, 1 - AI
         let firstPlayer = 0;
         let secondPlayer = 1;
         this.gameState = new MyGameState(firstPlayer, secondPlayer);
 
+    }
+
+    onGraphLoaded() {
+        let whiteTile = this.theme.gameObjects["whiteTile"];
+        let blackTile = this.theme.gameObjects["blackTile"];
+        let whitePiece = this.theme.gameObjects["whitePiece"];
+        let blackPiece = this.theme.gameObjects["blackPiece"];
+        console.log(this.theme.gameObjects);
+
         this.prolog.getInitialBoard(BOARD_SIZE).then(response => {
             let initial_board = eval(response.target.response);
-            this.board = new MyGameBoard(scene, 0, 0, 0, 0, initial_board);
+            this.board = new MyGameBoard(this.scene, 0, 0, 0, 0, initial_board, whiteTile, blackTile, whitePiece, blackPiece);
 
             if (this.gameState.isAITurn())
                 this.makeAIMove();
