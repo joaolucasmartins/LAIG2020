@@ -97,7 +97,6 @@ class MySceneGraph {
             this.gameObjects[name] = placeholder;
         } else
             this.gameObjects[name] = this.nodes[name];
-
     }
 
     postProcessNodes() {
@@ -106,11 +105,13 @@ class MySceneGraph {
 
         this.gameObjects = [];
         let tilePlaceholder = new MyRectangle(this.scene, 0, 0, 1, 1);
+        let piecePlaceholder = new MySphere(this.scene, 0, 0.1, 5, 5);
+        let boardPlaceholder = new MyRectangleXZ(this.scene, 0, 0, 3, 3);
         this.addGameObject("whiteTile", tilePlaceholder);
         this.addGameObject("blackTile", tilePlaceholder);
-        this.addGameObject("whitePiece", tilePlaceholder);
-        this.addGameObject("blackPiece", tilePlaceholder);
-        this.addGameObject("gameBoard", tilePlaceholder);
+        this.addGameObject("whitePiece", piecePlaceholder);
+        this.addGameObject("blackPiece", piecePlaceholder);
+        this.addGameObject("gameBoard", boardPlaceholder);
 
         this.distributeDescendants(this.rootNode);
         delete this.nodes; // No need reference to nodes anymore

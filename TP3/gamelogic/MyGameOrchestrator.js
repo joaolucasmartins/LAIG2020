@@ -21,7 +21,6 @@ class MyGameOrchestrator {
         let whitePiece = this.theme.gameObjects["whitePiece"];
         let blackPiece = this.theme.gameObjects["blackPiece"];
         let gameBoard = this.theme.gameObjects["gameBoard"];
-        console.log(this.theme.gameObjects);
 
         this.prolog.getInitialBoard(BOARD_SIZE).then(response => {
             let initial_board = eval(response.target.response);
