@@ -5,11 +5,12 @@
  * @param {MyTile} tile - tile which holds piece
  */
 class MyPiece extends CGFobject {
-    constructor(scene, obj, tile) {
+    constructor(scene, obj, tile, isBlack) {
         // Move this to different classes?
         super(scene);
         this.tile = tile //pointer to holding tile
         this.obj = obj;
+        this.isBlack = isBlack;
         this.selected = false;
     }
 

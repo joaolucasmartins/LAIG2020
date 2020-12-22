@@ -24,16 +24,15 @@ class MyGameBoard extends CGFobject {
                 let value = row[j];
                 let piece, tile;
 
-                if (value === 1) {
+                let isBlack = value === 1;
+                if (isBlack) {
                     tile = new MyTile(this.scene, whiteTile, this, null, i, j);
-                    piece = new MyPiece(this.scene, whitePiece, tile);
+                    piece = new MyPiece(this.scene, whitePiece, tile, isBlack);
                 }
                 else {
                     tile = new MyTile(this.scene, blackTile, this, null, i, j);
-                    piece = new MyPiece(this.scene, blackPiece, tile);
+                    piece = new MyPiece(this.scene, blackPiece, tile, isBlack);
                 }
-                console.log(tile);
-
 
                 tile.setPiece(piece);
                 tileRes.push(tile);

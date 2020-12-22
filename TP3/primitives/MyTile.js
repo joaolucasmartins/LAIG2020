@@ -15,7 +15,6 @@ class MyTile extends CGFobject {
         this.piece = piece; //pointer to piece in tile
 
         this.obj = obj;  //tile representation
-
         this.line = line;
         this.col = col;
     }
