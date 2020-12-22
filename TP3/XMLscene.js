@@ -128,7 +128,7 @@ class XMLscene extends CGFscene {
 
     update(time) {
         if (this.sceneInited) {
-            this.graph.updateScene(time);
+            this.orchestrator.update(time);
         }
     }
 
@@ -173,7 +173,8 @@ class XMLscene extends CGFscene {
             this.defaultAppearance.apply();
 
             // Displays the scene (MySceneGraph function).
-            this.graph.displayScene(this);
+            //this.graph.displayScene(this);
+            this.orchestrator.display();
         }
         else {
             // Show some "loading" visuals

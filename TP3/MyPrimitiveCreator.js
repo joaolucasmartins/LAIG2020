@@ -309,6 +309,26 @@ class MyPrimitiveCreator {
         return new MyCircle(this.scene, radius, slices);
     }
 
+    createGameBoard(node) {
+        var x1 = this.reader.getFloat(node, "x1", false);
+        if (x1 == null || isNaN(x1))
+            return "unable to parse field 'x1' of the ";
+
+        var x2 = this.reader.getFloat(node, "x2", false);
+        if (x2 == null || isNaN(x2))
+            return "unable to parse field 'x2' of the ";
+
+        var y1 = this.reader.getFloat(node, "y1", false);
+        if (y1 == null || isNaN(y1))
+            return "unable to parse field 'y1' of the ";
+
+        var y2 = this.reader.getFloat(node, "y2", false);
+        if (y2 == null || isNaN(y2))
+            return "unable to parse field 'y2' of the ";
+
+        return new MyGameBoard(this.scene, x1, x2, y1, y2);
+    }
+
 
     /**
     * Create primitive switcher.
@@ -341,6 +361,8 @@ class MyPrimitiveCreator {
             primitive = this.createBarrel(node);
         else if (type == "circle")
             primitive = this.createCircle(node);
+        else if (type == "gameboard")
+            primitive = this.createGameBoard(node);
         else
             primitive = "type '" + type + "' is not a valid type in ";
 

@@ -3,7 +3,7 @@ class MyGameOrchestrator {
     constructor(scene) {
         //this.gameSequence= new MyGameSequence(...);
         //this.animator= new MyAnimator(...);
-        //this.theme= new MyScenegraph(...);
+        this.theme = new MySceneGraph("demo.xml", scene);
         this.scene = scene;
         this.prolog = new MyPrologInterface();
 
@@ -15,6 +15,9 @@ class MyGameOrchestrator {
         this.prolog.getInitialBoard(BOARD_SIZE).then(response => {
             let initial_board = eval(response.target.response);
             this.board = new MyGameBoard(scene, 0, 0, 0, 0, initial_board);
+
+            if (this.gameState.isAITurn())
+                this.makeAIMove();
         });
     }
 
@@ -114,8 +117,11 @@ class MyGameOrchestrator {
     //update(time) {this.animator.update(time);}
 
     display() {
-        //this.theme.display();
-        this.board.display();
+        this.theme.display();
+        if (this.board)
+            this.board.display();
         //this.animator.display();
     }
+
+    update(time) {}
 }
