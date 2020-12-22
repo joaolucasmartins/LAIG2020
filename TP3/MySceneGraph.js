@@ -1257,7 +1257,7 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     display() {
-        this.rootNode.display(this.matStack, this.textStack);
+        // this.rootNode.display(this.matStack, this.textStack);
         //this.scene.orchestrator.display();
         //this.scene.setActiveShader(this.scene.defaultShader);
     }

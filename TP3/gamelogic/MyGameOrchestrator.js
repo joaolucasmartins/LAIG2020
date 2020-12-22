@@ -1,6 +1,8 @@
 const BOARD_SIZE = 6;
 class MyGameOrchestrator {
     constructor(scene) {
+
+        this.started = false;
         //this.gameSequence= new MyGameSequence(...);
         //this.animator= new MyAnimator(...);
         this.theme = new MySceneGraph("demo.xml", scene);
@@ -15,6 +17,10 @@ class MyGameOrchestrator {
 
     }
 
+    startGame() {
+        this.started = true;
+    }
+    
     onGraphLoaded() {
         let whiteTile = this.theme.gameObjects["whiteTile"];
         let blackTile = this.theme.gameObjects["blackTile"];
@@ -135,9 +141,12 @@ class MyGameOrchestrator {
     //update(time) {this.animator.update(time);}
 
     display() {
-        this.theme.display();
-        if (this.board)
-            this.board.display();
+
+        if (this.started) {
+            this.theme.display();
+            if (this.board)
+                this.board.display();
+        }
         //this.animator.display();
     }
 

@@ -43,6 +43,12 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'selectedCamera', this.scene.cameraIds).name('Selected Camera').onChange(this.scene.updateCamera.bind(this.scene));
     }
 
+    initMenuInterface() {
+
+
+        this.gui.add(this.scene.orchestrator, 'startGame').name('Start Game');
+    }
+
     /**
      * Initialize lights interface.
      * Iterates over lightIds and over the enabledLights to determine wich lights are enabled.
@@ -65,4 +71,12 @@ class MyInterface extends CGFinterface {
     isKeyPressed(keyCode) {
         return this.activeKeys[keyCode] || false;
     }
+
+    isKeyPressedDelay(keyCode) {
+        if(this.activeKeys[keyCode] === true){
+          this.activeKeys[keyCode] = false;
+          return true;
+        }  
+          return this.activeKeys[keyCode] || false;
+     }
 }

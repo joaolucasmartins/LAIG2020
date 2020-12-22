@@ -40,6 +40,8 @@ class XMLscene extends CGFscene {
         this.orchestrator = new MyGameOrchestrator(this);
         // enable picking
         this.setPickEnabled(true);
+
+        this.start = false;
     }
 
     /**
@@ -62,6 +64,10 @@ class XMLscene extends CGFscene {
         this.interface.initCameraInterface();
         this.updateCamera();
         this.hasCamera = true;
+    }
+
+    initMenu() {
+        this.interface.initMenuInterface();
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -101,6 +107,7 @@ class XMLscene extends CGFscene {
         }
         this.interface.initLightsInterface(lightsIds);
     }
+    
 
     /*
      *Updates the camera to the camera selected on the GUI. To be called by the interface every time that the
@@ -123,15 +130,31 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
+        this.initMenu();
+
         this.sceneInited = true;
 
         this.orchestrator.onGraphLoaded();
     }
 
     update(time) {
+        this.checkKeys();
         if (this.sceneInited) {
             this.orchestrator.update(time);
         }
+    }
+
+    checkKeys() {
+        var text;
+        var keysPressed = false;
+        // Check for key codes e.g. in https://keycode.info/
+        if (this.gui.isKeyPressedDelay("KeyU")) {
+            text = "Called undo";
+            keysPressed = true;
+        }
+            
+        if (keysPressed)
+            console.log(text);
     }
 
     /**
