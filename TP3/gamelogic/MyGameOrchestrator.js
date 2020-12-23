@@ -30,10 +30,9 @@ class MyGameOrchestrator {
         let blackPiece = this.theme.gameObjects["blackPiece"];
         let gameBoard = this.theme.gameObjects["gameBoard"];
         let menuPanel = this.theme.gameObjects["menuPanel"];
-        let start = this.theme.gameObjects["startBtn"];
 
-        this.menu = new MyMenuPanel(this.scene, menuPanel, start);
-
+        this.menu = new MyMenuPanel(this.scene, menuPanel);
+     
         this.prolog.getInitialBoard(BOARD_SIZE).then(response => {
             let initial_board = eval(response.target.response);
             this.board = new MyGameBoard(this.scene, gameBoard, initial_board, whiteTile, blackTile, whitePiece, blackPiece);
@@ -64,7 +63,7 @@ class MyGameOrchestrator {
             this.selectPiece(obj);
         }
         else if (obj instanceof MyButton) {
-            this.menu.handleBtnEvent(id);
+            this.menu.handleBtnEvent(obj, id);
         }
     }
 
@@ -150,8 +149,8 @@ class MyGameOrchestrator {
     //update(time) {this.animator.update(time);}
 
     display() {
-
-        if (this.menu != null) 
+            
+        if (this.menu != null)
             this.menu.display();
 
         if (this.started) {

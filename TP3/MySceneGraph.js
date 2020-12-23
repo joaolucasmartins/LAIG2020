@@ -103,21 +103,23 @@ class MySceneGraph {
         if (this.rootNode == null)
             return "Root node undefined/missing. Can't continue.";
 
+        this.distributeDescendants(this.rootNode);
+
+
         this.gameObjects = [];
         let tilePlaceholder = new MyRectangle(this.scene, 0, 0, 1, 1);
         let piecePlaceholder = new MySphere(this.scene, 0, 0.1, 5, 5);
         let boardPlaceholder = new MyRectangleXZ(this.scene, 0, 0, 3, 3);
-        let menuPlaceHolder = new MyRectangle(this.scene, -0.5, -0.5,  0.5, 0.5);
+        let menuPlaceholder = new MyRectangle(this.scene, 0, 0,  2, 1.3);
+
         this.addGameObject("whiteTile", tilePlaceholder);
         this.addGameObject("blackTile", tilePlaceholder);
         this.addGameObject("whitePiece", piecePlaceholder);
         this.addGameObject("blackPiece", piecePlaceholder);
         this.addGameObject("gameBoard", boardPlaceholder);
 
-        this.addGameObject("menuPanel", menuPlaceHolder);
-        this.addGameObject("startBtn", menuPlaceHolder);
+        this.addGameObject("menuPanel", menuPlaceholder);
 
-        this.distributeDescendants(this.rootNode);
         delete this.nodes; // No need reference to nodes anymore
         return null;
     }

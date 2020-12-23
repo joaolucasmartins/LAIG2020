@@ -8,12 +8,30 @@
  * @param {float} y2 - y coordinate corner 2
  */
 class MyButton extends CGFobject {
-    constructor(scene, id, start) {
+    constructor(scene, id, x, y, textName, obj, selected) {
         super(scene);
         this.id = id;
-        this.obj = start;
+        this.text = new CGFtexture(scene, "scenes/images/buttons/" + textName);
+        this.obj = obj;
+        this.selected = selected;
+        this.x = x;
+        this.y = y;
 
-    
+        this.appearance = new CGFappearance(this.scene);
+        this.appearance.setShininess(10);
+        this.appearance.setSpecular(1,1,1,1);
+        this.appearance.setDiffuse(1,1,1,1);
+        this.appearance.setAmbient(1,0,0,1);
+        this.appearance.setEmission(0,0,0,1);
+
+    }
+
+    selectButton() {
+        this.selected = true;
+    }
+
+    resetButton() {
+        this.selected = false;
     }
 
 	/**
@@ -27,16 +45,18 @@ class MyButton extends CGFobject {
     }
 
     registerForPick() {
-        // let [col, line] = this.getTile().getCoords();
-        // let gameboard = this.getTile().gameboard;
-        this.scene.registerForPick(500, this);
+        this.scene.registerForPick(this.id, this);
     }
 
 
     display() {
         this.registerForPick();
-
+        
+        this.text.bind();
+        this.scene.pushMatrix();
+        this.scene.translate(this.x, this.y, 0.01);
         this.obj.display();
+        this.scene.popMatrix();
     }
 }
 
