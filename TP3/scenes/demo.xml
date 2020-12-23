@@ -50,9 +50,21 @@
     <texture id="blackTileTexture" path="./scenes/images/blackTile.jpg"/>
     <texture id="whiteMarble" path="./scenes/images/whiteMarble.jpg"/>
     <texture id="blackMarble" path="./scenes/images/blackMarble.jpg"/>
-    <texture id="startBtn" path="./scenes/images/startBtn.jpg"/>
+    <texture id="startBtn" path="./scenes/images/buttons/startBtn.jpg"/>
+    <texture id="applyBtn" path="./scenes/images/buttons/applyBtn.jpg"/>
+    <texture id="themeBtn1" path="./scenes/images/buttons/themeBtn1.jpg"/>
+    <texture id="themeBtn2" path="./scenes/images/buttons/themeBtn2.jpg"/>
+    <texture id="themeBtn3" path="./scenes/images/buttons/themeBtn3.jpg"/>
+    <texture id="modeBtn1" path="./scenes/images/buttons/modeBtn1.jpg"/>
+    <texture id="modeBtn2" path="./scenes/images/buttons/modeBtn2.jpg"/>
+    <texture id="modeBtn3" path="./scenes/images/buttons/modeBtn3.jpg"/>
+    <texture id="lvlBtn1" path="./scenes/images/buttons/lvlBtn1.jpg"/>
+    <texture id="lvlBtn2" path="./scenes/images/buttons/lvlBtn2.jpg"/>
+    <texture id="lvlBtn3" path="./scenes/images/buttons/lvlBtn3.jpg"/>
+    <texture id="incrBtn" path="./scenes/images/buttons/incrBtn.jpg"/>
+    <texture id="decrBtn" path="./scenes/images/buttons/decrBtn.jpg"/>
+    <texture id="exitBtn" path="./scenes/images/buttons/exitBtn.jpg"/>
     <texture id="greyBackground" path="./scenes/images/greyBackground.jpg"/>
-
   </textures>
   <materials>
     <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
@@ -68,7 +80,6 @@
   <spritesheets>
   </spritesheets>
   <nodes>
-    
     <!--Pieces and Tiles are defined as normal objects-->
     <node id="whiteTile">
       <material id="demoMaterial"/>
@@ -139,13 +150,194 @@
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <transformations>
-        <!-- <translation x="-0.5" y="0.0" z="-1"/> -->
+        <translation x="-0.5" y="0.0" z="-1"/>
       </transformations>
       <descendants>
         <leaf type="rectangle" x1="0" y1="0" x2="2" y2="1.3"/>
+        <noderef id="startButton"/>
+        <noderef id="applyButton"/>
+        <noderef id="themeBtn1"/>
+        <noderef id="themeBtn2"/>
+        <noderef id="themeBtn3"/>
+        <noderef id="lvlBtn1"/>
+        <noderef id="lvlBtn2"/>
+        <noderef id="lvlBtn3"/>
+        <noderef id="modeBtn1"/>
+        <noderef id="modeBtn2"/>
+        <noderef id="modeBtn3"/>
+        <noderef id="incrBtn"/>
+        <noderef id="decrBtn"/>
+        <noderef id="exitBtn"/>
       </descendants>
     </node>
-
+    <node id="startButton">
+      <material id="demoMaterial"/>
+      <texture id="startBtn">
+        <amplification afs="0.5" aft="0.2"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="button" id="1001" x1="1.4" y1="0.1" x2="1.9" y2="0.3"/>
+      </descendants>
+    </node>
+    <node id="applyButton">
+      <material id="demoMaterial"/>
+      <texture id="applyBtn">
+        <amplification afs="0.5" aft="0.2"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="button" id="1002" x1="0.1" y1="0.1" x2="0.6" y2="0.3"/>
+      </descendants>
+    </node>
+    <node id="themeBtn1">
+      <material id="demoMaterial"/>
+      <texture id="themeBtn1">
+        <amplification afs="0.4" aft="0.2"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="button" id="1003" x1="0.1" y1="0.4" x2="0.5" y2="0.6"/>
+      </descendants>
+    </node>
+    <node id="themeBtn2">
+      <material id="demoMaterial"/>
+      <texture id="themeBtn2">
+        <amplification afs="0.4" aft="0.2"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="button" id="1004" x1="0.6" y1="0.4" x2="1.0" y2="0.6"/>
+      </descendants>
+    </node>
+    <node id="themeBtn3">
+      <material id="demoMaterial"/>
+      <texture id="themeBtn3">
+        <amplification afs="0.4" aft="0.2"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="button" id="1005" x1="1.1" y1="0.4" x2="1.5" y2="0.6"/>
+      </descendants>
+    </node>
+    <node id="lvlBtn1">
+      <material id="demoMaterial"/>
+      <texture id="lvlBtn1">
+        <amplification afs="0.4" aft="0.2"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="button" id="1006" x1="0.1" y1="0.7" x2="0.5" y2="0.9"/>
+      </descendants>
+    </node>
+    <node id="lvlBtn2">
+      <material id="demoMaterial"/>
+      <texture id="lvlBtn2">
+        <amplification afs="0.4" aft="0.2"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="button" id="1007" x1="0.6" y1="0.7" x2="1.0" y2="0.9"/>
+      </descendants>
+    </node>
+    <node id="lvlBtn3">
+      <material id="demoMaterial"/>
+      <texture id="lvlBtn3">
+        <amplification afs="0.4" aft="0.2"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="button" id="1008" x1="1.1" y1="0.7" x2="1.5" y2="0.9"/>
+      </descendants>
+    </node>
+    <node id="modeBtn1">
+      <material id="demoMaterial"/>
+      <texture id="modeBtn1">
+        <amplification afs="0.4" aft="0.2"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="button" id="1009" x1="0.1" y1="1.0" x2="0.5" y2="1.2"/>
+      </descendants>
+    </node>
+    <node id="modeBtn2">
+      <material id="demoMaterial"/>
+      <texture id="modeBtn2">
+        <amplification afs="0.4" aft="0.2"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="button" id="1010" x1="0.6" y1="1.0" x2="1.0" y2="1.2"/>
+      </descendants>
+    </node>
+    <node id="modeBtn3">
+      <material id="demoMaterial"/>
+      <texture id="modeBtn3">
+        <amplification afs="0.4" aft="0.2"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="button" id="1011" x1="1.1" y1="1.0" x2="1.5" y2="1.2"/>
+      </descendants>
+    </node>
+    <node id="incrBtn">
+      <material id="demoMaterial"/>
+      <texture id="incrBtn">
+        <amplification afs="0.1" aft="0.1"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="button" id="1012" x1="1.85" y1="0.75" x2="1.95" y2="0.85"/>
+      </descendants>
+    </node>
+    <node id="decrBtn">
+      <material id="demoMaterial"/>
+      <texture id="decrBtn">
+        <amplification afs="0.1" aft="0.1"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="button" id="1013" x1="1.85" y1="0.55" x2="1.95" y2="0.65"/>
+      </descendants>
+    </node>
+    <node id="exitBtn">
+      <material id="demoMaterial"/>
+      <texture id="exitBtn">
+        <amplification afs="0.1" aft="0.1"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="button" id="1014" x1="1.85" y1="1.15" x2="1.95" y2="1.25"/>
+      </descendants>
+    </node>
     <node id="demoRoot">
       <!-- defines one intermediate node; may be repeated as necessary -->
       <!-- next two lines are mandatory -->

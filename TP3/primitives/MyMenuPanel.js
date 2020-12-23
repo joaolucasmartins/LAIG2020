@@ -26,36 +26,11 @@ const EXIT_ID = 1014;
 class MyMenuPanel extends CGFobject {
     constructor(scene, obj) {
         super(scene);
-
         this.obj = obj;
-
-        this.sizeCounter = 0;
-        this.displayCounter = new MyRectangle(scene, 0.1, 0.1, 0.1); //TODO temporary replace with spritetext
-
-        this.buttons = [];
-        let normalBtn = new MyRectangle(scene, -0.4, -0.1, 0.1, 0.1, 0.5, 0.2);
-        let mediumBtn = new MyRectangle(scene, -0.2, -0.1, 0.2, 0.1, 0.4, 0.2);
-        let smallBtn = new MyRectangle(scene, -0.05, -0.05, 0.05,0.05, 0.1, 0.1);
-
-        this.buttons.push(new MyButton(scene, START_ID, 1.8, 0.2, 'btn.jpg', normalBtn, true));
-        this.buttons.push(new MyButton(scene, CONFIG_ID, 0.5, 0.2, 'applyBtn.jpg', normalBtn, false));
-        this.buttons.push(new MyButton(scene, THEME1_ID, 0.3, 0.5, 'themeBtn1.jpg', mediumBtn, false));
-        this.buttons.push(new MyButton(scene, THEME2_ID, 0.8, 0.5, 'themeBtn2.jpg', mediumBtn, false));
-        this.buttons.push(new MyButton(scene, THEME3_ID, 1.3, 0.5, 'themeBtn3.jpg', mediumBtn, false));
-        this.buttons.push(new MyButton(scene, LVL1_ID, 0.3, 0.8, 'lvlBtn1.jpg', mediumBtn, false));
-        this.buttons.push(new MyButton(scene, LVL2_ID, 0.8, 0.8, 'lvlBtn2.jpg', mediumBtn, false));
-        this.buttons.push(new MyButton(scene, LVL3_ID, 1.3, 0.8, 'lvlBtn3.jpg', mediumBtn, false));
-        this.buttons.push(new MyButton(scene, MODE1_ID, 0.3, 1.1, 'modeBtn1.jpg', mediumBtn, false));
-        this.buttons.push(new MyButton(scene, MODE2_ID, 0.8, 1.1, 'modeBtn2.jpg', mediumBtn, false));
-        this.buttons.push(new MyButton(scene, MODE3_ID, 1.3, 1.1, 'modeBtn3.jpg', mediumBtn, false));
-
-        this.buttons.push(new MyButton(scene, INCR_ID, 1.9, 0.8, 'incrBtn.jpg', smallBtn, false));
-        this.buttons.push(new MyButton(scene, DECR_ID, 1.9, 0.6, 'decrBtn.jpg', smallBtn, false));
-        this.buttons.push(new MyButton(scene, EXIT_ID, 1.9, 1.2, 'exitBtn.jpg', smallBtn, false));
     }
 
     handleBtnEvent(obj, id) {
-        
+
         switch (id) {
             case START_ID:
                 this.scene.orchestrator.startGame();
@@ -114,9 +89,6 @@ class MyMenuPanel extends CGFobject {
 
         // this.texture.bind();
         this.obj.display();
-        // this.texture.unbind();
-        for (let i = 0; i < this.buttons.length; i++)
-            this.buttons[i].display();
 
         this.scene.popMatrix();
     }

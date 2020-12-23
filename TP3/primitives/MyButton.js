@@ -8,22 +8,11 @@
  * @param {float} y2 - y coordinate corner 2
  */
 class MyButton extends CGFobject {
-    constructor(scene, id, x, y, textName, obj, selected) {
+    constructor(scene, id, x1, y1, x2, y2, afs, aft, selected) {
         super(scene);
         this.id = id;
-        this.text = new CGFtexture(scene, "scenes/images/buttons/" + textName);
-        this.obj = obj;
+        this.obj = new MyRectangle(scene, x1, y1, x2, y2, afs, aft);
         this.selected = selected;
-        this.x = x;
-        this.y = y;
-
-        this.appearance = new CGFappearance(this.scene);
-        this.appearance.setShininess(10);
-        this.appearance.setSpecular(1,1,1,1);
-        this.appearance.setDiffuse(1,1,1,1);
-        this.appearance.setAmbient(1,0,0,1);
-        this.appearance.setEmission(0,0,0,1);
-
     }
 
     selectButton() {
@@ -51,12 +40,7 @@ class MyButton extends CGFobject {
 
     display() {
         this.registerForPick();
-        
-        this.text.bind();
-        this.scene.pushMatrix();
-        this.scene.translate(this.x, this.y, 0.01);
         this.obj.display();
-        this.scene.popMatrix();
     }
 }
 

@@ -106,7 +106,7 @@ class XMLscene extends CGFscene {
         }
         this.interface.initLightsInterface(lightsIds);
     }
-    
+
 
     /*
      *Updates the camera to the camera selected on the GUI. To be called by the interface every time that the
@@ -151,7 +151,7 @@ class XMLscene extends CGFscene {
             text = "Called undo";
             keysPressed = true;
         }
-            
+
         if (keysPressed)
             console.log(text);
     }

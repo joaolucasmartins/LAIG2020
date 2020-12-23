@@ -1,11 +1,10 @@
 const BOARD_SIZE = 3;
 class MyGameOrchestrator {
     constructor(scene) {
-        this.theme = new MySceneGraph("demo.xml", scene);
         this.scene = scene;
+        this.theme = new MySceneGraph("demo.xml", scene);
         this.gameSequence = new MyGameSequence();
         this.animator = new MyAnimator(this, this.gameSequence);
-        this.theme = new MySceneGraph("demo.xml", scene);
         this.prolog = new MyPrologInterface();
         this.moving = false;
         this.gameOver = false; // TODO convert this to states
@@ -77,13 +76,13 @@ class MyGameOrchestrator {
         let movePromise = this.prolog.validMoves(this.board, this.gameState, coordToString(coords));
         movePromise.then((response) => {
             let coordList = eval(response.target.response);
-            let pieceList = coordList.map((coord) => {return this.board.getPieceAt(coord[0], coord[1])});
+            let pieceList = coordList.map((coord) => { return this.board.getPieceAt(coord[0], coord[1]) });
             this.selectPiece.possiblePieces = this.board.selectPieces(pieceList);
         });
     }
 
     selectPiece(obj) {
-        if (this.gameState.isPlayerTurn() && !this.gameOver) {
+        if (!this.animator.isAnimating && this.gameState.isPlayerTurn() && !this.gameOver) {
             if (this.selectedPiece == null) {
                 this.selectedPiece = obj;
                 this.selectedPiece.selected = true;
@@ -113,14 +112,45 @@ class MyGameOrchestrator {
         })
     }
 
+    checkGameOver() {
+        this.prolog.isGameOver(this.board, this.gameState).then((response) => {
+            let isGameOver = response.target.response;
+            if (isGameOver == "false") {
+                this.updateGameScore();
+            }
+            else {
+                let winner = isGameOver
+                this.endGame(winner);
+            }
+            this.moving = false;
+        });
+    }
+
+    endGame(winner) {
+        // TODO Update scoreboard
+        console.log(this.gameSequence);
+        this.gameOver = true;
+        console.log("Winner is " + winner);
+    }
+
+    switchPieces(sourceTile, destTile) { // called by animatior when switching animation ends
+        this.board.switchPiece(sourceTile, destTile);
+        this.gameState.nextPlayer();
+        this.checkGameOver();
+    }
+
     makeAIMove() {
         let movePromise = this.prolog.getAIMove(this.board, this.gameState);
         this.moving = true;
         movePromise.then((response) => {
             let move = eval(response.target.response);
-            let sourceTile = this.board.getTileAt(...move[0])
-            let destTile = this.board.getTileAt(...move[1])
-            this.makeMove(sourceTile, destTile);
+            if (move === false)
+                this.checkGameOver();
+            else {
+                let sourceTile = this.board.getTileAt(...move[0])
+                let destTile = this.board.getTileAt(...move[1])
+                this.makeMove(sourceTile, destTile);
+            }
         })
     }
 
@@ -138,23 +168,11 @@ class MyGameOrchestrator {
                 this.animator.addGameMove(gameMove);
                 this.animator.reset();
                 this.animator.start();
-                this.gameState.nextPlayer();
             }
             else
                 console.log("nao");
 
-            return this.prolog.isGameOver(this.board, this.gameState);
-        }).then((response) => {
-            let isGameOver = response.target.response;
-            if (isGameOver == "false") {
-                this.updateGameScore();
-            }
-            else {
-                console.log(this.gameSequence);
-                console.log("Winner is " + isGameOver);
-                this.gameOver = true;
-            }
-            this.moving = false;
+            this.checkGameOver();
         });
     }
 

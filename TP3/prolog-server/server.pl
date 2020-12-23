@@ -120,6 +120,9 @@ parse_input(getAIMove(GameState, Difficulty), Move) :-
     state_getPlayer(GameState, Player),
     valid_moves(GameState, Player, Moves),
     ai_getBestMove(GameState, Player, Moves, Difficulty, Move, _).
+parse_input(getAIMove(GameState, Difficulty), false) :-
+    state_getPlayer(GameState, Player),
+    \+valid_moves(GameState, Player, Moves).
 
 % MOVEMENT
 parse_input(isValidMove(GameState, Source, Dest), true) :- state_getPlayer(GameState, P),

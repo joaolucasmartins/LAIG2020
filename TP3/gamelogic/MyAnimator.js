@@ -5,18 +5,20 @@ class MyAnimator {
         this.isAnimating = false;
     }
 
-    getSourcePiece() {return this.gameMove.getSourcePiece();}
-    getDestPiece() {return this.gameMove.getDestPiece();}
+    getSourcePiece() { return this.gameMove.getSourcePiece(); }
+    getDestPiece() { return this.gameMove.getDestPiece(); }
 
     getKeyFrames(sourceCoords, destCoords) {
         let [sourceX, sourceY] = sourceCoords;
         let [destX, destY] = destCoords;
         let [vecX, vecY] = [destX - sourceX, destY - sourceY];
+
         let initTransf = new Transformation([[0, 0, 0], [0, 0, 0], [1, 1, 1]]);
         let finalTransfReverse = new Transformation([[-vecX, 0, -vecY], [0, 0, 0], [1, 1, 1]]);
         let finalTransf = new Transformation([[vecX, 0, vecY], [0, 0, 0], [1, 1, 1]]);
         let midTransf, midTransfReverse;
-        if (vecX != 0 && vecY != 0) {
+
+        if (vecX != 0 && vecY != 0) { // Moving diagonally
             midTransf = new Transformation([[vecX / 3, 1.5, vecY / 1.5], [0, 30, 0], [1, 1, 1]]);
             midTransfReverse = new Transformation([[-vecX / 2, 1.0, -vecY / 1.5], [0, 30, 0], [1, 1, 1]]);
         } else {
@@ -24,7 +26,7 @@ class MyAnimator {
             midTransfReverse = new Transformation([[-vecX / 2 - vecY / 4, 0.8, -vecY / 2 - vecX / 4], [0, 30, 0], [1, 1, 1]]);
         }
 
-        return [{0: initTransf, 1: midTransf, 2: finalTransf}, {0: initTransf, 1: midTransfReverse, 2: finalTransfReverse}];
+        return [{ 0: initTransf, 1: midTransf, 2: finalTransf }, { 0: initTransf, 1: midTransfReverse, 2: finalTransfReverse }];
     }
 
     addGameMove(gameMove) {
@@ -60,7 +62,7 @@ class MyAnimator {
             if (this.sourceAnim.hasEnded) {
                 this.getSourcePiece().obj.removeAnimations();
                 this.getDestPiece().obj.removeAnimations();
-                this.orchestrator.board.switchPiece(this.gameMove.getSourceTile(), this.gameMove.getDestTile());
+                this.orchestrator.switchPieces(this.gameMove.getSourceTile(), this.gameMove.getDestTile());
                 this.isAnimating = false;
             }
         }
