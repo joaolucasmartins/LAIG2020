@@ -35,6 +35,10 @@ class Node {
         this.animations.push(animation);
     }
 
+    removeAnimations() {
+        this.animations = [];
+    }
+
     /**
      * Update texture according to the values read from xml file.
      * @param {*} texture 

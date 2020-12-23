@@ -4,9 +4,10 @@ class MyAnimation {
         this.scene = scene;
         this.instants = Object.keys(elements).map(parseFloat); // Cast String keys to float
 
+        this.hasEnded = false;
         this.initialInstant = null;
 
-        // Sort instances so that we evaluate them in order
+        // Sort instants so that we evaluate them in order
         this.instants.sort(function (a, b) {
             return a - b;
         });
@@ -34,8 +35,10 @@ class MyAnimation {
 
     update(time) {
         // Animation has been reset/is starting for the first time
-        if (this.initialInstant == null)
+        if (this.initialInstant == null) {
+            this.hasEnded = false;
             this.initialInstant = time; // Update initial time
+        }
 
         var instant = (time - this.initialInstant) / 1000;
 
@@ -52,6 +55,7 @@ class MyAnimation {
             this.previousInstant = this.currInstant;
             this.currInstant = this.getLastInstant();
             this.onEndAnimation(instant);
+            this.hasEnded = true;
             return;
         }
 

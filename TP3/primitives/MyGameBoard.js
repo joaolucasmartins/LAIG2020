@@ -6,18 +6,20 @@
  * @param {MyPiece} piece - piece on top of this tile
  */
 class MyGameBoard extends CGFobject {
-    constructor(scene, gameboard, initialBoard, blackTile, whiteTile, blackPiece, whitePiece) {
+    constructor(scene, gameboard, initialBoard,
+        blackTileCreator, whiteTileCreator, blackPieceCreator, whitePieceCreator) {
         super(scene);
         this.scene = scene;
         this.tiles = [];
         this.pieces = [];
 
         this.obj = gameboard;
-        this.createGameBoard(initialBoard, blackTile, whiteTile, blackPiece, whitePiece);
+        this.createGameBoard(initialBoard, blackTileCreator,
+            whiteTileCreator, blackPieceCreator, whitePieceCreator);
         this.length = this.tiles.length;
     }
 
-    createGameBoard(board, whiteTile, blackTile, blackPiece, whitePiece) {
+    createGameBoard(board, whiteTileCreator, blackTileCreator, blackPieceCreator, whitePieceCreator) {
         for (let i = 0; i < board.length; ++i) {
             let row = board[i];
             let tileRes = [], piecesRes = [];
@@ -27,12 +29,12 @@ class MyGameBoard extends CGFobject {
 
                 let isBlack = value === 1;
                 if (isBlack) {
-                    tile = new MyTile(this.scene, whiteTile, this, null, i, j);
-                    piece = new MyPiece(this.scene, whitePiece, tile, isBlack);
+                    tile = new MyTile(this.scene, blackTileCreator.create(), this, null, i, j);
+                    piece = new MyPiece(this.scene, blackPieceCreator.create(), tile, isBlack);
                 }
                 else {
-                    tile = new MyTile(this.scene, blackTile, this, null, i, j);
-                    piece = new MyPiece(this.scene, blackPiece, tile, isBlack);
+                    tile = new MyTile(this.scene, whiteTileCreator.create(), this, null, i, j);
+                    piece = new MyPiece(this.scene, whitePieceCreator.create(), tile, isBlack);
                 }
 
                 tile.setPiece(piece);

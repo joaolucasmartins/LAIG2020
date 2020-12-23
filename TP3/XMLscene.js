@@ -142,6 +142,7 @@ class XMLscene extends CGFscene {
         this.orchestrator.managePick(this.pickMode, this.pickResults);
         this.clearPickRegistration();
 
+        this.orchestrator.orchestrate();
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
