@@ -107,11 +107,15 @@ class MySceneGraph {
         let tilePlaceholder = new MyRectangle(this.scene, 0, 0, 1, 1);
         let piecePlaceholder = new MySphere(this.scene, 0, 0.1, 5, 5);
         let boardPlaceholder = new MyRectangleXZ(this.scene, 0, 0, 3, 3);
+        let menuPlaceHolder = new MyRectangle(this.scene, -0.5, -0.5,  0.5, 0.5);
         this.addGameObject("whiteTile", tilePlaceholder);
         this.addGameObject("blackTile", tilePlaceholder);
         this.addGameObject("whitePiece", piecePlaceholder);
         this.addGameObject("blackPiece", piecePlaceholder);
         this.addGameObject("gameBoard", boardPlaceholder);
+
+        this.addGameObject("menuPanel", menuPlaceHolder);
+        this.addGameObject("startBtn", menuPlaceHolder);
 
         this.distributeDescendants(this.rootNode);
         delete this.nodes; // No need reference to nodes anymore

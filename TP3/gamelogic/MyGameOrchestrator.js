@@ -9,6 +9,8 @@ class MyGameOrchestrator {
         this.scene = scene;
         this.prolog = new MyPrologInterface();
 
+        this.menu = null;
+
 
         // 0 - Player, 1 - AI
         let firstPlayer = 0;
@@ -27,6 +29,10 @@ class MyGameOrchestrator {
         let whitePiece = this.theme.gameObjects["whitePiece"];
         let blackPiece = this.theme.gameObjects["blackPiece"];
         let gameBoard = this.theme.gameObjects["gameBoard"];
+        let menuPanel = this.theme.gameObjects["menuPanel"];
+        let start = this.theme.gameObjects["startBtn"];
+
+        this.menu = new MyMenuPanel(this.scene, menuPanel, start);
 
         this.prolog.getInitialBoard(BOARD_SIZE).then(response => {
             let initial_board = eval(response.target.response);
@@ -56,6 +62,9 @@ class MyGameOrchestrator {
         if (obj instanceof MyPiece) {
             console.log("selected", obj.getTile().getCoords());
             this.selectPiece(obj);
+        }
+        else if (obj instanceof MyButton) {
+            this.menu.handleBtnEvent(id);
         }
     }
 
@@ -141,6 +150,9 @@ class MyGameOrchestrator {
     //update(time) {this.animator.update(time);}
 
     display() {
+
+        if (this.menu != null) 
+            this.menu.display();
 
         if (this.started) {
             this.theme.display();

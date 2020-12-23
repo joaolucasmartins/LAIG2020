@@ -41,7 +41,6 @@ class XMLscene extends CGFscene {
         // enable picking
         this.setPickEnabled(true);
 
-        this.start = false;
     }
 
     /**

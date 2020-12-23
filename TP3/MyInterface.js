@@ -44,8 +44,6 @@ class MyInterface extends CGFinterface {
     }
 
     initMenuInterface() {
-
-
         this.gui.add(this.scene.orchestrator, 'startGame').name('Start Game');
     }
 
