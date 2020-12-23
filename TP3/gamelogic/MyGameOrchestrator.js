@@ -1,6 +1,7 @@
 const BOARD_SIZE = 3;
 class MyGameOrchestrator {
     constructor(scene) {
+        this.theme = new MySceneGraph("demo.xml", scene);
         this.scene = scene;
         this.gameSequence = new MyGameSequence();
         this.animator = new MyAnimator(this, this.gameSequence);
@@ -9,12 +10,17 @@ class MyGameOrchestrator {
         this.moving = false;
         this.gameOver = false; // TODO convert this to states
 
+        this.menu = null;
+
 
         // 0 - Player, 1 - AI
         let firstPlayer = 0;
         let secondPlayer = 1;
         this.gameState = new MyGameState(firstPlayer, secondPlayer);
+    }
 
+    startGame() {
+        this.started = true;
     }
 
     onGraphLoaded() { // Called by scene when XML is parsed
@@ -27,6 +33,9 @@ class MyGameOrchestrator {
         let blackPiece = this.theme.gameObjects["blackPiece"];
         let blackPieceCreator = new MyNodeCreator(blackPiece);
         let gameBoard = this.theme.gameObjects["gameBoard"];
+        let menuPanel = this.theme.gameObjects["menuPanel"];
+
+        this.menu = new MyMenuPanel(this.scene, menuPanel);
 
         this.prolog.getInitialBoard(BOARD_SIZE).then(response => {
             let initial_board = eval(response.target.response);
@@ -58,6 +67,9 @@ class MyGameOrchestrator {
         if (obj instanceof MyPiece) {
             console.log("selected", obj.getTile().getCoords());
             this.selectPiece(obj);
+        }
+        else if (obj instanceof MyButton) {
+            this.menu.handleBtnEvent(obj, id);
         }
     }
 
@@ -147,9 +159,15 @@ class MyGameOrchestrator {
     }
 
     display() {
-        this.theme.display();
-        if (this.board)
-            this.board.display();
+        if (this.menu != null)
+            this.menu.display();
+
+        if (this.started) {
+            this.theme.display();
+            if (this.board)
+                this.board.display();
+        }
+        //this.animator.display();
     }
 
     update(time) {
