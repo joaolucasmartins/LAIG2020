@@ -13,6 +13,7 @@ class MyButton extends CGFobject {
         this.id = id;
         this.obj = new MyRectangle(scene, x1, y1, x2, y2, afs, aft);
         this.selected = selected;
+
     }
 
     selectButton() {
@@ -40,6 +41,10 @@ class MyButton extends CGFobject {
 
     display() {
         this.registerForPick();
+
+        if (this.selected) 
+            // this.selectedMat.apply();
+        this.frame.display();
         this.obj.display();
     }
 }

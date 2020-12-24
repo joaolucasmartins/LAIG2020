@@ -33,8 +33,10 @@ class MyGameOrchestrator {
         let blackPieceCreator = new MyNodeCreator(blackPiece);
         let gameBoard = this.theme.gameObjects["gameBoard"];
         let menuPanel = this.theme.gameObjects["menuPanel"];
+        let sizeCounter = this.theme.gameObjects["sizeCounter"];
+        let timeCounter = this.theme.gameObjects["timeCounter"];
 
-        this.menu = new MyMenuPanel(this.scene, menuPanel);
+        this.menu = new MyMenuPanel(this.scene, menuPanel, sizeCounter, timeCounter);
 
         this.prolog.getInitialBoard(BOARD_SIZE).then(response => {
             let initial_board = eval(response.target.response);

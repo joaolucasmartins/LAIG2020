@@ -11,8 +11,9 @@ const MODE2_ID = 1010;
 const MODE3_ID = 1011;
 const INCR_ID = 1012;
 const DECR_ID = 1013;
-
-const EXIT_ID = 1014;
+const EXIT_ID = 1016;
+const INCR_TIME_ID = 1014; 
+const DECR_TIME_ID = 1015;
 
 /**
  * MyRectangle
@@ -24,17 +25,23 @@ const EXIT_ID = 1014;
  * @param {float} y2 - y coordinate corner 2
  */
 class MyMenuPanel extends CGFobject {
-    constructor(scene, obj) {
+    constructor(scene, obj, sizeCnt, timeCnt) {
         super(scene);
         this.obj = obj;
 
         this.size = 3;
-        this.sizeCounter = new MySpriteText(scene, '3');
+        this.timeout = 10;
+        this.sizeCounter = sizeCnt;
+        this.sizeCounter.primitives[0].updateSpaceBetween(0.5);
+
+        this.timeoutCounter = timeCnt;
+        this.timeoutCounter.primitives[0].updateSpaceBetween(0.5);
 
     }
 
     handleBtnEvent(obj, id) {
 
+        //TODO: separate button into subclasses
         switch (id) {
             case START_ID:
                 this.scene.orchestrator.startGame();
@@ -74,7 +81,7 @@ class MyMenuPanel extends CGFobject {
                 if (this.size < 15)
                 {
                     this.size++;
-                    this.sizeCounter.updateText(this.size.toString());
+                    this.sizeCounter.primitives[0].updateText(this.size.toString());    //FIX: having to access to get spriteText object
                 }
                 else 
                     console.log("max board size");
@@ -82,10 +89,22 @@ class MyMenuPanel extends CGFobject {
             case DECR_ID:
                 if (this.size > 3){
                     this.size--;
-                    this.sizeCounter.updateText(this.size.toString());
+                    this.sizeCounter.primitives[0].updateText(this.size.toString());
                 }
                 else
                     console.log("Cannot increment further");
+                break;
+            case INCR_TIME_ID:
+                if (this.timeout < 30) {
+                    this.timeout++;
+                    this.timeoutCounter.primitives[0].updateText(this.timeout.toString());
+                }
+                break;
+            case DECR_TIME_ID:
+                if (this.timeout > 10) {
+                    this.timeout--;
+                    this.timeoutCounter.primitives[0].updateText(this.timeout.toString());
+                }
                 break;
             default:
                 console.log("Unrecognized button id" + id);
@@ -104,16 +123,10 @@ class MyMenuPanel extends CGFobject {
 
     display() {
 
-        this.sizeCounter.display([],[]);
-
-        // this.appearance.apply();
-        this.scene.pushMatrix();
-        // this.scene.translate(-0.5, 0, -1);  //FIX: XML transformations not being inherited by buttons
-
         // this.texture.bind();
         this.obj.display();
 
-        this.scene.popMatrix();
+        // this.scene.popMatrix();
     }
 }
 

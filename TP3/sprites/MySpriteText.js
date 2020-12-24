@@ -14,12 +14,13 @@ class MySpriteText {
             let currCharCode = this.getCharacterPosition(text[i]);
             this.chars.push(currCharCode);
         }
+
+        this.spaceBetween = 1;
     }
 
     getCharacterPosition(character) {
         let A_pos = 65;
         let inc;
-        console.log(typeof character);
 
         if (character >= 'A' && character <= 'Z')
             inc = 0 + character.charCodeAt(0) - 'A'.charCodeAt(0);
@@ -40,8 +41,10 @@ class MySpriteText {
             let charCode = this.getCharacterPosition(value[i]);
             this.chars.push(charCode);
         }
+    }
 
-        // this.beginX = -value.length/2 + 0.5;
+    updateSpaceBetween(val) {
+        this.spaceBetween = val;
     }
 
     display(matStack, textStack) {
@@ -52,14 +55,14 @@ class MySpriteText {
 
             this.textsheet.activateCellP(code);
             this.rect.display();
-            this.scene.translate(1, 0, 0); // Add 1 in x for each rectangle
+            this.scene.translate(this.spaceBetween, 0, 0.0001); // Add 1 in x for each rectangle
         }
 
         // Restore scene
         this.scene.popMatrix();
         this.scene.setActiveShader(this.scene.defaultShader);
         // Reset previous bound texture
-        if (textStack.length != 0)
-            textStack[textStack.length - 1].bind();
+        // if (textStack.length != 0)
+        //     textStack[textStack.length - 1].bind();
     }
 }

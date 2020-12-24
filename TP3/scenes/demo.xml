@@ -165,9 +165,13 @@
         <noderef id="modeBtn1"/>
         <noderef id="modeBtn2"/>
         <noderef id="modeBtn3"/>
-        <noderef id="incrBtn"/>
-        <noderef id="decrBtn"/>
+        <noderef id="incrBtnSize"/>
+        <noderef id="decrBtnSize"/>
+        <noderef id="incrBtnTime"/>
+        <noderef id="decrBtnTime"/>
+        <noderef id="timeCounter"/>
         <noderef id="exitBtn"/>
+        <noderef id="sizeCounter"/>
       </descendants>
     </node>
     <node id="startButton">
@@ -302,30 +306,6 @@
         <leaf type="button" id="1011" x1="1.1" y1="1.0" x2="1.5" y2="1.2"/>
       </descendants>
     </node>
-    <node id="incrBtn">
-      <material id="demoMaterial"/>
-      <texture id="incrBtn">
-        <amplification afs="0.1" aft="0.1"/>
-      </texture>
-      <transformations>
-        <translation x="0.0" y="0.0" z="0.01"/>
-      </transformations>
-      <descendants>
-        <leaf type="button" id="1012" x1="1.85" y1="0.75" x2="1.95" y2="0.85"/>
-      </descendants>
-    </node>
-    <node id="decrBtn">
-      <material id="demoMaterial"/>
-      <texture id="decrBtn">
-        <amplification afs="0.1" aft="0.1"/>
-      </texture>
-      <transformations>
-        <translation x="0.0" y="0.0" z="0.01"/>
-      </transformations>
-      <descendants>
-        <leaf type="button" id="1013" x1="1.85" y1="0.55" x2="1.95" y2="0.65"/>
-      </descendants>
-    </node>
     <node id="exitBtn">
       <material id="demoMaterial"/>
       <texture id="exitBtn">
@@ -335,9 +315,85 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="button" id="1014" x1="1.85" y1="1.15" x2="1.95" y2="1.25"/>
+        <leaf type="button" id="1016" x1="1.85" y1="1.15" x2="1.95" y2="1.25"/>
       </descendants>
     </node>
+
+     <!-- SIZE COUNTER  ///////////////////////////////////////////-->
+    <node id="sizeCounter">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <translation x="1.6" y="0.5" z="0.02"/>
+        <scale sx="0.25" sy="0.25" sz="1"/>
+      </transformations>
+      <descendants>
+         <leaf type="spritetext" text="3"/>
+      </descendants>
+    </node>
+
+    <node id="incrBtnSize">
+      <material id="null"/>
+      <texture id="incrBtn">
+        <amplification afs="0.1" aft="0.1"/>
+      </texture>
+      <transformations>
+        <translation x="0" y="-.2" z="0.01"/>
+      </transformations>
+      <descendants>
+         <leaf type="button" id="1012" x1="1.85" y1="0.75" x2="1.95" y2="0.85"/>
+      </descendants>
+    </node>
+    <node id="decrBtnSize">
+      <material id="null"/>
+       <texture id="decrBtn">
+        <amplification afs="0.1" aft="0.1"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="-0.2" z="0.01"/>
+      </transformations>
+      <descendants>
+         <leaf type="button" id="1013" x1="1.85" y1="0.55" x2="1.95" y2="0.65"/>
+      </descendants>
+    </node>
+
+    <!-- TIME COUNTER  //////////////////////////////////-->
+    <node id="timeCounter">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <translation x="1.71" y="0.9" z="0.02"/>
+        <scale sx="0.25" sy="0.25" sz="1"/>
+      </transformations>
+      <descendants>
+         <leaf type="spritetext" text="10"/>
+      </descendants>
+    </node>
+    <node id="incrBtnTime">
+      <material id="null"/>
+      <texture id="incrBtn">
+        <amplification afs="0.1" aft="0.1"/>
+      </texture>
+      <transformations>
+        <translation x="0" y="0.2" z="0.01"/>
+      </transformations>
+      <descendants>
+         <leaf type="button" id="1014" x1="1.85" y1="0.75" x2="1.95" y2="0.85"/>
+      </descendants>
+    </node>
+    <node id="decrBtnTime">
+      <material id="null"/>
+       <texture id="decrBtn">
+        <amplification afs="0.1" aft="0.1"/>
+      </texture>
+      <transformations>
+        <translation x="0" y="0.2" z="0.01"/>
+      </transformations>
+      <descendants>
+         <leaf type="button" id="1015" x1="1.85" y1="0.55" x2="1.95" y2="0.65"/>
+      </descendants>
+    </node>
+
     <node id="demoRoot">
       <!-- defines one intermediate node; may be repeated as necessary -->
       <!-- next two lines are mandatory -->
