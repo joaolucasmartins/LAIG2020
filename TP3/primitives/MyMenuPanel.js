@@ -27,6 +27,10 @@ class MyMenuPanel extends CGFobject {
     constructor(scene, obj) {
         super(scene);
         this.obj = obj;
+
+        this.size = 3;
+        this.sizeCounter = new MySpriteText(scene, '3');
+
     }
 
     handleBtnEvent(obj, id) {
@@ -66,6 +70,23 @@ class MyMenuPanel extends CGFobject {
             case MODE3_ID:
                 console.log("mode 3");
                 break;
+            case INCR_ID: 
+                if (this.size < 15)
+                {
+                    this.size++;
+                    this.sizeCounter.updateText(this.size.toString());
+                }
+                else 
+                    console.log("max board size");
+                break;
+            case DECR_ID:
+                if (this.size > 3){
+                    this.size--;
+                    this.sizeCounter.updateText(this.size.toString());
+                }
+                else
+                    console.log("Cannot increment further");
+                break;
             default:
                 console.log("Unrecognized button id" + id);
                 break;
@@ -83,9 +104,11 @@ class MyMenuPanel extends CGFobject {
 
     display() {
 
+        this.sizeCounter.display([],[]);
+
         // this.appearance.apply();
         this.scene.pushMatrix();
-        this.scene.translate(-0.5, 0, -1);  //FIX: XML transformations not being inherited by buttons
+        // this.scene.translate(-0.5, 0, -1);  //FIX: XML transformations not being inherited by buttons
 
         // this.texture.bind();
         this.obj.display();

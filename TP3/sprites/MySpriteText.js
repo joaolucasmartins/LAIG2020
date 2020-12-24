@@ -19,14 +19,29 @@ class MySpriteText {
     getCharacterPosition(character) {
         let A_pos = 65;
         let inc;
+        console.log(typeof character);
+
         if (character >= 'A' && character <= 'Z')
             inc = 0 + character.charCodeAt(0) - 'A'.charCodeAt(0);
         else if (character >= 'a' && character <= 'z')
             inc = 32 + character.charCodeAt(0) - 'a'.charCodeAt(0);
-        else // is not letter => Assume whitespace
+        else if (character >= '0' && character <= '9') {
+            A_pos = 0;
+            inc = 48 + parseInt(character);
+        }
+        else // is not letter or number => Assume whitespace
             return 32;
-
         return A_pos + inc;
+    }
+
+    updateText(value) {
+        this.chars = [];
+        for (let i in value) {
+            let charCode = this.getCharacterPosition(value[i]);
+            this.chars.push(charCode);
+        }
+
+        // this.beginX = -value.length/2 + 0.5;
     }
 
     display(matStack, textStack) {
