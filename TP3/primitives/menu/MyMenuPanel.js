@@ -29,14 +29,14 @@ class MyMenuPanel extends CGFobject {
         // 0 - THEME | 1 - LEVEL | 2 - MODE
         this.selected = [1, 1, 1];
 
-        var selMat = new CGFappearance(scene);
+        let selMat = new CGFappearance(scene);
         selMat.setShininess(10);
         selMat.setSpecular(0,0,1,1);
         selMat.setDiffuse(0,0,1,1);
         selMat.setAmbient(0,0,1,1);
         selMat.setEmission(0.1,0.1,0.1,1);
 
-        var defaultMat = new CGFappearance(scene);
+        let defaultMat = new CGFappearance(scene);
         defaultMat.setShininess(1);
         defaultMat.setSpecular(0.5,0.5,0.5,1);
         defaultMat.setDiffuse(0.5,0.5,0.5,1);
@@ -47,6 +47,7 @@ class MyMenuPanel extends CGFobject {
 
         this.defaultMaterial = new MyMaterial(defaultMat);
 
+        //default buttons
         this.buttons[THEME_INDEX + this.selected[0]].material = this.selectedMaterial;
         this.buttons[LEVEL_INDEX + this.selected[1]].material = this.selectedMaterial;
         this.buttons[MODE_INDEX + this.selected[2]].material = this.selectedMaterial;
@@ -54,11 +55,11 @@ class MyMenuPanel extends CGFobject {
     }
 
     updateSeletion(selIndex, index) {
-        if (selIndex == 0)
+        if (selIndex == 0)  //theme
             this.buttons[THEME_INDEX + index].material = this.selectedMaterial;
-        else if (selIndex == 1)
+        else if (selIndex == 1) //level
             this.buttons[LEVEL_INDEX + index].material = this.selectedMaterial;
-        else 
+        else //mode
             this.buttons[MODE_INDEX + index].material = this.selectedMaterial;
 
         this.selected[selIndex] = index;
@@ -75,7 +76,7 @@ class MyMenuPanel extends CGFobject {
             this.buttons[MODE_INDEX + this.selected[2]].material = this.defaultMaterial;
     }
 
-    handleBtnEvent(obj, id) {
+    handleBtnEvent(obj) {
 
         let selected = obj.handlePick();
         
@@ -113,7 +114,9 @@ class MyMenuPanel extends CGFobject {
     }
 
     changeSelection(selIndex, id) {
+        //remove previous selection
         this.resetSelection(selIndex);
+        //select new button
         this.updateSeletion(selIndex, id);
     }
 	/**
@@ -127,11 +130,7 @@ class MyMenuPanel extends CGFobject {
     }
 
     display() {
-
-        // this.texture.bind();
         this.obj.display();
-
-        // this.scene.popMatrix();
     }
 }
 
