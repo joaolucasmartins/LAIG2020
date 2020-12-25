@@ -371,7 +371,7 @@ class MyPrimitiveCreator {
             return new MyLevelButton(this.scene, ...values);
         else if (type == "modeButton")
             return new MyModeButton(this.scene, ...values);
-        else if (type == "counterBtn") {
+        else if (type == "counterButton") {
             var value = this.reader.getInteger(node, "value", false)
             if (value == null || isNaN(value))
                 return "unnable to parse field 'value' of the ";

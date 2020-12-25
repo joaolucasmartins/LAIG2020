@@ -14,10 +14,13 @@ class MyButton extends CGFobject {
         this.obj = new MyRectangle(scene, x1, y1, x2, y2, afs, aft);
         this.selected = selected;
 
+        
     }
 
     selectButton() {
         this.selected = true;
+        // this.obj.material = this.selectedMaterial;
+        console.log(this.obj);
     }
 
     resetButton() {
@@ -45,9 +48,6 @@ class MyButton extends CGFobject {
     display() {
         this.registerForPick();
 
-        if (this.selected) 
-            // this.selectedMat.apply();
-        this.frame.display();
         this.obj.display();
     }
 }

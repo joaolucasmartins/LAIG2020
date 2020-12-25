@@ -69,9 +69,14 @@ class MyGameOrchestrator {
             console.log("selected", obj.getTile().getCoords());
             this.selectPiece(obj);
         }
-        else if (obj instanceof MyButton) {
-            this.menu.handleBtnEvent(obj, id);
+        else if (obj instanceof MyCounterButton) {
+            this.menu.handleCounterEvent(obj);
+            return;
         }
+        else if (obj instanceof MyButton) {
+            this.menu.handleBtnEvent(obj);
+        }
+        
     }
 
     selectPossiblePieces(coords) {

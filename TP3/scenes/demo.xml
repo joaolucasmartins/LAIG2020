@@ -279,7 +279,7 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="modeButton" id="1" x1="0.1" y1="1.0" x2="0.5" y2="1.2" selected="false"/>
+        <leaf type="modeButton" id="1" x1="0.1" y1="1.0" x2="0.5" y2="1.2" selected="true"/>
       </descendants>
     </node>
     <node id="modeBtn2">
@@ -333,7 +333,7 @@
     </node>
 
     <node id="incrBtnSize">
-      <material id="null"/>
+      <material id="demoMaterial"/>
       <texture id="incrBtn">
         <amplification afs="0.1" aft="0.1"/>
       </texture>
@@ -341,11 +341,11 @@
         <translation x="0" y="-.2" z="0.01"/>
       </transformations>
       <descendants>
-         <leaf type="Button" id="1012" x1="1.85" y1="0.75" x2="1.95" y2="0.85" selected="false"/>
+         <leaf type="counterButton" id="4" x1="1.85" y1="0.75" x2="1.95" y2="0.85" selected="false" value="1"/>
       </descendants>
     </node>
     <node id="decrBtnSize">
-      <material id="null"/>
+      <material id="demoMaterial"/>
        <texture id="decrBtn">
         <amplification afs="0.1" aft="0.1"/>
       </texture>
@@ -353,13 +353,13 @@
         <translation x="0.0" y="-0.2" z="0.01"/>
       </transformations>
       <descendants>
-         <leaf type="Button" id="1013" x1="1.85" y1="0.55" x2="1.95" y2="0.65" selected="false"/>
+         <leaf type="counterButton" id="5" x1="1.85" y1="0.55" x2="1.95" y2="0.65" selected="false" value="-1"/>
       </descendants>
     </node>
 
     <!-- TIME COUNTER  //////////////////////////////////-->
     <node id="timeCounter">
-      <material id="null"/>
+      <material id="demoMaterial"/>
       <texture id="null"/>
       <transformations>
         <translation x="1.71" y="0.9" z="0.02"/>
@@ -370,7 +370,7 @@
       </descendants>
     </node>
     <node id="incrBtnTime">
-      <material id="null"/>
+      <material id="demoMaterial"/>
       <texture id="incrBtn">
         <amplification afs="0.1" aft="0.1"/>
       </texture>
@@ -378,11 +378,11 @@
         <translation x="0" y="0.2" z="0.01"/>
       </transformations>
       <descendants>
-         <leaf type="Button" id="1014" x1="1.85" y1="0.75" x2="1.95" y2="0.85" selected="false"/>
+         <leaf type="counterButton" id="6" x1="1.85" y1="0.75" x2="1.95" y2="0.85" selected="false" value="1"/>
       </descendants>
     </node>
     <node id="decrBtnTime">
-      <material id="null"/>
+      <material id="demoMaterial"/>
        <texture id="decrBtn">
         <amplification afs="0.1" aft="0.1"/>
       </texture>
@@ -390,7 +390,7 @@
         <translation x="0" y="0.2" z="0.01"/>
       </transformations>
       <descendants>
-         <leaf type="Button" id="1015" x1="1.85" y1="0.55" x2="1.95" y2="0.65" selected="false"/>
+         <leaf type="counterButton" id="7" x1="1.85" y1="0.55" x2="1.95" y2="0.65" selected="false" value="-1"/>
       </descendants>
     </node>
 

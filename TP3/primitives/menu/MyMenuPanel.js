@@ -1,3 +1,6 @@
+const THEME_INDEX = 1;
+const LEVEL_INDEX = 4;
+const MODE_INDEX = 7;
 /**
  * MyRectangle
  * @constructor
@@ -12,6 +15,9 @@ class MyMenuPanel extends CGFobject {
         super(scene);
         this.obj = obj;
 
+        this.buttons = obj.descendants;
+
+        console.log(this.obj);
         this.size = 3;
         this.timeout = 10;
         this.sizeCounter = sizeCnt;
@@ -20,24 +26,95 @@ class MyMenuPanel extends CGFobject {
         this.timeoutCounter = timeCnt;
         this.timeoutCounter.primitives[0].updateSpaceBetween(0.5);
 
+        // 0 - THEME | 1 - LEVEL | 2 - MODE
         this.selected = [1, 1, 1];
 
+        var selMat = new CGFappearance(scene);
+        selMat.setShininess(10);
+        selMat.setSpecular(0,0,1,1);
+        selMat.setDiffuse(0,0,1,1);
+        selMat.setAmbient(0,0,1,1);
+        selMat.setEmission(0.1,0.1,0.1,1);
+
+        var defaultMat = new CGFappearance(scene);
+        defaultMat.setShininess(1);
+        defaultMat.setSpecular(0.5,0.5,0.5,1);
+        defaultMat.setDiffuse(0.5,0.5,0.5,1);
+        defaultMat.setAmbient(0.5,0.5,0.5,1);
+        defaultMat.setEmission(0.5,0.5,0.5,1);
+
+        this.selectedMaterial = new MyMaterial(selMat);
+
+        this.defaultMaterial = new MyMaterial(defaultMat);
+
+        this.buttons[THEME_INDEX + this.selected[0]].material = this.selectedMaterial;
+        this.buttons[LEVEL_INDEX + this.selected[1]].material = this.selectedMaterial;
+        this.buttons[MODE_INDEX + this.selected[2]].material = this.selectedMaterial;
+
+    }
+
+    updateSeletion(selIndex, index) {
+        if (selIndex == 0)
+            this.buttons[THEME_INDEX + index].material = this.selectedMaterial;
+        else if (selIndex == 1)
+            this.buttons[LEVEL_INDEX + index].material = this.selectedMaterial;
+        else 
+            this.buttons[MODE_INDEX + index].material = this.selectedMaterial;
+
+        this.selected[selIndex] = index;
+
+    }
+
+    resetSelection(selIndex) {
+
+        if (selIndex == 0)
+            this.buttons[THEME_INDEX + this.selected[0]].material = this.defaultMaterial;
+        else if (selIndex == 1) 
+            this.buttons[LEVEL_INDEX + this.selected[1]].material = this.defaultMaterial;
+        else 
+            this.buttons[MODE_INDEX + this.selected[2]].material = this.defaultMaterial;
     }
 
     handleBtnEvent(obj, id) {
 
         let selected = obj.handlePick();
         
-        
+        console.log(selected);
         if (selected != null)
             this.changeSelection(...selected);
        
     }
 
-    changeSelection(index, id) {
-        this.selected[index] = id;
-        //TODO apply selection
-        //move a frame into position
+    handleCounterEvent(obj) {
+        if (obj.id == 4 ) {
+            if (this.size < 15) {
+                this.size++;
+                this.sizeCounter.primitives[0].updateText(this.size.toString());
+            }
+        }
+        else if (obj.id == 5) {
+            if (this.size > 3) {
+                this.size--;
+                this.sizeCounter.primitives[0].updateText(this.size.toString());
+            }
+        }
+        else if (obj.id == 6) {
+            if (this.timeout < 60) {
+                this.timeout++;
+                this.timeoutCounter.primitives[0].updateText(this.timeout.toString());
+            }
+        }
+        else if (obj.id == 7) {
+            if (this.timeout > 10) {
+                this.timeout--;
+                this.timeoutCounter.primitives[0].updateText(this.timeout.toString());
+            }
+        }
+    }
+
+    changeSelection(selIndex, id) {
+        this.resetSelection(selIndex);
+        this.updateSeletion(selIndex, id);
     }
 	/**
 	 * @method updateTexCoords
