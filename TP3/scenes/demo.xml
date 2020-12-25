@@ -183,7 +183,7 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="button" id="1001" x1="1.4" y1="0.1" x2="1.9" y2="0.3"/>
+        <leaf type="actionButton" id="1" x1="1.4" y1="0.1" x2="1.9" y2="0.3" selected="false"/>
       </descendants>
     </node>
     <node id="applyButton">
@@ -195,7 +195,7 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="button" id="1002" x1="0.1" y1="0.1" x2="0.6" y2="0.3"/>
+        <leaf type="actionButton" id="2" x1="0.1" y1="0.1" x2="0.6" y2="0.3" selected="false"/>
       </descendants>
     </node>
     <node id="themeBtn1">
@@ -207,7 +207,7 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="button" id="1003" x1="0.1" y1="0.4" x2="0.5" y2="0.6"/>
+        <leaf type="themeButton" id="1" x1="0.1" y1="0.4" x2="0.5" y2="0.6" selected="false"/>
       </descendants>
     </node>
     <node id="themeBtn2">
@@ -219,7 +219,7 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="button" id="1004" x1="0.6" y1="0.4" x2="1.0" y2="0.6"/>
+        <leaf type="themeButton" id="2" x1="0.6" y1="0.4" x2="1.0" y2="0.6" selected="false"/>
       </descendants>
     </node>
     <node id="themeBtn3">
@@ -231,7 +231,7 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="button" id="1005" x1="1.1" y1="0.4" x2="1.5" y2="0.6"/>
+        <leaf type="themeButton" id="3" x1="1.1" y1="0.4" x2="1.5" y2="0.6" selected="false"/>
       </descendants>
     </node>
     <node id="lvlBtn1">
@@ -243,7 +243,7 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="button" id="1006" x1="0.1" y1="0.7" x2="0.5" y2="0.9"/>
+        <leaf type="levelButton" id="1" x1="0.1" y1="0.7" x2="0.5" y2="0.9" selected="false"/>
       </descendants>
     </node>
     <node id="lvlBtn2">
@@ -255,7 +255,7 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="button" id="1007" x1="0.6" y1="0.7" x2="1.0" y2="0.9"/>
+        <leaf type="levelButton" id="2" x1="0.6" y1="0.7" x2="1.0" y2="0.9" selected="false"/>
       </descendants>
     </node>
     <node id="lvlBtn3">
@@ -267,7 +267,7 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="button" id="1008" x1="1.1" y1="0.7" x2="1.5" y2="0.9"/>
+        <leaf type="levelButton" id="3" x1="1.1" y1="0.7" x2="1.5" y2="0.9" selected="false"/>
       </descendants>
     </node>
     <node id="modeBtn1">
@@ -279,7 +279,7 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="button" id="1009" x1="0.1" y1="1.0" x2="0.5" y2="1.2"/>
+        <leaf type="modeButton" id="1" x1="0.1" y1="1.0" x2="0.5" y2="1.2" selected="false"/>
       </descendants>
     </node>
     <node id="modeBtn2">
@@ -291,7 +291,7 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="button" id="1010" x1="0.6" y1="1.0" x2="1.0" y2="1.2"/>
+        <leaf type="modeButton" id="2" x1="0.6" y1="1.0" x2="1.0" y2="1.2" selected="false"/>
       </descendants>
     </node>
     <node id="modeBtn3">
@@ -303,7 +303,7 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="button" id="1011" x1="1.1" y1="1.0" x2="1.5" y2="1.2"/>
+        <leaf type="modeButton" id="3" x1="1.1" y1="1.0" x2="1.5" y2="1.2" selected="false"/>
       </descendants>
     </node>
     <node id="exitBtn">
@@ -315,7 +315,7 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="button" id="1016" x1="1.85" y1="1.15" x2="1.95" y2="1.25"/>
+        <leaf type="Button" id="1016" x1="1.85" y1="1.15" x2="1.95" y2="1.25" selected="false"/>
       </descendants>
     </node>
 
@@ -341,7 +341,7 @@
         <translation x="0" y="-.2" z="0.01"/>
       </transformations>
       <descendants>
-         <leaf type="button" id="1012" x1="1.85" y1="0.75" x2="1.95" y2="0.85"/>
+         <leaf type="Button" id="1012" x1="1.85" y1="0.75" x2="1.95" y2="0.85" selected="false"/>
       </descendants>
     </node>
     <node id="decrBtnSize">
@@ -353,7 +353,7 @@
         <translation x="0.0" y="-0.2" z="0.01"/>
       </transformations>
       <descendants>
-         <leaf type="button" id="1013" x1="1.85" y1="0.55" x2="1.95" y2="0.65"/>
+         <leaf type="Button" id="1013" x1="1.85" y1="0.55" x2="1.95" y2="0.65" selected="false"/>
       </descendants>
     </node>
 
@@ -378,7 +378,7 @@
         <translation x="0" y="0.2" z="0.01"/>
       </transformations>
       <descendants>
-         <leaf type="button" id="1014" x1="1.85" y1="0.75" x2="1.95" y2="0.85"/>
+         <leaf type="Button" id="1014" x1="1.85" y1="0.75" x2="1.95" y2="0.85" selected="false"/>
       </descendants>
     </node>
     <node id="decrBtnTime">
@@ -390,7 +390,7 @@
         <translation x="0" y="0.2" z="0.01"/>
       </transformations>
       <descendants>
-         <leaf type="button" id="1015" x1="1.85" y1="0.55" x2="1.95" y2="0.65"/>
+         <leaf type="Button" id="1015" x1="1.85" y1="0.55" x2="1.95" y2="0.65" selected="false"/>
       </descendants>
     </node>
 

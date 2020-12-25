@@ -329,7 +329,7 @@ class MyPrimitiveCreator {
         return new MyGameBoard(this.scene, x1, x2, y1, y2);
     }
 
-    createButton(node, afs, aft) {
+    parseButton(node, afs, aft) {
         var x1 = this.reader.getFloat(node, "x1", false);
         if (x1 == null || isNaN(x1))
             return "unable to parse field 'x1' of the ";
@@ -350,7 +350,34 @@ class MyPrimitiveCreator {
         if (id == null || isNaN(id))
             return "unable to parse field 'id' of the ";
 
-        return new MyButton(this.scene, id, x1, y1, x2, y2, afs, aft);
+        var selected = this.reader.getBoolean(node, "selected", false);
+        if (selected == null || isNaN(selected))
+            return "unnable to parse field 'selected' of the ";
+
+        return [id, x1,y1,x2,y2, afs, aft, selected];
+    }
+    createButton(type, node, afs, aft) {
+        
+        let values = this.parseButton(node, afs, aft);
+
+        if (typeof values === "string") 
+            return values;
+
+        if (type == "actionButton")
+            return new MyActionButton(this.scene, ...values);
+        else if (type == "themeButton")
+            return new MyThemeButton(this.scene, ...values);
+        else if (type == "levelButton")
+            return new MyLevelButton(this.scene, ...values);
+        else if (type == "modeButton")
+            return new MyModeButton(this.scene, ...values);
+        else if (type == "counterBtn") {
+            var value = this.reader.getInteger(node, "value", false)
+            if (value == null || isNaN(value))
+                return "unnable to parse field 'value' of the ";
+            return new MyCounterButton(this.scene, ...values, value);
+        }
+        return new MyButton(this.scene, ...values, afs, aft);
     }
 
     /**
@@ -386,8 +413,8 @@ class MyPrimitiveCreator {
             primitive = this.createCircle(node);
         else if (type == "gameboard")
             primitive = this.createGameBoard(node);
-        else if (type == "button")
-            primitive = this.createButton(node, afs, aft);
+        else if (type.includes("Button"))
+            primitive = this.createButton(type, node, afs, aft);
         else
             primitive = "type '" + type + "' is not a valid type in ";
 

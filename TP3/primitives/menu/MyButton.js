@@ -24,6 +24,9 @@ class MyButton extends CGFobject {
         this.selected = false;
     }
 
+    handlePick() {
+        console.log("called button");
+    }
 	/**
 	 * @method updateTexCoords
 	 * Updates the list of texture coordinates of the rectangle

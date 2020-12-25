@@ -15,13 +15,16 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MyInterface.js',
     'primitives/MyRectangle.js', 'primitives/MyTriangle.js', 'primitives/MyCylinder.js', 'primitives/MyTorus.js', 'primitives/MySphere.js',
     'primitives/MyPlane.js', 'primitives/MyPatch.js', 'primitives/MyDefBarrel.js', 'primitives/MyCircle.js', 'primitives/MyRectangleXZ.js',
     'animations/MyAnimation.js', 'animations/MyKeyFrameAnimation.js', 'animations/MySpriteAnimation.js', 'animations/MyFunctionalAnimation.js',
-    'primitives/MyMenuPanel.js', 'primitives/MyButton.js',
+  
     'appearances/ClearTexture.js', 'appearances/NullTexture.js', 'appearances/NullMaterial.js', 'appearances/MyTexture.js',
     'appearances/MyMaterial.js', 'Node.js', 'MyPrimitiveCreator.js', 'Utils.js',
     'sprites/MySpritesheet.js', 'sprites/MySpriteText.js', 'MySceneGraph.js',
     'primitives/MyGameBoard.js', 'primitives/MyTile.js', 'primitives/MyPiece.js',
     'gamelogic/MyPrologInterface.js', 'gamelogic/MyGameOrchestrator.js', 'gamelogic/MyGameState.js',
     'gamelogic/MyGameMove.js', 'gamelogic/MyGameSequence.js', 'gamelogic/MyAnimator.js', 'gamelogic/MyNodeCreator.js',
+    'primitives/menu/MyMenuPanel.js', 'primitives/menu/MyButton.js',
+    'primitives/menu/MyActionButton.js', 'primitives/menu/MyThemeButton.js', 'primitives/menu/MyLevelButton.js',
+    'primitives/menu/MyModeButton.js',
 
     main = function () {
         // Standard application, scene and interface setup
