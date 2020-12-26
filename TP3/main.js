@@ -24,7 +24,8 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MyInterface.js',
     'gamelogic/MyGameMove.js', 'gamelogic/MyGameSequence.js', 'gamelogic/MyAnimator.js', 'gamelogic/MyNodeCreator.js',
     'primitives/menu/MyMenuPanel.js', 'primitives/menu/MyButton.js',
     'primitives/menu/MyActionButton.js', 'primitives/menu/MyThemeButton.js', 'primitives/menu/MyLevelButton.js',
-    'primitives/menu/MyModeButton.js', 'primitives/menu/MyCounterButton.js',
+    'primitives/menu/MyModeButton.js', 'primitives/menu/MyCounterButton.js', 'primitives/MyScoreBoard.js',
+    'primitives/MyTimer.js',
 
     main = function () {
         // Standard application, scene and interface setup

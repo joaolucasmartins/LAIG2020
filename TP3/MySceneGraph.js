@@ -120,6 +120,7 @@ class MySceneGraph {
         this.addGameObject("menuPanel", menuPlaceholder);
         this.addGameObject("sizeCounter", tilePlaceholder); //TODO: create a counter primitive?
         this.addGameObject("timeCounter", tilePlaceholder);
+        this.addGameObject("scoreBoard", menuPlaceholder);
 
         delete this.nodes; // No need reference to nodes anymore
         return null;
@@ -1263,7 +1264,7 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     display() {
-        // this.rootNode.display(this.matStack, this.textStack);
+        this.rootNode.display(this.matStack, this.textStack);
         //this.scene.orchestrator.display();
         //this.scene.setActiveShader(this.scene.defaultShader);
     }

@@ -380,6 +380,11 @@ class MyPrimitiveCreator {
         return new MyButton(this.scene, ...values, afs, aft);
     }
 
+    createScoreBoard(node, afs, aft) {
+        let obj = this.createRectangle(node, afs, aft);
+        return new MyScoreBoard(this.scene, obj);
+    }
+
     /**
     * Create primitive switcher.
     * @param {node element} node 
@@ -415,6 +420,9 @@ class MyPrimitiveCreator {
             primitive = this.createGameBoard(node);
         else if (type.includes("Button"))
             primitive = this.createButton(type, node, afs, aft);
+        else if (type == "scoreboard") {
+            primitive = this.createScoreBoard(node, afs, aft);
+        }
         else
             primitive = "type '" + type + "' is not a valid type in ";
 

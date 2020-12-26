@@ -315,7 +315,7 @@
         <translation x="0.0" y="0.0" z="0.01"/>
       </transformations>
       <descendants>
-        <leaf type="Button" id="1016" x1="1.85" y1="1.15" x2="1.95" y2="1.25" selected="false"/>
+        <leaf type="actionButton" id="5000" x1="1.85" y1="1.15" x2="1.95" y2="1.25" selected="false"/>
       </descendants>
     </node>
 
@@ -394,6 +394,19 @@
       </descendants>
     </node>
 
+    <!-- SCORE BOARD /////////////////////////-->
+    <node id ="scoreBoard">
+      <material id="demoMaterial"/>
+       <texture id="greyBackground">
+      </texture>
+      <transformations>
+        <translation x="2" y="0" z="-1"/>  
+      </transformations>
+      <descendants>
+         <leaf type="scoreboard" x1="0" y1="0" x2="2" y2="1"/>
+      </descendants>
+    </node>
+
     <node id="demoRoot">
       <!-- defines one intermediate node; may be repeated as necessary -->
       <!-- next two lines are mandatory -->
@@ -411,6 +424,8 @@
       <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
       <descendants>
+        <noderef id="scoreBoard"/>
+
         <noderef id="menuPanel"/>
       </descendants>
     </node>

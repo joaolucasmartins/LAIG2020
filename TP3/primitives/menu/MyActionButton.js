@@ -6,10 +6,9 @@ class MyActionButton extends MyButton {
     }
 
     handlePick() {
-        console.log("start");
         if (this.id == 1)
             this.scene.orchestrator.startGame();
-        else 
+        else if (this.id == 2)
             console.log("apply");
   
     }

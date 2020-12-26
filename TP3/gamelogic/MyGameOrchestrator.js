@@ -11,6 +11,8 @@ class MyGameOrchestrator {
 
         this.menu = null;
 
+        this.scoreboard = null;
+
 
         // 0 - Player, 1 - AI
         let firstPlayer = 0;
@@ -20,6 +22,7 @@ class MyGameOrchestrator {
 
     startGame() {
         this.started = true;
+        this.scoreboard.startCount();
     }
 
     onGraphLoaded() { // Called by scene when XML is parsed
@@ -35,8 +38,11 @@ class MyGameOrchestrator {
         let menuPanel = this.theme.gameObjects["menuPanel"];
         let sizeCounter = this.theme.gameObjects["sizeCounter"];
         let timeCounter = this.theme.gameObjects["timeCounter"];
+        let scoreboard = this.theme.gameObjects["scoreBoard"];
+
 
         this.menu = new MyMenuPanel(this.scene, menuPanel, sizeCounter, timeCounter);
+        this.scoreboard = scoreboard.primitives[0];
 
         this.prolog.getInitialBoard(BOARD_SIZE).then(response => {
             let initial_board = eval(response.target.response);
@@ -114,6 +120,7 @@ class MyGameOrchestrator {
         scorePromise.then((response) => {
             let score = eval(response.target.response);
             let [p1Score, p2Score] = score;
+            this.scoreboard.updateScores(p1Score[0], p2Score[0]);
             console.log("P1 Score", p1Score);
             console.log("P2 Score", p2Score);
         })
@@ -138,12 +145,14 @@ class MyGameOrchestrator {
         console.log(this.gameSequence);
         this.gameOver = true;
         console.log("Winner is " + winner);
+        this.scoreboard.endGame();
     }
 
     switchPieces(sourceTile, destTile) { // called by animatior when switching animation ends
         this.board.switchPiece(sourceTile, destTile);
         this.gameState.nextPlayer();
         this.checkGameOver();
+        this.scoreboard.startCount();
     }
 
     makeAIMove() {
@@ -170,6 +179,7 @@ class MyGameOrchestrator {
         movePromise.then((response) => {
             let canMove = eval(response.target.response);
             if (canMove) {
+                this.scoreboard.stopCount();
                 let gameMove = new MyGameMove(sourceTile, destTile);
                 this.gameSequence.addGameMove(gameMove);
                 this.animator.addGameMove(gameMove);
@@ -187,8 +197,9 @@ class MyGameOrchestrator {
         if (this.menu != null)
             this.menu.display();
 
+        this.theme.display();
+
         if (this.started) {
-            this.theme.display();
             if (this.board)
                 this.board.display();
         }
@@ -197,6 +208,9 @@ class MyGameOrchestrator {
 
     update(time) {
         this.animator.update(time);
+        if (this.scoreboard.update(time) != null) {
+            //TODO: skip turn
+        };
     }
 
     orchestrate() {

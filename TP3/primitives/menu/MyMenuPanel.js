@@ -17,7 +17,6 @@ class MyMenuPanel extends CGFobject {
 
         this.buttons = obj.descendants;
 
-        console.log(this.obj);
         this.size = 3;
         this.timeout = 10;
         this.sizeCounter = sizeCnt;
@@ -80,7 +79,6 @@ class MyMenuPanel extends CGFobject {
 
         let selected = obj.handlePick();
         
-        console.log(selected);
         if (selected != null)
             this.changeSelection(...selected);
        

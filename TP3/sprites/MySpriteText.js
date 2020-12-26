@@ -15,7 +15,7 @@ class MySpriteText {
             this.chars.push(currCharCode);
         }
 
-        this.spaceBetween = 1;
+        this.spaceBetween = 0.5;
     }
 
     getCharacterPosition(character) {
