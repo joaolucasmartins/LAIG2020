@@ -156,6 +156,7 @@
         <leaf type="rectangle" x1="0" y1="0" x2="2" y2="1.3"/>
         <noderef id="startButton"/>
         <noderef id="applyButton"/>
+        <noderef id="undoButton"/>
         <noderef id="themeBtn1"/>
         <noderef id="themeBtn2"/>
         <noderef id="themeBtn3"/>
@@ -196,6 +197,18 @@
       </transformations>
       <descendants>
         <leaf type="actionButton" id="2" x1="0.1" y1="0.1" x2="0.6" y2="0.3" selected="false"/>
+      </descendants>
+    </node>
+    <node id="undoButton">
+      <material id="demoMaterial"/>
+      <texture id="applyBtn">
+        <amplification afs="0.5" aft="0.2"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="0.0" z="0.01"/>
+      </transformations>
+      <descendants>
+        <leaf type="actionButton" id="3" x1="0.75" y1="0.1" x2="1.25" y2="0.3" selected="false"/>
       </descendants>
     </node>
     <node id="themeBtn1">
@@ -318,8 +331,7 @@
         <leaf type="actionButton" id="5000" x1="1.85" y1="1.15" x2="1.95" y2="1.25" selected="false"/>
       </descendants>
     </node>
-
-     <!-- SIZE COUNTER  ///////////////////////////////////////////-->
+    <!-- SIZE COUNTER  ///////////////////////////////////////////-->
     <node id="sizeCounter">
       <material id="null"/>
       <texture id="null"/>
@@ -328,10 +340,9 @@
         <scale sx="0.25" sy="0.25" sz="1"/>
       </transformations>
       <descendants>
-         <leaf type="spritetext" text="3"/>
+        <leaf type="spritetext" text="3"/>
       </descendants>
     </node>
-
     <node id="incrBtnSize">
       <material id="demoMaterial"/>
       <texture id="incrBtn">
@@ -341,22 +352,21 @@
         <translation x="0" y="-.2" z="0.01"/>
       </transformations>
       <descendants>
-         <leaf type="counterButton" id="4" x1="1.85" y1="0.75" x2="1.95" y2="0.85" selected="false" value="1"/>
+        <leaf type="counterButton" id="4" x1="1.85" y1="0.75" x2="1.95" y2="0.85" selected="false" value="1"/>
       </descendants>
     </node>
     <node id="decrBtnSize">
       <material id="demoMaterial"/>
-       <texture id="decrBtn">
+      <texture id="decrBtn">
         <amplification afs="0.1" aft="0.1"/>
       </texture>
       <transformations>
         <translation x="0.0" y="-0.2" z="0.01"/>
       </transformations>
       <descendants>
-         <leaf type="counterButton" id="5" x1="1.85" y1="0.55" x2="1.95" y2="0.65" selected="false" value="-1"/>
+        <leaf type="counterButton" id="5" x1="1.85" y1="0.55" x2="1.95" y2="0.65" selected="false" value="-1"/>
       </descendants>
     </node>
-
     <!-- TIME COUNTER  //////////////////////////////////-->
     <node id="timeCounter">
       <material id="demoMaterial"/>
@@ -366,7 +376,7 @@
         <scale sx="0.25" sy="0.25" sz="1"/>
       </transformations>
       <descendants>
-         <leaf type="spritetext" text="10"/>
+        <leaf type="spritetext" text="10"/>
       </descendants>
     </node>
     <node id="incrBtnTime">
@@ -378,35 +388,33 @@
         <translation x="0" y="0.2" z="0.01"/>
       </transformations>
       <descendants>
-         <leaf type="counterButton" id="6" x1="1.85" y1="0.75" x2="1.95" y2="0.85" selected="false" value="1"/>
+        <leaf type="counterButton" id="6" x1="1.85" y1="0.75" x2="1.95" y2="0.85" selected="false" value="1"/>
       </descendants>
     </node>
     <node id="decrBtnTime">
       <material id="demoMaterial"/>
-       <texture id="decrBtn">
+      <texture id="decrBtn">
         <amplification afs="0.1" aft="0.1"/>
       </texture>
       <transformations>
         <translation x="0" y="0.2" z="0.01"/>
       </transformations>
       <descendants>
-         <leaf type="counterButton" id="7" x1="1.85" y1="0.55" x2="1.95" y2="0.65" selected="false" value="-1"/>
+        <leaf type="counterButton" id="7" x1="1.85" y1="0.55" x2="1.95" y2="0.65" selected="false" value="-1"/>
       </descendants>
     </node>
-
     <!-- SCORE BOARD /////////////////////////-->
-    <node id ="scoreBoard">
+    <node id="scoreBoard">
       <material id="demoMaterial"/>
-       <texture id="greyBackground">
+      <texture id="greyBackground">
       </texture>
       <transformations>
-        <translation x="2" y="0" z="-1"/>  
+        <translation x="2" y="0" z="-1"/>
       </transformations>
       <descendants>
-         <leaf type="scoreboard" x1="0" y1="0" x2="2" y2="1"/>
+        <leaf type="scoreboard" x1="0" y1="0" x2="2" y2="1"/>
       </descendants>
     </node>
-
     <node id="demoRoot">
       <!-- defines one intermediate node; may be repeated as necessary -->
       <!-- next two lines are mandatory -->
@@ -425,7 +433,6 @@
              descendants may be mixed, nodes and leafs -->
       <descendants>
         <noderef id="scoreBoard"/>
-
         <noderef id="menuPanel"/>
       </descendants>
     </node>

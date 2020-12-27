@@ -82,14 +82,14 @@ class MyGameOrchestrator {
         else if (obj instanceof MyButton) {
             this.menu.handleBtnEvent(obj);
         }
-        
+
     }
 
     selectPossiblePieces(coords) {
         let movePromise = this.prolog.validMoves(this.board, this.gameState, coordToString(coords));
         movePromise.then((response) => {
             let coordList = eval(response.target.response);
-            let pieceList = coordList.map((coord) => { return this.board.getPieceAt(coord[0], coord[1]) });
+            let pieceList = coordList.map((coord) => {return this.board.getPieceAt(coord[0], coord[1])});
             this.selectPiece.possiblePieces = this.board.selectPieces(pieceList);
         });
     }
@@ -180,7 +180,7 @@ class MyGameOrchestrator {
             let canMove = eval(response.target.response);
             if (canMove) {
                 this.scoreboard.stopCount();
-                let gameMove = new MyGameMove(sourceTile, destTile);
+                let gameMove = new MyGameMove(sourceTile, destTile, this.gameState.currentPlayer);
                 this.gameSequence.addGameMove(gameMove);
                 this.animator.addGameMove(gameMove);
                 this.animator.reset();
@@ -191,6 +191,15 @@ class MyGameOrchestrator {
 
             this.checkGameOver();
         });
+    }
+
+    canMakeMove() {
+        return !this.moving && !this.animator.isAnimating && !this.gameOver;
+    }
+
+    undo() {
+        if (this.canMakeMove())
+            this.gameSequence.undo(this.board, this.gameState);
     }
 
     display() {
@@ -214,7 +223,7 @@ class MyGameOrchestrator {
     }
 
     orchestrate() {
-        if (!this.moving && !this.animator.isAnimating && this.gameState.isAITurn() && !this.gameOver)
+        if (this.canMakeMove() && this.gameState.isAITurn())
             this.makeAIMove();
     }
 }

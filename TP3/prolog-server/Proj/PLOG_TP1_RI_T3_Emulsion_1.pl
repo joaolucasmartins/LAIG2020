@@ -107,24 +107,24 @@ choose_move(GameState, Player, 0, Move) :-
 % Easy AI
 choose_move(GameState, Player, 1, Move) :-
   valid_moves(GameState, Player, Moves),
-  ai_getBestMove(GameState, Player, Moves, 1, Move, _),
-  ai_moveAnnounce('Easy', Move).
+  ai_getBestMove(GameState, Player, Moves, 1, Move, _).
+  %ai_moveAnnounce('Easy', Move).
 % Medium AI
 choose_move(GameState, Player, 2, Move) :-
   valid_moves(GameState, Player, Moves),
-  ai_getBestMove(GameState, Player, Moves, 2, Move, _),
-  ai_moveAnnounce('Medium', Move).
+  ai_getBestMove(GameState, Player, Moves, 2, Move, _).
+  %ai_moveAnnounce('Medium', Move).
 % Hard AI
 choose_move(GameState, Player, 3, Move) :-
   valid_moves(GameState, Player, Moves),
-  ai_getBestMove(GameState, Player, Moves, 3, Move, _),
+  ai_getBestMove(GameState, Player, Moves, 3, Move, _).
   ai_moveAnnounce('Hard (SCIENTIA)', Move).
 % Random play AI
 choose_move(GameState, Player, 4, Move) :-
   valid_moves(GameState, Player, Moves),
   length(Moves, L), random(0, L, RdmInd),
-  nth0(RdmInd, Moves, Move),
-  ai_moveAnnounce('Random move', Move).
+  nth0(RdmInd, Moves, Move).
+  %ai_moveAnnounce('Random move', Move).
 % in case of invalid move (inputed by the user)
 choose_move(_, _, _, _) :-
   write('Invalid spot. Try again.'), nl, fail.

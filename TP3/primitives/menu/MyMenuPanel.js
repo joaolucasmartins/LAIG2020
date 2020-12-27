@@ -1,6 +1,6 @@
-const THEME_INDEX = 1;
-const LEVEL_INDEX = 4;
-const MODE_INDEX = 7;
+const THEME_INDEX = 2;
+const LEVEL_INDEX = 5;
+const MODE_INDEX = 8;
 /**
  * MyRectangle
  * @constructor
@@ -30,17 +30,17 @@ class MyMenuPanel extends CGFobject {
 
         let selMat = new CGFappearance(scene);
         selMat.setShininess(10);
-        selMat.setSpecular(0,0,1,1);
-        selMat.setDiffuse(0,0,1,1);
-        selMat.setAmbient(0,0,1,1);
-        selMat.setEmission(0.1,0.1,0.1,1);
+        selMat.setSpecular(0, 0, 1, 1);
+        selMat.setDiffuse(0, 0, 1, 1);
+        selMat.setAmbient(0, 0, 1, 1);
+        selMat.setEmission(0.1, 0.1, 0.1, 1);
 
         let defaultMat = new CGFappearance(scene);
         defaultMat.setShininess(1);
-        defaultMat.setSpecular(0.5,0.5,0.5,1);
-        defaultMat.setDiffuse(0.5,0.5,0.5,1);
-        defaultMat.setAmbient(0.5,0.5,0.5,1);
-        defaultMat.setEmission(0.5,0.5,0.5,1);
+        defaultMat.setSpecular(0.5, 0.5, 0.5, 1);
+        defaultMat.setDiffuse(0.5, 0.5, 0.5, 1);
+        defaultMat.setAmbient(0.5, 0.5, 0.5, 1);
+        defaultMat.setEmission(0.5, 0.5, 0.5, 1);
 
         this.selectedMaterial = new MyMaterial(selMat);
 
@@ -69,23 +69,23 @@ class MyMenuPanel extends CGFobject {
 
         if (selIndex == 0)
             this.buttons[THEME_INDEX + this.selected[0]].material = this.defaultMaterial;
-        else if (selIndex == 1) 
+        else if (selIndex == 1)
             this.buttons[LEVEL_INDEX + this.selected[1]].material = this.defaultMaterial;
-        else 
+        else
             this.buttons[MODE_INDEX + this.selected[2]].material = this.defaultMaterial;
     }
 
     handleBtnEvent(obj) {
 
         let selected = obj.handlePick();
-        
+
         if (selected != null)
             this.changeSelection(...selected);
-       
+
     }
 
     handleCounterEvent(obj) {
-        if (obj.id == 4 ) {
+        if (obj.id == 4) {
             if (this.size < 15) {
                 this.size++;
                 this.sizeCounter.primitives[0].updateText(this.size.toString());

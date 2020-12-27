@@ -1,5 +1,6 @@
 class MyGameMove {
-    constructor(sourceTile, destTile) {
+    constructor(sourceTile, destTile, player) {
+        this.player = player;
         this.sourceTile = sourceTile;
         this.destTile = destTile;
         this.sourcePiece = sourceTile.getPiece();
