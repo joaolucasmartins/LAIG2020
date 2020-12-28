@@ -22,10 +22,18 @@ class MyGameOrchestrator {
 
     startGame() {
         this.started = true;
+        this.gameOver = false;
+        this.gameState.reset(); // set current player to 0
+        this.generateBoard(); //get board from prolog server with the size selected in menu
         this.scoreboard.startCount();
     }
 
-    onGraphLoaded() { // Called by scene when XML is parsed
+    applyChanges() {
+        this.scoreboard.setTimeout(this.menu.getTimeout());
+        //TODO apply theme
+    }
+
+    generateBoard() {
         let whiteTile = this.theme.gameObjects["whiteTile"];
         let whiteTileCreator = new MyNodeCreator(whiteTile);
         let blackTile = this.theme.gameObjects["blackTile"];
@@ -35,20 +43,26 @@ class MyGameOrchestrator {
         let blackPiece = this.theme.gameObjects["blackPiece"];
         let blackPieceCreator = new MyNodeCreator(blackPiece);
         let gameBoard = this.theme.gameObjects["gameBoard"];
+
+        this.prolog.getInitialBoard(this.menu.getBoardSize()).then(response => {
+            let initial_board = eval(response.target.response);
+            this.board = new MyGameBoard(this.scene, gameBoard, initial_board,
+                whiteTileCreator, blackTileCreator, whitePieceCreator, blackPieceCreator);
+            
+            // this.board.createGameBoard(initial_board);
+
+            if (this.gameState.isAITurn())
+                this.makeAIMove();
+        });
+    }
+
+    onGraphLoaded() { // Called by scene when XML is parsed
+    
         let menuPanel = this.theme.gameObjects["menuPanel"];
         let scoreboard = this.theme.gameObjects["scoreBoard"];
 
         this.menu = menuPanel.primitives[0];
         this.scoreboard = scoreboard.primitives[0];
-
-        this.prolog.getInitialBoard(BOARD_SIZE).then(response => {
-            let initial_board = eval(response.target.response);
-            this.board = new MyGameBoard(this.scene, gameBoard, initial_board,
-                whiteTileCreator, blackTileCreator, whitePieceCreator, blackPieceCreator);
-
-            if (this.gameState.isAITurn())
-                this.makeAIMove();
-        });
     }
 
     // TODO Don't register non hihglited pieces for picking
@@ -196,8 +210,6 @@ class MyGameOrchestrator {
     }
 
     display() {
-        // if (this.menu != null)
-        //     this.menu.display();
 
         this.theme.display();
 

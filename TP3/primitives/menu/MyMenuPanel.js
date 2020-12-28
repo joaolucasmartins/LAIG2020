@@ -5,7 +5,7 @@ const MODE_INDEX = 8;
  * MyRectangle
  * @constructor
  * @param {CGFscene} scene - Reference to MyScene object
- * @param {rectangle} obj - plane primitive
+ * @param {rectangle} obj - menu background primitive
  */
 class MyMenuPanel extends CGFobject {
     constructor(scene, obj) {
@@ -42,10 +42,14 @@ class MyMenuPanel extends CGFobject {
 
     }
 
+    getBoardSize() { return this.size; }
+
+    getTimeout() { return this.timeout; }
+
     createButtons() {
         let startBtn = new MyActionButton(this.scene, 1, 1.4, 0.1, 1.9, 0.3, 0.5, 0.2, false, 'startBtn.jpg');
         let applyBtn = new MyActionButton(this.scene, 2, 0.1, 0.1, 0.6, 0.3, 0.5, 0.2, false, 'applyBtn.jpg');
-        let undoBtn = new MyActionButton(this.scene, 3, 0.75, 0.1, 1.25, 0.3, 0.5, 0.2, false, 'applyBtn.jpg');
+        let undoBtn = new MyActionButton(this.scene, 3, 0.75, 0.1, 1.25, 0.3, 0.5, 0.2, false, 'undoBtn.jpg');
 
         let themeBtn1 = new MyThemeButton(this.scene, 1, 0.1, 0.4, 0.5, 0.6, 0.4, 0.2, true, 'themeBtn1.jpg');
         let themeBtn2 = new MyThemeButton(this.scene, 2, 0.6, 0.4, 1.0, 0.6, 0.4, 0.2, false, 'themeBtn2.jpg');
@@ -141,12 +145,12 @@ class MyMenuPanel extends CGFobject {
     }
 
     changeSelection(selIndex, id) {
-        
         //remove previous selection
         this.resetSelection(selIndex);
         //select new button
         this.updateSeletion(selIndex, id);
     }
+
 	/**
 	 * @method updateTexCoords
 	 * Updates the list of texture coordinates of the rectangle

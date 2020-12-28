@@ -33,6 +33,10 @@ class MyScoreBoard extends CGFobject {
         this.timer.stopCount();
     }
 
+    setTimeout(val) {
+        this.timer.setTimeout(val);
+    }
+
     endGame(winner) {
         if (winner == 0) {
             this.winnerDisplay.updateText("Black pieces win");

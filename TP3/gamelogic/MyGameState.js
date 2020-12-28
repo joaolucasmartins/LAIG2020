@@ -4,6 +4,10 @@ class MyGameState {
         this.currentPlayer = 0;
     }
 
+    reset() {
+        this.currentPlayer = 0;
+    }
+    
     isPlayerTurn() {
         return this.gameSettings[this.currentPlayer] == 0;
     }

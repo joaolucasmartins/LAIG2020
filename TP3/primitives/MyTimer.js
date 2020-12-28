@@ -32,6 +32,11 @@ class MyTimer extends CGFobject {
         this.timeDisplay.updateText(this.timeout.toString());
     }
 
+    setTimeout(val) {
+        this.timeout = val;
+        this.timeDisplay.updateText(val.toString());
+    }
+
     updateTimeDisplay(now) {
 
         if (this.time >= this.timeout)

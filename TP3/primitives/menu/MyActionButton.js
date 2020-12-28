@@ -9,7 +9,7 @@ class MyActionButton extends MyButton {
         if (this.id == 1)
             this.scene.orchestrator.startGame();
         else if (this.id == 2)
-            console.log("apply");
+            this.scene.orchestrator.applyChanges();
         else if (this.id == 3)
             this.scene.orchestrator.undo();
     }
