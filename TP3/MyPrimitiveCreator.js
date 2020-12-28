@@ -385,6 +385,11 @@ class MyPrimitiveCreator {
         return new MyScoreBoard(this.scene, obj);
     }
 
+    createMenuPanel(node, afs, aft) {
+        let obj = this.createRectangle(node, afs, aft);
+        return new MyMenuPanel(this.scene, obj);
+    }
+
     /**
     * Create primitive switcher.
     * @param {node element} node 
@@ -418,10 +423,13 @@ class MyPrimitiveCreator {
             primitive = this.createCircle(node);
         else if (type == "gameboard")
             primitive = this.createGameBoard(node);
-        else if (type.includes("Button"))
-            primitive = this.createButton(type, node, afs, aft);
+        // else if (type.includes("Button"))
+        //     primitive = this.createButton(type, node, afs, aft);
         else if (type == "scoreboard") {
             primitive = this.createScoreBoard(node, afs, aft);
+        }
+        else if (type == "menu") {
+            primitive = this.createMenuPanel(node, afs, aft);
         }
         else
             primitive = "type '" + type + "' is not a valid type in ";

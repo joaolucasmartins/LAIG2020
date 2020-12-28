@@ -1,7 +1,7 @@
 const MODE_SEL_INDEX = 2;
 class MyModeButton extends MyButton {
-    constructor(scene, id, x1, y1, x2, y2, afs, aft, selected) {
-        super(scene, id, x1, y1, x2, y2, afs, aft, selected);
+    constructor(scene, id, x1, y1, x2, y2, afs, aft, selected, textName) {
+        super(scene, id, x1, y1, x2, y2, afs, aft, selected, textName);
 
         this.pickID = 4000 + id;
     }

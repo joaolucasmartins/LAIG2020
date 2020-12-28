@@ -36,12 +36,9 @@ class MyGameOrchestrator {
         let blackPieceCreator = new MyNodeCreator(blackPiece);
         let gameBoard = this.theme.gameObjects["gameBoard"];
         let menuPanel = this.theme.gameObjects["menuPanel"];
-        let sizeCounter = this.theme.gameObjects["sizeCounter"];
-        let timeCounter = this.theme.gameObjects["timeCounter"];
         let scoreboard = this.theme.gameObjects["scoreBoard"];
 
-
-        this.menu = new MyMenuPanel(this.scene, menuPanel, sizeCounter, timeCounter);
+        this.menu = menuPanel.primitives[0];
         this.scoreboard = scoreboard.primitives[0];
 
         this.prolog.getInitialBoard(BOARD_SIZE).then(response => {
@@ -74,10 +71,6 @@ class MyGameOrchestrator {
         if (obj instanceof MyPiece) {
             console.log("selected", obj.getTile().getCoords());
             this.selectPiece(obj);
-        }
-        else if (obj instanceof MyCounterButton) {
-            this.menu.handleCounterEvent(obj);
-            return;
         }
         else if (obj instanceof MyButton) {
             this.menu.handleBtnEvent(obj);
@@ -203,8 +196,8 @@ class MyGameOrchestrator {
     }
 
     display() {
-        if (this.menu != null)
-            this.menu.display();
+        // if (this.menu != null)
+        //     this.menu.display();
 
         this.theme.display();
 
