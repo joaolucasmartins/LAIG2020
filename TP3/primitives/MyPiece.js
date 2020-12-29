@@ -18,8 +18,6 @@ class MyPiece extends CGFobject {
 
     setTile(tile) {this.tile = tile;}
 
-    setObj(obj) {this.obj = obj;}
-
     registerForPick() {
         let [col, line] = this.getTile().getCoords();
         let gameboard = this.getTile().gameboard;

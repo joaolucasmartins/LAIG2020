@@ -15,7 +15,7 @@ class MyGameOrchestrator {
         this.scoreboard = null;
 
         // 0 - Player, 1 - AI
-        let firstPlayer = 1;
+        let firstPlayer = 0;
         let secondPlayer = 1;
         this.gameState = new MyGameState(firstPlayer, secondPlayer);
     }
@@ -151,7 +151,7 @@ class MyGameOrchestrator {
         console.log(this.gameSequence);
         this.gameOver = true;
         console.log("Winner is " + winner);
-        this.scoreboard.endGame();
+        this.scoreboard.endGame(winner);
     }
 
     switchPieces(sourceTile, destTile) { // called by animatior when switching animation ends

@@ -390,6 +390,45 @@ class MyPrimitiveCreator {
         return new MyMenuPanel(this.scene, obj);
     }
 
+    createPawnPiece(node) {
+        var bottomRadius = this.reader.getFloat(node, "bottomRadius", false);
+        if (bottomRadius == null || isNaN(bottomRadius))
+            return "unable to parse field 'bottomRadius' of the ";
+
+        var topRadius = this.reader.getFloat(node, "topRadius", false);
+        if (topRadius == null || isNaN(topRadius))
+            return "unable to parse field 'topRadius' of the ";
+
+        var height = this.reader.getFloat(node, "height", false);
+        if (height == null || isNaN(height))
+            return "unable to parse field 'height' of the ";
+
+        var slices = this.reader.getInteger(node, "slices", false);
+        if (slices == null || isNaN(slices))
+            return "unable to parse field 'slices' of the ";
+
+        var stacks = this.reader.getInteger(node, "stacks", false);
+        if (stacks == null || isNaN(stacks))
+            return "unable to parse field 'stacks' of the ";
+        
+        return new MyPawnPiece(this.scene, bottomRadius, topRadius, height, slices, stacks);
+    }
+
+    createSquarePiece(node) {
+
+        var radius = this.reader.getFloat(node, "radius", false);
+        if (radius == null || isNaN(radius))
+            return "unable to parse field 'radius' of the ";
+
+        var slices = this.reader.getInteger(node, "slices", false);
+        if (slices == null || isNaN(slices))
+            return "unable to parse field 'slices' of the ";
+
+
+
+        return new MySquarePiece(this.scene, radius, slices);
+    }
+
     /**
     * Create primitive switcher.
     * @param {node element} node 
@@ -423,10 +462,16 @@ class MyPrimitiveCreator {
             primitive = this.createCircle(node);
         else if (type == "gameboard")
             primitive = this.createGameBoard(node);
-        // else if (type.includes("Button"))
+        // else if (type.includes("Button"))            //TODO: remove this?
         //     primitive = this.createButton(type, node, afs, aft);
         else if (type == "scoreboard") {
             primitive = this.createScoreBoard(node, afs, aft);
+        }
+        else if (type == "pawnpiece") {
+            primitive = this.createPawnPiece(node);
+        }
+        else if (type == "squarepiece") {
+            primitive = this.createSquarePiece(node);
         }
         else if (type == "menu") {
             primitive = this.createMenuPanel(node, afs, aft);

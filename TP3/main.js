@@ -25,7 +25,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MyInterface.js',
     'primitives/menu/MyMenuPanel.js', 'primitives/menu/MyButton.js',
     'primitives/menu/MyActionButton.js', 'primitives/menu/MyThemeButton.js', 'primitives/menu/MyLevelButton.js',
     'primitives/menu/MyModeButton.js', 'primitives/menu/MyCounterButton.js', 'primitives/MyScoreBoard.js',
-    'primitives/MyTimer.js',
+    'primitives/MyTimer.js', 'primitives/MyPawnPiece.js', 'primitives/MySquarePiece.js',
 
     main = function () {
         // Standard application, scene and interface setup
