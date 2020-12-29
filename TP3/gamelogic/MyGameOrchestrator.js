@@ -1,4 +1,5 @@
 const BOARD_SIZE = 3;
+const AI_DELAY = 3000; // In ms
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
@@ -8,14 +9,13 @@ class MyGameOrchestrator {
         this.prolog = new MyPrologInterface();
         this.moving = false;
         this.gameOver = false; // TODO convert this to states
+        this.waitingForTimeout = false;
 
         this.menu = null;
-
         this.scoreboard = null;
 
-
         // 0 - Player, 1 - AI
-        let firstPlayer = 0;
+        let firstPlayer = 1;
         let secondPlayer = 1;
         this.gameState = new MyGameState(firstPlayer, secondPlayer);
     }
@@ -48,16 +48,16 @@ class MyGameOrchestrator {
             let initial_board = eval(response.target.response);
             this.board = new MyGameBoard(this.scene, gameBoard, initial_board,
                 whiteTileCreator, blackTileCreator, whitePieceCreator, blackPieceCreator);
-            
+
             // this.board.createGameBoard(initial_board);
 
-            if (this.gameState.isAITurn())
-                this.makeAIMove();
+            //if (this.gameState.isAITurn())
+            //this.makeAIMove();
         });
     }
 
     onGraphLoaded() { // Called by scene when XML is parsed
-    
+
         let menuPanel = this.theme.gameObjects["menuPanel"];
         let scoreboard = this.theme.gameObjects["scoreBoard"];
 
@@ -143,7 +143,6 @@ class MyGameOrchestrator {
                 let winner = isGameOver
                 this.endGame(winner);
             }
-            this.moving = false;
         });
     }
 
@@ -163,17 +162,27 @@ class MyGameOrchestrator {
     }
 
     makeAIMove() {
-        let movePromise = this.prolog.getAIMove(this.board, this.gameState);
-        this.moving = true;
-        movePromise.then((response) => {
-            let move = eval(response.target.response);
-            if (move === false)
-                this.checkGameOver();
-            else {
-                let sourceTile = this.board.getTileAt(...move[0])
-                let destTile = this.board.getTileAt(...move[1])
-                this.makeMove(sourceTile, destTile);
-            }
+        this.waitingForTimeout = true;
+        if (this.makeAIMove.a != undefined)
+            this.makeAIMove.a += 1
+        else
+            this.makeAIMove.a = 0;
+        let undoTimeout = new Promise((resolve) => {setTimeout(resolve, AI_DELAY);});
+        undoTimeout.then(() => {
+            this.moving = true;
+            this.waitingForTimeout = false;
+            let movePromise = this.prolog.getAIMove(this.board, this.gameState);
+
+            movePromise.then((response) => {
+                let move = eval(response.target.response);
+                if (move === false)
+                    this.checkGameOver();
+                else {
+                    let sourceTile = this.board.getTileAt(...move[0])
+                    let destTile = this.board.getTileAt(...move[1])
+                    this.makeMove(sourceTile, destTile);
+                }
+            })
         })
     }
 
@@ -197,15 +206,21 @@ class MyGameOrchestrator {
                 console.log("nao");
 
             this.checkGameOver();
+            this.moving = false;
         });
     }
 
     canMakeMove() {
-        return !this.moving && !this.animator.isAnimating && !this.gameOver;
+        return this.board && !this.moving && !this.animator.isAnimating && !this.gameOver;
+    }
+
+    canUndo() {
+        return this.board && !this.gameOver &&
+            ((this.gameState.isAITurn() && this.waitingForTimeout) || (this.gameState.isPlayerTurn() && !this.moving));
     }
 
     undo() {
-        if (this.canMakeMove())
+        if (this.canUndo())
             this.gameSequence.undo(this.board, this.gameState);
     }
 
@@ -228,7 +243,7 @@ class MyGameOrchestrator {
     }
 
     orchestrate() {
-        if (this.canMakeMove() && this.gameState.isAITurn())
+        if (this.canMakeMove() && this.gameState.isAITurn() && !this.waitingForTimeout)
             this.makeAIMove();
     }
 }
