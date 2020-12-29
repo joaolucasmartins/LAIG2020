@@ -11,6 +11,10 @@ class MyGameSequence {
         return this.gameMoves[this.gameMoves.length - 1];
     }
 
+    isEmpty() {
+        return this.gameMoves.length == 0;
+    }
+
     popLastMove() {
         if (this.gameMoves.length == 0)
             return;
@@ -18,6 +22,10 @@ class MyGameSequence {
         let res = this.gameMoves[this.gameMoves.length - 1];
         this.gameMoves.pop();
         return res;
+    }
+
+    popFirstMove() {
+        return this.gameMoves.shift();
     }
 
     undo(currentBoard, gameState) {

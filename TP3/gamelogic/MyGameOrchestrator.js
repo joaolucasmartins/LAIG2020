@@ -1,5 +1,5 @@
 const BOARD_SIZE = 3;
-const AI_DELAY = 3000; // In ms
+const AI_DELAY = 1000; // In ms
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
@@ -7,8 +7,10 @@ class MyGameOrchestrator {
         this.gameSequence = new MyGameSequence();
         this.animator = new MyAnimator(this, this.gameSequence);
         this.prolog = new MyPrologInterface();
+        // TODO mover estas vars para o gameState
         this.moving = false;
-        this.gameOver = false; // TODO convert this to states
+        this.gameOver = false;
+        this.isReplaying = false;
         this.waitingForTimeout = false;
 
         this.menu = null;
@@ -152,6 +154,8 @@ class MyGameOrchestrator {
         this.gameOver = true;
         console.log("Winner is " + winner);
         this.scoreboard.endGame();
+        if (!this.isReplaying)
+            this.replay();
     }
 
     switchPieces(sourceTile, destTile) { // called by animatior when switching animation ends
@@ -189,7 +193,7 @@ class MyGameOrchestrator {
         })
     }
 
-    makeMove(sourceTile, destTile) {
+    makeMove(sourceTile, destTile) { // TODO Subst with game sequence?
         this.moving = true;
         let prev_coords = sourceTile.getCoords();
         let curr_coords = destTile.getCoords();
@@ -214,7 +218,7 @@ class MyGameOrchestrator {
     }
 
     canMakeMove() {
-        return this.board && !this.moving && !this.animator.isAnimating && !this.gameOver;
+        return this.board && !this.moving && !this.animator.isAnimating;
     }
 
     canUndo() {
@@ -227,8 +231,25 @@ class MyGameOrchestrator {
             this.gameSequence.undo(this.board, this.gameState);
     }
 
-    display() {
+    replay() {
+        if (this.gameOver) {
+            this.board.reset();
+            this.gameState.reset();
+            this.isReplaying = true;
+        }
+    }
 
+    replayNextMove() {
+        if (this.gameSequence.isEmpty()) {
+            this.gameOver = true;
+            return;
+        }
+
+        let move = this.gameSequence.popFirstMove();
+        this.makeMove(move.sourceTile, move.destTile)
+    }
+
+    display() {
         this.theme.display();
 
         if (this.started) {
@@ -246,7 +267,9 @@ class MyGameOrchestrator {
     }
 
     orchestrate() {
-        if (this.canMakeMove() && this.gameState.isAITurn() && !this.waitingForTimeout)
+        if (this.canMakeMove() && this.gameState.isAITurn() && !this.waitingForTimeout && !this.gameOver)
             this.makeAIMove();
+        if (this.isReplaying && this.canMakeMove())
+            this.replayNextMove();
     }
 }

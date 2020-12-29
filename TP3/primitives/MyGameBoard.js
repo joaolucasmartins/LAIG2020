@@ -54,6 +54,12 @@ class MyGameBoard extends CGFobject {
     getPiece(tile) {return tile.getPiece();}
     getTile(piece) {return piece.getTile();}
 
+    reset() {
+        for (let i = 0; i < this.pieces.length; ++i)
+            for (let j = 0; j < this.pieces[i].length; ++j)
+                this.tiles[i][j].setPiece(this.pieces[i][j]);
+    }
+
     switchPiece(sourceTile, destTile) {
         console.log("moving", sourceTile.getCoords(), "to", destTile.getCoords());
         var sourcePiece = sourceTile.getPiece();
