@@ -1,25 +1,33 @@
 const BOARD_SIZE = 3;
 const AI_DELAY = 1000; // In ms
+const FILENAMES = ["demo.xml", "demo2.xml", "demo.xml"];
+const INITIAL_THEME = 1;
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
-        this.theme = new MySceneGraph("demo.xml", scene);
+        this.currentTheme = INITIAL_THEME;
+        this.applyTheme();
+        // 0 - Player, 1 - AI
+        let firstPlayer = 0;
+        let secondPlayer = 1;
+        this.gameState = new MyGameState(firstPlayer, secondPlayer);
+    }
+
+    applyTheme() {
+        this.theme = new MySceneGraph(FILENAMES[this.currentTheme], this.scene);
         this.gameSequence = new MyGameSequence();
         this.animator = new MyAnimator(this, this.gameSequence);
         this.prolog = new MyPrologInterface();
         // TODO mover estas vars para o gameState
+        this.scene.sceneInited = false;
         this.moving = false;
         this.gameOver = false;
         this.isReplaying = false;
         this.waitingForTimeout = false;
 
+        this.board = null;
         this.menu = null;
         this.scoreboard = null;
-
-        // 0 - Player, 1 - AI
-        let firstPlayer = 0;
-        let secondPlayer = 1;
-        this.gameState = new MyGameState(firstPlayer, secondPlayer);
     }
 
     startGame() {
@@ -32,7 +40,10 @@ class MyGameOrchestrator {
 
     applyChanges() {
         this.scoreboard.setTimeout(this.menu.getTimeout());
-        //TODO apply theme
+        if (this.currentTheme != (this.menu.getTheme() - 1)) {
+            this.currentTheme = this.menu.getTheme() - 1;
+            this.applyTheme();
+        }
     }
 
     generateBoard() {
@@ -50,20 +61,15 @@ class MyGameOrchestrator {
             let initial_board = eval(response.target.response);
             this.board = new MyGameBoard(this.scene, gameBoard, initial_board,
                 whiteTileCreator, blackTileCreator, whitePieceCreator, blackPieceCreator);
-
-            // this.board.createGameBoard(initial_board);
-
-            //if (this.gameState.isAITurn())
-            //this.makeAIMove();
         });
     }
 
     onGraphLoaded() { // Called by scene when XML is parsed
-
         let menuPanel = this.theme.gameObjects["menuPanel"];
         let scoreboard = this.theme.gameObjects["scoreBoard"];
 
         this.menu = menuPanel.primitives[0];
+        this.menu.updateSeletion(THEME_SEL_INDEX, this.currentTheme + 1);
         this.scoreboard = scoreboard.primitives[0];
     }
 

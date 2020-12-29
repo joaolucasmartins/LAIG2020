@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<lsf>
+  <initials>
+    <reference length="2"/>
+    <!-- axis length; "0" means no axis displayed -->
+    <root id="demoRoot"/>
+    <!-- identifier of root node of the scene graph; this node -->
+    <!-- must be defined in one of the following NODE declarations -->
+  </initials>
+  <views default="defaultCamera">
+    <!-- at least one of the following type of cameras must be declared -->
+    <perspective id="defaultCamera" near="0.1" far="500" angle="45">
+      <from x="0" y="0" z="2"/>
+      <!-- 0 -3 0-->
+      <to x="0" y="0" z="0"/>
+    </perspective>
+    <ortho id="demoOrtho" near="0.2" far="100" left="-2" right="2" top="2" bottom="-2">
+      <from x="0" y="0" z="-5"/>
+      <to x="0" y="0" z="0"/>
+      <up x="0" y="0" z="10"/>
+      <!-- optional, default 0,1,0 -->
+    </ortho>
+  </views>
+  <illumination>
+    <ambient r="0.2" g="0.2" b="0.2" a="1.0"/>
+    <!-- global ambient -->
+    <background r="0.1" g="0.7" b="1.0" a="1.0"/>
+    <!-- background color -->
+  </illumination>
+  <lights>
+    <!-- NOTE: this block "light" must be repeated as necessary with different "id". At least one light should be present, and a maximum of eight lights is accepted. -->
+    <light id="demoLight">
+      <!-- light identifier -->
+      <enable value="1"/>
+      <!-- enable/disable -->
+      <position x="10" y="12" z="9.5" w="1.0"/>
+      <!-- light position; w=1: point light; w=0: directional light -->
+      <ambient r="0" g="0" b="0" a="1.0"/>
+      <!-- ambient component -->
+      <diffuse r="1.0" g="1.0" b="1.0" a="1.0"/>
+      <!-- diffuse component -->
+      <specular r="1.0" g="1.0" b="1.0" a="1.0"/>
+      <!-- specular component -->
+    </light>
+  </lights>
+  <textures>
+    <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
+    <texture id="demoTexture" path="./scenes/images/demo.jpg"/>
+    <texture id="whiteTileTexture" path="./scenes/images/whiteTile.jpg"/>
+    <texture id="blackTileTexture" path="./scenes/images/blackTile.jpg"/>
+    <texture id="whiteMarble" path="./scenes/images/whiteMarble.jpg"/>
+    <texture id="blackMarble" path="./scenes/images/blackMarble.jpg"/>
+    <texture id="startBtn" path="./scenes/images/buttons/startBtn.jpg"/>
+    <texture id="applyBtn" path="./scenes/images/buttons/applyBtn.jpg"/>
+    <texture id="themeBtn1" path="./scenes/images/buttons/themeBtn1.jpg"/>
+    <texture id="themeBtn2" path="./scenes/images/buttons/themeBtn2.jpg"/>
+    <texture id="themeBtn3" path="./scenes/images/buttons/themeBtn3.jpg"/>
+    <texture id="modeBtn1" path="./scenes/images/buttons/modeBtn1.jpg"/>
+    <texture id="modeBtn2" path="./scenes/images/buttons/modeBtn2.jpg"/>
+    <texture id="modeBtn3" path="./scenes/images/buttons/modeBtn3.jpg"/>
+    <texture id="lvlBtn1" path="./scenes/images/buttons/lvlBtn1.jpg"/>
+    <texture id="lvlBtn2" path="./scenes/images/buttons/lvlBtn2.jpg"/>
+    <texture id="lvlBtn3" path="./scenes/images/buttons/lvlBtn3.jpg"/>
+    <texture id="incrBtn" path="./scenes/images/buttons/incrBtn.jpg"/>
+    <texture id="decrBtn" path="./scenes/images/buttons/decrBtn.jpg"/>
+    <texture id="exitBtn" path="./scenes/images/buttons/exitBtn.jpg"/>
+    <texture id="greyBackground" path="./scenes/images/greyBackground.jpg"/>
+  </textures>
+  <materials>
+    <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
+         requires a distinct "id". At least one material should be present. -->
+    <material id="demoMaterial">
+      <shininess value="1"/>
+      <ambient r="0.5" g="0.5" b="0.5" a="1.0"/>
+      <diffuse r="0.5" g="0.5" b="0.5" a="1.0"/>
+      <specular r="0.5" g="0.5" b="0.5" a="1.0"/>
+      <emissive r="0.5" g="0.5" b="0.5" a="1.0"/>
+    </material>
+  </materials>
+  <spritesheets>
+  </spritesheets>
+  <nodes>
+    <!--Pieces and Tiles are defined as normal objects-->
+    <node id="whiteTile">
+      <material id="demoMaterial"/>
+      <texture id="whiteTileTexture">
+      </texture>
+      <amplification afs="1.0" aft="1.0"/>
+      <transformations>
+        <translation x="-0.5" y="0.0" z="0.5"/>
+        <rotation axis="x" angle="-90"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1"/>
+      </descendants>
+    </node>
+    <node id="blackTile">
+      <material id="demoMaterial"/>
+      <texture id="blackTileTexture">
+        <amplification afs="1.0" aft="1.0"/>
+      </texture>
+      <transformations>
+        <translation x="-0.5" y="0.0" z="0.5"/>
+        <rotation axis="x" angle="-90"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1"/>
+      </descendants>
+    </node>
+    <node id="whitePiece">
+      <material id="demoMaterial"/>
+      <texture id="whiteMarble">
+      </texture>
+      <amplification afs="1.0" aft="1.0"/>
+      <transformations>
+      </transformations>
+      <descendants>
+        <leaf type="sphere" radius="0.2" slices="5" stacks="5"/>
+      </descendants>
+    </node>
+    <node id="blackPiece">
+      <material id="demoMaterial"/>
+      <texture id="whiteMarble">
+        <amplification afs="1.0" aft="1.0"/>
+      </texture>
+      <transformations>
+      </transformations>
+      <descendants>
+        <leaf type="sphere" radius="0.2" slices="5" stacks="5"/>
+      </descendants>
+    </node>
+    <!-- Gameboard must have its object defined here. All tiles are placed with length 3x3 in xOz -->
+    <node id="gameBoard">
+      <material id="demoMaterial"/>
+      <texture id="demoTexture">
+        <amplification afs="1.0" aft="1.0"/>
+      </texture>
+      <transformations>
+        <translation x="1.3" y="0.0" z="1.3"/>
+        <rotation axis="x" angle="-90"/>
+      </transformations>
+      <descendants>
+        <leaf type="torus" inner="0.2" outer="2.1213" slices="10" loops="10"/>
+      </descendants>
+    </node>
+    <!-- SCORE BOARD /////////////////////////-->
+    <node id="scoreBoard">
+      <material id="demoMaterial"/>
+      <texture id="greyBackground">
+      </texture>
+      <transformations>
+        <translation x="2" y="0" z="-1"/>
+      </transformations>
+      <descendants>
+        <leaf type="scoreboard" x1="0" y1="0" x2="2" y2="1"/>
+      </descendants>
+    </node>
+    <node id="menuPanel">
+      <material id="demoMaterial"/>
+      <texture id="greyBackground">
+      </texture>
+      <transformations>
+        <translation x="-1" y="0" z="-1"/>
+      </transformations>
+      <descendants>
+        <leaf type="menu" x1="0" y1="0" x2="2" y2="1.3"/>
+      </descendants>
+    </node>
+    <node id="demoRoot">
+      <!-- defines one intermediate node; may be repeated as necessary -->
+      <!-- next two lines are mandatory -->
+      <material id="demoMaterial"/>
+      <!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+      <texture id="demoTexture">
+        <amplification afs="1.0" aft="1.0"/>
+      </texture>
+      <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+      <transformations>
+        <!--<translation x="0" y="1.0" z="1.0"/>-->
+        <!--<rotation axis="yy" angle="45"/>-->
+        <!--<scale sx="2" sy="1" sz="1"/>-->
+      </transformations>
+      <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+      <descendants>
+        <noderef id="scoreBoard"/>
+        <noderef id="menuPanel"/>
+      </descendants>
+    </node>
+  </nodes>
+</lsf>

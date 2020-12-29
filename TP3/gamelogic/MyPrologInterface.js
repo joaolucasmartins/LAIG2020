@@ -7,7 +7,6 @@ class MyPrologInterface {
     async getPrologRequest(requestString) {
         return new Promise(function (resolve, reject) {
             var request = new XMLHttpRequest();
-            console.log(requestString);
             request.open('GET', 'http://0.0.0.0:' + PORT + '/' + requestString, true);
 
             request.onload = resolve;

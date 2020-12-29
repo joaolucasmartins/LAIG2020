@@ -38,20 +38,22 @@ class MyMenuPanel extends CGFobject {
         // 0 - THEME | 1 - LEVEL | 2 - MODE
         this.selected = [1, 1, 1];
 
-       
+
 
     }
 
-    getBoardSize() { return this.size; }
+    getBoardSize() {return this.size;}
 
-    getTimeout() { return this.timeout; }
+    getTimeout() {return this.timeout;}
+
+    getTheme() {return this.selected[0]}
 
     createButtons() {
         let startBtn = new MyActionButton(this.scene, 1, 1.4, 0.1, 1.9, 0.3, 0.5, 0.2, false, 'startBtn.jpg');
         let applyBtn = new MyActionButton(this.scene, 2, 0.1, 0.1, 0.6, 0.3, 0.5, 0.2, false, 'applyBtn.jpg');
         let undoBtn = new MyActionButton(this.scene, 3, 0.75, 0.1, 1.25, 0.3, 0.5, 0.2, false, 'undoBtn.jpg');
 
-        let themeBtn1 = new MyThemeButton(this.scene, 1, 0.1, 0.4, 0.5, 0.6, 0.4, 0.2, true, 'themeBtn1.jpg');
+        let themeBtn1 = new MyThemeButton(this.scene, 1, 0.1, 0.4, 0.5, 0.6, 0.4, 0.2, false, 'themeBtn1.jpg');
         let themeBtn2 = new MyThemeButton(this.scene, 2, 0.6, 0.4, 1.0, 0.6, 0.4, 0.2, false, 'themeBtn2.jpg');
         let themeBtn3 = new MyThemeButton(this.scene, 3, 1.1, 0.4, 1.5, 0.6, 0.4, 0.2, false, 'themeBtn3.jpg');
 
@@ -80,9 +82,9 @@ class MyMenuPanel extends CGFobject {
         this.buttons.push(modeBtn3);
     }
 
-    
+
     updateSeletion(selIndex, index) {
-        if (selIndex == 0)  //theme
+        if (selIndex == 0) //theme
             this.buttons[THEME_INDEX + index].selectButton();
         else if (selIndex == 1) //level
             this.buttons[LEVEL_INDEX + index].selectButton();
@@ -151,11 +153,11 @@ class MyMenuPanel extends CGFobject {
         this.updateSeletion(selIndex, id);
     }
 
-	/**
-	 * @method updateTexCoords
-	 * Updates the list of texture coordinates of the rectangle
-	 * @param {Array} coords - Array of texture coordinates
-	 */
+    /**
+     * @method updateTexCoords
+     * Updates the list of texture coordinates of the rectangle
+     * @param {Array} coords - Array of texture coordinates
+     */
     updateTexCoords(coords) {
         this.texCoords = [...coords];
         this.updateTexCoordsGLBuffers();
