@@ -15,7 +15,7 @@ class MyGameOrchestrator {
         this.scoreboard = null;
 
         // 0 - Player, 1 - AI
-        let firstPlayer = 1;
+        let firstPlayer = 0;
         let secondPlayer = 1;
         this.gameState = new MyGameState(firstPlayer, secondPlayer);
     }
@@ -169,8 +169,11 @@ class MyGameOrchestrator {
             this.makeAIMove.a = 0;
         let undoTimeout = new Promise((resolve) => {setTimeout(resolve, AI_DELAY);});
         undoTimeout.then(() => {
-            this.moving = true;
+            // Undo be made in timeout and turn is no longer AI
             this.waitingForTimeout = false;
+            if (!this.gameState.isAITurn())
+                return;
+            this.moving = true;
             let movePromise = this.prolog.getAIMove(this.board, this.gameState);
 
             movePromise.then((response) => {
