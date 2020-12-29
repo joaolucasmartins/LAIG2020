@@ -26,6 +26,7 @@ class MyFunctionalAnimation extends MyAnimation {
         vec3.lerp(this.rotVec, prevTransformation.rotation, nextTransformation.rotation, fy(weight));
         vec3.lerp(this.scaleVec, prevTransformation.scale, nextTransformation.scale, fz(weight));
         this.currentTransformation = new Transformation([this.translVec, this.rotVec, this.scaleVec]);
+
     }
 
     update(time) {
