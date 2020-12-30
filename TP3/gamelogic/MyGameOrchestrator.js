@@ -165,6 +165,7 @@ class MyGameOrchestrator {
     switchPieces(sourceTile, destTile) { // called by animatior when switching animation ends
         this.board.switchPiece(sourceTile, destTile);
         this.gameState.nextPlayer();
+        this.scoreboard.switchPlayer();
         this.checkGameOver();
         this.scoreboard.startCount();
     }

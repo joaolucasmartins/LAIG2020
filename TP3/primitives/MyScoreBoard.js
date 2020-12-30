@@ -21,6 +21,10 @@ class MyScoreBoard extends CGFobject {
         this.winner = "";
         this.winnerDisplay = new MySpriteText(scene, "Black Pieces win");
 
+        this.currentPlayer = 0;
+        this.statusPlayer1 = new MyStatusDisplayer(scene, 0.5, 0.8, true);
+        this.statusPlayer2 = new MyStatusDisplayer(scene, 1.5, 0.8, false);
+
         this.timer = new MyTimer(scene, 10);
         this.gameEnded = false;
     }
@@ -50,6 +54,21 @@ class MyScoreBoard extends CGFobject {
         this.whiteScore.updateText(newWhite.toString());
     }
 
+    switchPlayer() {
+
+        if (this.currentPlayer == 0) {
+         this.statusPlayer1.turnOf()
+         this.statusPlayer2.turnOn();
+         this.currentPlayer = 1;
+        }
+        else {
+            this.statusPlayer1.turnOn();
+            this.statusPlayer2.turnOf();
+            this.currentPlayer = 0; 
+        }
+
+    }
+  
 	/**
 	 * @method updateTexCoords
 	 * Updates the list of texture coordinates of the rectangle
@@ -66,6 +85,8 @@ class MyScoreBoard extends CGFobject {
     display() {
 
         this.obj.display();
+
+      
 
         //black player -----
         this.scene.pushMatrix();
@@ -90,6 +111,10 @@ class MyScoreBoard extends CGFobject {
         this.scene.popMatrix();
 
         if (!this.gameEnded) {
+            
+            this.statusPlayer1.display();
+            this.statusPlayer2.display();
+
             //timer
             this.scene.pushMatrix();
             this.scene.translate(1.1, 0.8, 0.01);
