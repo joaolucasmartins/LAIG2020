@@ -48,9 +48,7 @@ class MyGameOrchestrator {
             let initial_board = eval(response.target.response);
             this.board = new MyGameBoard(this.scene, gameBoard, initial_board,
                 whiteTileCreator, blackTileCreator, whitePieceCreator, blackPieceCreator);
-
-            // this.board.createGameBoard(initial_board);
-
+                
             //if (this.gameState.isAITurn())
             //this.makeAIMove();
         });
@@ -136,22 +134,18 @@ class MyGameOrchestrator {
     checkGameOver() {
         this.prolog.isGameOver(this.board, this.gameState).then((response) => {
             let isGameOver = response.target.response;
-            if (isGameOver == "false") {
-                this.updateGameScore();
+            if (isGameOver != "false") {
+                this.endGame(isGameOver);
             }
-            else {
-                let winner = isGameOver
-                this.endGame(winner);
-            }
+
+            this.updateGameScore();
         });
     }
 
     endGame(winner) {
-        // TODO Update scoreboard
-        console.log(this.gameSequence);
+        this.scoreboard.endGame(winner);
         this.gameOver = true;
         console.log("Winner is " + winner);
-        this.scoreboard.endGame(winner);
     }
 
     switchPieces(sourceTile, destTile) { // called by animatior when switching animation ends

@@ -106,9 +106,7 @@ class MyScoreBoard extends CGFobject {
             this.winnerDisplay.display();
             this.scene.popMatrix();
         }
-            
-
-
+        
     }
 }
 

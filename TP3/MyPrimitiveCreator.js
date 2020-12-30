@@ -424,8 +424,6 @@ class MyPrimitiveCreator {
         if (slices == null || isNaN(slices))
             return "unable to parse field 'slices' of the ";
 
-
-
         return new MySquarePiece(this.scene, radius, slices);
     }
 
