@@ -34,7 +34,8 @@ class MyTimer extends CGFobject {
 
     setTimeout(val) {
         this.timeout = val;
-        this.timeDisplay.updateText(val.toString());
+        if (!this.started)
+            this.timeDisplay.updateText(val.toString());
     }
 
     updateTimeDisplay(now) {

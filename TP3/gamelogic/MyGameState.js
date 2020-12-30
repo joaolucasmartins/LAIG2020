@@ -77,4 +77,8 @@ class MyGameState {
         console.log(this.state);
         return (this.state == state.IDLE || this.state == state.SPAWN_BOARD) && this.isPlayerTurn() && !this.isReplaying();
     }
+
+    gameHasEnded() {
+        return this.state >= state.GAME_OVER;
+    }
 }

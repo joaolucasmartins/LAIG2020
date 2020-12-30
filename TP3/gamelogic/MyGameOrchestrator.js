@@ -142,23 +142,20 @@ class MyGameOrchestrator {
     checkGameOver() {
         this.prolog.isGameOver(this.board, this.gameState).then((response) => {
             let isGameOver = response.target.response;
-            if (isGameOver == "false")
-                this.updateGameScore();
-            else {
-                let winner = isGameOver
-                this.endGame(winner);
+            if (isGameOver != "false") {
+                this.endGame(isGameOver);
             }
+
+            this.updateGameScore();
         });
     }
 
     endGame(winner) {
+        this.scoreboard.endGame(winner);
         this.gameState.setToGameOver();
-        this.updateGameScore();
         console.log("Winner is " + winner);
-        this.scoreboard.endGame();
-        if (this.gameState.canReplay()) {
+        if (this.gameState.canReplay())
             this.replay();
-        }
     }
 
     switchPieces(sourceTile, destTile) { // called by animatior when switching animation ends

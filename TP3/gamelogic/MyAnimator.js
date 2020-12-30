@@ -1,3 +1,4 @@
+/*Source: https://easings.net */
 function easeOutBack(x) {
     const c1 = 1.70158;
     const c3 = c1 + 1;
