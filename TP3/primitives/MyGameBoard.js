@@ -75,12 +75,12 @@ class MyGameBoard extends CGFobject {
         //TODO Use matrices and optimize to not resize when size 3
         // Normalize board to be 3x3
         this.obj.display();
-        this.scene.scale(3 / this.length, 1, 3 / this.length);
+        this.scene.scale(3 / this.length, 3 / this.length, 3 / this.length);
         for (let i = 0; i < this.tiles.length; ++i)
             for (let j = 0; j < this.tiles[i].length; ++j)
                 this.tiles[i][j].display();
 
-        this.scene.scale(this.length / 3, 1, this.length / 3);
+        this.scene.scale(this.length / 3, this.length / 3, this.length / 3);
     }
 
     /* Selects all pieces from coordList. Returns all pieces selected */

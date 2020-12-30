@@ -137,5 +137,5 @@ parse_input(isGameOver(_), false).
 
 % SCORE
 parse_input(getScore(GameState), [S1, S2]) :-
-    value(GameState, 0, S1),
-    value(GameState, 1, S2).
+    value(GameState, 1, S1),
+    value(GameState, 0, S2).
