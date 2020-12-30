@@ -1,7 +1,7 @@
 const BOARD_SIZE = 3;
 const AI_DELAY = 1000; // In ms
 const FILENAMES = ["demo.xml", "demo2.xml", "demo.xml"];
-const INITIAL_THEME = 1;
+const INITIAL_THEME = 0;
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
@@ -144,19 +144,16 @@ class MyGameOrchestrator {
     checkGameOver() {
         this.prolog.isGameOver(this.board, this.gameState).then((response) => {
             let isGameOver = response.target.response;
-            if (isGameOver == "false") {
-                this.updateGameScore();
+            if (isGameOver != "false") {
+                this.endGame(isGameOver);
             }
-            else {
-                let winner = isGameOver
-                this.endGame(winner);
-            }
+
+            this.updateGameScore();
         });
     }
 
     endGame(winner) {
-        // TODO Update scoreboard
-        console.log(this.gameSequence);
+        this.scoreboard.endGame(winner);
         this.gameOver = true;
         console.log("Winner is " + winner);
         this.scoreboard.endGame();

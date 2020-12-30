@@ -50,20 +50,6 @@
     <texture id="blackTileTexture" path="./scenes/images/blackTile.jpg"/>
     <texture id="whiteMarble" path="./scenes/images/whiteMarble.jpg"/>
     <texture id="blackMarble" path="./scenes/images/blackMarble.jpg"/>
-    <texture id="startBtn" path="./scenes/images/buttons/startBtn.jpg"/>
-    <texture id="applyBtn" path="./scenes/images/buttons/applyBtn.jpg"/>
-    <texture id="themeBtn1" path="./scenes/images/buttons/themeBtn1.jpg"/>
-    <texture id="themeBtn2" path="./scenes/images/buttons/themeBtn2.jpg"/>
-    <texture id="themeBtn3" path="./scenes/images/buttons/themeBtn3.jpg"/>
-    <texture id="modeBtn1" path="./scenes/images/buttons/modeBtn1.jpg"/>
-    <texture id="modeBtn2" path="./scenes/images/buttons/modeBtn2.jpg"/>
-    <texture id="modeBtn3" path="./scenes/images/buttons/modeBtn3.jpg"/>
-    <texture id="lvlBtn1" path="./scenes/images/buttons/lvlBtn1.jpg"/>
-    <texture id="lvlBtn2" path="./scenes/images/buttons/lvlBtn2.jpg"/>
-    <texture id="lvlBtn3" path="./scenes/images/buttons/lvlBtn3.jpg"/>
-    <texture id="incrBtn" path="./scenes/images/buttons/incrBtn.jpg"/>
-    <texture id="decrBtn" path="./scenes/images/buttons/decrBtn.jpg"/>
-    <texture id="exitBtn" path="./scenes/images/buttons/exitBtn.jpg"/>
     <texture id="greyBackground" path="./scenes/images/greyBackground.jpg"/>
   </textures>
   <materials>
