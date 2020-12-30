@@ -21,6 +21,7 @@ class MyAnimator {
         this.orchestrator = orchestrator;
         this.gameMove = null;
         this.isAnimating = false;
+        this.isAnimatingCameras = false;
     }
 
     getSourcePiece() {return this.gameMove.getSourcePiece();}
@@ -63,6 +64,11 @@ class MyAnimator {
         this.getDestPiece().obj.addAnimation(this.destAnim);
     }
 
+    addCameraAnimation(sourceCamera, destCamera) {
+        this.cameraAnimation = new MyCameraAnimation(this.orchestrator.scene, sourceCamera, destCamera, 3);
+        this.isAnimatingCameras = true;
+    }
+
     reset() {
         this.sourceAnim.initialInstant = null;
         this.destAnim.initialInstant = null;
@@ -86,17 +92,15 @@ class MyAnimator {
                 this.orchestrator.gameState.setToIdle();
             }
         }
-    }
 
-    // Not needed, set in nodes instead
-    //display() {
-    //if (this.isAnimating && this.gameMove) {
-    //this.anim.apply();
-    //console.log("source", this.gameMove.getSourceTile().col, this.gameMove.getSourceTile().line);
-    //console.log("dest", this.gameMove.getDestTile().col, this.gameMove.getDestTile().line);
-    //this.gameMove.getSourcePiece().display();
-    //this.gameMove.getDestPiece().display();
-    //}
-    //}
+        if (this.isAnimatingCameras) {
+            this.cameraAnimation.update(time);
+
+            if (this.cameraAnimation.hasEnded) {
+                this.cameraAnimation = null;
+                this.isAnimatingCameras = false;
+            }
+        }
+    }
 }
 

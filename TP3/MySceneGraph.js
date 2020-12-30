@@ -385,11 +385,11 @@ class MySceneGraph {
         var target = this.parseCoordinates3D(nodeDict["to"], "'to' tag in " + postWarningMsg);
         if (typeof target === 'string') return target;
 
-        var camera;
+        var cgfCamera;
         if (cameraNode.nodeName === "perspective") {
             var angle = this.parseFloat(cameraNode, "angle", postWarningMsg);
             if (typeof angle === 'string') return angle;
-            camera = new CGFcamera(angle, near, far, position, target);
+            cgfCamera = new CGFcamera(angle, near, far, position, target);
 
         } else if (cameraNode.nodeName === "ortho") {
             var left = this.parseFloat(cameraNode, "left", postWarningMsg);
@@ -409,10 +409,11 @@ class MySceneGraph {
                 if (typeof up === 'string') return up;
             }
 
-            camera = new CGFcameraOrtho(left, right, top, bottom, near, far, position, target, up);
+            cgfCamera = new CGFcameraOrtho(left, right, top, bottom, near, far, position, target, up);
         } else
             return "Invalid camera type " + cameraNode.nodeName + postWarningMsg;
 
+        let camera = new MyCamera(cgfCamera);
         cameras[id] = camera;
         return null;
     }

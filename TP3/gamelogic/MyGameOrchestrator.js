@@ -33,6 +33,10 @@ class MyGameOrchestrator {
         }
     }
 
+    cameraDo() {
+        this.animator.addCameraAnimation(this.scene.cameras["defaultCamera"], this.scene.cameras["defaultCamera2"]);
+    }
+
     applyChanges() {
         this.scoreboard.setTimeout(this.menu.getTimeout());
         if (this.currentTheme != (this.menu.getTheme() - 1)) {
@@ -236,6 +240,11 @@ class MyGameOrchestrator {
 
         let move = this.gameSequence.popFirstMove();
         this.makeMove(move.sourceTile, move.destTile, false)
+    }
+
+    updateCamera() {
+        console.log("Here");
+        this.scene.updateCamera();
     }
 
     display() {

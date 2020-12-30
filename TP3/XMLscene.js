@@ -113,9 +113,13 @@ class XMLscene extends CGFscene {
      *GUI camera option changes
      */
     updateCamera() {
-        this.camera = this.cameras[this.selectedCamera];
+        let cameraWrapper = this.getSelectedCamera();
+        cameraWrapper.reset();
+        this.camera = cameraWrapper.cgfCamera;
         this.interface.setActiveCamera(this.camera);
     }
+
+    getSelectedCamera() {return this.cameras[this.selectedCamera]}
 
     /** Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop

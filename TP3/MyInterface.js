@@ -40,11 +40,12 @@ class MyInterface extends CGFinterface {
      * Initialize camera interface.
      */
     initCameraInterface() {
-        this.gui.add(this.scene, 'selectedCamera', this.scene.cameraIds).name('Selected Camera').onChange(this.scene.updateCamera.bind(this.scene));
+        this.gui.add(this.scene, 'selectedCamera', this.scene.cameraIds).name('Selected Camera').onChange(this.scene.orchestrator.updateCamera.bind(this.scene.orchestrator));
     }
 
     initMenuInterface() {
         this.gui.add(this.scene.orchestrator, 'startGame').name('Start Game');
+        this.gui.add(this.scene.orchestrator, 'cameraDo').name('Camera do');
     }
 
     /**
@@ -71,10 +72,10 @@ class MyInterface extends CGFinterface {
     }
 
     isKeyPressedDelay(keyCode) {
-        if(this.activeKeys[keyCode] === true){
-          this.activeKeys[keyCode] = false;
-          return true;
-        }  
-          return this.activeKeys[keyCode] || false;
-     }
+        if (this.activeKeys[keyCode] === true) {
+            this.activeKeys[keyCode] = false;
+            return true;
+        }
+        return this.activeKeys[keyCode] || false;
+    }
 }
