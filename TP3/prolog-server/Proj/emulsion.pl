@@ -5,12 +5,13 @@
 :-use_module(library(between)).
 :-use_module(library(system)).
 :-use_module(library(random)).
+:-use_module(library(samsort)).
 
-:-include('Emulsion_1_ai.pl').
-:-include('Emulsion_1_board.pl').
-:-include('Emulsion_1_draw.pl').
-:-include('Emulsion_1_menu.pl').
-:-include('Emulsion_1_state.pl').
+:-include('emulsion_ai.pl').
+:-include('emulsion_board.pl').
+:-include('emulsion_draw.pl').
+:-include('emulsion_menu.pl').
+:-include('emulsion_state.pl').
 
 play :-
   menu(GameSettings),
@@ -47,6 +48,11 @@ game_over(GameState, Winner) :-
 move(GameState, Move, NewGameState) :-
   % this is a wrapper for the valid_move/3 predicate that offers more
   % user interation/friendliness.
+  % check if P1 and P2 have different colors
+  [P1, P2] = Move,
+  state_nth0Board(GameState, P1, Color),
+  \+state_nth0Board(GameState, P2, Color),
+  % perform move
   valid_move(GameState, Move, NewGameState).
 % in case of invalid move
 move(_, _, _) :-
@@ -63,13 +69,13 @@ valid_move(GameState, [P1, P2], NewGameState) :-
   NewV > CurrV.
 
 % does the same as valid_move, but also checks if the pieces being
-% switched have different colors and belong to the correct players
+% switched have different colors and below to the correct players
 valid_move_full(GameState, Player, [P1, P2]) :-
   state_getLength(GameState, L),
   getValue(P1, _, L, Direcs),
   next_player(Player, NextPlayer),
-  state_nth0Board(GameState, P1, Player),
-  state_nth0Board(GameState, P2, NextPlayer),
+  state_nth0Board(GameState, P1, Player), % check if P1 is player's color
+  state_nth0Board(GameState, P2, NextPlayer), % check if P2 is enemy's color
   adjacent(P1, P2, Direcs),
   valid_move(GameState, [P1, P2], _).
 
@@ -98,7 +104,7 @@ choose_move(GameState, Player, 0, Move) :-
   nl, write('Select a spot of your color.'), nl,
   inputNum('X? ', X), inputNum('Y? ', Y),
   state_insideBounds(GameState, [X, Y]),
-  state_nth0Board(GameState, [X, Y], Player),
+  state_nth0Board(GameState, [X, Y], Player), % check piece color
   % Direction
   input('Move direction [n, nw, w, sw, s, se, e, ne]? ', DirecSymb), nl,
   coordMove([X, Y], DirecSymb, [X1, Y1]),
@@ -107,24 +113,24 @@ choose_move(GameState, Player, 0, Move) :-
 % Easy AI
 choose_move(GameState, Player, 1, Move) :-
   valid_moves(GameState, Player, Moves),
-  ai_getBestMove(GameState, Player, Moves, 1, Move, _).
-  %ai_moveAnnounce('Easy', Move).
+  ai_getBestMove(GameState, Player, Moves, 1, Move, _),
+  ai_moveAnnounce('Easy', Move).
 % Medium AI
 choose_move(GameState, Player, 2, Move) :-
   valid_moves(GameState, Player, Moves),
-  ai_getBestMove(GameState, Player, Moves, 2, Move, _).
-  %ai_moveAnnounce('Medium', Move).
+  ai_getBestMove(GameState, Player, Moves, 2, Move, _),
+  ai_moveAnnounce('Medium', Move).
 % Hard AI
 choose_move(GameState, Player, 3, Move) :-
   valid_moves(GameState, Player, Moves),
-  ai_getBestMove(GameState, Player, Moves, 3, Move, _).
+  ai_getBestMove(GameState, Player, Moves, 3, Move, _),
   ai_moveAnnounce('Hard (SCIENTIA)', Move).
 % Random play AI
 choose_move(GameState, Player, 4, Move) :-
   valid_moves(GameState, Player, Moves),
   length(Moves, L), random(0, L, RdmInd),
-  nth0(RdmInd, Moves, Move).
-  %ai_moveAnnounce('Random move', Move).
+  nth0(RdmInd, Moves, Move),
+  ai_moveAnnounce('Random move', Move).
 % in case of invalid move (inputed by the user)
 choose_move(_, _, _, _) :-
   write('Invalid spot. Try again.'), nl, fail.
@@ -241,9 +247,10 @@ getAllGroupsValues(State, [G|Groups], [R|Res]) :-
 % Returns sorted (desc.) list of the values of all groups
 % of a given player
 value(GameState, Player, Value) :-
-  getAllGroups(GameState, Player, G),
+  getAllGroups(GameState, Player, G), !,
   getAllGroupsValues(GameState, G, ListOfVals),
-  sort(ListOfVals, SortedVals), reverse(SortedVals, Value).
+  samsort(@>=, ListOfVals, Value).
+  % sort(ListOfVals, SortedVals), reverse(SortedVals, Value).
 
 % Receives 2 lists of group sizes (calculated by the value predicate)
 % Returns the 2 final scores (one for each player)
