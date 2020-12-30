@@ -2,18 +2,18 @@ function easeOutBack(x) {
     const c1 = 1.70158;
     const c3 = c1 + 1;
 
-return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+    return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
 }
 
 function easeInOutBack(x) {
     const c1 = 1.70158;
     const c2 = c1 * 1.525;
-    
+
     return x < 0.5
-      ? (Math.pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2)) / 2
-      : (Math.pow(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2;
-    
-   }
+        ? (Math.pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2)) / 2
+        : (Math.pow(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2;
+
+}
 
 class MyAnimator {
     constructor(orchestrator) {
@@ -22,8 +22,8 @@ class MyAnimator {
         this.isAnimating = false;
     }
 
-    getSourcePiece() { return this.gameMove.getSourcePiece(); }
-    getDestPiece() { return this.gameMove.getDestPiece(); }
+    getSourcePiece() {return this.gameMove.getSourcePiece();}
+    getDestPiece() {return this.gameMove.getDestPiece();}
 
     getKeyFrames(sourceCoords, destCoords) {
         let [sourceX, sourceY] = sourceCoords;
@@ -43,7 +43,7 @@ class MyAnimator {
             midTransfReverse = new Transformation([[-vecX / 2 - vecY / 4, 0.7, -vecY / 2 - vecX / 4], [0, 0, 0.2], [1, 1, 1]]);
         }
 
-        return [{ 0: initTransf, 1: midTransf, 2: finalTransf }, { 0: initTransf, 1: midTransfReverse, 2: finalTransfReverse }];
+        return [{0: initTransf, 1: midTransf, 2: finalTransf}, {0: initTransf, 1: midTransfReverse, 2: finalTransfReverse}];
     }
 
     addGameMove(gameMove) {
@@ -69,6 +69,7 @@ class MyAnimator {
 
     start() {
         this.isAnimating = true;
+        this.orchestrator.gameState.setToAnimating();
     }
 
     update(time) {
@@ -81,6 +82,7 @@ class MyAnimator {
                 this.getDestPiece().obj.removeAnimations();
                 this.orchestrator.switchPieces(this.gameMove.getSourceTile(), this.gameMove.getDestTile());
                 this.isAnimating = false;
+                this.orchestrator.gameState.setToIdle();
             }
         }
     }
