@@ -1,6 +1,5 @@
 class MyAnimation {
     constructor(scene, elements) {
-        console.log(elements);
         this.elements = elements; // What instants are mapped to
         this.scene = scene;
         this.instants = Object.keys(elements).map(parseFloat); // Cast String keys to float
@@ -9,7 +8,7 @@ class MyAnimation {
         this.initialInstant = null;
 
         // Sort instants so that we evaluate them in order
-        this.instants.sort(function(a, b) {
+        this.instants.sort(function (a, b) {
             return a - b;
         });
     }

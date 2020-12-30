@@ -65,7 +65,7 @@ class MyAnimator {
     }
 
     addCameraAnimation(sourceCamera, destCamera) {
-        this.cameraAnimation = new MyCameraAnimation(this.orchestrator.scene, sourceCamera, destCamera, 3);
+        this.cameraAnimation = new MyCameraAnimation(this.orchestrator.scene, sourceCamera, destCamera, 10);
         this.isAnimatingCameras = true;
     }
 
