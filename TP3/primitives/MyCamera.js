@@ -2,7 +2,6 @@ class MyCamera {
     constructor(camera) {
         this.cgfCamera = camera;
         this.defaultValues = [[...camera.position], [...camera.target]];
-        console.log(camera.target, camera.position);
     }
 
     getPosition() {return this.cgfCamera.position}

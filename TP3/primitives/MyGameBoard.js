@@ -12,14 +12,16 @@ class MyGameBoard extends CGFobject {
         this.scene = scene;
         this.tiles = [];
         this.pieces = [];
+        this.length = 0;
 
         this.obj = gameboard;
         this.createGameBoard(initialBoard, blackTileCreator,
             whiteTileCreator, blackPieceCreator, whitePieceCreator);
-        this.length = this.tiles.length;
     }
 
     createGameBoard(board, whiteTileCreator, blackTileCreator, blackPieceCreator, whitePieceCreator) {
+        this.board = new Node(this.scene, "board");
+
         for (let i = 0; i < board.length; ++i) {
             let row = board[i];
             let tileRes = [], piecesRes = [];
@@ -37,6 +39,7 @@ class MyGameBoard extends CGFobject {
                     piece = new MyPiece(this.scene, whitePieceCreator.create(), tile, isBlack);
                 }
 
+                this.board.addDescendant(tile);
                 tile.setPiece(piece);
                 tileRes.push(tile);
                 piecesRes.push(piece);
@@ -44,6 +47,12 @@ class MyGameBoard extends CGFobject {
             this.tiles.push(tileRes);
             this.pieces.push(piecesRes);
         }
+
+        this.length = this.tiles.length;
+        this.board.transfMat = mat4.create();
+        mat4.scale(this.board.transfMat, this.board.transfMat, [3 / this.length, 3 / this.length, 3 / this.length]);
+        this.obj.addDescendant(this.board);
+        console.log(this.obj);
     }
 
     getTileAt(col, line) {return this.tiles[line][col]}
@@ -74,13 +83,14 @@ class MyGameBoard extends CGFobject {
     display() {
         //TODO Use matrices and optimize to not resize when size 3
         // Normalize board to be 3x3
-        this.obj.display();
-        this.scene.scale(3 / this.length, 3 / this.length, 3 / this.length);
-        for (let i = 0; i < this.tiles.length; ++i)
-            for (let j = 0; j < this.tiles[i].length; ++j)
-                this.tiles[i][j].display();
+        if (this.obj)
+            this.obj.display();
+        //this.scene.scale(3 / this.length, 3 / this.length, 3 / this.length);
+        //for (let i = 0; i < this.tiles.length; ++i)
+        //for (let j = 0; j < this.tiles[i].length; ++j)
+        //this.tiles[i][j].display();
 
-        this.scene.scale(this.length / 3, this.length / 3, this.length / 3);
+        //this.scene.scale(this.length / 3, this.length / 3, this.length / 3);
     }
 
     /* Selects all pieces from coordList. Returns all pieces selected */

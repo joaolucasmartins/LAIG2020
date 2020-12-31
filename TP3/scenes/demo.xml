@@ -117,17 +117,27 @@
       </descendants>
     </node>
     <!-- Gameboard must have its object defined here. All tiles are placed with length 3x3 in xOz -->
-    <node id="gameBoard">
+    <node id="gameBoardSupport">
       <material id="demoMaterial"/>
       <texture id="demoTexture">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <transformations>
-        <translation x="1.3" y="0.0" z="1.3"/>
+        <translation x="1.0" y="0.0" z="1.0"/>
         <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
         <leaf type="torus" inner="0.2" outer="2.1213" slices="10" loops="10"/>
+      </descendants>
+    </node>
+    <node id="gameBoard">
+      <material id="demoMaterial"/>
+      <texture id="demoTexture">
+      </texture>
+      <transformations>
+      </transformations>
+      <descendants>
+        <noderef id="gameBoardSupport"/>
       </descendants>
     </node>
     <!-- SCORE BOARD /////////////////////////-->

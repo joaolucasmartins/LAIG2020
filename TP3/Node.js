@@ -13,7 +13,8 @@ class Node {
         this.afs = 1; //texture amplification
         this.aft = 1; //texture aplification
 
-        this.material = null; // Set to null and not to NullMaterial so that it crashes when there is a parsing problem
+        this.material = new NullMaterial();
+        this.texture = new NullTexture();
 
         this.transfMat = mat4.create();//matrix with all of the nodes tranformations
 
@@ -29,6 +30,10 @@ class Node {
      */
     addPrimitive(primitive) {
         this.primitives.push(primitive);
+    }
+
+    addDescendant(descendants) {
+        this.descendants.push(descendants);
     }
 
     addAnimation(animation) {

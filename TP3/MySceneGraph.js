@@ -92,10 +92,9 @@ class MySceneGraph {
         return null;
     }
 
-    addGameObject(name, placeholder) {
+    addGameObject(name) {
         if (!(name in this.nodes)) {
-            this.onXMLMinorError("No specified geometry for " + name + ". Assuming placeholder");
-            this.gameObjects[name] = placeholder;
+            return "Node with id required" + name + " aborting";
         } else
             this.gameObjects[name] = this.nodes[name];
     }
@@ -106,22 +105,23 @@ class MySceneGraph {
 
         this.distributeDescendants(this.rootNode);
 
-
         this.gameObjects = [];
-        let tilePlaceholder = new MyRectangle(this.scene, 0, 0, 1, 1);
-        let piecePlaceholder = new MySphere(this.scene, 0, 0.1, 5, 5);
-        let boardPlaceholder = new MyRectangleXZ(this.scene, 0, 0, 3, 3);
-        let menuPlaceholder = new MyRectangle(this.scene, 0, 0, 2, 1.3);
-
-        this.addGameObject("whiteTile", tilePlaceholder);
-        this.addGameObject("blackTile", tilePlaceholder);
-        this.addGameObject("whitePiece", piecePlaceholder);
-        this.addGameObject("blackPiece", piecePlaceholder);
-        this.addGameObject("gameBoard", boardPlaceholder);
-        this.addGameObject("menuPanel", menuPlaceholder);
-        // this.addGameObject("sizeCounter", tilePlaceholder); //TODO: create a counter primitive?
-        // this.addGameObject("timeCounter", tilePlaceholder);
-        this.addGameObject("scoreBoard", menuPlaceholder);
+        let error;
+        if ((error = this.addGameObject("whiteTile")) != null)
+            return error;
+        if ((error = this.addGameObject("blackTile")) != null)
+            return error;
+        if ((error = this.addGameObject("whitePiece")) != null)
+            return error;
+        if ((error = this.addGameObject("blackPiece")) != null)
+            return error;
+        if ((error = this.addGameObject("menuPanel")) != null)
+            return error;
+        if ((error = this.addGameObject("scoreBoard")) != null)
+            return error;
+        if ((error = this.addGameObject("gameBoard")) != null)
+            return error;
+        this.distributeDescendants(this.gameObjects["gameBoard"]);
 
         delete this.nodes; // No need reference to nodes anymore
         return null;
@@ -1272,7 +1272,7 @@ class MySceneGraph {
     }
 
     update(time) {
-        // this.rootNode.update(time);
+        this.rootNode.update(time);
 
     }
 }

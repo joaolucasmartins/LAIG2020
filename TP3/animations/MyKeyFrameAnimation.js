@@ -24,11 +24,13 @@ class MyKeyFrameAnimation extends MyAnimation {
     }
 
     apply() {
-        this.scene.scale(...this.currentTransformation.scale);
-        this.scene.translate(...this.currentTransformation.translation);
-        for (var i = 0; i < 3; ++i) {
-            if (this.currentTransformation.rotation[i] != 0) {
-                this.scene.rotate(this.currentTransformation.rotation[i], ...Transformation.selectAxis[i]);
+        if (this.currentTransformation) {
+            this.scene.scale(...this.currentTransformation.scale);
+            this.scene.translate(...this.currentTransformation.translation);
+            for (var i = 0; i < 3; ++i) {
+                if (this.currentTransformation.rotation[i] != 0) {
+                    this.scene.rotate(this.currentTransformation.rotation[i], ...Transformation.selectAxis[i]);
+                }
             }
         }
     }

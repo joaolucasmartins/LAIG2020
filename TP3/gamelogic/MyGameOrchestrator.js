@@ -1,7 +1,7 @@
 const BOARD_SIZE = 3;
 const AI_DELAY = 1000; // In ms
-const FILENAMES = ["demo.xml", "demo2.xml", "demo.xml"];
-const INITIAL_THEME = 0;
+const FILENAMES = ["demo.xml", "demo2.xml", "pirata.xml"];
+const INITIAL_THEME = 2;
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
@@ -106,7 +106,7 @@ class MyGameOrchestrator {
         let movePromise = this.prolog.validMoves(this.board, this.gameState, coordToString(coords));
         movePromise.then((response) => {
             let coordList = eval(response.target.response);
-            let pieceList = coordList.map((coord) => {return this.board.getPieceAt(coord[0], coord[1])});
+            let pieceList = coordList.map((coord) => { return this.board.getPieceAt(coord[0], coord[1]) });
             this.selectPiece.possiblePieces = this.board.selectPieces(pieceList);
         });
     }
@@ -179,10 +179,9 @@ class MyGameOrchestrator {
         this.animator.reset();
         this.animator.start();
     }
-
     makeAIMove() {
         this.gameState.setToTimeout();
-        let undoTimeout = new Promise((resolve) => {setTimeout(resolve, AI_DELAY);});
+        let undoTimeout = new Promise((resolve) => { setTimeout(resolve, AI_DELAY); });
         undoTimeout.then(() => {
             // Undo can be made in timeout and turn is no longer AI
             if (!this.gameState.isAITurn())
@@ -244,7 +243,6 @@ class MyGameOrchestrator {
     }
 
     updateCamera() {
-        console.log("Here");
         this.scene.updateCamera();
     }
 
@@ -263,6 +261,7 @@ class MyGameOrchestrator {
         if (this.scoreboard.update(time) != null) {
             //TODO: skip turn
         };
+        this.theme.update(time); // For theme animations
     }
 
     orchestrate() {
