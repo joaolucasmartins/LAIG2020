@@ -201,7 +201,7 @@
         <translation x="0" y="1.2" z="0"/>
       </transformations>
       <descendants>
-        <noderef id="scoreBoard"/>
+        <noderef id="scoreDisplay"/>
         <noderef id="menuPanel"/>
         <noderef id="hull"/>
         <noderef id="wheel"/>
@@ -1662,7 +1662,7 @@
         <noderef id="gameBoardSupport"/>
       </descendants>
     </node>
-    <node id="scoreBoard">
+    <node id="scoreDisplay">
       <material id="demoMaterial"/>
       <texture id="greyBackground">
       </texture>
@@ -1670,7 +1670,7 @@
         <translation x="2" y="2" z="-1"/>
       </transformations>
       <descendants>
-        <leaf type="scoreboard" x1="0" y1="0" x2="2" y2="1"/>
+        <leaf type="scoreboard" x1="-1.1" y1="-0.5" x2="1.1" y2="0.5"/>
       </descendants>
     </node>
     <node id="menuPanel">

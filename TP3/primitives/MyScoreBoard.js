@@ -22,8 +22,8 @@ class MyScoreBoard extends CGFobject {
         this.winnerDisplay = new MySpriteText(scene, "Black Pieces win");
 
         this.currentPlayer = 0;
-        this.statusPlayer1 = new MyStatusDisplayer(scene, 0.5, 0.8, true);
-        this.statusPlayer2 = new MyStatusDisplayer(scene, 1.5, 0.8, false);
+        this.statusPlayer1 = new MyStatusDisplayer(scene, -0.6, 0.3, true);
+        this.statusPlayer2 = new MyStatusDisplayer(scene, 0.6, 0.3, false);
 
         this.timer = new MyTimer(scene, 10);
         this.gameEnded = false;
@@ -90,42 +90,41 @@ class MyScoreBoard extends CGFobject {
 
         //black player -----
         this.scene.pushMatrix();
-        this.scene.translate(0.6, 0.3, 0.01);
+        this.scene.translate(-0.5, -0.3, 0.01);
         this.scene.scale(0.5, 0.5, 0.5);
         this.blackScore.display();
         //description
-        this.scene.translate(0.35, 0.55, 0);
-        this.scene.scale(0.2, 0.2, 1);
+        this.scene.translate(0.65, 0.55, 0);
+        this.scene.scale(0.3, 0.3, 1);
         this.blackDesc.display();
         this.scene.popMatrix();
 
         //white player -----
         this.scene.pushMatrix();
-        this.scene.translate(1.5, 0.3, 0.01);
+        this.scene.translate(0.6, -0.3, 0.01);
         this.scene.scale(0.5, 0.5, 0.5);
         this.whiteScore.display();
         //description
-        this.scene.translate(0.55, 0.55, 0);
-        this.scene.scale(0.2, 0.2, 1);
+        this.scene.translate(0.75, 0.55, 0);
+        this.scene.scale(0.3, 0.3, 1);
         this.whiteDesc.display();
         this.scene.popMatrix();
 
         if (!this.gameEnded) {
-            
             this.statusPlayer1.display();
             this.statusPlayer2.display();
 
             //timer
             this.scene.pushMatrix();
-            this.scene.translate(1.1, 0.8, 0.01);
+            this.scene.translate(0.15, 0.3, 0.01);
             this.scene.scale(0.5, 0.5, 1);
             this.timer.display();
             this.scene.popMatrix();
         }
         else {
             this.scene.pushMatrix();
-            this.scene.translate(1.7, 0.8, 0.01);
-            this.scene.scale(0.2, 0.2, 1);
+            this.scene.translate(0.9, 0.3, 0.01);
+            this.scene.scale(0.25, 0.25, 1);
             this.winnerDisplay.display();
             this.scene.popMatrix();
         }

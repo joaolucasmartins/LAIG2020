@@ -117,7 +117,7 @@ class MySceneGraph {
             return error;
         if ((error = this.addGameObject("menuPanel")) != null)
             return error;
-        if ((error = this.addGameObject("scoreBoard")) != null)
+        if ((error = this.addGameObject("scoreDisplay")) != null)
             return error;
         if ((error = this.addGameObject("gameBoard")) != null)
             return error;
