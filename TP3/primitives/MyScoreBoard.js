@@ -94,8 +94,8 @@ class MyScoreBoard extends CGFobject {
         this.scene.scale(0.5, 0.5, 0.5);
         this.blackScore.display();
         //description
-        this.scene.translate(0.35, 0.55, 0);
-        this.scene.scale(0.2, 0.2, 1);
+        this.scene.translate(0.65, 0.55, 0);
+        this.scene.scale(0.3, 0.3, 1);
         this.blackDesc.display();
         this.scene.popMatrix();
 
@@ -105,13 +105,12 @@ class MyScoreBoard extends CGFobject {
         this.scene.scale(0.5, 0.5, 0.5);
         this.whiteScore.display();
         //description
-        this.scene.translate(0.55, 0.55, 0);
-        this.scene.scale(0.2, 0.2, 1);
+        this.scene.translate(0.75, 0.55, 0);
+        this.scene.scale(0.3, 0.3, 1);
         this.whiteDesc.display();
         this.scene.popMatrix();
 
         if (!this.gameEnded) {
-            
             this.statusPlayer1.display();
             this.statusPlayer2.display();
 
@@ -124,8 +123,8 @@ class MyScoreBoard extends CGFobject {
         }
         else {
             this.scene.pushMatrix();
-            this.scene.translate(1.7, 0.8, 0.01);
-            this.scene.scale(0.2, 0.2, 1);
+            this.scene.translate(0.9, 0.3, 0.01);
+            this.scene.scale(0.25, 0.25, 1);
             this.winnerDisplay.display();
             this.scene.popMatrix();
         }
