@@ -68,7 +68,7 @@ class MyGameOrchestrator {
 
     onGraphLoaded() { // Called by scene when XML is parsed
         let menuPanel = this.theme.gameObjects["menuPanel"];
-        let scoreboard = this.theme.gameObjects["scoreBoard"];
+        let scoreboard = this.theme.gameObjects["scoreDisplay"];
 
         this.menu = menuPanel.primitives[0];
         this.menu.updateSeletion(THEME_SEL_INDEX, this.currentTheme + 1);

@@ -121,7 +121,7 @@ class MySceneGraph {
         this.addGameObject("menuPanel", menuPlaceholder);
         // this.addGameObject("sizeCounter", tilePlaceholder); //TODO: create a counter primitive?
         // this.addGameObject("timeCounter", tilePlaceholder);
-        this.addGameObject("scoreBoard", menuPlaceholder);
+        this.addGameObject("scoreDisplay", menuPlaceholder);
 
         delete this.nodes; // No need reference to nodes anymore
         return null;
