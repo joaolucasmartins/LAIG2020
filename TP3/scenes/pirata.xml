@@ -10,12 +10,12 @@
   <views default="camera0">
     <!-- at least one of the following type of cameras must be declared -->
     <perspective id="camera0" near="0.1" far="500" angle="1">
-      <from x="10" y="15" z="10"/>
-      <to x="0" y="0" z="0"/>
+      <from x="0" y="15" z="20"/>
+      <to x="0" y="2" z="10"/>
     </perspective>
     <perspective id="camera2" near="0.1" far="500" angle="1">
-      <from x="10" y="25" z="10"/>
-      <to x="0" y="0" z="0"/>
+      <from x="15" y="4" z="2"/>
+      <to x="0" y="3" z="2"/>
     </perspective>
     <perspective id="camera1" near="0.1" far="500" angle="1">
       <from x="20" y="25" z="20"/>
@@ -198,6 +198,7 @@
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <transformations>
+        <scale sx="3.5" sy="3.5" sz="3.5"/>
         <translation x="0" y="1.2" z="0"/>
       </transformations>
       <descendants>
@@ -1637,13 +1638,12 @@
       </descendants>
     </node>
     <!-- Gameboard must have its object defined here. All tiles are placed with length 3x3 in xOz -->
-    <node id="gameBoardSupport">
+    <node id="gameTrayBoard">
       <material id="null"/>
       <texture id="woodText">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <transformations>
-        <translation x="1.0" y="0.0" z="1.0"/>
         <rotation axis="y" angle="45"/>
         <rotation axis="x" angle="-90"/>
       </transformations>
@@ -1651,15 +1651,54 @@
         <leaf type="torus" inner="0.2" outer="2.1213" slices="10" loops="4"/>
       </descendants>
     </node>
+    <node id="gameTrayBase">
+      <material id="null"/>
+      <texture id="woodText">
+        <amplification afs="1.0" aft="1.0"/>
+      </texture>
+      <transformations>
+        <translation x="-1.5" y="-0.1" z="-1.5"/>
+        <rotation axis="x" angle="90"/>
+        <scale sx="3.0" sy="3.0" sz="3.0"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1"/>
+      </descendants>
+    </node>
+    <node id="gameTray">
+      <material id="null"/>
+      <texture id="woodText">
+      </texture>
+      <transformations>
+      </transformations>
+      <descendants>
+        <noderef id="gameTrayBoard"/>
+        <noderef id="gameTrayBase"/>
+      </descendants>
+    </node>
+    <node id="gameBoardSupport">
+      <material id="null"/>
+      <texture id="woodText">
+        <amplification afs="1.0" aft="1.0"/>
+      </texture>
+      <transformations>
+        <translation x="0.0" y="-1.02" z="0.0"/>
+        <scale sx="0.35" sy="2.0" sz="0.35"/>
+      </transformations>
+      <descendants>
+        <noderef id="cube"/>
+      </descendants>
+    </node>
     <node id="gameBoard">
       <material id="null"/>
       <texture id="null">
       </texture>
       <transformations>
-        <translation x="0.0" y="4.0" z="1.0"/>
+        <translation x="0.0" y="8.0" z="15.0"/>
       </transformations>
       <descendants>
         <noderef id="gameBoardSupport"/>
+        <noderef id="gameTray"/>
       </descendants>
     </node>
     <node id="scoreDisplay">
@@ -1667,7 +1706,8 @@
       <texture id="greyBackground">
       </texture>
       <transformations>
-        <translation x="2" y="2" z="-1"/>
+        <translation x="0" y="0.501" z="2.75"/>
+        <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
         <leaf type="scoreboard" x1="-1.1" y1="-0.5" x2="1.1" y2="0.5"/>
@@ -1678,7 +1718,9 @@
       <texture id="greyBackground">
       </texture>
       <transformations>
-        <translation x="-1" y="2" z="-1"/>
+        <translation x="1.76" y="-0.5" z="1"/>
+        <scale sx="0.0" sy="0.5" sz="0.5"/>
+        <rotation axis="y" angle="90"/>
       </transformations>
       <descendants>
         <leaf type="menu" x1="0" y1="0" x2="2" y2="1.3"/>
