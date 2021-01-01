@@ -1,7 +1,7 @@
 const BOARD_SIZE = 3;
 const AI_DELAY = 1000; // In ms
 const FILENAMES = ["demo.xml", "demo2.xml", "pirata.xml"];
-const INITIAL_THEME = 2;
+const INITIAL_THEME = 0;
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
