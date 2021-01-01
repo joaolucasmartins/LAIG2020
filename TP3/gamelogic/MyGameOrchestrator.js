@@ -1,6 +1,6 @@
 const BOARD_SIZE = 3;
 const AI_DELAY = 1000; // In ms
-const FILENAMES = ["demo.xml", "demo2.xml", "pirata.xml"];
+const FILENAMES = ["pirata.xml", "demo2.xml", "northpole.xml"];
 const INITIAL_THEME = 2;
 class MyGameOrchestrator {
     constructor(scene) {

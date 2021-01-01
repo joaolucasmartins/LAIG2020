@@ -202,7 +202,7 @@
         <translation x="0" y="1.2" z="0"/>
       </transformations>
       <descendants>
-        <noderef id="scoreDisplay"/>
+        <noderef id="scoreSupport"/>
         <noderef id="menuPanel"/>
         <noderef id="hull"/>
         <noderef id="wheel"/>
@@ -1701,25 +1701,86 @@
         <noderef id="gameTray"/>
       </descendants>
     </node>
+    <!--SCORE SUPPORT-->
+    <node id="scoreSupport">
+      <material id="null"/>
+      <texture id="woodText">
+      </texture>
+      <transformations>
+        <translation x="0" y="1.0" z="2.75"/>
+      </transformations>
+      <descendants>
+        <noderef id="frontFace"/>
+        <noderef id="rightFace"/>
+        <noderef id="leftFace"/>
+        <noderef id="backFace"/>
+      </descendants>
+    </node>
+    <node id="frontFace">
+      <material id="null"/>
+      <texture id="null">
+      </texture>
+      <transformations>
+        <rotation axis="x" angle="-20"/>
+      </transformations>
+      <descendants>
+        <noderef id="scoreDisplay"/>
+        <leaf type="rectangle" x1="-1.2" y1="-0.7" x2="1.2" y2="0.7"/>
+      </descendants>
+    </node>
+    <node id="rightFace">
+      <material id="null"/>
+      <texture id="null">
+      </texture>
+      <transformations>
+        <rotation axis="y" angle="90"/>
+        <translation x="0.2394" y="-0.65" z="1.2"/>
+      </transformations>
+      <descendants>
+        <leaf type="triangle" x1="-0.4788" y1="0" x2="0.4788" y2="0" x3="0" y3="1.31"/>
+      </descendants>
+    </node>
+    <node id="leftFace">
+      <material id="null"/>
+      <texture id="null"/>
+      <transformations>
+        <rotation axis="y" angle="-90"/>
+        <translation x="-0.2394" y="-0.65" z="1.2"/>
+      </transformations>
+      <descendants>
+        <leaf type="triangle" x1="-0.4788" y1="0" x2="0.4788" y2="0" x3="0" y3="1.31"/>
+      </descendants>
+    </node>
+    <node id="backFace">
+      <material id="null"/>
+      <texture id="null">
+      </texture>
+      <transformations>
+        <rotation axis="y" angle="180"/>
+        <translation x="0" y="0" z="0.4788"/>
+        <rotation axis="x" angle="-20"/>
+      </transformations>
+      <descendants>
+        <leaf type="rectangle" x1="-1.2" y1="-0.7" x2="1.2" y2="0.7"/>
+      </descendants>
+    </node>
     <node id="scoreDisplay">
-      <material id="demoMaterial"/>
+      <material id="menu"/>
       <texture id="greyBackground">
       </texture>
       <transformations>
-        <translation x="0" y="0.501" z="2.75"/>
-        <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
         <leaf type="scoreboard" x1="-1.1" y1="-0.5" x2="1.1" y2="0.5"/>
       </descendants>
     </node>
     <node id="menuPanel">
-      <material id="demoMaterial"/>
+      <material id="menu"/>
       <texture id="greyBackground">
       </texture>
       <transformations>
         <translation x="1.76" y="-0.5" z="1"/>
-        <scale sx="0.0" sy="0.5" sz="0.5"/>
+        <scale sx="1.0" sy="0.5" sz="0.5"/>
         <rotation axis="y" angle="90"/>
       </transformations>
       <descendants>
