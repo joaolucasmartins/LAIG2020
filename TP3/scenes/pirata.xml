@@ -7,13 +7,13 @@
     <!-- identifier of root node of the scene graph; this node -->
     <!-- must be defined in one of the following NODE declarations -->
   </initials>
-  <views default="camera0">
+  <views default="menuCamera">
     <!-- at least one of the following type of cameras must be declared -->
-    <perspective id="camera0" near="0.1" far="500" angle="1">
+    <perspective id="boardCamera" near="0.1" far="500" angle="1">
       <from x="0" y="15" z="20"/>
       <to x="0" y="2" z="10"/>
     </perspective>
-    <perspective id="camera2" near="0.1" far="500" angle="1">
+    <perspective id="menuCamera" near="0.1" far="500" angle="1">
       <from x="15" y="4" z="2"/>
       <to x="0" y="3" z="2"/>
     </perspective>

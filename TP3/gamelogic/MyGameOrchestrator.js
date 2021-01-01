@@ -34,7 +34,10 @@ class MyGameOrchestrator {
     }
 
     cameraDo() {
-        this.animator.addCameraAnimation(this.scene.cameras["defaultCamera"], this.scene.cameras["defaultCamera2"]);
+        let selectedCamera = this.scene.getSelectedCamera();
+        let destCameraId;
+        selectedCamera.id == "boardCamera" ? destCameraId = "menuCamera" : destCameraId = "boardCamera"
+        this.animator.addCameraAnimation(selectedCamera, this.scene.cameras[destCameraId]);
     }
 
     applyChanges() {
@@ -106,7 +109,7 @@ class MyGameOrchestrator {
         let movePromise = this.prolog.validMoves(this.board, this.gameState, coordToString(coords));
         movePromise.then((response) => {
             let coordList = eval(response.target.response);
-            let pieceList = coordList.map((coord) => { return this.board.getPieceAt(coord[0], coord[1]) });
+            let pieceList = coordList.map((coord) => {return this.board.getPieceAt(coord[0], coord[1])});
             this.selectPiece.possiblePieces = this.board.selectPieces(pieceList);
         });
     }
@@ -181,7 +184,7 @@ class MyGameOrchestrator {
     }
     makeAIMove() {
         this.gameState.setToTimeout();
-        let undoTimeout = new Promise((resolve) => { setTimeout(resolve, AI_DELAY); });
+        let undoTimeout = new Promise((resolve) => {setTimeout(resolve, AI_DELAY);});
         undoTimeout.then(() => {
             // Undo can be made in timeout and turn is no longer AI
             if (!this.gameState.isAITurn())

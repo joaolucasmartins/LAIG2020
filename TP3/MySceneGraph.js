@@ -413,7 +413,7 @@ class MySceneGraph {
         } else
             return "Invalid camera type " + cameraNode.nodeName + postWarningMsg;
 
-        let camera = new MyCamera(cgfCamera);
+        let camera = new MyCamera(id, cgfCamera);
         cameras[id] = camera;
         return null;
     }
