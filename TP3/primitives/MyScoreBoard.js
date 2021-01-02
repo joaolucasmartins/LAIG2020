@@ -59,18 +59,18 @@ class MyScoreBoard extends CGFobject {
     switchPlayer() {
 
         if (this.currentPlayer == 0) {
-         this.statusPlayer1.turnOf()
-         this.statusPlayer2.turnOn();
-         this.currentPlayer = 1;
+            this.statusPlayer1.turnOf()
+            this.statusPlayer2.turnOn();
+            this.currentPlayer = 1;
         }
         else {
             this.statusPlayer1.turnOn();
             this.statusPlayer2.turnOf();
-            this.currentPlayer = 0; 
+            this.currentPlayer = 0;
         }
 
     }
-  
+
 	/**
 	 * @method updateTexCoords
 	 * Updates the list of texture coordinates of the rectangle
@@ -87,9 +87,9 @@ class MyScoreBoard extends CGFobject {
     display() {
 
         this.obj.display();
-        
+
         this.menuBtn.display();
-      
+
 
         //black player -----
         this.scene.pushMatrix();

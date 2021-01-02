@@ -45,7 +45,7 @@ class MyInterface extends CGFinterface {
 
     initMenuInterface() {
         this.gui.add(this.scene.orchestrator, 'startGame').name('Start Game');
-        this.gui.add(this.scene.orchestrator, 'cameraDo').name('Camera do');
+        this.gui.add(this.scene.orchestrator, 'switchCamera').name('Camera do');
     }
 
     /**
