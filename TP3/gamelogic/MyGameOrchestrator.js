@@ -75,6 +75,7 @@ class MyGameOrchestrator {
 
         this.menu = menuPanel.primitives[0];
         this.menu.updateSeletion(THEME_SEL_INDEX, this.currentTheme + 1);
+        console.log(this.menu);
         this.scoreboard = scoreboard.primitives[0];
     }
 
