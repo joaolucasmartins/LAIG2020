@@ -30,10 +30,17 @@ class MyGameOrchestrator {
         if (this.gameState.canSpawnBoard()) {
             this.gameState.reset(); // set current player to 0
             this.generateBoard(); //get board from prolog server with the size selected in menu
+            this.switchCamera();
         }
     }
 
-    cameraDo() {
+    cameraFinished() {
+        this.scoreboard.startCount();
+        this.gameState.setToIdle();
+    }
+
+    switchCamera() {
+        this.gameState.setToCameraMoving();
         let selectedCamera = this.scene.getSelectedCamera();
         let destCameraId;
         selectedCamera.id == "boardCamera" ? destCameraId = "menuCamera" : destCameraId = "boardCamera"
@@ -63,7 +70,6 @@ class MyGameOrchestrator {
             let initial_board = eval(response.target.response);
             this.board = new MyGameBoard(this.scene, gameBoard, initial_board,
                 whiteTileCreator, blackTileCreator, whitePieceCreator, blackPieceCreator);
-            this.scoreboard.startCount();
             this.updateGameScore();
             this.gameState.setToSpawnBoard();
         });
@@ -273,9 +279,11 @@ class MyGameOrchestrator {
 
     update(time) {
         this.animator.update(time);
-        if (this.scoreboard.update(time) != null) {
-            //TODO: skip turn
-        };
+        if (this.gameState.canIncreaseTime()) {
+            if (this.scoreboard.update(time) != null) {
+                //TODO: skip turn
+            };
+        }
         this.theme.update(time); // For theme animations
     }
 

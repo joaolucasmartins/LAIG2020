@@ -1,12 +1,13 @@
 const state = {
     STARTED: 0,
     SPAWN_BOARD: 1,
-    MOVING: 2,
-    ANIMATING: 3,
-    IDLE: 4,
-    WAITING_FOR_TIMEOUT: 5,
-    GAME_OVER: 6,
-    END: 7,
+    CAMERA_MOVING: 2,
+    MOVING: 3,
+    ANIMATING: 4,
+    IDLE: 5,
+    WAITING_FOR_TIMEOUT: 6,
+    GAME_OVER: 7,
+    END: 8,
 }
 class MyGameState {
     constructor(firstPlayer, secondPlayer) {
@@ -40,6 +41,7 @@ class MyGameState {
         this.currentPlayer = (this.currentPlayer + 1) % 2;
     }
 
+    setToCameraMoving() {this.state = state.CAMERA_MOVING}
     setToMoving() {this.state = state.MOVING;}
     setToAnimating() {this.state = state.ANIMATING;}
     setToIdle() {this.state = state.IDLE;}
@@ -76,6 +78,10 @@ class MyGameState {
     canSelect() {
         console.log(this.state);
         return (this.state == state.IDLE || this.state == state.SPAWN_BOARD) && this.isPlayerTurn() && !this.isReplaying();
+    }
+
+    canIncreaseTime() {
+        return this.state == state.IDLE && this.isPlayerTurn();
     }
 
     gameHasEnded() {

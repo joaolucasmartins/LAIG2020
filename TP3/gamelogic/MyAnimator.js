@@ -99,6 +99,7 @@ class MyAnimator {
             if (this.cameraAnimation.hasEnded) {
                 this.cameraAnimation = null;
                 this.isAnimatingCameras = false;
+                this.orchestrator.cameraFinished();
             }
         }
     }
