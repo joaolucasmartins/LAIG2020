@@ -36,8 +36,7 @@ class MyTile extends CGFobject {
         this.scene.pushMatrix();
         this.scene.multMatrix(this.mat);
 
-        if (this.piece)
-            this.piece.display();
+        this.piece.display();
 
         this.obj.display();
         this.scene.popMatrix();
