@@ -759,8 +759,6 @@
              descendants may be mixed, nodes and leafs -->
       <descendants>
         <noderef id="skybox"/>
-        <noderef id="scoreSupport"/>
-        <noderef id="menuPanel"/>
         <noderef id="table"/>
         <noderef id="stool1"/>
         <noderef id="stool2"/>
@@ -768,6 +766,8 @@
         <noderef id="rightSpeakers"/>
         <noderef id="leftSpeakers"/>
         <noderef id="poster"/>
+         <noderef id="scoreSupport"/>
+        <noderef id="menuPanel"/>
       </descendants>
     </node>
   </nodes>

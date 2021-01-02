@@ -120,6 +120,8 @@ class MyGameOrchestrator {
             this.selectPiece(obj);
         }
         else if (obj instanceof MyButton) {
+            console.log("id " + id);
+            console.log(obj);
             this.selectButton(obj);
         }
 
