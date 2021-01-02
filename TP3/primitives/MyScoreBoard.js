@@ -25,7 +25,9 @@ class MyScoreBoard extends CGFobject {
         this.statusPlayer1 = new MyStatusDisplayer(scene, -0.6, 0.3, true);
         this.statusPlayer2 = new MyStatusDisplayer(scene, 0.6, 0.3, false);
 
-        this.menuBtn = new MyActionButton(this.scene, 5, 0.75, 0.45, 1.15, 0.65, 0.4, 0.2, false, 'travelBtn2.jpg')
+        this.menuBtn = new MyActionButton(this.scene, 5, 0.75, 0.45, 1.15, 0.65, 0.4, 0.2, false, 'travelBtn2.jpg');
+        this.undoBtn = new MyActionButton(this.scene, 3, -1.1, 0.45, -0.7, 0.65, 0.4, 0.2, false, 'undoBtn.jpg');
+
 
         this.timer = new MyTimer(scene, 10);
         this.gameEnded = false;
@@ -89,8 +91,7 @@ class MyScoreBoard extends CGFobject {
         this.obj.display();
         
         this.menuBtn.display();
-      
-
+    
         //black player -----
         this.scene.pushMatrix();
         this.scene.translate(-0.5, -0.3, 0.01);
@@ -114,6 +115,7 @@ class MyScoreBoard extends CGFobject {
         this.scene.popMatrix();
 
         if (!this.gameEnded) {
+            this.undoBtn.display();
             this.statusPlayer1.display();
             this.statusPlayer2.display();
 

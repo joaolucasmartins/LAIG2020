@@ -33,7 +33,6 @@ class MyMenuPanel extends CGFobject {
     createButtons() {
         let startBtn = new MyActionButton(this.scene, 1, 1.4, 0.1, 1.9, 0.3, 0.5, 0.2, false, 'startBtn.jpg');
         let applyBtn = new MyActionButton(this.scene, 2, 0.1, 0.1, 0.6, 0.3, 0.5, 0.2, false, 'applyBtn.jpg');
-        let undoBtn = new MyActionButton(this.scene, 3, 0.75, 0.1, 1.25, 0.3, 0.5, 0.2, false, 'undoBtn.jpg');
         let cameraBtn = new MyActionButton(this.scene, 4, 1.6, 1, 2, 1.2, 0.4, 0.2, false, 'travelBtn.jpg');
 
         let themeBtn1 = new MyThemeButton(this.scene, 1, 0.1, 0.4, 0.5, 0.6, 0.4, 0.2, false, 'themeBtn1.jpg');
@@ -50,7 +49,6 @@ class MyMenuPanel extends CGFobject {
 
         this.buttons.push(startBtn);
         this.buttons.push(applyBtn);
-        this.buttons.push(undoBtn);
         this.buttons.push(cameraBtn);
 
         this.buttons.push(themeBtn1);
