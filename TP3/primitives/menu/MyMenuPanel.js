@@ -42,8 +42,8 @@ class MyMenuPanel extends CGFobject {
         let themeBtn3 = new MyThemeButton(this.scene, 3, 1.1, 0.4, 1.5, 0.6, 0.4, 0.2, false, 'themeBtn3.jpg');
 
         //level buttons
-        let lvlBtn1 = new MyLevelButton(this.scene, 1, 0.1, 0.7, 0.5, 0.9, 0.4, 0.2, true, 'lvlBtn1.jpg');
-        let lvlBtn2 = new MyLevelButton(this.scene, 2, 0.6, 0.7, 1, 0.9, 0.4, 0.2, false, 'lvlBtn2.jpg');
+        let lvlBtn1 = new MyLevelButton(this.scene, 1, 0.35, 0.7, 0.75, 0.9, 0.4, 0.2, true, 'lvlBtn1.jpg');
+        let lvlBtn2 = new MyLevelButton(this.scene, 2, 0.85, 0.7, 1.25, 0.9, 0.4, 0.2, false, 'lvlBtn2.jpg');
 
         //moed buttons
         let modeBtn1 = new MyModeButton(this.scene, 1, 0.1, 1, 0.5, 1.2, 0.4, 0.2, true, 'modeBtn1.jpg');
