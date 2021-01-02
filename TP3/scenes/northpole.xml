@@ -59,7 +59,6 @@
     <texture id="whiteMarble" path="./scenes/images/whiteMarble.jpg"/>
     <texture id="blackMarble" path="./scenes/images/blackMarble.jpg"/>
     <texture id="greyBackground" path="./scenes/images/greyBackground.jpg"/>
-    <texture id="plainTexture" path=".scenes/images/plainTexture.jpg"/>
     <texture id="copperText" path="./scenes/images/northpole/copper.jpg"/>
     <texture id="candyText" path="./scenes/images/northpole/candy.jpg"/>
   </textures>
@@ -237,7 +236,7 @@
     <!--GAMEBOARD-->
     <node id="gameTrayBoard">
       <material id="null"/>
-      <texture id="woodText">
+      <texture id="null">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <transformations>
@@ -250,7 +249,7 @@
     </node>
     <node id="gameTrayBase">
       <material id="null"/>
-      <texture id="woodText">
+      <texture id="null">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <transformations>
@@ -264,7 +263,7 @@
     </node>
     <node id="gameTray">
       <material id="null"/>
-      <texture id="woodText">
+      <texture id="null">
       </texture>
       <transformations>
       </transformations>
@@ -275,7 +274,7 @@
     </node>
     <node id="gameBoardSupport1">
       <material id="null"/>
-      <texture id="woodText">
+      <texture id="null">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <transformations>
@@ -288,7 +287,7 @@
     </node>
     <node id="gameBoardSupport2">
       <material id="null"/>
-      <texture id="woodText">
+      <texture id="null">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <transformations>
@@ -301,7 +300,7 @@
     </node>
     <node id="gameBoardSupport3">
       <material id="null"/>
-      <texture id="woodText">
+      <texture id="null">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <transformations>
@@ -314,7 +313,7 @@
     </node>
     <node id="gameBoardSupport4">
       <material id="null"/>
-      <texture id="woodText">
+      <texture id="null">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
       <transformations>
@@ -356,7 +355,7 @@
     <!-- SCORE BOARD /////////////////////////-->
     <node id="scoreDisplay">
       <material id="demoMaterial"/>
-      <texture id="demoTexture"/>
+      <texture id="greyBackground"/>
       <transformations>
         <translation x="0" y="0" z="0.01"/>
       </transformations>
@@ -443,7 +442,7 @@
       </descendants>
     </node>
     <node id="bottom">
-      <material id="seaMaterial"/>
+      <material id="demoMaterial"/>
       <texture id="bottomSkyBox">
       </texture>
       <transformations>
@@ -923,7 +922,7 @@
         <noderef id="gameBoardBall"/>
         <noderef id="snowMan"/>
         <noderef id="pole"/>
-        <noderef id="table"/>
+        <!-- <noderef id="table"/> -->
       </descendants>
     </node>
   </nodes>

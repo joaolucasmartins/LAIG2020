@@ -139,7 +139,7 @@ class MyGameOrchestrator {
         let selected = obj.handlePick();
 
         if (selected != null)
-            this.changeSelection(...selected);
+            this.menu.changeSelection(...selected);
     }
 
     updateGameScore() {

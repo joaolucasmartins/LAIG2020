@@ -50,13 +50,6 @@
     <texture id="whiteMarble" path="./scenes/images/whiteMarble.jpg"/>
     <texture id="blackMarble" path="./scenes/images/blackMarble.jpg"/>
     <texture id="greyBackground" path="./scenes/images/greyBackground.jpg"/>
-    <texture id="plainTexture" path=".scenes/images/plainTexture.jpg"/>
-    <texture id="frontText" path="scenes/images/disco/front.jpg"/>
-    <texture id="posFrontText" path="scenes/images/disco/posFront.jpg"/>
-    <texture id="rightText" path="scenes/images/disco/right.jpg"/>
-    <texture id="leftText" path="scenes/images/disco/left.jpg"/>
-    <texture id="topText" path="scenes/images/disco/top.jpg"/>
-    <texture id="bottomText" path="scenes/images/disco/bottom.jpg"/>
     <texture id="woodTexture" path="scenes/images/disco/plainWood.jpg"/>
     <texture id="wallPaper" path="scenes/images/disco/wall.jpg"/>
     <texture id="floor" path="scenes/images/disco/floor.jpg"/>
