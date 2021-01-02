@@ -33,16 +33,16 @@ class MyGameBoard extends CGFobject {
 
                 let isBlack = value === 1;
                 if (isBlack) {
-                    tile = new MyTile(this.scene, blackTileCreator.create(), this, null, i, j);
-                    piece = new MyPiece(this.scene, blackPieceCreator.create(), tile, isBlack);
+                    piece = new MyPiece(this.scene, blackPieceCreator.create(), null, isBlack);
+                    tile = new MyTile(this.scene, blackTileCreator.create(), this, piece, i, j);
                 }
                 else {
-                    tile = new MyTile(this.scene, whiteTileCreator.create(), this, null, i, j);
-                    piece = new MyPiece(this.scene, whitePieceCreator.create(), tile, isBlack);
+                    piece = new MyPiece(this.scene, whitePieceCreator.create(), null, isBlack);
+                    tile = new MyTile(this.scene, whiteTileCreator.create(), this, piece, i, j);
                 }
 
                 this.board.addDescendant(tile);
-                tile.setPiece(piece);
+                piece.setTile(tile);
                 tileRes.push(tile);
                 piecesRes.push(piece);
             }
@@ -56,13 +56,13 @@ class MyGameBoard extends CGFobject {
         console.log(this.obj);
     }
 
-    getTileAt(col, line) {return this.tiles[line][col]}
-    getPieceAt(col, line) {return this.getTileAt(col, line).getPiece()};
+    getTileAt(col, line) { return this.tiles[line][col] }
+    getPieceAt(col, line) { return this.getTileAt(col, line).getPiece() };
 
-    addPiece(piece, tile) {tile.setPiece(piece);}
-    removePiece(tile) {tile.setPiece(null);}
-    getPiece(tile) {return tile.getPiece();}
-    getTile(piece) {return piece.getTile();}
+    addPiece(piece, tile) { tile.setPiece(piece); }
+    removePiece(tile) { tile.setPiece(null); }
+    getPiece(tile) { return tile.getPiece(); }
+    getTile(piece) { return piece.getTile(); }
 
     reset() {
         for (let i = 0; i < this.pieces.length; ++i)

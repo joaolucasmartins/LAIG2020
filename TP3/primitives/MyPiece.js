@@ -12,6 +12,9 @@ class MyPiece extends CGFobject {
         this.obj = obj;
         this.isBlack = isBlack;
         this.selected = false;
+
+        this.selectedMat = mat4.create();
+        mat4.scale(this.selectedMat, this.selectedMat, [1.5, 1.5, 1.5]);
     }
 
     getTile() {return this.tile;}
@@ -26,12 +29,15 @@ class MyPiece extends CGFobject {
 
     display() {
         this.registerForPick();
-        //TODO Use matrices instead of scene.scale
-        if (this.selected)
-            this.scene.scale(1.5, 1.0, 1.5);
+        if (this.selected) {
+            this.scene.pushMatrix();
+            this.scene.multMatrix(this.selectedMat);
+        }
+
         this.obj.display();
+
         if (this.selected)
-            this.scene.scale(1.0 / 1.5, 1.0, 1.0 / 1.5);
+            this.scene.popMatrix();
     }
 
     toString() {
