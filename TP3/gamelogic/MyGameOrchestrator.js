@@ -1,7 +1,7 @@
 const BOARD_SIZE = 3;
 const AI_DELAY = 1000; // In ms
 const FILENAMES = ["pirata.xml", "disco.xml", "northpole.xml"];
-const INITIAL_THEME = 2;
+const INITIAL_THEME = 1;
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
@@ -95,6 +95,8 @@ class MyGameOrchestrator {
     }
 
     onObjectSelected(obj, id) {
+        console.log(id);
+
         if (obj instanceof MyPiece) {
             console.log("selected", obj.getTile().getCoords());
             this.selectPiece(obj);
@@ -136,6 +138,7 @@ class MyGameOrchestrator {
     }
 
     selectButton(obj) {
+
         let selected = obj.handlePick();
 
         //update selectable items

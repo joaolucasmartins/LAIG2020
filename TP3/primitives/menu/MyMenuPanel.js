@@ -1,6 +1,6 @@
-const THEME_INDEX = 2;
-const LEVEL_INDEX = 5;
-const MODE_INDEX = 8;
+const THEME_INDEX = 3;
+const LEVEL_INDEX = 6;
+const MODE_INDEX = 9;
 /**
  * MyRectangle
  * @constructor
@@ -17,8 +17,8 @@ class MyMenuPanel extends CGFobject {
         this.buttons = [];
         this.createButtons();
 
-        this.sizeCounter = new MyCounter(this.scene, 1, 3, 15);
-        this.timeoutCounter = new MyCounter(this.scene, 3, 10, 30);
+        this.sizeCounter = new MyCounter(this.scene, 1, 3, 15, 'Size');
+        this.timeoutCounter = new MyCounter(this.scene, 3, 10, 30, 'Timeout');
 
         // 0 - THEME | 1 - LEVEL | 2 - MODE
         this.selected = [1, 1, 1];
@@ -34,6 +34,7 @@ class MyMenuPanel extends CGFobject {
         let startBtn = new MyActionButton(this.scene, 1, 1.4, 0.1, 1.9, 0.3, 0.5, 0.2, false, 'startBtn.jpg');
         let applyBtn = new MyActionButton(this.scene, 2, 0.1, 0.1, 0.6, 0.3, 0.5, 0.2, false, 'applyBtn.jpg');
         let undoBtn = new MyActionButton(this.scene, 3, 0.75, 0.1, 1.25, 0.3, 0.5, 0.2, false, 'undoBtn.jpg');
+        let cameraBtn = new MyActionButton(this.scene, 4, 1.6, 1, 2, 1.2, 0.4, 0.2, false, 'travelBtn.jpg');
 
         let themeBtn1 = new MyThemeButton(this.scene, 1, 0.1, 0.4, 0.5, 0.6, 0.4, 0.2, false, 'themeBtn1.jpg');
         let themeBtn2 = new MyThemeButton(this.scene, 2, 0.6, 0.4, 1.0, 0.6, 0.4, 0.2, false, 'themeBtn2.jpg');
@@ -50,6 +51,7 @@ class MyMenuPanel extends CGFobject {
         this.buttons.push(startBtn);
         this.buttons.push(applyBtn);
         this.buttons.push(undoBtn);
+        this.buttons.push(cameraBtn);
 
         this.buttons.push(themeBtn1);
         this.buttons.push(themeBtn2);

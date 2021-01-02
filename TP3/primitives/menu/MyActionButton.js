@@ -6,12 +6,14 @@ class MyActionButton extends MyButton {
     }
 
     handlePick() {
-        if (this.id == 1)
+        if (this.id == 1) //start
             this.scene.orchestrator.startGame();
-        else if (this.id == 2)
+        else if (this.id == 2) //apply
             this.scene.orchestrator.applyChanges();
-        else if (this.id == 3)
+        else if (this.id == 3) //undo
             this.scene.orchestrator.undo();
+        else if (this.id == 4 || this.id == 5) //camera animation
+            this.scene.orchestrator.cameraDo();
     }
 
     registerForPick() {
