@@ -138,6 +138,7 @@ class MyGameOrchestrator {
     selectButton(obj) {
         let selected = obj.handlePick();
 
+        //update selectable items
         if (selected != null)
             this.menu.changeSelection(...selected);
     }
