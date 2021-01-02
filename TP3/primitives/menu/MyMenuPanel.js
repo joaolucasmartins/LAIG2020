@@ -1,6 +1,6 @@
-const THEME_INDEX = 3;
-const LEVEL_INDEX = 6;
-const MODE_INDEX = 9;
+const THEME_INDEX = 2;
+const LEVEL_INDEX = 5;
+const MODE_INDEX = 7;
 /**
  * MyRectangle
  * @constructor
@@ -31,18 +31,21 @@ class MyMenuPanel extends CGFobject {
     getTheme() {return this.selected[0]}
 
     createButtons() {
+        //action buttons
         let startBtn = new MyActionButton(this.scene, 1, 1.4, 0.1, 1.9, 0.3, 0.5, 0.2, false, 'startBtn.jpg');
         let applyBtn = new MyActionButton(this.scene, 2, 0.1, 0.1, 0.6, 0.3, 0.5, 0.2, false, 'applyBtn.jpg');
         let cameraBtn = new MyActionButton(this.scene, 4, 1.6, 1, 2, 1.2, 0.4, 0.2, false, 'travelBtn.jpg');
 
+        //theme buttons
         let themeBtn1 = new MyThemeButton(this.scene, 1, 0.1, 0.4, 0.5, 0.6, 0.4, 0.2, false, 'themeBtn1.jpg');
         let themeBtn2 = new MyThemeButton(this.scene, 2, 0.6, 0.4, 1.0, 0.6, 0.4, 0.2, false, 'themeBtn2.jpg');
         let themeBtn3 = new MyThemeButton(this.scene, 3, 1.1, 0.4, 1.5, 0.6, 0.4, 0.2, false, 'themeBtn3.jpg');
 
+        //level buttons
         let lvlBtn1 = new MyLevelButton(this.scene, 1, 0.1, 0.7, 0.5, 0.9, 0.4, 0.2, true, 'lvlBtn1.jpg');
         let lvlBtn2 = new MyLevelButton(this.scene, 2, 0.6, 0.7, 1, 0.9, 0.4, 0.2, false, 'lvlBtn2.jpg');
-        let lvlBtn3 = new MyLevelButton(this.scene, 3, 1.1, 0.7, 1.5, 0.9, 0.4, 0.2, false, 'lvlBtn3.jpg');
 
+        //moed buttons
         let modeBtn1 = new MyModeButton(this.scene, 1, 0.1, 1, 0.5, 1.2, 0.4, 0.2, true, 'modeBtn1.jpg');
         let modeBtn2 = new MyModeButton(this.scene, 2, 0.6, 1, 1, 1.2, 0.4, 0.2, false, 'modeBtn2.jpg');
         let modeBtn3 = new MyModeButton(this.scene, 3, 1.1, 1, 1.5, 1.2, 0.4, 0.2, false, 'modeBtn3.jpg');
@@ -57,7 +60,6 @@ class MyMenuPanel extends CGFobject {
 
         this.buttons.push(lvlBtn1);
         this.buttons.push(lvlBtn2);
-        this.buttons.push(lvlBtn3);
 
         this.buttons.push(modeBtn1);
         this.buttons.push(modeBtn2);
