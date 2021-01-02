@@ -36,6 +36,12 @@ class Node {
         this.descendants.push(descendants);
     }
 
+    removeDescendantById(id) {
+        for (let i = 0; i < this.descendants.length; ++i)
+            if (this.descendants[i].id = id)
+                this.descendants.splice(i, 1);
+    }
+
     addAnimation(animation) {
         this.animations.push(animation);
     }

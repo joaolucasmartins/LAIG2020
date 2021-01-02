@@ -61,7 +61,6 @@
     <texture id="poster2" path="scenes/images/disco/poster2.jpg"/>
     <texture id="ballTexture" path="scenes/images/disco/discoBall.jpg"/>
     <texture id="whiteTexture" path="scenes/images/disco/whiteText.jpg"/>
-
   </textures>
   <materials>
     <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
@@ -136,7 +135,7 @@
       </descendants>
     </node>
     <node id="gameBoard">
-     <material id="demoMaterial"/>
+      <material id="demoMaterial"/>
       <texture id="demoTexture">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
@@ -172,10 +171,9 @@
         <!-- <leaf type="torus" inner="0.2" outer="2.1213" slices="10" loops="10"/> -->
       </descendants>
     </node>
-
     <!-- TABLE ///////////////////////////////////-->
     <node id="table">
-     <material id="demoMaterial"/>
+      <material id="demoMaterial"/>
       <texture id="woodTexture">
         <amplification afs="1.0" aft="1.0"/>
       </texture>
@@ -197,7 +195,7 @@
         <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
-         <leaf type="cylinder" bottomRadius="3.5" topRadius="4" height="0.5" slices="30" stacks="30"/>
+        <leaf type="cylinder" bottomRadius="3.5" topRadius="4" height="0.5" slices="30" stacks="30"/>
       </descendants>
     </node>
     <node id="tableStand">
@@ -210,7 +208,7 @@
         <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
-         <leaf type="cylinder" bottomRadius="1" topRadius="1" height="5" slices="30" stacks="30"/>
+        <leaf type="cylinder" bottomRadius="1" topRadius="1" height="5" slices="30" stacks="30"/>
       </descendants>
     </node>
     <node id="tableBase">
@@ -222,10 +220,9 @@
         <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
-         <leaf type="cylinder" bottomRadius="1.5" topRadius="1.5" height="0.3" slices="30" stacks="30"/>
+        <leaf type="cylinder" bottomRadius="1.5" topRadius="1.5" height="0.3" slices="30" stacks="30"/>
       </descendants>
     </node>
-
     <node id="stool1">
       <material id="demoMaterial"/>
       <texture id="null"/>
@@ -233,7 +230,7 @@
         <translation x="0" y="0" z="3.5"/>
       </transformations>
       <descendants>
-         <noderef id="stool"/>
+        <noderef id="stool"/>
       </descendants>
     </node>
     <node id="stool2">
@@ -243,10 +240,9 @@
         <translation x="0" y="0" z="-3.5"/>
       </transformations>
       <descendants>
-         <noderef id="stool"/>
+        <noderef id="stool"/>
       </descendants>
     </node>
-
     <!-- STOOL /////////////////////////-->
     <node id="stool">
       <material id="demoMaterial"/>
@@ -275,10 +271,9 @@
         <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
-         <leaf type="cylinder" bottomRadius="1.5" topRadius="1.5" height="0.5" slices="30" stacks="30"/>
+        <leaf type="cylinder" bottomRadius="1.5" topRadius="1.5" height="0.5" slices="30" stacks="30"/>
       </descendants>
     </node>
-
     <node id="leftBackLeg">
       <material id="null"/>
       <texture id="null">
@@ -289,7 +284,7 @@
         <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
-         <leaf type="cylinder" bottomRadius="0.2" topRadius="0.2" height="3" slices="20" stacks="20"/>
+        <leaf type="cylinder" bottomRadius="0.2" topRadius="0.2" height="3" slices="20" stacks="20"/>
       </descendants>
     </node>
     <node id="leftFrontLeg">
@@ -302,7 +297,7 @@
         <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
-         <leaf type="cylinder" bottomRadius="0.2" topRadius="0.2" height="3" slices="20" stacks="20"/>
+        <leaf type="cylinder" bottomRadius="0.2" topRadius="0.2" height="3" slices="20" stacks="20"/>
       </descendants>
     </node>
     <node id="rightBackLeg">
@@ -315,7 +310,7 @@
         <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
-         <leaf type="cylinder" bottomRadius="0.2" topRadius="0.2" height="3" slices="20" stacks="20"/>
+        <leaf type="cylinder" bottomRadius="0.2" topRadius="0.2" height="3" slices="20" stacks="20"/>
       </descendants>
     </node>
     <node id="rightFrontLeg">
@@ -328,7 +323,7 @@
         <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
-         <leaf type="cylinder" bottomRadius="0.2" topRadius="0.2" height="3" slices="20" stacks="20"/>
+        <leaf type="cylinder" bottomRadius="0.2" topRadius="0.2" height="3" slices="20" stacks="20"/>
       </descendants>
     </node>
     <node id="frontSupport">
@@ -341,7 +336,7 @@
         <rotation axis="y" angle="-90"/>
       </transformations>
       <descendants>
-         <leaf type="cylinder" bottomRadius="0.15" topRadius="0.15" height="1.5" slices="20" stacks="20"/>
+        <leaf type="cylinder" bottomRadius="0.15" topRadius="0.15" height="1.5" slices="20" stacks="20"/>
       </descendants>
     </node>
     <node id="backSupport">
@@ -354,7 +349,7 @@
         <rotation axis="y" angle="90"/>
       </transformations>
       <descendants>
-         <leaf type="cylinder" bottomRadius="0.15" topRadius="0.15" height="1.5" slices="20" stacks="20"/>
+        <leaf type="cylinder" bottomRadius="0.15" topRadius="0.15" height="1.5" slices="20" stacks="20"/>
       </descendants>
     </node>
     <node id="leftSupport">
@@ -367,7 +362,7 @@
         <!-- <rotation axis="y" angle="90"/> -->
       </transformations>
       <descendants>
-         <leaf type="cylinder" bottomRadius="0.15" topRadius="0.15" height="1.5" slices="20" stacks="20"/>
+        <leaf type="cylinder" bottomRadius="0.15" topRadius="0.15" height="1.5" slices="20" stacks="20"/>
       </descendants>
     </node>
     <node id="rightSupport">
@@ -380,7 +375,7 @@
         <!-- <rotation axis="y" angle="90"/> -->
       </transformations>
       <descendants>
-         <leaf type="cylinder" bottomRadius="0.15" topRadius="0.15" height="1.5" slices="20" stacks="20"/>
+        <leaf type="cylinder" bottomRadius="0.15" topRadius="0.15" height="1.5" slices="20" stacks="20"/>
       </descendants>
     </node>
     <node id="ball">
@@ -394,8 +389,8 @@
         <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
-         <leaf type="sphere" radius="2" slices="20" stacks="20"/>
-         <noderef id="cord"/>
+        <leaf type="sphere" radius="2" slices="20" stacks="20"/>
+        <noderef id="cord"/>
       </descendants>
     </node>
     <node id="cord">
@@ -407,12 +402,9 @@
         <translation x="0" y="0" z="2"/>
       </transformations>
       <descendants>
-         <leaf type="cylinder" bottomRadius="0.1" topRadius="0.1" height="5" slices="5" stacks="5"/>
+        <leaf type="cylinder" bottomRadius="0.1" topRadius="0.1" height="5" slices="5" stacks="5"/>
       </descendants>
     </node>
-    
-
-
     <!-- SPEAKER /////////////////////////-->
     <node id="speaker">
       <material id="demoMaterial"/>
@@ -424,11 +416,11 @@
         <scale sx="1.5" sy="1.5" sz="1.5"/>
       </transformations>
       <descendants>
-         <noderef id="speakerFront"/>
-         <noderef id="speakerTop"/>
-         <noderef id="speakerRight"/>
-         <noderef id="speakerLeft"/>
-         <noderef id="speakerBack"/>
+        <noderef id="speakerFront"/>
+        <noderef id="speakerTop"/>
+        <noderef id="speakerRight"/>
+        <noderef id="speakerLeft"/>
+        <noderef id="speakerBack"/>
       </descendants>
     </node>
     <node id="speakerFront">
@@ -437,7 +429,7 @@
         <amplification afs="2" aft="2"/>
       </texture>
       <descendants>
-         <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1"/>
+        <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1"/>
       </descendants>
     </node>
     <node id="speakerTop">
@@ -450,7 +442,7 @@
         <rotation axis="x" angle="-90"/>
       </transformations>
       <descendants>
-         <leaf type="rectangle" x1="-1" y1="-0.5" x2="1" y2="0.5"/>
+        <leaf type="rectangle" x1="-1" y1="-0.5" x2="1" y2="0.5"/>
       </descendants>
     </node>
     <node id="speakerLeft">
@@ -463,7 +455,7 @@
         <rotation axis="y" angle="-90"/>
       </transformations>
       <descendants>
-         <leaf type="rectangle" x1="-0.5" y1="-1" x2="0.5" y2="1"/>
+        <leaf type="rectangle" x1="-0.5" y1="-1" x2="0.5" y2="1"/>
       </descendants>
     </node>
     <node id="speakerRight">
@@ -476,7 +468,7 @@
         <rotation axis="y" angle="90"/>
       </transformations>
       <descendants>
-         <leaf type="rectangle" x1="-0.5" y1="-1" x2="0.5" y2="1"/>
+        <leaf type="rectangle" x1="-0.5" y1="-1" x2="0.5" y2="1"/>
       </descendants>
     </node>
     <node id="speakerBack">
@@ -489,10 +481,9 @@
         <rotation axis="y" angle="180"/>
       </transformations>
       <descendants>
-         <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1"/>
+        <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1"/>
       </descendants>
     </node>
-
     <node id="rightSpeakers">
       <material id="null"/>
       <texture id="null"/>
@@ -501,28 +492,27 @@
         <rotation axis="y" angle="-45"/>
       </transformations>
       <descendants>
-         <noderef id="speaker1"/>
-         <noderef id="speaker2"/>
+        <noderef id="speaker1"/>
+        <noderef id="speaker2"/>
       </descendants>
     </node>
     <node id="speaker1">
       <material id="null"/>
       <texture id="null"/>
       <descendants>
-         <noderef id="speaker"/>
+        <noderef id="speaker"/>
       </descendants>
     </node>
-     <node id="speaker2">
+    <node id="speaker2">
       <material id="null"/>
       <texture id="null"/>
       <transformations>
         <translation x="0" y="3" z="0"/>
       </transformations>
       <descendants>
-         <noderef id="speaker"/>
+        <noderef id="speaker"/>
       </descendants>
     </node>
-
     <node id="leftSpeakers">
       <material id="null"/>
       <texture id="null"/>
@@ -531,11 +521,10 @@
         <rotation axis="y" angle="45"/>
       </transformations>
       <descendants>
-         <noderef id="speaker1"/>
-         <noderef id="speaker2"/>
+        <noderef id="speaker1"/>
+        <noderef id="speaker2"/>
       </descendants>
     </node>
-
     <node id="poster">
       <material id="null"/>
       <texture id="poster2">
@@ -546,10 +535,9 @@
         <scale sx="5" sy="5" sz="5"/>
       </transformations>
       <descendants>
-         <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1"/>
+        <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1"/>
       </descendants>
     </node>
-
     <node id="menuPanel">
       <material id="demoMaterial"/>
       <texture id="greyBackground">
@@ -563,11 +551,7 @@
         <leaf type="menu" x1="0" y1="0" x2="2.1" y2="1.3"/>
       </descendants>
     </node>
-
-
-
     <!-- SCORE BOARD /////////////////////////-->
-
     <node id="scoreDisplay">
       <material id="demoMaterial"/>
       <texture id="greyBackground"/>
@@ -578,9 +562,8 @@
         <leaf type="scoreboard" x1="-1.1" y1="-0.5" x2="1.1" y2="0.5"/>
       </descendants>
     </node>
-
     <node id="scoreSupport">
-    <material id="demoMaterial"/>
+      <material id="demoMaterial"/>
       <texture id="greyBackground">
       </texture>
       <transformations>
@@ -591,9 +574,8 @@
         <noderef id="rightFace"/>
         <noderef id="leftFace"/>
         <noderef id="backFace"/>
-       </descendants>
+      </descendants>
     </node>
-
     <node id="scoreFrontFace">
       <material id="null"/>
       <texture id="null">
@@ -642,7 +624,6 @@
         <leaf type="rectangle" x1="-1.2" y1="-0.7" x2="1.2" y2="0.7"/>
       </descendants>
     </node>
-
     <!-- SKYBOX //////////////////////////// -->
     <node id="skybox">
       <material id="demoMaterial"/>
@@ -714,8 +695,8 @@
     <node id="top">
       <material id="null"/>
       <texture id="ceiling">
-      <!-- <amplification afs="0.5" aft="0.5"/> -->
-    </texture>
+        <!-- <amplification afs="0.5" aft="0.5"/> -->
+      </texture>
       <transformations>
         <translation x="0" y="25" z="0"/>
         <rotation axis="x" angle="90"/>
@@ -739,8 +720,6 @@
         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
       </descendants>
     </node>
-    
-
     <node id="demoRoot">
       <!-- defines one intermediate node; may be repeated as necessary -->
       <!-- next two lines are mandatory -->

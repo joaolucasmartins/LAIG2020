@@ -21,6 +21,8 @@ class MyGameBoard extends CGFobject {
 
     createGameBoard(board, whiteTileCreator, blackTileCreator, blackPieceCreator, whitePieceCreator) {
         this.board = new Node(this.scene, "board");
+        this.obj.removeDescendantById("board"); // Remove board from object if already defined
+        this.length = board.length;
 
         for (let i = 0; i < board.length; ++i) {
             let row = board[i];
@@ -48,7 +50,6 @@ class MyGameBoard extends CGFobject {
             this.pieces.push(piecesRes);
         }
 
-        this.length = this.tiles.length;
         this.board.transfMat = mat4.create();
         mat4.scale(this.board.transfMat, this.board.transfMat, [3 / this.length, 3 / this.length, 3 / this.length]);
         this.obj.addDescendant(this.board);

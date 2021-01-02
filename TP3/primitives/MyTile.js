@@ -1,5 +1,3 @@
-const offset = 1;
-
 /**
  * MyTile
  * @constructor
@@ -12,7 +10,9 @@ class MyTile extends CGFobject {
         super(scene);
         this.scene = scene;
         this.gameboard = gameboard //pointer to board
+        this.offset = -0.5 + gameboard.length / 2;
         this.piece = piece; //pointer to piece in tile
+        console.log(this.offset, gameboard.length);
 
         this.obj = obj;  //tile representation
         this.line = line;
@@ -34,7 +34,7 @@ class MyTile extends CGFobject {
     display() {
         // TODO Restrict this maybe?
         this.scene.pushMatrix();
-        this.scene.translate(this.col - offset, 0, this.line - offset);
+        this.scene.translate(this.col - this.offset, 0, this.line - this.offset);
         if (this.piece)
             this.piece.display();
         this.obj.display();

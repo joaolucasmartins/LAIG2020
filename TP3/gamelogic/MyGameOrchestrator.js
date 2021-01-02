@@ -30,13 +30,21 @@ class MyGameOrchestrator {
         if (this.gameState.canSpawnBoard()) {
             this.gameState.reset(); // set current player to 0
             this.generateBoard(); //get board from prolog server with the size selected in menu
-            this.switchCamera();
+            this.switchToBoardCamera();
         }
     }
 
     cameraFinished() {
         this.scoreboard.startCount();
         this.gameState.setToIdle();
+    }
+
+    switchToBoardCamera() {
+        this.gameState.setToCameraMoving();
+        let selectedCamera = this.scene.getSelectedCamera();
+
+        if (selectedCamera.id == "boardCamera") return;
+        this.animator.addCameraAnimation(selectedCamera, this.scene.cameras["boardCamera"]);
     }
 
     switchCamera() {

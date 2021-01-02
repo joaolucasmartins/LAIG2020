@@ -13,7 +13,7 @@ class MyActionButton extends MyButton {
         else if (this.id == 3) //undo
             this.scene.orchestrator.undo();
         else if (this.id == 4 || this.id == 5) //camera animation
-            this.scene.orchestrator.cameraDo();
+            this.scene.orchestrator.switchCamera();
     }
 
     registerForPick() {
