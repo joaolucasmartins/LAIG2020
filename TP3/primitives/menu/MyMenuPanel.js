@@ -17,34 +17,16 @@ class MyMenuPanel extends CGFobject {
         this.buttons = [];
         this.createButtons();
 
-        this.size = 3;
-        this.timeout = 10;
-        // this.sizeCounter 
-
-        this.sizeCounter = new MySpriteText(this.scene, '3');
-        this.timeoutCounter = new MySpriteText(this.scene, '10');
-
-        let counterBtn1 = new MyCounterButton(this.scene, 4, 1.85, 0.5, 1.95, 0.6, 0.1, 0.1, false, 1, 'incrBtn.jpg');
-        let counterBtn2 = new MyCounterButton(this.scene, 5, 1.85, 0.4, 1.95, 0.5, 0.1, 0.1, false, -1, 'decrBtn.jpg')
-        this.buttons.push(counterBtn1);
-        this.buttons.push(counterBtn2);
-
-        let counterBtn3 = new MyCounterButton(this.scene, 6, 1.85, 0.9, 1.95, 1, 0.1, 0.1, false, 1, 'incrBtn.jpg');
-        let counterBtn4 = new MyCounterButton(this.scene, 7, 1.85, 0.8, 1.95, 0.9, 0.1, 0.1, false, -1, 'decrBtn.jpg');
-
-        this.buttons.push(counterBtn3);
-        this.buttons.push(counterBtn4);
+        this.sizeCounter = new MyCounter(this.scene, 1, 3, 15);
+        this.timeoutCounter = new MyCounter(this.scene, 3, 10, 30);
 
         // 0 - THEME | 1 - LEVEL | 2 - MODE
         this.selected = [1, 1, 1];
-
-
-
     }
 
-    getBoardSize() {return this.size;}
+    getBoardSize() {return this.sizeCounter.current;}
 
-    getTimeout() {return this.timeout;}
+    getTimeout() {return this.timeoutCounter.current;}
 
     getTheme() {return this.selected[0]}
 
@@ -105,46 +87,7 @@ class MyMenuPanel extends CGFobject {
             this.buttons[MODE_INDEX + this.selected[2]].resetButton();
     }
 
-    handleBtnEvent(obj) {
-
-        if (obj instanceof MyCounterButton)
-            this.handleCounterEvent(obj);
-        else {
-            let selected = obj.handlePick();
-
-            if (selected != null)
-                this.changeSelection(...selected);
-        }
-
-    }
-
-    handleCounterEvent(obj) {
-
-        if (obj.id == 4) {
-            if (this.size < 15) {
-                this.size++;
-                this.sizeCounter.updateText(this.size.toString());
-            }
-        }
-        else if (obj.id == 5) {
-            if (this.size > 3) {
-                this.size--;
-                this.sizeCounter.updateText(this.size.toString());
-            }
-        }
-        else if (obj.id == 6) {
-            if (this.timeout < 60) {
-                this.timeout++;
-                this.timeoutCounter.updateText(this.timeout.toString());
-            }
-        }
-        else if (obj.id == 7) {
-            if (this.timeout > 10) {
-                this.timeout--;
-                this.timeoutCounter.updateText(this.timeout.toString());
-            }
-        }
-    }
+  
 
     changeSelection(selIndex, id) {
         //remove previous selection
@@ -170,13 +113,13 @@ class MyMenuPanel extends CGFobject {
             this.buttons[i].display();
 
         this.scene.pushMatrix();
-        this.scene.translate(1.62, 0.5, 0.01);
+        this.scene.translate(1.75, 0.5, 0.01);
         this.scene.scale(0.25, 0.25, 1);
         this.sizeCounter.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(1.75, 0.9, 0.01);
+        this.scene.translate(1.75, 0.8, 0.01);
         this.scene.scale(0.25, 0.25, 1);
         this.timeoutCounter.display();
         this.scene.popMatrix();

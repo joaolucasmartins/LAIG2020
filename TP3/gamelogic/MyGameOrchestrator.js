@@ -100,7 +100,7 @@ class MyGameOrchestrator {
             this.selectPiece(obj);
         }
         else if (obj instanceof MyButton) {
-            this.menu.handleBtnEvent(obj);
+            this.selectButton(obj);
         }
 
     }
@@ -133,6 +133,13 @@ class MyGameOrchestrator {
                 this.selectedPiece = null;
             }
         }
+    }
+
+    selectButton(obj) {
+        let selected = obj.handlePick();
+
+        if (selected != null)
+            this.changeSelection(...selected);
     }
 
     updateGameScore() {
