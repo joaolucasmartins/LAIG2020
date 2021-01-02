@@ -53,9 +53,9 @@ class MyScoreBoard extends CGFobject {
         this.stopCount();
     }
 
-    updateScores(newBlack, newWhite) {
-        this.blackScore.updateText(newBlack.toString());
-        this.whiteScore.updateText(newWhite.toString());
+    updateScores(p1, p2) {
+        this.blackScore.updateText(p2[0].toString());
+        this.whiteScore.updateText(p1[0].toString());
     }
 
     switchPlayer() {

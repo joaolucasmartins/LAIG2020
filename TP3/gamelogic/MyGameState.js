@@ -9,18 +9,54 @@ const state = {
     GAME_OVER: 7,
     END: 8,
 }
+
+const gamemode = {
+    PvB: 1,
+    PvP: 2,
+    BvB: 3,
+}
+
 class MyGameState {
     constructor(firstPlayer, secondPlayer) {
         this.gameSettings = [firstPlayer, secondPlayer];
         this.currentPlayer = 0;
         this.state = state.STARTED;
         this.replaying = false;
+        this.gameMode = gamemode.PvB;
     }
 
     reset() {
         this.currentPlayer = 0;
         this.state = state.STARTED;
         this.replaying = false;
+    }
+
+    updateAIDifficulty(val) {
+
+        if(this.state == state.STARTED || this.state == state.END) {
+            if (this.gameMode != gamemode.PvP)
+                this.gameSettings[1] = val;
+
+            if (this.gameMode == gamemode.BvB)  // for BvB
+                this.gameSettings[0] = val;
+            
+        }
+    }
+
+    updateGameMode(val) {
+        if (this.state == state.STARTED || this.state == state.END) {
+            this.gameMode = val;
+
+            console.log(this.gamemode);
+            // change game settings to default values when changing gamemode
+            if (this.gameMode == gamemode.PvB) //PvB
+                this.gameSettings = [0,1];
+            else if (this.gameMode == gamemode.PvP) //PvP
+                this.gameSettings = [0,0];
+            else if (this.gameMode == gamemode.BvB) //BvB
+                this.gameSettings = [1,1];
+            
+        }
     }
 
     isPlayerTurn() {

@@ -11,9 +11,7 @@ class MyMenuPanel extends CGFobject {
     constructor(scene, obj) {
         super(scene);
         this.obj = obj;
-
-        this.orchestrator = null;
-
+        
         this.buttons = [];
         this.createButtons();
 
@@ -29,6 +27,10 @@ class MyMenuPanel extends CGFobject {
     getTimeout() {return this.timeoutCounter.current;}
 
     getTheme() {return this.selected[0]}
+
+    getLevel() {return this.selected[1]; }
+
+    getMode() {return this.selected[2]; }
 
     createButtons() {
         //action buttons
