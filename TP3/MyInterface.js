@@ -32,7 +32,7 @@ class MyInterface extends CGFinterface {
      */
     initKeys() {
         this.scene.gui = this;
-        this.processKeyboard = function () {};
+        this.processKeyboard = function() { };
         this.activeKeys = {}
     }
 
@@ -40,12 +40,10 @@ class MyInterface extends CGFinterface {
      * Initialize camera interface.
      */
     initCameraInterface() {
-        this.gui.add(this.scene, 'selectedCamera', this.scene.cameraIds).name('Selected Camera').onChange(this.scene.orchestrator.updateCamera.bind(this.scene.orchestrator));
+        this.cameraInterface = this.gui.add(this.scene, 'selectedCamera', this.scene.cameraIds).name('Selected Camera').onChange(this.scene.orchestrator.updateCamera.bind(this.scene.orchestrator));
     }
 
     initMenuInterface() {
-        this.gui.add(this.scene.orchestrator, 'startGame').name('Start Game');
-        this.gui.add(this.scene.orchestrator, 'switchCamera').name('Camera do');
     }
 
     /**
@@ -54,8 +52,18 @@ class MyInterface extends CGFinterface {
      * @param {array} lightsIds - array with light IDs
      */
     initLightsInterface(lightsIds) {
+        this.lightInterfaces = [];
         for (var i = 0; i < this.scene.enabledLights.length; i++) {
-            this.gui.add(this.scene.enabledLights, i).name(lightsIds[i]);
+            this.lightInterfaces.push(this.gui.add(this.scene.enabledLights, i).name(lightsIds[i]));
+        }
+    }
+
+    reset() {
+        if (this.cameraInterface)
+            this.gui.remove(this.cameraInterface);
+        if (this.lightInterfaces) {
+            for (let i = 0; i < this.lightInterfaces.length; ++i)
+                this.gui.remove(this.lightInterfaces[i]);
         }
     }
 

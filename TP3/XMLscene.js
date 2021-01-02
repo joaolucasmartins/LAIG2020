@@ -43,6 +43,16 @@ class XMLscene extends CGFscene {
 
     }
 
+    reset() {
+        this.sceneInited = false;
+        this.interface.reset();
+        for (let i = 0; i < this.enabledLights; ++i) {
+            if (this.enabledLights[i])
+                this.lights[i].disable();
+        }
+        this.enabledLights = [];
+    }
+
     /**
      * Initializes a default camera. Called if there are no defined views in the XML file.
      */
