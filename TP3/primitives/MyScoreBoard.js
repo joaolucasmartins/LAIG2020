@@ -18,7 +18,6 @@ class MyScoreBoard extends CGFobject {
         this.whiteDesc = new MySpriteText(scene, "White Pieces");
         this.whiteScore = new MySpriteText(scene, "0");
 
-        this.winner = "";
         this.winnerDisplay = new MySpriteText(scene, "Black Pieces win");
 
         this.currentPlayer = 0;
@@ -42,6 +41,13 @@ class MyScoreBoard extends CGFobject {
 
     setTimeout(val) {
         this.timer.setTimeout(val);
+    }
+
+    reset() {
+        this.currentPlayer = 0;
+        this.gameEnded = false;
+        this.blackScore.updateText("0");
+        this.whiteScore.updateText("0");
     }
 
     endGame(winner) {

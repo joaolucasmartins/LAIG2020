@@ -38,6 +38,8 @@ class MyPiece extends CGFobject {
 
         if (this.selected)
             this.scene.popMatrix();
+
+        this.scene.clearPickRegistration();
     }
 
     toString() {

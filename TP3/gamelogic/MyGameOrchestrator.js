@@ -29,12 +29,13 @@ class MyGameOrchestrator {
     }
 
     startGame() {
-
         this.applyChanges();
 
         if (this.gameState.canSpawnBoard()) {
             this.gameState.reset(); // set current player to 0
             this.generateBoard(); //get board from prolog server with the size selected in menu
+            this.scoreboard.reset();
+            this.scoreboard.startCount();
             this.switchToBoardCamera();
         }
     }
@@ -44,6 +45,7 @@ class MyGameOrchestrator {
         if (this.currentTheme != (this.menu.getTheme() - 1)) {
             this.currentTheme = this.menu.getTheme() - 1;
             this.applyTheme();
+            return;
         }
 
         if (this.gameState.gameMode != this.menu.getMode()) {
@@ -71,7 +73,7 @@ class MyGameOrchestrator {
             this.board = new MyGameBoard(this.scene, gameBoard, initial_board,
                 whiteTileCreator, blackTileCreator, whitePieceCreator, blackPieceCreator);
             this.updateGameScore();
-            this.gameState.setToSpawnBoard();
+            //this.gameState.setToSpawnBoard();
         });
     }
 
@@ -91,10 +93,12 @@ class MyGameOrchestrator {
     }
 
     switchToBoardCamera() {
-        this.gameState.setToCameraMoving();
         let selectedCamera = this.scene.getSelectedCamera();
-
-        if (selectedCamera.id == "boardCamera") return;
+        if (selectedCamera.id == "boardCamera") {
+            this.gameState.setToIdle();
+            return;
+        }
+        this.gameState.setToCameraMoving();
         this.animator.addCameraAnimation(selectedCamera, this.scene.cameras["boardCamera"]);
     }
 
@@ -143,7 +147,7 @@ class MyGameOrchestrator {
         let movePromise = this.prolog.validMoves(this.board, this.gameState, coordToString(coords));
         movePromise.then((response) => {
             let coordList = eval(response.target.response);
-            let pieceList = coordList.map((coord) => {return this.board.getPieceAt(coord[0], coord[1])});
+            let pieceList = coordList.map((coord) => { return this.board.getPieceAt(coord[0], coord[1]) });
             this.selectPiece.possiblePieces = this.board.selectPieces(pieceList);
         });
     }
@@ -235,7 +239,7 @@ class MyGameOrchestrator {
 
     makeAIMove() {
         this.gameState.setToTimeout();
-        let undoTimeout = new Promise((resolve) => {setTimeout(resolve, AI_DELAY);});
+        let undoTimeout = new Promise((resolve) => { setTimeout(resolve, AI_DELAY); });
         undoTimeout.then(() => {
             // Undo can be made in timeout and turn is no longer AI
             if (!this.gameState.isAITurn())
@@ -319,6 +323,7 @@ class MyGameOrchestrator {
     orchestrate() {
         if (this.gameState.canMakeAIMove())
             this.makeAIMove();
+        console.log(this.gameState.state);
         if (this.gameState.isReplaying() && this.gameState.canMakeMove()) {
             this.replayNextMove();
         }

@@ -737,6 +737,8 @@
       <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
       <descendants>
+        <noderef id="menuPanel"/>
+        <noderef id="scoreSupport"/>
         <noderef id="skybox"/>
         <noderef id="table"/>
         <noderef id="stool1"/>
@@ -745,8 +747,6 @@
         <noderef id="rightSpeakers"/>
         <noderef id="leftSpeakers"/>
         <noderef id="poster"/>
-         <noderef id="scoreSupport"/>
-        <noderef id="menuPanel"/>
       </descendants>
     </node>
   </nodes>

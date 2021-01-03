@@ -67,13 +67,15 @@ class MyButton extends CGFobject {
             this.selectedMaterial.apply();
         this.texture.bind();
         this.scene.pushMatrix();
-        this.scene.translate(0,0, 0.01);
+        this.scene.translate(0, 0, 0.01);
         this.obj.display();
         this.scene.popMatrix();
         this.texture.unbind();
 
         if (this.selected)
             this.defaultMaterial.apply();
+
+        this.scene.clearPickRegistration();
     }
 }
 

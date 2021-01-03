@@ -202,6 +202,8 @@
         <translation x="0" y="1.2" z="0"/>
       </transformations>
       <descendants>
+        <noderef id="menuPanel"/>
+        <noderef id="scoreSupport"/>
         <noderef id="hull"/>
         <noderef id="wheel"/>
         <noderef id="stairs"/>
@@ -215,8 +217,6 @@
         <noderef id="barrel"/>
         <noderef id="shipName"/>
         <noderef id="shipName2"/>
-        <noderef id="scoreSupport"/>
-        <noderef id="menuPanel"/>
       </descendants>
     </node>
     <!-- SKYBOX /////////////////-->
