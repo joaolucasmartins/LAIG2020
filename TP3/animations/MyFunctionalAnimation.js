@@ -11,7 +11,7 @@ class MyFunctionalAnimation extends MyAnimation {
     }
 
     onBeforeAnimation() {
-        this.currentTransformation = this.emptyTransformation;
+        this.currentTransformation = this.elements[this.currInstant];
     }
 
     onEndAnimation() {

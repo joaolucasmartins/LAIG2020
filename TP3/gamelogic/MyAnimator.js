@@ -78,9 +78,10 @@ class MyAnimator {
     selectPiece(piece) {
         piece.selected = true;
         let initialTransf = new Transformation([[0, 0, 0], [0, 0, 0], [1, 1, 1]]);
-        let endTransf = new Transformation([[0, 0, 0], [0, 2 * Math.PI, 0], [1, 1, 1]]);
+        let midTransf = new Transformation([[0, 0, 0], [0, Math.PI/4, 0], [1, 1, 1]]);
+        let endTransf = new Transformation([[0, 0, 0], [0, 0, 0], [1, 1, 1]]);
         this.selectedPiece = piece;
-        this.selectedAnimation = new MyFunctionalAnimation(this.orchestrator.scene, {0: initialTransf, 10: endTransf}, [x => easeInOutBack(x), y => y, z => z], true);
+        this.selectedAnimation = new MyFunctionalAnimation(this.orchestrator.scene, {0: initialTransf, 5: midTransf, 10: endTransf}, [x => x, y => y, z => z], true);
         this.isAnimatingSelected = true;
         piece.obj.addAnimation(this.selectedAnimation);
     }
