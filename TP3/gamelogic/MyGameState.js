@@ -77,19 +77,19 @@ class MyGameState {
         this.currentPlayer = (this.currentPlayer + 1) % 2;
     }
 
-    setToCameraMoving() { this.state = state.CAMERA_MOVING }
-    setToMoving() { this.state = state.MOVING; }
-    setToAnimating() { this.state = state.ANIMATING; }
-    setToIdle() { this.state = state.IDLE; }
-    setToTimeout() { this.state = state.WAITING_FOR_TIMEOUT; }
-    setToSpawnBoard() { this.state = state.SPAWN_BOARD; }
-    setToGameOver() { this.state = state.GAME_OVER }
-    setToReplaying() { this.replaying = true }
-    setToEnd() { this.state = state.END }
+    setToCameraMoving() {this.state = state.CAMERA_MOVING}
+    setToMoving() {this.state = state.MOVING;}
+    setToAnimating() {this.state = state.ANIMATING;}
+    setToIdle() {this.state = state.IDLE;}
+    setToTimeout() {this.state = state.WAITING_FOR_TIMEOUT;}
+    setToSpawnBoard() {this.state = state.SPAWN_BOARD;}
+    setToGameOver() {this.state = state.GAME_OVER}
+    setToReplaying() {this.replaying = true}
+    setToEnd() {this.state = state.END}
 
-    hasStarted() { return this.state >= state.SPAWN_BOARD }
+    hasStarted() {return this.state >= state.SPAWN_BOARD}
 
-    canSpawnBoard() { return this.state != state.ANIMATING && this.state != state.MOVING }
+    canSpawnBoard() {return this.state != state.ANIMATING && this.state != state.MOVING}
 
     canMakeMove() {
         return this.state != state.MOVING && this.state != state.ANIMATING && this.state < state.GAME_OVER;
@@ -109,6 +109,10 @@ class MyGameState {
 
     canUndo() {
         return !this.replaying && (this.state == state.WAITING_FOR_TIMEOUT || this.state == state.IDLE);
+    }
+
+    isWaitingForTimeout() {
+        return this.state == state.WAITING_FOR_TIMEOUT;
     }
 
     canSelect() {

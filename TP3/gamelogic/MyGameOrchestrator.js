@@ -135,11 +135,8 @@ class MyGameOrchestrator {
             console.log("selected", obj.getTile().getCoords());
             this.selectPiece(obj);
         }
-        else if (obj instanceof MyButton) {
-            console.log("id " + id);
-            console.log(obj);
+        else if (obj instanceof MyButton)
             this.selectButton(obj);
-        }
 
     }
 
@@ -173,7 +170,8 @@ class MyGameOrchestrator {
 
     deselectPieces() {
         this.animator.deselectPiece();
-        this.board.deselectPieces(this.selectPiece.possiblePieces);
+        if (this.selectPiece.possiblePieces)
+            this.board.deselectPieces(this.selectPiece.possiblePieces);
         this.selectPiece.possiblePieces = [];
         this.selectedPiece = null;
     }
@@ -194,8 +192,8 @@ class MyGameOrchestrator {
             let score = eval(response.target.response);
             let [p1Score, p2Score] = score;
             this.scoreboard.updateScores(p1Score, p2Score);
-            console.log("P1 Score", p1Score);
-            console.log("P2 Score", p2Score);
+            //console.log("P1 Score", p1Score);
+            //console.log("P2 Score", p2Score);
         })
     }
 
@@ -245,10 +243,11 @@ class MyGameOrchestrator {
     makeAIMove() {
         this.gameState.setToTimeout();
         this.deselectPieces();
+        console.log("Entered timeout");
         let undoTimeout = new Promise((resolve) => {setTimeout(resolve, AI_DELAY);});
         undoTimeout.then(() => {
             // Undo can be made in timeout and turn is no longer AI
-            if (!this.gameState.isAITurn())
+            if (!this.gameState.isAITurn() || !this.gameState.isWaitingForTimeout())
                 return;
             let movePromise = this.prolog.getAIMove(this.board, this.gameState);
             this.gameState.setToMoving();
@@ -284,10 +283,10 @@ class MyGameOrchestrator {
     }
 
     undo() {
-        if (this.board && this.gameState.canUndo()) {
-            this.gameState.setToIdle();
-            this.gameSequence.undo(this.board, this.gameState);
+        if (this.board && this.gameState.canUndo() && !this.gameSequence.isEmpty()) {
             this.deselectPieces();
+            this.gameSequence.undo(this.board, this.gameState);
+            this.gameState.setToIdle();
         }
     }
 
