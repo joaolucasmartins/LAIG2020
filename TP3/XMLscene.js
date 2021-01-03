@@ -207,7 +207,7 @@ class XMLscene extends CGFscene {
         this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
         if (this.sceneInited) {
             // Draw axis
-            this.axis.display();
+            // this.axis.display();
 
             this.defaultAppearance.apply();
 

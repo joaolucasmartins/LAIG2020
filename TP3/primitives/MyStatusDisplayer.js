@@ -26,8 +26,8 @@ class MyStatusDisplayer extends CGFobject {
 
         this.unlitMaterial = new CGFappearance(scene);
         this.unlitMaterial.setShininess(10);
-        this.unlitMaterial.setSpecular(1, 1, 1, 1);
-        this.unlitMaterial.setDiffuse(1, 1, 1, 1);
+        this.unlitMaterial.setSpecular(0, 0, 0, 1);
+        this.unlitMaterial.setDiffuse(0, 0, 0, 1);
         this.unlitMaterial.setAmbient(0, 0, 0, 1);
         this.unlitMaterial.setEmission(0.0, 0.0, 0.0, 1);
 

@@ -12,6 +12,8 @@ class MyGameOrchestrator {
         let secondPlayer = 1;
         this.gameState = new MyGameState(firstPlayer, secondPlayer);
         this.applyTheme();
+
+        this.selectPiece.possiblePieces = [];
     }
 
     // GAME START AND SETUP
@@ -175,8 +177,9 @@ class MyGameOrchestrator {
     }
 
     deselectPieces() {
-        this.animator.deselectPiece();
         this.board.deselectPieces(this.selectPiece.possiblePieces);
+        this.animator.deselectPiece();
+
         this.selectPiece.possiblePieces = [];
         this.selectedPiece = null;
     }

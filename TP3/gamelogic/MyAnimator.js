@@ -103,12 +103,14 @@ class MyAnimator {
             this.selectedPiece.obj.removeAnimations();
 
             this.selectedPiece = null; 
+
+            let piecesList = this.orchestrator.selectPiece.possiblePieces;
+            for (let i = 0; i < piecesList.length; i++)
+                piecesList[i].obj.removeAnimations();
         }
         this.isAnimatingSelected = false;
 
-        let piecesList = this.orchestrator.selectPiece.possiblePieces;
-        for (let i = 0; i < piecesList.length; i++)
-            piecesList[i].obj.removeAnimations();
+        
     }
 
     start() {
