@@ -28,7 +28,6 @@ class MyScoreBoard extends CGFobject {
         this.menuBtn = new MyActionButton(this.scene, 5, 0.75, 0.45, 1.15, 0.65, 0.4, 0.2, false, 'travelBtn2.jpg');
         this.undoBtn = new MyActionButton(this.scene, 3, -1.1, 0.45, -0.7, 0.65, 0.4, 0.2, false, 'undoBtn.jpg');
 
-
         this.timer = new MyTimer(scene, 10);
         this.gameEnded = false;
     }
@@ -46,16 +45,16 @@ class MyScoreBoard extends CGFobject {
     }
 
     endGame(winner) {
-        if (winner == 1)
+        if (winner == 0)
             this.winnerDisplay.updateText("White pieces win");
 
         this.gameEnded = true;
         this.stopCount();
     }
 
-    updateScores(newBlack, newWhite) {
-        this.blackScore.updateText(newBlack.toString());
-        this.whiteScore.updateText(newWhite.toString());
+    updateScores(p1, p2) {
+        this.blackScore.updateText(p1[0].toString());
+        this.whiteScore.updateText(p2[0].toString());
     }
 
     switchPlayer() {
@@ -91,7 +90,6 @@ class MyScoreBoard extends CGFobject {
         this.obj.display();
 
         this.menuBtn.display();
-
 
         //black player -----
         this.scene.pushMatrix();

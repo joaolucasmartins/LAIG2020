@@ -10,7 +10,6 @@ class MyCounterButton extends MyButton {
     
     handlePick() {
         let newVal = this.counter.current + this.value;
-        console.log(newVal);
         if ((newVal >= this.counter.min) && (newVal <= this.counter.max)){
             this.counter.counterDisplay.updateText(newVal.toString());
             this.counter.current = newVal;

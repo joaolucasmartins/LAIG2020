@@ -57,9 +57,8 @@ class MyButton extends CGFobject {
     }
 
     registerForPick() {
-        this.scene.registerForPick(this.id, this);
+        console.log("Called button class");
     }
-
 
     display() {
         this.registerForPick();

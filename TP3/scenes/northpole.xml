@@ -218,7 +218,7 @@
       <transformations>
       </transformations>
       <descendants>
-        <leaf type="squarepiece" radius="0.2" slices="20"/>
+       <leaf type="pawnpiece" bottomRadius="0.2" topRadius="0.1" height="0.3" stacks="20" slices="20"/>
         <!-- <leaf type="pawnpiece" bottomRadius="0.2" topRadius="0.1" height="0.3" stacks="20" slices="20"/> -->
       </descendants>
     </node>
@@ -230,7 +230,7 @@
       <transformations>
       </transformations>
       <descendants>
-        <leaf type="squarepiece" radius="0.2" slices="20"/>
+        <leaf type="pawnpiece" bottomRadius="0.2" topRadius="0.1" height="0.3" stacks="20" slices="20"/>
       </descendants>
     </node>
     <!--GAMEBOARD-->
@@ -915,13 +915,13 @@
              descendants may be mixed, nodes and leafs -->
       <descendants>
         <noderef id="skybox"/>
-        <noderef id="scoreSupport"/>
-        <noderef id="menuPanel"/>
         <noderef id="seat1"/>
         <noderef id="seat2"/>
         <noderef id="gameBoardBall"/>
         <noderef id="snowMan"/>
         <noderef id="pole"/>
+        <noderef id="scoreSupport"/>
+        <noderef id="menuPanel"/>
         <!-- <noderef id="table"/> -->
       </descendants>
     </node>

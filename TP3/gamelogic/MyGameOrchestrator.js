@@ -2,6 +2,7 @@ const BOARD_SIZE = 3;
 const AI_DELAY = 1000; // In ms
 const FILENAMES = ["pirata.xml", "disco.xml", "northpole.xml"];
 const INITIAL_THEME = 1;
+const INITIAL_GAME_MODE = 0;
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
@@ -28,6 +29,9 @@ class MyGameOrchestrator {
     }
 
     startGame() {
+
+        this.applyChanges();
+
         if (this.gameState.canSpawnBoard()) {
             this.gameState.reset(); // set current player to 0
             this.generateBoard(); //get board from prolog server with the size selected in menu
@@ -40,6 +44,14 @@ class MyGameOrchestrator {
         if (this.currentTheme != (this.menu.getTheme() - 1)) {
             this.currentTheme = this.menu.getTheme() - 1;
             this.applyTheme();
+        }
+
+        if (this.gameState.gameMode != this.menu.getMode()) {
+            this.gameState.updateGameMode(this.menu.getMode());
+        }
+
+        if (this.gameState.getCurrentAIDifficulty() != this.menu.getLevel()) {
+            this.gameState.updateAIDifficulty(this.menu.getLevel());
         }
     }
 
@@ -69,7 +81,6 @@ class MyGameOrchestrator {
 
         this.menu = menuPanel.primitives[0];
         this.menu.updateSeletion(THEME_SEL_INDEX, this.currentTheme + 1);
-        console.log(this.menu);
         this.scoreboard = scoreboard.primitives[0];
     }
 
@@ -121,6 +132,8 @@ class MyGameOrchestrator {
             this.selectPiece(obj);
         }
         else if (obj instanceof MyButton) {
+            console.log("id " + id);
+            console.log(obj);
             this.selectButton(obj);
         }
 
@@ -171,7 +184,7 @@ class MyGameOrchestrator {
         scorePromise.then((response) => {
             let score = eval(response.target.response);
             let [p1Score, p2Score] = score;
-            this.scoreboard.updateScores(p1Score[0], p2Score[0]);
+            this.scoreboard.updateScores(p1Score, p2Score);
             console.log("P1 Score", p1Score);
             console.log("P2 Score", p2Score);
         })
@@ -201,6 +214,12 @@ class MyGameOrchestrator {
         this.gameState.nextPlayer();
         this.scoreboard.switchPlayer();
         this.checkGameOver();
+        this.scoreboard.startCount();
+    }
+
+    skipTurn() {
+        this.gameState.nextPlayer();
+        this.scoreboard.switchPlayer();
         this.scoreboard.startCount();
     }
 
@@ -291,7 +310,7 @@ class MyGameOrchestrator {
         this.animator.update(time);
         if (this.gameState.canIncreaseTime()) {
             if (this.scoreboard.update(time) != null) {
-                //TODO: skip turn
+                this.skipTurn();
             };
         }
         this.theme.update(time); // For theme animations

@@ -7,7 +7,6 @@ class MyLevelButton extends MyButton {
     }
 
     handlePick() {
-        console.log("level" + this.id);
         return [LVL_SEL_INDEX, this.id];
     }
 
