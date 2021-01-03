@@ -147,7 +147,7 @@ class MyGameOrchestrator {
         let movePromise = this.prolog.validMoves(this.board, this.gameState, coordToString(coords));
         movePromise.then((response) => {
             let coordList = eval(response.target.response);
-            let pieceList = coordList.map((coord) => { return this.board.getPieceAt(coord[0], coord[1]) });
+            let pieceList = coordList.map((coord) => {return this.board.getPieceAt(coord[0], coord[1])});
             this.selectPiece.possiblePieces = this.board.selectPieces(pieceList);
         });
     }
@@ -156,7 +156,7 @@ class MyGameOrchestrator {
         if (this.gameState.canSelect()) {
             if (this.selectedPiece == null) {
                 this.selectedPiece = obj;
-                this.selectedPiece.selected = true;
+                this.animator.selectPiece(this.selectedPiece);
                 let coords = this.selectedPiece.getTile().getCoords();
                 this.selectPossiblePieces(coords);
             }
@@ -165,12 +165,17 @@ class MyGameOrchestrator {
                 let destTile = obj.getTile();
                 this.makePlayerMove(sourceTile, destTile);
 
-                this.board.deselectPieces(this.selectPiece.possiblePieces);
-                this.selectPiece.possiblePieces = [];
                 this.selectedPiece.selected = false;
-                this.selectedPiece = null;
+                this.deselectPieces();
             }
         }
+    }
+
+    deselectPieces() {
+        this.animator.deselectPiece();
+        this.board.deselectPieces(this.selectPiece.possiblePieces);
+        this.selectPiece.possiblePieces = [];
+        this.selectedPiece = null;
     }
 
     selectButton(obj) {
@@ -239,7 +244,8 @@ class MyGameOrchestrator {
 
     makeAIMove() {
         this.gameState.setToTimeout();
-        let undoTimeout = new Promise((resolve) => { setTimeout(resolve, AI_DELAY); });
+        this.deselectPieces();
+        let undoTimeout = new Promise((resolve) => {setTimeout(resolve, AI_DELAY);});
         undoTimeout.then(() => {
             // Undo can be made in timeout and turn is no longer AI
             if (!this.gameState.isAITurn())
@@ -281,11 +287,13 @@ class MyGameOrchestrator {
         if (this.board && this.gameState.canUndo()) {
             this.gameState.setToIdle();
             this.gameSequence.undo(this.board, this.gameState);
+            this.deselectPieces();
         }
     }
 
     replay() {
         this.board.reset();
+        this.deselectPieces();
         this.gameState.reset();
         this.gameState.setToReplaying();
     }
@@ -323,7 +331,6 @@ class MyGameOrchestrator {
     orchestrate() {
         if (this.gameState.canMakeAIMove())
             this.makeAIMove();
-        console.log(this.gameState.state);
         if (this.gameState.isReplaying() && this.gameState.canMakeMove()) {
             this.replayNextMove();
         }

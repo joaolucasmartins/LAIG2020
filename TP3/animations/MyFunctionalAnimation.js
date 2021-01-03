@@ -1,5 +1,5 @@
 class MyFunctionalAnimation extends MyAnimation {
-    constructor(scene, transformations, f) {
+    constructor(scene, transformations, f, repeat = false) {
         super(scene, transformations);
         this.emptyTransformation = Transformation.newEmptyTransformation();
         this.functions = f;
@@ -7,6 +7,7 @@ class MyFunctionalAnimation extends MyAnimation {
         this.translVec = vec3.create();
         this.rotVec = vec3.create();
         this.scaleVec = vec3.create();
+        this.repeat = repeat;
     }
 
     onBeforeAnimation() {
@@ -15,6 +16,8 @@ class MyFunctionalAnimation extends MyAnimation {
 
     onEndAnimation() {
         this.currentTransformation = this.elements[this.currInstant];
+        if (this.repeat)
+            this.initialInstant = null;
     }
 
     onMidAnimation(instant) {

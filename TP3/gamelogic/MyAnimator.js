@@ -74,6 +74,26 @@ class MyAnimator {
         this.destAnim.initialInstant = null;
     }
 
+    // TODO Refactor names
+    selectPiece(piece) {
+        piece.selected = true;
+        let initialTransf = new Transformation([[0, 0, 0], [0, 0, 0], [1, 1, 1]]);
+        let endTransf = new Transformation([[0, 0, 0], [0, 2 * Math.PI, 0], [1, 1, 1]]);
+        this.selectedPiece = piece;
+        this.selectedAnimation = new MyFunctionalAnimation(this.orchestrator.scene, {0: initialTransf, 10: endTransf}, [x => easeInOutBack(x), y => y, z => z], true);
+        this.isAnimatingSelected = true;
+        piece.obj.addAnimation(this.selectedAnimation);
+    }
+
+    deselectPiece() {
+        if (this.selectedPiece) {
+            this.selectedPiece.selected = false;
+            this.selectedPiece.obj.removeAnimations();
+            this.selectedPiece = null;
+        }
+        this.isAnimatingSelected = false;
+    }
+
     start() {
         this.isAnimating = true;
         this.orchestrator.gameState.setToAnimating();
@@ -91,6 +111,10 @@ class MyAnimator {
                 this.isAnimating = false;
                 this.orchestrator.gameState.setToIdle();
             }
+        }
+
+        if (this.isAnimatingSelected) {
+            this.selectedAnimation.update(time);
         }
 
         if (this.isAnimatingCameras) {
