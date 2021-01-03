@@ -22,7 +22,6 @@ class MySceneGraph {
      * @param {XMLScene} scene
      */
     constructor(filename, scene) {
-        console.log(filename);
         this.cameras = [];
         this.stop = false;
 

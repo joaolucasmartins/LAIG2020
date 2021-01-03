@@ -159,7 +159,6 @@ class MyGameOrchestrator {
                 this.animator.selectPiece(this.selectedPiece);
                 let coords = this.selectedPiece.getTile().getCoords();
                 this.selectPossiblePieces(coords);
-                console.log(this.possiblePieces);
             }
             else { // Second piece selected
                 let sourceTile = this.selectedPiece.getTile();
@@ -196,8 +195,6 @@ class MyGameOrchestrator {
             let score = eval(response.target.response);
             let [p1Score, p2Score] = score;
             this.scoreboard.updateScores(p1Score, p2Score);
-            //console.log("P1 Score", p1Score);
-            //console.log("P2 Score", p2Score);
         })
     }
 
@@ -247,7 +244,6 @@ class MyGameOrchestrator {
     makeAIMove() {
         this.gameState.setToTimeout();
         this.deselectPieces();
-        console.log("Entered timeout");
         let undoTimeout = new Promise((resolve) => {setTimeout(resolve, AI_DELAY);});
         undoTimeout.then(() => {
             // Undo can be made in timeout and turn is no longer AI

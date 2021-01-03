@@ -114,7 +114,6 @@ class MyGameState {
     }
 
     canSelect() {
-        console.log(this.state);
         return (this.state == state.IDLE || this.state == state.SPAWN_BOARD) && this.isPlayerTurn() && !this.isReplaying();
     }
 

@@ -53,7 +53,6 @@ class MyGameBoard extends CGFobject {
         this.board.transfMat = mat4.create();
         mat4.scale(this.board.transfMat, this.board.transfMat, [3 / this.length, 3 / this.length, 3 / this.length]);
         this.obj.addDescendant(this.board);
-        console.log(this.obj);
     }
 
     getTileAt(col, line) {return this.tiles[line][col]}
