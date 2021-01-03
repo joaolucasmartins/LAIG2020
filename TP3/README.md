@@ -1,11 +1,11 @@
 # LAIG 2020/2021 - TP3
 
-## Group: T0xG0y
+## Group: T03G09
 
-| Name             | Number    | E-Mail             |
-| ---------------- | --------- | ------------------ |
-| John Doe         | 201801010 | ...                |
-| Jane Doe         | 201801011 | ...                |
+| Name             | Number    | E-Mail               |
+| ---------------- | --------- | -------------------- |
+| Ivo Saavedra     | 201707093 | up201707093@fe.up.pt |
+| João Martins     | 201806436 | up201806436@fe.up.pt |
 
 ----
 ## Project information
@@ -17,12 +17,13 @@
 ----
 ## Issues/Problems
 
-- (items describing unimplemented features, bugs, problems, etc.)
+Currently there are no known errors or bugs and we consider that every proposed
+feature has been implemented.
 
 
 ### **Game Rules**
 
-Emulsion is a board game designed for two players. The board is consituted by
+Emulsion is a board game designed for two players. The board is constituted by
 a NxN grid, N being an integer that can be specified within the game menu.
 In the beginning of the game, the pieces are organized in a chess-like pattern.
 
@@ -53,7 +54,7 @@ The black pieces are played first. After each move, the next player makes his
 move.
 The game ends when no available moves can be played. Generaly, the player with
 the biggest group wins.
-If both groups of both players are the same size, the player with
+If both groups of both players are of the same size, the player with
 the second biggest group wins. If a draw still occurs, this verification
 is done successively until both players have exausted all of their groups.
 In this case both players have the exact same groups, and the player who
@@ -65,8 +66,8 @@ made the last move wins.
 In order to execute a move the player must select the piece which he wishes to
 move and then select the piece in the destination tile. After that,
 if the chosen move is valid, the origin and destination pieces will switch positions.  
-In order to facilitate gameplay, if the player first chooses a piece that he doesn't own,
-the pieces which values are increased when switched are highlighted.  
+In order to facilitate gameplay, if the player chooses a piece that he doesn't own,
+the pieces in which the values are increased when switched are highlighted.  
 A switching animation is played to represent a move.
 A highlight animation is played to better highlight a selected piece.
 
@@ -94,6 +95,6 @@ It displays the current player as well as each of the player's scores.
 At the end of the game it is also responsible for displaying the winner of the match.
 The score board is composed by the following components:
 + **Undo Button** - allows the player to revert a move after executing it
-+ **Menu Buttons** - pans the camera over to the menu panel
++ **Menu Button** - pans the camera over to the menu panel
 + **Status Indicators** - lights indicating player turns
 + **Scores** - section with each of the piece's colors and their current scores
