@@ -29,6 +29,7 @@ class MyGameOrchestrator {
         this.scoreboard = null;
     }
 
+    /* Starts or restarts the game. Called by the start button (can be pressed at anytime) */
     startGame() {
         this.applyChanges();
 
@@ -59,6 +60,7 @@ class MyGameOrchestrator {
         }
     }
 
+    /* Initializes gameboard with a prolog query. Also gets the pieces/tiles from the theme */
     generateBoard() {
         let whiteTile = this.theme.gameObjects["whiteTile"];
         let whiteTileCreator = new MyNodeCreator(whiteTile);
@@ -79,7 +81,8 @@ class MyGameOrchestrator {
         });
     }
 
-    onGraphLoaded() { // Called by scene when XML is parsed
+    /* Loads game assets from XML. Called by scene when XML is parsed */
+    onGraphLoaded() {
         let menuPanel = this.theme.gameObjects["menuPanel"];
         let scoreboard = this.theme.gameObjects["scoreDisplay"];
 
@@ -104,6 +107,7 @@ class MyGameOrchestrator {
         this.animator.addCameraAnimation(selectedCamera, this.scene.cameras["boardCamera"]);
     }
 
+    /* Initializes camera animation. Called by any of the change camera buttons. */
     switchCamera() {
         this.gameState.setToCameraMoving();
         let selectedCamera = this.scene.getSelectedCamera();
@@ -139,9 +143,9 @@ class MyGameOrchestrator {
         }
         else if (obj instanceof MyButton)
             this.selectButton(obj);
-
     }
 
+    /* Gets possible pieces that can be swiched with the given coord with a prolog query */
     selectPossiblePieces(coords) {
         let movePromise = this.prolog.validMoves(this.board, this.gameState, coordToString(coords));
         movePromise.then((response) => {
@@ -153,8 +157,9 @@ class MyGameOrchestrator {
         });
     }
 
+    /* Handler for piece picking */
     selectPiece(obj) {
-        if (this.gameState.canSelect()) {
+        if (this.gameState.canSelect()) { // First piece selected
             if (this.selectedPiece == null) {
                 this.selectedPiece = obj;
                 this.animator.selectPiece(this.selectedPiece);
@@ -172,6 +177,7 @@ class MyGameOrchestrator {
         }
     }
 
+    /* Deselects all previous selected pieces. Called when animation or ending game */
     deselectPieces() {
         this.animator.deselectPiece();
         if (this.possiblePieces)
@@ -181,7 +187,6 @@ class MyGameOrchestrator {
     }
 
     selectButton(obj) {
-
         let selected = obj.handlePick();
 
         //update selectable items
@@ -228,6 +233,7 @@ class MyGameOrchestrator {
 
     skipTurn() {
         this.gameState.nextPlayer();
+        this.deselectPieces();
         this.scoreboard.switchPlayer();
         this.scoreboard.startCount();
     }
@@ -246,7 +252,7 @@ class MyGameOrchestrator {
         this.gameState.setToTimeout();
         this.deselectPieces();
         let undoTimeout = new Promise((resolve) => {setTimeout(resolve, AI_DELAY);});
-        undoTimeout.then(() => {
+        undoTimeout.then(() => { // This timout allows for the user to do an undo
             // Undo can be made in timeout and turn is no longer AI
             if (!this.gameState.isAITurn() || !this.gameState.isWaitingForTimeout())
                 return;
@@ -266,7 +272,7 @@ class MyGameOrchestrator {
         })
     }
 
-    makePlayerMove(sourceTile, destTile) { // TODO Subst with game sequence?
+    makePlayerMove(sourceTile, destTile) {
         this.gameState.setToMoving();
         let prev_coords = sourceTile.getCoords();
         let curr_coords = destTile.getCoords();
@@ -291,6 +297,7 @@ class MyGameOrchestrator {
         }
     }
 
+    /* Initializes replay */
     replay() {
         this.board.reset();
         this.deselectPieces();
@@ -298,6 +305,7 @@ class MyGameOrchestrator {
         this.gameState.setToReplaying();
     }
 
+    /* Replays next move in the gameSequence */
     replayNextMove() {
         if (this.gameSequence.isEmpty()) {
             this.gameState.setToEnd();

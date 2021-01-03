@@ -12,7 +12,5 @@ class MyGameMove {
     getSourceTile() {return this.sourceTile;}
     getDestTile() {return this.destTile;}
 
-    animate() {
-        // TODO ????
-    }
+    animate() {}
 }

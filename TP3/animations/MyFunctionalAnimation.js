@@ -1,3 +1,4 @@
+// Does the same as KeyFrame animation, but with given time functions applied to the transformations
 class MyFunctionalAnimation extends MyAnimation {
     constructor(scene, transformations, f, repeat = false) {
         super(scene, transformations);
@@ -25,6 +26,7 @@ class MyFunctionalAnimation extends MyAnimation {
         let nextTransformation = this.elements[this.currInstant];
         let weight = (instant - this.previousInstant) / (this.currInstant - this.previousInstant);
         let [fx, fy, fz] = this.functions;
+        // Here we apply the functions to the weight
         vec3.lerp(this.translVec, prevTransformation.translation, nextTransformation.translation, fx(weight));
         vec3.lerp(this.rotVec, prevTransformation.rotation, nextTransformation.rotation, fy(weight));
         vec3.lerp(this.scaleVec, prevTransformation.scale, nextTransformation.scale, fz(weight));

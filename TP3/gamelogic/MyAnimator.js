@@ -27,7 +27,8 @@ class MyAnimator {
     getSourcePiece() {return this.gameMove.getSourcePiece();}
     getDestPiece() {return this.gameMove.getDestPiece();}
 
-    getKeyFrames(sourceCoords, destCoords) {
+    /* Used to create switching animation */
+    getSwitchingKeyFrames(sourceCoords, destCoords) {
         let [sourceX, sourceY] = sourceCoords;
         let [destX, destY] = destCoords;
         let [vecX, vecY] = [destX - sourceX, destY - sourceY];
@@ -48,6 +49,7 @@ class MyAnimator {
         return [{0: initTransf, 1: midTransf, 2: finalTransf}, {0: initTransf, 1: midTransfReverse, 2: finalTransfReverse}];
     }
 
+    /* Starts the animation of a game move (a switch between two pieces) */
     addGameMove(gameMove) {
         if (this.gameMove) { // Remove previous pieces
             this.getSourcePiece().obj.removeAnimations();
@@ -57,24 +59,26 @@ class MyAnimator {
         let sourceCoords = gameMove.getSourceTile().getCoords();
         let destCoords = gameMove.getDestTile().getCoords();
 
-        let [keyframes, invertedKeyframes] = this.getKeyFrames(sourceCoords, destCoords);
+        let [keyframes, invertedKeyframes] = this.getSwitchingKeyFrames(sourceCoords, destCoords);
         this.sourceAnim = new MyFunctionalAnimation(this.orchestrator.scene, keyframes, [x => easeOutBack(x), y => y * y, z => z]);
         this.destAnim = new MyFunctionalAnimation(this.orchestrator.scene, invertedKeyframes, [x => easeInOutBack(x), y => y * y, z => z]);
         this.getSourcePiece().obj.addAnimation(this.sourceAnim);
         this.getDestPiece().obj.addAnimation(this.destAnim);
     }
 
+    /* Starts a camera animation. Only one can be enabled at a time. */
     addCameraAnimation(sourceCamera, destCamera) {
         this.cameraAnimation = new MyCameraAnimation(this.orchestrator.scene, sourceCamera, destCamera, 10);
         this.isAnimatingCameras = true;
     }
 
+    /* Resets switching animation */
     reset() {
         this.sourceAnim.initialInstant = null;
         this.destAnim.initialInstant = null;
     }
 
-    // TODO Refactor names
+    /* Starts animation for selecting a piece */
     selectPiece(piece) {
         piece.selected = true;
         let initialTransf = new Transformation([[0, 0, 0], [0, 0, 0], [1, 1, 1]]);
@@ -90,6 +94,7 @@ class MyAnimator {
 
     }
 
+    /* Starts animation for selecting possible pieces */
     selectPossiblePieces(pieceList) {
 
         for (let i = 0; i < pieceList.length; i++) {
@@ -97,6 +102,7 @@ class MyAnimator {
         }
     }
 
+    /* Removes selecting animation for all previous selected pieces */
     deselectPiece() {
         if (this.selectedPiece) {
             this.selectedPiece.selected = false;
@@ -111,17 +117,19 @@ class MyAnimator {
             piecesList[i].obj.removeAnimations();
     }
 
+    /* Starts switching (game move) animation */
     start() {
         this.isAnimating = true;
         this.orchestrator.gameState.setToAnimating();
     }
 
+    /* Updates all animations managed by the class */
     update(time) {
-        if (this.isAnimating) {
+        if (this.isAnimating) { // Update switching animation
             this.sourceAnim.update(time);
             this.destAnim.update(time);
 
-            if (this.sourceAnim.hasEnded) {
+            if (this.sourceAnim.hasEnded) { // Handle end of switching animation, switch pieces in board
                 this.getSourcePiece().obj.removeAnimations();
                 this.getDestPiece().obj.removeAnimations();
                 this.orchestrator.switchPieces(this.gameMove.getSourceTile(), this.gameMove.getDestTile());
@@ -130,19 +138,23 @@ class MyAnimator {
             }
         }
 
-        if (this.isAnimatingSelected) {
+        if (this.isAnimatingSelected) { // handles selected animation
             this.selectedAnimation.update(time);
         }
 
-        if (this.isAnimatingCameras) {
+        if (this.isAnimatingCameras) { // handles camera animation
             this.cameraAnimation.update(time);
 
-            if (this.cameraAnimation.hasEnded) {
+            if (this.cameraAnimation.hasEnded) { // finishes camera animation by telling orchestrator to switch cameras
                 this.cameraAnimation = null;
                 this.isAnimatingCameras = false;
                 this.orchestrator.cameraFinished();
             }
         }
     }
+
+    // Display is not used as all of the objects subject to MyAnimator's animations are already drawn by the scene or the orchestrator
+    // The objects are either cameras or nodes. The latter class has their own display() in which their animations (added by MyAnimator) are applied
+    //display() {}
 }
 

@@ -1,4 +1,6 @@
 const Y_ELEVATION = 2;
+// Makes use of MyAnimation to define 4 keyframes between cameras
+// The definition is dynamic and as such any 2 cameras can be animated
 class MyCameraAnimation extends MyAnimation {
     constructor(scene, sourceCamera, destCamera, time) {
         let startingPosition = sourceCamera.getPosition();
