@@ -10,6 +10,19 @@
 ----
 ## Project information
 
+### **Features**
++ Board with user defined size
++ 3 distinct themes
++ Interactive menu in scene
++ Interactive scoreboard in scene
++ 3 game modes (PvP, PvB and BvB)
++ 2 levels of dificulty for AI
++ Animations for piece selection and movement
++ Timeout counter
++ Undo functionality
++ Replay fucntionality
++ Camera animations
+
 In order to execute this application first you must open the SISCstus console and
 consult the **"server.pl"** file located in the **prolog-server** folder. After consulting,
 start the prolog server by invoking the **server** predicate.
