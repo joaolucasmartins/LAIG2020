@@ -1,7 +1,7 @@
 const BOARD_SIZE = 3;
 const AI_DELAY = 1000; // In ms
 const FILENAMES = ["pirata.xml", "disco.xml", "northpole.xml"];
-const INITIAL_THEME = 1;
+const INITIAL_THEME = 2;
 const INITIAL_GAME_MODE = 0;
 class MyGameOrchestrator {
     constructor(scene) {

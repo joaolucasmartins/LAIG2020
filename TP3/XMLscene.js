@@ -50,6 +50,8 @@ class XMLscene extends CGFscene {
             if (this.enabledLights[i])
                 this.lights[i].disable();
         }
+        for (let i = 0; i < this.cameras; ++i)
+            this.cameras[i].reset();
         this.enabledLights = [];
     }
 
