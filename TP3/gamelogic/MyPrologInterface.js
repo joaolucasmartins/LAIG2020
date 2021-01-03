@@ -21,7 +21,7 @@ class MyPrologInterface {
         let board = tilesToString(gameBoard.tiles);
         let length = gameBoard.tiles.length;
         let player = gameState.currentPlayer;
-        let settings = coordToString(gameState.gameSettings); // Didn't need this for now TODO
+        //let settings = coordToString(gameState.gameSettings);
 
         return "gameState(_," + length + "," + board + "," + player + ")";
     }

@@ -6,13 +6,14 @@ class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
         this.currentTheme = INITIAL_THEME;
+        // 0 - Player, 1 - AI
         let firstPlayer = 0;
         let secondPlayer = 1;
         this.gameState = new MyGameState(firstPlayer, secondPlayer);
         this.applyTheme();
-        // 0 - Player, 1 - AI
     }
 
+    // GAME START AND SETUP
     applyTheme() {
         this.theme = new MySceneGraph(FILENAMES[this.currentTheme], this.scene);
         this.gameSequence = new MyGameSequence();
@@ -32,27 +33,6 @@ class MyGameOrchestrator {
             this.generateBoard(); //get board from prolog server with the size selected in menu
             this.switchToBoardCamera();
         }
-    }
-
-    cameraFinished() {
-        this.scoreboard.startCount();
-        this.gameState.setToIdle();
-    }
-
-    switchToBoardCamera() {
-        this.gameState.setToCameraMoving();
-        let selectedCamera = this.scene.getSelectedCamera();
-
-        if (selectedCamera.id == "boardCamera") return;
-        this.animator.addCameraAnimation(selectedCamera, this.scene.cameras["boardCamera"]);
-    }
-
-    switchCamera() {
-        this.gameState.setToCameraMoving();
-        let selectedCamera = this.scene.getSelectedCamera();
-        let destCameraId;
-        selectedCamera.id == "boardCamera" ? destCameraId = "menuCamera" : destCameraId = "boardCamera"
-        this.animator.addCameraAnimation(selectedCamera, this.scene.cameras[destCameraId]);
     }
 
     applyChanges() {
@@ -93,7 +73,33 @@ class MyGameOrchestrator {
         this.scoreboard = scoreboard.primitives[0];
     }
 
-    // TODO Don't register non hihglited pieces for picking
+    // CAMERAS
+    cameraFinished() {
+        this.scoreboard.startCount();
+        this.gameState.setToIdle();
+    }
+
+    switchToBoardCamera() {
+        this.gameState.setToCameraMoving();
+        let selectedCamera = this.scene.getSelectedCamera();
+
+        if (selectedCamera.id == "boardCamera") return;
+        this.animator.addCameraAnimation(selectedCamera, this.scene.cameras["boardCamera"]);
+    }
+
+    switchCamera() {
+        this.gameState.setToCameraMoving();
+        let selectedCamera = this.scene.getSelectedCamera();
+        let destCameraId;
+        selectedCamera.id == "boardCamera" ? destCameraId = "menuCamera" : destCameraId = "boardCamera"
+        this.animator.addCameraAnimation(selectedCamera, this.scene.cameras[destCameraId]);
+    }
+
+    updateCamera() {
+        this.scene.updateCamera();
+    }
+
+    // PICKING
     managePick(mode, results) {
         if (mode == false) {
             if (results != null && results.length > 0) {
@@ -110,8 +116,6 @@ class MyGameOrchestrator {
     }
 
     onObjectSelected(obj, id) {
-        console.log(id);
-
         if (obj instanceof MyPiece) {
             console.log("selected", obj.getTile().getCoords());
             this.selectPiece(obj);
@@ -161,6 +165,7 @@ class MyGameOrchestrator {
             this.menu.changeSelection(...selected);
     }
 
+    // GAME LOGIC
     updateGameScore() {
         let scorePromise = this.prolog.getScore(this.board, this.gameState);
         scorePromise.then((response) => {
@@ -208,6 +213,7 @@ class MyGameOrchestrator {
         this.animator.reset();
         this.animator.start();
     }
+
     makeAIMove() {
         this.gameState.setToTimeout();
         let undoTimeout = new Promise((resolve) => {setTimeout(resolve, AI_DELAY);});
@@ -269,10 +275,6 @@ class MyGameOrchestrator {
 
         let move = this.gameSequence.popFirstMove();
         this.makeMove(move.sourceTile, move.destTile, false)
-    }
-
-    updateCamera() {
-        this.scene.updateCamera();
     }
 
     display() {
