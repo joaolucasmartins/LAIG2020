@@ -10,25 +10,30 @@
 ----
 ## Project information
 
-- (items describing main strong points)
-- Scene
-  - (Brief description of the created scene)
-  - (relative link to the scene)
-----
-## Issues/Problems
+In order to execute this application first you must open the SISCstus console and
+consult the **"server"** file located in the **prolog-server** folder. After consulting,
+start the prolog server by invoking the **server** predicate.
+Once this setup is done, a localhost must be initiated in the projects folder.
+Using the terminal, travel to the location of the main projects folder and start
+the host with the following command **python -m http.server 8000**.
+When all these steps are completed, you only need to open the created localhost 
+in the desired browser.
+
+### **Issues/Problems**
 
 Currently there are no known errors or bugs and we consider that every proposed
 feature has been implemented.
 
+---
 
-### **Game Rules**
+## **Game Rules**
 
 Emulsion is a board game designed for two players. The board is constituted by
 a NxN grid, N being an integer that can be specified within the game menu.
 In the beginning of the game, the pieces are organized in a chess-like pattern.
 
 
-#### **Basic definitions**
+### **Basic definitions**
 
 - The **value** of a piece is the number of pieces orthogonaly adjacent to itself
   plus half of the number of borders that the piece touches.
@@ -60,9 +65,10 @@ is done successively until both players have exausted all of their groups.
 In this case both players have the exact same groups, and the player who
 made the last move wins.
 
-### **User Instructions**
+---
+## **User Instructions**
 
-#### **Piece Movement**
+### **Piece Movement**
 In order to execute a move the player must select the piece which he wishes to
 move and then select the piece in the destination tile. After that,
 if the chosen move is valid, the origin and destination pieces will switch positions.  
@@ -71,7 +77,7 @@ the pieces in which the values are increased when switched are highlighted.
 A switching animation is played to represent a move.
 A highlight animation is played to better highlight a selected piece.
 
-#### **Menu**
+### **Menu**
 The menu is a game object which is present in every theme and is used for the game's configuration.
 It is composed by the following components:
 + **Mode Buttons** - allows the selection of three distinct game modes:
@@ -89,7 +95,7 @@ It is composed by the following components:
 + **Timeout Counter** - used for selecting the timeout limit for every turn
 + **Size Counter** - used for selecting the desired game board size
 
-#### **Score Board**
+### **Score Board**
 The score board allows for a better understanding of the current game state.
 It displays the current player as well as each of the player's scores.
 At the end of the game it is also responsible for displaying the winner of the match.
