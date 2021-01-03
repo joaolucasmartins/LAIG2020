@@ -20,31 +20,78 @@
 - (items describing unimplemented features, bugs, problems, etc.)
 
 
+### **Game Rules**
+
+Emulsion is a board game designed for two players. The board is consituted by
+a NxN grid, N being an integer that can be specified within the game menu.
+In the beginning of the game, the pieces are organized in a chess-like pattern.
+
+
+#### **Basic definitions**
+
+- The **value** of a piece is the number of pieces orthogonaly adjacent to itself
+  plus half of the number of borders that the piece touches.
+
+- The **group** of a piece is the set of all pieces that can be visited using
+  orthogonal movements between adjacent pieces.
+
+- The **size** of a group is the number of its pieces.
+
+- The **score** of a player is size of its largest group.
+
+#### **Move**
+
+A move consists of switching two pieces of different colors. When a player
+makes a move, the piece of his colour must have its value increased as
+a result of the move.
+If a move isn't made before the timer runs out, the turn is skipped and
+the next player may move.
+
+#### **Game flow**
+
+The black pieces are played first. After each move, the next player makes his
+move.
+The game ends when no available moves can be played. Generaly, the player with
+the biggest group wins.
+If both groups of both players are the same size, the player with
+the second biggest group wins. If a draw still occurs, this verification
+is done successively until both players have exausted all of their groups.
+In this case both players have the exact same groups, and the player who
+made the last move wins.
+
 ### **User Instructions**
+
 #### **Piece Movement**
-In order to execute a move the player must select the piece which he wishes to move and then select the piece in the destination tile. After having done that, and if the chosen move is valid, the origin and destination pieces will switch positions.  
-In order to facilitate the gameplay, when a piece is selected the pieces that can be switched with current one will also be highlighted.  
+In order to execute a move the player must select the piece which he wishes to
+move and then select the piece in the destination tile. After that,
+if the chosen move is valid, the origin and destination pieces will switch positions.  
+In order to facilitate gameplay, if the player first chooses a piece that he doesn't own,
+the pieces which values are increased when switched are highlighted.  
+A switching animation is played to represent a move.
+A highlight animation is played to better highlight a selected piece.
 
 #### **Menu**
-The menu is a game object which is present in every theme and allows the for the configuration of the game.
+The menu is a game object which is present in every theme and is used for the game's configuration.
 It is composed by the following components:
 + **Mode Buttons** - allows the selection of three distinct game modes:
-   + PvB - Player vs Player
+   + PvB - Player vs Bot
    + PvP - Player vs Player
    + BvB - Bot vs Bot
 + **Level Buttons** - allows for the selection of two AI levels:
    + Easy - AI chooses random moves
-   + Normal - AI selects the best generated move
+   + Normal - AI selects the move which maximizes the size of its biggest group
 + **Theme Buttons** - allows for the selection of one of three predifined themes
 + **Action Buttons** - used for the following actions:
    + **Start** - pans the camera to the game board and starts the game
    + **Apply** - applies the selected settings in the menu board
-   + **Board** - brings the game board into view
-+ **Timeout Counter** - used for selecting the timeout for every turn
+   + **Board** - transitions the camera to the game board
++ **Timeout Counter** - used for selecting the timeout limit for every turn
 + **Size Counter** - used for selecting the desired game board size
 
 #### **Score Board**
-The score board allows for a better understanding of the current game state. It displays the current player as well as each of the player's scores. At the end of the game it is also responsible for displaying the winner of the match.
+The score board allows for a better understanding of the current game state.
+It displays the current player as well as each of the player's scores.
+At the end of the game it is also responsible for displaying the winner of the match.
 The score board is composed by the following components:
 + **Undo Button** - allows the player to revert a move after executing it
 + **Menu Buttons** - pans the camera over to the menu panel
