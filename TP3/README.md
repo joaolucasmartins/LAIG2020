@@ -11,10 +11,11 @@
 ## Project information
 
 In order to execute this application first you must open the SISCstus console and
-consult the **"server"** file located in the **prolog-server** folder. After consulting,
+consult the **"server.pl"** file located in the **prolog-server** folder. After consulting,
 start the prolog server by invoking the **server** predicate.
-Once this setup is done, a localhost must be initiated in the projects folder.
-Using the terminal, travel to the location of the main projects folder and start
+Once this setup is done, a localhost must be initiated in the project's folder. The
+WebCGF library must also be in this folder.
+Using the terminal, travel to the location of the main project's folder and start
 the host with the following command **python -m http.server 8000**.
 When all these steps are completed, you only need to open the created localhost 
 in the desired browser.
