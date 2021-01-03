@@ -126,7 +126,7 @@ class MyGameOrchestrator {
         let movePromise = this.prolog.validMoves(this.board, this.gameState, coordToString(coords));
         movePromise.then((response) => {
             let coordList = eval(response.target.response);
-            let pieceList = coordList.map((coord) => { return this.board.getPieceAt(coord[0], coord[1]) });
+            let pieceList = coordList.map((coord) => {return this.board.getPieceAt(coord[0], coord[1])});
             this.selectPiece.possiblePieces = this.board.selectPieces(pieceList);
         });
     }
@@ -210,7 +210,7 @@ class MyGameOrchestrator {
     }
     makeAIMove() {
         this.gameState.setToTimeout();
-        let undoTimeout = new Promise((resolve) => { setTimeout(resolve, AI_DELAY); });
+        let undoTimeout = new Promise((resolve) => {setTimeout(resolve, AI_DELAY);});
         undoTimeout.then(() => {
             // Undo can be made in timeout and turn is no longer AI
             if (!this.gameState.isAITurn())

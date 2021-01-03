@@ -56,13 +56,13 @@ class MyGameBoard extends CGFobject {
         console.log(this.obj);
     }
 
-    getTileAt(col, line) { return this.tiles[line][col] }
-    getPieceAt(col, line) { return this.getTileAt(col, line).getPiece() };
+    getTileAt(col, line) {return this.tiles[line][col]}
+    getPieceAt(col, line) {return this.getTileAt(col, line).getPiece()};
 
-    addPiece(piece, tile) { tile.setPiece(piece); }
-    removePiece(tile) { tile.setPiece(null); }
-    getPiece(tile) { return tile.getPiece(); }
-    getTile(piece) { return piece.getTile(); }
+    addPiece(piece, tile) {tile.setPiece(piece);}
+    removePiece(tile) {tile.setPiece(null);}
+    getPiece(tile) {return tile.getPiece();}
+    getTile(piece) {return piece.getTile();}
 
     reset() {
         for (let i = 0; i < this.pieces.length; ++i)
