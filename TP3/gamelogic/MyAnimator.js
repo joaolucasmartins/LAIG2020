@@ -106,7 +106,7 @@ class MyAnimator {
         }
         this.isAnimatingSelected = false;
 
-        let piecesList = this.orchestrator.selectPiece.possiblePieces;
+        let piecesList = this.orchestrator.possiblePieces;
         for (let i = 0; i < piecesList.length; i++)
             piecesList[i].obj.removeAnimations();
     }

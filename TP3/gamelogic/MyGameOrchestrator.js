@@ -33,6 +33,7 @@ class MyGameOrchestrator {
 
         if (this.gameState.canSpawnBoard()) {
             this.gameState.reset(); // set current player to 0
+            this.possiblePieces = [];
             this.generateBoard(); //get board from prolog server with the size selected in menu
             this.scoreboard.reset();
             this.scoreboard.startCount();
@@ -145,7 +146,7 @@ class MyGameOrchestrator {
         movePromise.then((response) => {
             let coordList = eval(response.target.response);
             let pieceList = coordList.map((coord) => {return this.board.getPieceAt(coord[0], coord[1])});
-            this.selectPiece.possiblePieces = this.board.selectPieces(pieceList);
+            this.possiblePieces = this.board.selectPieces(pieceList);
             this.animator.selectPossiblePieces(pieceList);
 
         });
@@ -158,7 +159,7 @@ class MyGameOrchestrator {
                 this.animator.selectPiece(this.selectedPiece);
                 let coords = this.selectedPiece.getTile().getCoords();
                 this.selectPossiblePieces(coords);
-                console.log(this.selectPiece.possiblePieces);
+                console.log(this.possiblePieces);
             }
             else { // Second piece selected
                 let sourceTile = this.selectedPiece.getTile();
@@ -173,9 +174,9 @@ class MyGameOrchestrator {
 
     deselectPieces() {
         this.animator.deselectPiece();
-        if (this.selectPiece.possiblePieces)
-            this.board.deselectPieces(this.selectPiece.possiblePieces);
-        this.selectPiece.possiblePieces = [];
+        if (this.possiblePieces)
+            this.board.deselectPieces(this.possiblePieces);
+        this.possiblePieces = [];
         this.selectedPiece = null;
     }
 

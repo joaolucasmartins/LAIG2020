@@ -33,18 +33,16 @@ class MyGameState {
 
     updateAIDifficulty(val) {
 
-        if (this.state == state.STARTED || this.state == state.END) {
-            if (this.gameMode != gamemode.PvP)
-                this.gameSettings[1] = val;
+        if (this.gameMode != gamemode.PvP)
+            this.gameSettings[1] = val;
 
-            if (this.gameMode == gamemode.BvB)  // for BvB
-                this.gameSettings[0] = val;
+        if (this.gameMode == gamemode.BvB)  // for BvB
+            this.gameSettings[0] = val;
 
-        }
     }
 
     updateGameMode(val) {
-        if (this.state == state.STARTED || this.state == state.END) {
+        if (this.state == state.STARTED || this.state == state.END || this.state == state.GAME_OVER) {
             this.gameMode = val;
 
             console.log(this.gamemode);
