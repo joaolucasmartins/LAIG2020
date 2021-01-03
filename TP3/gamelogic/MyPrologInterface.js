@@ -35,8 +35,15 @@ class MyPrologInterface {
     getAIMove(gameBoard, gameState) {
         let state = this.getGameStateFromBoard(gameBoard, gameState);
         let aiDifficulty = gameState.getCurrentAIDifficulty();
+        let prologAi;
+        // 1 is Random, 2 is Easy
+        if (aiDifficulty == 1)
+            prologAi = 4;
+        else if (aiDifficulty = 2)
+            prologAi = 1;
 
-        return this.getPrologRequest("getAIMove(" + state + "," + aiDifficulty + ")");
+
+        return this.getPrologRequest("getAIMove(" + state + "," + prologAi + ")");
     }
 
     canMove(gameBoard, gameState, source, dest) {

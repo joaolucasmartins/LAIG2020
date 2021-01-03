@@ -146,6 +146,8 @@ class MyGameOrchestrator {
             let coordList = eval(response.target.response);
             let pieceList = coordList.map((coord) => {return this.board.getPieceAt(coord[0], coord[1])});
             this.selectPiece.possiblePieces = this.board.selectPieces(pieceList);
+            this.animator.selectPossiblePieces(pieceList);
+
         });
     }
 
@@ -156,6 +158,7 @@ class MyGameOrchestrator {
                 this.animator.selectPiece(this.selectedPiece);
                 let coords = this.selectedPiece.getTile().getCoords();
                 this.selectPossiblePieces(coords);
+                console.log(this.selectPiece.possiblePieces);
             }
             else { // Second piece selected
                 let sourceTile = this.selectedPiece.getTile();

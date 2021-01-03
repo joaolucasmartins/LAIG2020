@@ -14,7 +14,7 @@ class MyPiece extends CGFobject {
         this.selected = false;
 
         this.selectedMat = mat4.create();
-        mat4.scale(this.selectedMat, this.selectedMat, [1.5, 1.5, 1.5]);
+        mat4.scale(this.selectedMat, this.selectedMat, [1.2, 1.2, 1.2]);
     }
 
     getTile() {return this.tile;}
