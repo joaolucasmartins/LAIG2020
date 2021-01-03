@@ -59,8 +59,27 @@ class MyScoreBoard extends CGFobject {
     }
 
     updateScores(p1, p2) {
-        this.blackScore.updateText(p1[0].toString());
-        this.whiteScore.updateText(p2[0].toString());
+        let min_list, max_list;
+        if (p1.length > p2.length) {
+            min_list = p2;
+            max_list = p1;
+        } else {
+            min_list = p1;
+            max_list = p2;
+        }
+
+        let scoreBlack = p1[0];
+        let scoreWhite = p2[0];
+        for (var i = 0; i < min_list.length; ++i) {
+            if (min_list[i] !== max_list[i]) {
+                scoreBlack = p1[i];
+                scoreWhite = p2[i];
+                break;
+            }
+        }
+
+        this.blackScore.updateText(scoreBlack.toString());
+        this.whiteScore.updateText(scoreWhite.toString());
     }
 
     switchPlayer() {

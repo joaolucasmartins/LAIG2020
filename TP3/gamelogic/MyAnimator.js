@@ -78,16 +78,16 @@ class MyAnimator {
     selectPiece(piece) {
         piece.selected = true;
         let initialTransf = new Transformation([[0, 0, 0], [0, 0, 0], [1, 1, 1]]);
-        let midTransf1 = new Transformation([[0, 0.1, 0], [0, Math.PI/6, 0], [1, 1, 1]]);
-        let midTransf2 = new Transformation([[0, 0.1, 0], [0, -Math.PI/6, 0], [1, 1, 1]]);
+        let midTransf1 = new Transformation([[0, 0.1, 0], [0, Math.PI / 6, 0], [1, 1, 1]]);
+        let midTransf2 = new Transformation([[0, 0.1, 0], [0, -Math.PI / 6, 0], [1, 1, 1]]);
         let endTransf = new Transformation([[0, 0, 0], [0, 0, 0], [1, 1, 1]]);
 
         this.selectedPiece = piece;
-        this.selectedAnimation = new MyFunctionalAnimation(this.orchestrator.scene, {0: initialTransf, 3:midTransf1, 6: endTransf, 9:midTransf2, 12:endTransf}, [x => x, y => y, z => z], true);
+        this.selectedAnimation = new MyFunctionalAnimation(this.orchestrator.scene, {0: initialTransf, 3: midTransf1, 6: endTransf, 9: midTransf2, 12: endTransf}, [x => x, y => y, z => z], true);
         this.isAnimatingSelected = true;
         piece.obj.addAnimation(this.selectedAnimation);
 
-        
+
     }
 
     selectPossiblePieces(pieceList) {
@@ -102,15 +102,13 @@ class MyAnimator {
             this.selectedPiece.selected = false;
             this.selectedPiece.obj.removeAnimations();
 
-            this.selectedPiece = null; 
-
-            let piecesList = this.orchestrator.selectPiece.possiblePieces;
-            for (let i = 0; i < piecesList.length; i++)
-                piecesList[i].obj.removeAnimations();
+            this.selectedPiece = null;
         }
         this.isAnimatingSelected = false;
 
-        
+        let piecesList = this.orchestrator.possiblePieces;
+        for (let i = 0; i < piecesList.length; i++)
+            piecesList[i].obj.removeAnimations();
     }
 
     start() {

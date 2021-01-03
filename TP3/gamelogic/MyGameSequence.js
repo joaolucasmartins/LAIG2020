@@ -29,7 +29,6 @@ class MyGameSequence {
     }
 
     undo(currentBoard, gameState) {
-        console.log(this.gameMoves)
         let lastMove = this.popLastMove();
         if (!lastMove)
             return;

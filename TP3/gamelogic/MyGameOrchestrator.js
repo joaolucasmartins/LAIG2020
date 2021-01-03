@@ -1,7 +1,7 @@
 const BOARD_SIZE = 3;
 const AI_DELAY = 1000; // In ms
 const FILENAMES = ["pirata.xml", "disco.xml", "northpole.xml"];
-const INITIAL_THEME = 1;
+const INITIAL_THEME = 2;
 const INITIAL_GAME_MODE = 0;
 class MyGameOrchestrator {
     constructor(scene) {
@@ -13,7 +13,6 @@ class MyGameOrchestrator {
         this.gameState = new MyGameState(firstPlayer, secondPlayer);
         this.applyTheme();
 
-        this.selectPiece.possiblePieces = [];
     }
 
     // GAME START AND SETUP
@@ -35,6 +34,7 @@ class MyGameOrchestrator {
 
         if (this.gameState.canSpawnBoard()) {
             this.gameState.reset(); // set current player to 0
+            this.possiblePieces = [];
             this.generateBoard(); //get board from prolog server with the size selected in menu
             this.scoreboard.reset();
             this.scoreboard.startCount();
@@ -137,11 +137,8 @@ class MyGameOrchestrator {
             console.log("selected", obj.getTile().getCoords());
             this.selectPiece(obj);
         }
-        else if (obj instanceof MyButton) {
-            console.log("id " + id);
-            console.log(obj);
+        else if (obj instanceof MyButton)
             this.selectButton(obj);
-        }
 
     }
 
@@ -150,7 +147,7 @@ class MyGameOrchestrator {
         movePromise.then((response) => {
             let coordList = eval(response.target.response);
             let pieceList = coordList.map((coord) => {return this.board.getPieceAt(coord[0], coord[1])});
-            this.selectPiece.possiblePieces = this.board.selectPieces(pieceList);
+            this.possiblePieces = this.board.selectPieces(pieceList);
             this.animator.selectPossiblePieces(pieceList);
 
         });
@@ -163,7 +160,6 @@ class MyGameOrchestrator {
                 this.animator.selectPiece(this.selectedPiece);
                 let coords = this.selectedPiece.getTile().getCoords();
                 this.selectPossiblePieces(coords);
-                console.log(this.selectPiece.possiblePieces);
             }
             else { // Second piece selected
                 let sourceTile = this.selectedPiece.getTile();
@@ -177,10 +173,10 @@ class MyGameOrchestrator {
     }
 
     deselectPieces() {
-        this.board.deselectPieces(this.selectPiece.possiblePieces);
         this.animator.deselectPiece();
-
-        this.selectPiece.possiblePieces = [];
+        if (this.possiblePieces)
+            this.board.deselectPieces(this.possiblePieces);
+        this.possiblePieces = [];
         this.selectedPiece = null;
     }
 
@@ -200,8 +196,6 @@ class MyGameOrchestrator {
             let score = eval(response.target.response);
             let [p1Score, p2Score] = score;
             this.scoreboard.updateScores(p1Score, p2Score);
-            console.log("P1 Score", p1Score);
-            console.log("P2 Score", p2Score);
         })
     }
 
@@ -254,7 +248,7 @@ class MyGameOrchestrator {
         let undoTimeout = new Promise((resolve) => {setTimeout(resolve, AI_DELAY);});
         undoTimeout.then(() => {
             // Undo can be made in timeout and turn is no longer AI
-            if (!this.gameState.isAITurn())
+            if (!this.gameState.isAITurn() || !this.gameState.isWaitingForTimeout())
                 return;
             let movePromise = this.prolog.getAIMove(this.board, this.gameState);
             this.gameState.setToMoving();
@@ -290,10 +284,10 @@ class MyGameOrchestrator {
     }
 
     undo() {
-        if (this.board && this.gameState.canUndo()) {
-            this.gameState.setToIdle();
-            this.gameSequence.undo(this.board, this.gameState);
+        if (this.board && this.gameState.canUndo() && !this.gameSequence.isEmpty()) {
             this.deselectPieces();
+            this.gameSequence.undo(this.board, this.gameState);
+            this.gameState.setToIdle();
         }
     }
 

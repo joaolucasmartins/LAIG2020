@@ -33,18 +33,16 @@ class MyGameState {
 
     updateAIDifficulty(val) {
 
-        if (this.state == state.STARTED || this.state == state.END) {
-            if (this.gameMode != gamemode.PvP)
-                this.gameSettings[1] = val;
+        if (this.gameMode != gamemode.PvP)
+            this.gameSettings[1] = val;
 
-            if (this.gameMode == gamemode.BvB)  // for BvB
-                this.gameSettings[0] = val;
+        if (this.gameMode == gamemode.BvB)  // for BvB
+            this.gameSettings[0] = val;
 
-        }
     }
 
     updateGameMode(val) {
-        if (this.state == state.STARTED || this.state == state.END) {
+        if (this.state == state.STARTED || this.state == state.END || this.state == state.GAME_OVER) {
             this.gameMode = val;
 
             console.log(this.gamemode);
@@ -77,19 +75,19 @@ class MyGameState {
         this.currentPlayer = (this.currentPlayer + 1) % 2;
     }
 
-    setToCameraMoving() { this.state = state.CAMERA_MOVING }
-    setToMoving() { this.state = state.MOVING; }
-    setToAnimating() { this.state = state.ANIMATING; }
-    setToIdle() { this.state = state.IDLE; }
-    setToTimeout() { this.state = state.WAITING_FOR_TIMEOUT; }
-    setToSpawnBoard() { this.state = state.SPAWN_BOARD; }
-    setToGameOver() { this.state = state.GAME_OVER }
-    setToReplaying() { this.replaying = true }
-    setToEnd() { this.state = state.END }
+    setToCameraMoving() {this.state = state.CAMERA_MOVING}
+    setToMoving() {this.state = state.MOVING;}
+    setToAnimating() {this.state = state.ANIMATING;}
+    setToIdle() {this.state = state.IDLE;}
+    setToTimeout() {this.state = state.WAITING_FOR_TIMEOUT;}
+    setToSpawnBoard() {this.state = state.SPAWN_BOARD;}
+    setToGameOver() {this.state = state.GAME_OVER}
+    setToReplaying() {this.replaying = true}
+    setToEnd() {this.state = state.END}
 
-    hasStarted() { return this.state >= state.SPAWN_BOARD }
+    hasStarted() {return this.state >= state.SPAWN_BOARD}
 
-    canSpawnBoard() { return this.state != state.ANIMATING && this.state != state.MOVING }
+    canSpawnBoard() {return this.state != state.ANIMATING && this.state != state.MOVING}
 
     canMakeMove() {
         return this.state != state.MOVING && this.state != state.ANIMATING && this.state < state.GAME_OVER;
@@ -111,8 +109,11 @@ class MyGameState {
         return !this.replaying && (this.state == state.WAITING_FOR_TIMEOUT || this.state == state.IDLE);
     }
 
+    isWaitingForTimeout() {
+        return this.state == state.WAITING_FOR_TIMEOUT;
+    }
+
     canSelect() {
-        console.log(this.state);
         return (this.state == state.IDLE || this.state == state.SPAWN_BOARD) && this.isPlayerTurn() && !this.isReplaying();
     }
 
