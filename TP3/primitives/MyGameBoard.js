@@ -4,6 +4,11 @@
  * @param {CGFscene} scene - Reference to MyScene object
  * @param {MyGameBoard} gameboard - gameboard to which this tile belongs
  * @param {MyPiece} piece - piece on top of this tile
+ * @param {array} initialBoard - matrix with the initial board layout
+ * @param {object} blackTileCreator - node creator
+ * @param {object} whiteTileCreator - node creator
+ * @param {object} blackPieceCreator - node creator
+ * @param {object} whitePieceCreator - node creator
  */
 class MyGameBoard extends CGFobject {
     constructor(scene, gameboard, initialBoard,

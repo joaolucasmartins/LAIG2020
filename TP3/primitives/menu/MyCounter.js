@@ -1,4 +1,12 @@
-
+/**
+ * MyCounter
+ * @constructor
+ * @param {CGFscene} scene - Reference to MyScene object
+ * @param {integer} id - counter id
+ * @param {integer} min - min bound
+ * @param {integer} max - max bound
+ * @param {string} description - counter description
+ */
 class MyCounter extends CGFobject {
     constructor(scene, id, min, max, description) {
         super(scene);
@@ -12,8 +20,12 @@ class MyCounter extends CGFobject {
         this.current = min;
 
         this.description = new MySpriteText(this.scene, description);
+        
+        let desc = this.min.toString();
+        if (this.min < 10)
+           desc = "0" + desc;
 
-        this.counterDisplay = new MySpriteText(this.scene, this.min.toString());
+        this.counterDisplay = new MySpriteText(this.scene, desc);
         this.incrBtn = new MyCounterButton(this.scene, id+1, 0.5, 0.1, 0.7, 0.3, 0.2, 0.2, false, 1, 'incrBtn.jpg', this);
         this.decrBtn = new MyCounterButton(this.scene, id+2, 0.5, -0.4, 0.7, -0.2, 0.2, 0.2, false, -1, 'decrBtn.jpg', this)
     }

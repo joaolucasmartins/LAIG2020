@@ -4,6 +4,8 @@
  * @param {CGFscene} scene - Reference to MyScene object
  * @param {MyGameBoard} gameboard - gameboard to which this tile belongs
  * @param {MyPiece} piece - piece on top of this tile
+ * @param {integer} line - line
+ * @param {integer} col - column
  */
 class MyTile extends CGFobject {
     constructor(scene, obj, gameboard, piece, line, col) {

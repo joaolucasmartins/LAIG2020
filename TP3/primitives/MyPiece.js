@@ -3,6 +3,8 @@
  * @constructor
  * @param {CGFscene} scene - Reference to MyScene object
  * @param {MyTile} tile - tile which holds piece
+ * @param {object} tile - pointer to object
+ * @param {bool} isBlack 
  */
 class MyPiece extends CGFobject {
     constructor(scene, obj, tile, isBlack) {
