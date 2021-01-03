@@ -1,8 +1,10 @@
 /**
- * MyPiece
+ * MyStatusDisplayer
  * @constructor
  * @param {CGFscene} scene - Reference to MyScene object
- * @param {MyTile} tile - tile which holds piece
+ * @param {float} x - starting x coordinate
+ * @param {float} y - starting y coordinate
+ * @param {bool} on - if the light starts on
  */
 class MyStatusDisplayer extends CGFobject {
     constructor(scene, x , y, on) {

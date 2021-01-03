@@ -1,8 +1,9 @@
 /**
- * MyPiece
+ * MySquarePiece
  * @constructor
  * @param {CGFscene} scene - Reference to MyScene object
- * @param {MyTile} tile - tile which holds piece
+ * @param {float} radius - piece radius
+ * @param {integer} slices - slices
  */
 class MySquarePiece extends CGFobject {
     constructor(scene, radius, slices) {

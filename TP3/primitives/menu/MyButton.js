@@ -1,11 +1,16 @@
 /**
- * MyRectangle
+ * MyButton
  * @constructor
  * @param {CGFscene} scene - Reference to MyScene object
+ * @param {integer} id - button id
  * @param {float} x1 - x coordinate corner 1
  * @param {float} y1 - y coordinate corner 1
  * @param {float} x2 - x coordinate corner 2
  * @param {float} y2 - y coordinate corner 2
+ * @param {float} afs - s amplification
+ * @param {float} aft - t amplification
+ * @param {bool} selected - if the button starts selected
+ * @param {string} textName - texture filename
  */
 class MyButton extends CGFobject {
     constructor(scene, id, x1, y1, x2, y2, afs, aft, selected, textName) {

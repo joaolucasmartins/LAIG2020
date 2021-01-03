@@ -2,7 +2,7 @@ const THEME_INDEX = 2;
 const LEVEL_INDEX = 5;
 const MODE_INDEX = 7;
 /**
- * MyRectangle
+ * MyMenuPanel
  * @constructor
  * @param {CGFscene} scene - Reference to MyScene object
  * @param {rectangle} obj - menu background primitive

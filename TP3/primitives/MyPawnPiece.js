@@ -1,8 +1,13 @@
 /**
- * MyPiece
+ * MyPawnPiece
  * @constructor
  * @param {CGFscene} scene - Reference to MyScene object
  * @param {MyTile} tile - tile which holds piece
+ * @param {float} bottomRadius - body bottom radius
+ * @param {float} topRadius - body upper radius
+ * @param {float} height - piece height
+ * @param {integer} slices - slices
+ * @param {integer} stacks - stacks
  */
 class MyPawnPiece extends CGFobject {
     constructor(scene, bottomRadius, topRadius, height, slices, stacks) {

@@ -1,11 +1,8 @@
 /**
- * MyRectangle
+ * MyScoreBoard
  * @constructor
  * @param {CGFscene} scene - Reference to MyScene object
- * @param {float} x1 - x coordinate corner 1
- * @param {float} y1 - y coordinate corner 1
- * @param {float} x2 - x coordinate corner 2
- * @param {float} y2 - y coordinate corner 2
+ * @param {object} obj - background object
  */
 class MyScoreBoard extends CGFobject {
     constructor(scene, obj) {

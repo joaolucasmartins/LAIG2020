@@ -1,4 +1,12 @@
-
+/**
+ * MyCounter
+ * @constructor
+ * @param {CGFscene} scene - Reference to MyScene object
+ * @param {integer} id - counter id
+ * @param {integer} min - min bound
+ * @param {integer} max - max bound
+ * @param {string} description - counter description
+ */
 class MyCounter extends CGFobject {
     constructor(scene, id, min, max, description) {
         super(scene);
