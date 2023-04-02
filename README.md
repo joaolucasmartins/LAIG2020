@@ -12,7 +12,7 @@
 
 ### [Scene Graph](TP1/MySceneGraph.js)
 
-- A few complex elements (helm, masts, canons)
+- A few complex elements (helm, masts, cannons)
 - Use of all primitives
 - Use of different materials
 - Multiple cameras and lights
